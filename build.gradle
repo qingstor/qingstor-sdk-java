@@ -28,7 +28,7 @@ configurations {
     compile.extendsFrom providedCompile
 }
 
-def Version = "1.0.0"
+def Version = "-1.0.0"
 
 //create a single Jar with all dependencies
 task buildIncludeDependentJar(type: Jar) {
