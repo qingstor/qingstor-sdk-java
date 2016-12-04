@@ -1,0 +1,12 @@
+.settings
+build
+.gradle
+.recommenders
+.metadata
+bin
+AUTHORS
+config.yaml
+google-java-format-1.1-all-deps.jar
+test_config.yaml
+.classpath
+.project

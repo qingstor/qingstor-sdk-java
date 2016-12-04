@@ -1,0 +1,476 @@
+{
+  "parameters": [
+    {
+      "$ref": "#/parameters/bucketName"
+    },
+    {
+      "$ref": "#/parameters/objectKey"
+    },
+    {
+      "$ref": "#/parameters/zone"
+    }
+  ],
+  "put": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "PutObject",
+    "summary": "PUT Object",
+    "description": "Upload the object.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/object/put.html"
+    },
+    "parameters": [
+      {
+        "name": "Content-Length",
+        "description": "Object content size",
+        "type": "integer",
+        "required": true,
+        "in": "header"
+      },
+      {
+        "name": "Content-MD5",
+        "description": "Object MD5sum",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "Content-Type",
+        "description": "Object content type",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "Expect",
+        "description": "Used to indicate that particular server behaviors are required by the client",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Algorithm",
+        "description": "Encryption algorithm of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Key",
+        "description": "Encryption key of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Key-MD5",
+        "description": "MD5sum of encryption key",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source",
+        "description": "Copy source, format (/<bucket-name>/<object-key>)",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source-If-Modified-Since",
+        "description": "Check whether the copy source has been modified",
+        "type": "string",
+        "format": "date-time-rfc822",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source-If-Unmodified-Since",
+        "description": "Check whether the copy source has not been modified",
+        "type": "string",
+        "format": "date-time-rfc822",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source-If-Match",
+        "description": "Check whether the copy source matches",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source-If-None-Match",
+        "description": "Check whether the copy source does not match",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source-Encryption-Customer-Algorithm",
+        "description": "Encryption algorithm of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source-Encryption-Customer-Key",
+        "description": "Encryption key of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Copy-Source-Encryption-Customer-Key-MD5",
+        "description": "MD5sum of encryption key",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Move-Source",
+        "description": "Move source, format (/<bucket-name>/<object-key>)",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Fetch-Source",
+        "description": "Fetch source, should be a valid url",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "Body",
+        "description": "The request body",
+        "in": "body",
+        "schema": {
+          "type": "string",
+          "format": "binary"
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Object created",
+        "headers": {
+          "ETag": {
+            "description": "MD5sum of the object",
+            "type": "string"
+          },
+          "X-QS-Encryption-Customer-Algorithm": {
+            "description": "Encryption algorithm of the object",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "PostObject",
+    "summary": "POST Object",
+    "description": "Upload object through HTTP form.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/object/post.html"
+    },
+    "consumes": [
+      "application/x-www-form-urlencoded"
+    ],
+    "parameters": [
+      {
+        "name": "access_key_id",
+        "description": "Access key ID",
+        "type": "string",
+        "in": "formData"
+      },
+      {
+        "name": "signature",
+        "description": "Request signature",
+        "type": "string",
+        "in": "formData"
+      },
+      {
+        "name": "Content-Type",
+        "description": "Object content type",
+        "type": "string",
+        "in": "formData"
+      },
+      {
+        "name": "key",
+        "description": "Object key",
+        "type": "string",
+        "required": true,
+        "in": "formData"
+      },
+      {
+        "name": "policy",
+        "description": "Policy string",
+        "type": "string",
+        "in": "formData"
+      },
+      {
+        "name": "redirect",
+        "description": "Redirect URL",
+        "type": "string",
+        "in": "formData"
+      },
+      {
+        "name": "file",
+        "description": "File to upload",
+        "type": "string",
+        "format": "binary",
+        "in": "formData"
+      }
+    ],
+    "responses": {
+      "302": {
+        "description": "Object uploaded"
+      }
+    }
+  },
+  "get": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "GetObject",
+    "summary": "GET Object",
+    "description": "Retrieve the object.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/object/get.html"
+    },
+    "parameters": [
+      {
+        "name": "Range",
+        "description": "Specified range of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Algorithm",
+        "description": "Encryption algorithm of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Key",
+        "description": "Encryption key of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Key-MD5",
+        "description": "MD5sum of encryption key",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "If-Modified-Since",
+        "description": "Check whether the object has been modified",
+        "type": "string",
+        "format": "date-time-rfc822",
+        "in": "header"
+      },
+      {
+        "name": "If-Unmodified-Since",
+        "description": "Check whether the object has not been modified",
+        "type": "string",
+        "format": "date-time-rfc822",
+        "in": "header"
+      },
+      {
+        "name": "If-Match",
+        "description": "Check whether the ETag matches",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "If-None-Match",
+        "description": "Check whether the ETag does not match",
+        "type": "string",
+        "in": "header"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "headers": {
+          "ETag": {
+            "description": "MD5sum of the object",
+            "type": "string"
+          },
+          "Content-Range": {
+            "description": "Range of response data content",
+            "type": "string"
+          },
+          "X-QS-Encryption-Customer-Algorithm": {
+            "description": "Encryption algorithm of the object",
+            "type": "string"
+          }
+        },
+        "schema": {
+          "type": "string",
+          "description": "The response body",
+          "format": "binary"
+        }
+      },
+      "206": {
+        "description": "Partial content"
+      },
+      "304": {
+        "description": "Not modified"
+      },
+      "412": {
+        "description": "Precondition failed"
+      }
+    }
+  },
+  "head": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "HeadObject",
+    "summary": "HEAD Object",
+    "description": "Check whether the object exists and available.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/object/head.html"
+    },
+    "parameters": [
+      {
+        "name": "X-QS-Encryption-Customer-Algorithm",
+        "description": "Encryption algorithm of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Key",
+        "description": "Encryption key of the object",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "X-QS-Encryption-Customer-Key-MD5",
+        "description": "MD5sum of encryption key",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "If-Modified-Since",
+        "description": "Check whether the object has been modified",
+        "type": "string",
+        "format": "date-time-rfc822",
+        "in": "header"
+      },
+      {
+        "name": "If-Unmodified-Since",
+        "description": "Check whether the object has not been modified",
+        "type": "string",
+        "format": "date-time-rfc822",
+        "in": "header"
+      },
+      {
+        "name": "If-Match",
+        "description": "Check whether the ETag matches",
+        "type": "string",
+        "in": "header"
+      },
+      {
+        "name": "If-None-Match",
+        "description": "Check whether the ETag does not match",
+        "type": "string",
+        "in": "header"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "headers": {
+          "Content-Type": {
+            "description": "Object content type",
+            "type": "string"
+          },
+          "Content-Length": {
+            "description": "Object content length",
+            "type": "integer"
+          },
+          "Last-Modified": {
+            "type": "string",
+            "format": "date-time-rfc822"
+          },
+          "ETag": {
+            "description": "MD5sum of the object",
+            "type": "string"
+          },
+          "X-QS-Encryption-Customer-Algorithm": {
+            "description": "Encryption algorithm of the object",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "OptionsObject",
+    "summary": "OPTIONS Object",
+    "description": "Check whether the object accepts a origin with method and header.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/object/options.html"
+    },
+    "parameters": [
+      {
+        "name": "Origin",
+        "description": "Request origin",
+        "type": "string",
+        "required": true,
+        "in": "header"
+      },
+      {
+        "name": "Access-Control-Request-Method",
+        "description": "Request method",
+        "type": "string",
+        "required": true,
+        "in": "header"
+      },
+      {
+        "name": "Access-Control-Request-Headers",
+        "description": "Request headers",
+        "type": "string",
+        "in": "header"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "headers": {
+          "Access-Control-Allow-Origin": {
+            "description": "Allowed origin",
+            "type": "string"
+          },
+          "Access-Control-Max-Age": {
+            "description": "Max age",
+            "type": "string"
+          },
+          "Access-Control-Allow-Methods": {
+            "description": "Allowed methods",
+            "type": "string"
+          },
+          "Access-Control-Allow-Headers": {
+            "description": "Allowed headers",
+            "type": "string"
+          },
+          "Access-Control-Expose-Headers": {
+            "description": "Expose headers",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "DeleteObject",
+    "summary": "DELETE Object",
+    "description": "Delete the object.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/object/delete.html"
+    },
+    "responses": {
+      "204": {
+        "description": "Object deleted"
+      }
+    }
+  }
+}

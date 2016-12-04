@@ -1,0 +1,6 @@
+# Test configurations
+
+zone: 'pek3a'
+
+retry_wait_time: 3 # seconds
+max_retries: 60

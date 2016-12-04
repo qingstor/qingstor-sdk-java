@@ -1,0 +1,26 @@
+{
+  "name": "qingstor-api-specs",
+  "version": "1.0.0",
+  "description": "Specifications of QingStor APIs.",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha api_spec_validate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yunify/qingstor-api-specs.git"
+  },
+  "author": "Yunify SDK Group <sdk_group@yunify.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/yunify/qingstor-api-specs/issues"
+  },
+  "homepage": "https://github.com/yunify/qingstor-api-specs",
+  "dependencies": {
+    "glob": "^7.1.0",
+    "is-my-json-valid": "^2.14.0",
+    "json-refs": "^2.1.6",
+    "lodash": "^4.16.1",
+    "mocha": "^3.1.0",
+    "z-schema": "^3.18.0"
+  }
+}

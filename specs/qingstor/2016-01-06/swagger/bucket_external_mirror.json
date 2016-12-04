@@ -1,0 +1,86 @@
+{
+  "parameters": [
+    {
+      "$ref": "#/parameters/bucketName"
+    },
+    {
+      "$ref": "#/parameters/zone"
+    }
+  ],
+  "put": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "PutBucketExternalMirror",
+    "summary": "PUT Bucket External Mirror",
+    "description": "Set external mirror of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html"
+    },
+    "parameters": [
+      {
+        "name": "Body",
+        "description": "The request body",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "source_site": {
+              "description": "Source site url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_site"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK"
+      }
+    }
+  },
+  "get": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "GetBucketExternalMirror",
+    "summary": "GET Bucket External Mirror",
+    "description": "Get external mirror of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html"
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "source_site": {
+              "description": "Source site url",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "DeleteBucketExternalMirror",
+    "summary": "DELETE Bucket External Mirror",
+    "description": "Delete external mirror of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html"
+    },
+    "responses": {
+      "204": {
+        "description": "No content"
+      }
+    }
+  }
+}

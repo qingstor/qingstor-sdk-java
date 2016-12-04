@@ -1,0 +1,324 @@
+{
+  "uploads": {
+    "parameters": [
+      {
+        "$ref": "#/parameters/bucketName"
+      },
+      {
+        "$ref": "#/parameters/objectKey"
+      },
+      {
+        "$ref": "#/parameters/zone"
+      }
+    ],
+    "post": {
+      "tags": [
+        "Object"
+      ],
+      "operationId": "InitiateMultipartUpload",
+      "summary": "Initiate Multipart Upload",
+      "description": "Initial multipart upload on the object.",
+      "externalDocs": {
+        "url": "https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html"
+      },
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "description": "Object content type",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Algorithm",
+          "description": "Encryption algorithm of the object",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Key",
+          "description": "Encryption key of the object",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Key-MD5",
+          "description": "MD5sum of encryption key",
+          "type": "string",
+          "in": "header"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK",
+          "headers": {
+            "X-QS-Encryption-Customer-Algorithm": {
+              "description": "Encryption algorithm of the object",
+              "type": "string"
+            }
+          },
+          "schema": {
+            "type": "object",
+            "properties": {
+              "upload_id": {
+                "description": "Object multipart upload ID",
+                "type": "string"
+              },
+              "key": {
+                "description": "Object key",
+                "type": "string"
+              },
+              "bucket": {
+                "description": "Bucket name",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "upload_id": {
+    "parameters": [
+      {
+        "$ref": "#/parameters/bucketName"
+      },
+      {
+        "$ref": "#/parameters/objectKey"
+      },
+      {
+        "$ref": "#/parameters/zone"
+      }
+    ],
+    "put": {
+      "tags": [
+        "Object"
+      ],
+      "operationId": "UploadMultipart",
+      "summary": "Upload Multipart",
+      "description": "Upload object multipart.",
+      "externalDocs": {
+        "url": "https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html"
+      },
+      "parameters": [
+        {
+          "name": "upload_id",
+          "description": "Object multipart upload ID",
+          "type": "string",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "part_number",
+          "description": "Object multipart upload part number",
+          "type": "integer",
+          "default": 0,
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "Content-Length",
+          "description": "Object multipart content length",
+          "type": "integer",
+          "in": "header"
+        },
+        {
+          "name": "Content-MD5",
+          "description": "Object multipart content MD5sum",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Algorithm",
+          "description": "Encryption algorithm of the object",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Key",
+          "description": "Encryption key of the object",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Key-MD5",
+          "description": "MD5sum of encryption key",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "Body",
+          "description": "The request body",
+          "in": "body",
+          "schema": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Object multipart created",
+          "headers": {
+            "ETag": {
+              "description": "MD5sum of the object",
+              "type": "string"
+            },
+            "X-QS-Encryption-Customer-Algorithm": {
+              "description": "Encryption algorithm of the object",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "get": {
+      "tags": [
+        "Object"
+      ],
+      "operationId": "ListMultipart",
+      "summary": "List Multipart",
+      "description": "List object parts.",
+      "externalDocs": {
+        "url": "https://docs.qingcloud.com/qingstor/api/object/list_multipart.html"
+      },
+      "parameters": [
+        {
+          "name": "upload_id",
+          "description": "Object multipart upload ID",
+          "type": "string",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "part_number_marker",
+          "description": "Object multipart upload part number",
+          "type": "integer",
+          "in": "query"
+        },
+        {
+          "name": "limit",
+          "description": "Limit results count",
+          "type": "integer",
+          "in": "query"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "description": "Object multipart count",
+                "type": "integer"
+              },
+              "object_parts": {
+                "description": "Object parts",
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/object_part"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "tags": [
+        "Object"
+      ],
+      "operationId": "CompleteMultipartUpload",
+      "summary": "Complete multipart upload",
+      "description": "Complete multipart upload.",
+      "externalDocs": {
+        "url": "https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html"
+      },
+      "parameters": [
+        {
+          "name": "upload_id",
+          "description": "Object multipart upload ID",
+          "type": "string",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "ETag",
+          "description": "MD5sum of the object part",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Algorithm",
+          "description": "Encryption algorithm of the object",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Key",
+          "description": "Encryption key of the object",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "X-QS-Encryption-Customer-Key-MD5",
+          "description": "MD5sum of encryption key",
+          "type": "string",
+          "in": "header"
+        },
+        {
+          "name": "Body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "object_parts": {
+                "description": "Object parts",
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/object_part"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Object created",
+          "headers": {
+            "X-QS-Encryption-Customer-Algorithm": {
+              "description": "Encryption algorithm of the object",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "tags": [
+        "Object"
+      ],
+      "operationId": "AbortMultipartUpload",
+      "summary": "Abort Multipart Upload",
+      "description": "Abort multipart upload.",
+      "externalDocs": {
+        "url": "https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html"
+      },
+      "parameters": [
+        {
+          "name": "upload_id",
+          "description": "Object multipart upload ID",
+          "type": "string",
+          "required": true,
+          "in": "query"
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Object multipart deleted"
+        }
+      }
+    }
+  }
+}

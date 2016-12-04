@@ -1,0 +1,92 @@
+{
+  "parameters": [
+    {
+      "$ref": "#/parameters/bucketName"
+    },
+    {
+      "$ref": "#/parameters/zone"
+    }
+  ],
+  "put": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "PutBucketCORS",
+    "summary": "PUT Bucket CORS",
+    "description": "Set CORS information of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html"
+    },
+    "parameters": [
+      {
+        "name": "Body",
+        "description": "The request body",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cors_rules": {
+              "description": "Bucket CORS rules",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/cors_rule"
+              }
+            }
+          },
+          "required": [
+            "cors_rules"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK"
+      }
+    }
+  },
+  "get": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "GetBucketCORS",
+    "summary": "GET Bucket CORS",
+    "description": "Get CORS information of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html"
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cors_rules": {
+              "description": "Bucket CORS rules",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/cors_rule"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "DeleteBucketCORS",
+    "summary": "DELETE Bucket CORS",
+    "description": "Delete CORS information of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html"
+    },
+    "responses": {
+      "200": {
+        "description": "OK"
+      }
+    }
+  }
+}
