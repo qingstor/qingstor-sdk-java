@@ -1,0 +1,94 @@
+{
+  "parameters": [
+    {
+      "$ref": "#/parameters/bucketName"
+    },
+    {
+      "$ref": "#/parameters/zone"
+    }
+  ],
+  "put": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "PutBucketPolicy",
+    "summary": "PUT Bucket Policy",
+    "description": "Set policy information of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html"
+    },
+    "parameters": [
+      {
+        "name": "Body",
+        "description": "The request body",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "statement": {
+              "description": "Bucket policy statement",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/statement"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "statement"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK"
+      }
+    }
+  },
+  "get": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "GetBucketPolicy",
+    "summary": "GET Bucket Policy",
+    "description": "Get policy information of the bucket.",
+    "externalDocs": {
+      "url": "https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html"
+    },
+    "responses": {
+      "200": {
+        "description": "OK",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "statement": {
+              "description": "Bucket policy statement",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/statement"
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "DeleteBucketPolicy",
+    "summary": "DELETE Bucket Policy",
+    "description": "Delete policy information of the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html"
+    },
+    "responses": {
+      "204": {
+        "description": "No content"
+      }
+    }
+  }
+}

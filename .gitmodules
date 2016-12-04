@@ -1,0 +1,10 @@
+[submodule "specs/qingstor"]
+	path = specs/qingstor
+	url = https://github.com/yunify/qingstor-api-specs.git
+
+[submodule "cucumber_test/features"]
+	path = cucumber_test/features
+	url = https://github.com/yunify/qingstor-sdk-test-scenarios.git
+[submodule "tests/features"]
+	path = tests/features
+	url = https://github.com/yunify/qingstor-sdk-test-scenarios.git

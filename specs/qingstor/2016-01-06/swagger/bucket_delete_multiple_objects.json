@@ -1,0 +1,78 @@
+{
+  "parameters": [
+    {
+      "$ref": "#/parameters/bucketName"
+    },
+    {
+      "$ref": "#/parameters/zone"
+    }
+  ],
+  "post": {
+    "tags": [
+      "Bucket"
+    ],
+    "operationId": "DeleteMultipleObjects",
+    "summary": "Delete Multiple Objects",
+    "description": "Delete multiple objects from the bucket.",
+    "externalDocs": {
+      "url": "https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html"
+    },
+    "parameters": [
+      {
+        "name": "Content-MD5",
+        "description": "Object MD5sum",
+        "type": "string",
+        "in": "header",
+        "required": true
+      },
+      {
+        "name": "Body",
+        "description": "The request body",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "objects": {
+              "description": "A list of keys to delete",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/key"
+              }
+            },
+            "quiet": {
+              "description": "Whether to return the list of deleted objects",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "objects"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "deleted": {
+              "description": "List of deleted objects",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/key"
+              }
+            },
+            "errors": {
+              "description": "Error messages",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/key_delete_error"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

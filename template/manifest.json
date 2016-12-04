@@ -1,0 +1,32 @@
+{
+
+  "output": {
+    "file_naming": {
+      "style": "camel_case",
+      "extension": ".java"
+    }
+  },
+  "template_files": {
+    "service": {
+      "file_path": "service.tmpl",
+      "output_file_naming": {
+        "prefix": "",
+        "suffix": ""
+      }
+    },
+    "sub_service": {
+      "file_path": "sub_service.tmpl",
+      "output_file_naming": {
+        "prefix": "",
+        "suffix": ""
+      }
+    },
+    "types": {
+      "file_path": "types.tmpl",
+      "output_file_naming": {
+        "prefix": "",
+        "suffix": ""
+      }
+    }
+  }
+}

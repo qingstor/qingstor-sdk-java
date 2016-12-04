@@ -1,0 +1,320 @@
+{
+  "bucket": {
+    "description": "Bucket",
+    "type": "object",
+    "properties": {
+      "location": {
+        "description": "QingCloud Zone ID",
+        "type": "string"
+      },
+      "name": {
+        "description": "Bucket name",
+        "type": "string"
+      },
+      "url": {
+        "description": "URL to access the bucket",
+        "type": "string"
+      },
+      "created": {
+        "description": "Created time of the bucket",
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "key": {
+    "description": "Object key",
+    "type": "object",
+    "properties": {
+      "key": {
+        "description": "Object key",
+        "type": "string"
+      },
+      "mime_type": {
+        "description": "MIME type of the object",
+        "type": "string"
+      },
+      "etag": {
+        "description": "MD5sum of the object",
+        "type": "string"
+      },
+      "size": {
+        "description": "Object content size",
+        "type": "integer"
+      },
+      "modified": {
+        "description": "Last modified time in unix time format",
+        "type": "integer"
+      },
+      "created": {
+        "description": "Object created time",
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "owner": {
+    "description": "Bucket owner",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "User ID",
+        "type": "string"
+      },
+      "name": {
+        "description": "Username",
+        "type": "string"
+      }
+    }
+  },
+  "acl": {
+    "description": "Bucket ACL rule",
+    "type": "object",
+    "properties": {
+      "grantee": {
+        "$ref": "#/definitions/grantee"
+      },
+      "permission": {
+        "description": "Permission for this grantee",
+        "type": "string",
+        "enum": [
+          "READ",
+          "WRITE",
+          "FULL_CONTROL"
+        ]
+      }
+    },
+    "required": [
+      "grantee",
+      "permission"
+    ]
+  },
+  "grantee": {
+    "description": "Grantee rules",
+    "type": "object",
+    "properties": {
+      "type": {
+        "description": "Grantee type",
+        "type": "string",
+        "enum": [
+          "user",
+          "group"
+        ]
+      },
+      "id": {
+        "description": "Grantee user ID",
+        "type": "string"
+      },
+      "name": {
+        "description": "Grantee group name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "type"
+    ]
+  },
+  "cors_rule": {
+    "description": "Bucket CORS rule",
+    "type": "object",
+    "properties": {
+      "allowed_origin": {
+        "description": "Allowed origin",
+        "type": "string"
+      },
+      "allowed_methods": {
+        "description": "Allowed methods",
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "PUT",
+            "POST",
+            "DELETE",
+            "HEAD"
+          ]
+        }
+      },
+      "allowed_headers": {
+        "description": "Allowed headers",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "expose_headers": {
+        "description": "Expose headers",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "max_age_seconds": {
+        "description": "Max age seconds",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "allowed_origin",
+      "allowed_methods"
+    ]
+  },
+  "statement": {
+    "description": "Bucket policy statement",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "Bucket policy id, must be unique",
+        "type": "string"
+      },
+      "user": {
+        "description": "The user to apply bucket policy",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "action": {
+        "description": "QingStor API methods",
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "list_objects",
+            "head_bucket",
+            "get_bucket_stats",
+            "get_object",
+            "create_object",
+            "delete_object",
+            "head_object",
+            "list_multipart",
+            "upload_multipart",
+            "abort_multipart",
+            "initiate_multipart",
+            "complete_multipart"
+          ]
+        }
+      },
+      "effect": {
+        "description": "Statement effect",
+        "type": "string",
+        "enum": [
+          "allow",
+          "deny"
+        ]
+      },
+      "resource": {
+        "description": "The resources to apply bucket policy",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "condition": {
+        "$ref": "#/definitions/condition"
+      }
+    },
+    "required": [
+      "id",
+      "user",
+      "action",
+      "resource",
+      "effect"
+    ]
+  },
+  "condition": {
+    "description": "Bucket policy condition",
+    "type": "object",
+    "properties": {
+      "string_like": {
+        "$ref": "#/definitions/string_like"
+      },
+      "string_not_like": {
+        "$ref": "#/definitions/string_not_like"
+      },
+      "is_null": {
+        "$ref": "#/definitions/is_null"
+      }
+    }
+  },
+  "string_like": {
+    "description": "String like rules",
+    "type": "object",
+    "properties": {
+      "Referer": {
+        "description": "Refer url",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "string_not_like": {
+    "description": "String not like rules",
+    "type": "object",
+    "properties": {
+      "Referer": {
+        "description": "Refer url",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "is_null": {
+    "description": "Check whether is null",
+    "type": "object",
+    "properties": {
+      "Referer": {
+        "description": "Refer url",
+        "type": "boolean"
+      }
+    }
+  },
+  "object_part": {
+    "type": "object",
+    "properties": {
+      "part_number": {
+        "description": "Object part number",
+        "type": "integer",
+        "default": 0
+      },
+      "size": {
+        "description": "Object part size",
+        "type": "integer"
+      },
+      "etag": {
+        "description": "MD5sum of the object part",
+        "type": "string"
+      },
+      "created": {
+        "description": "Object part created time",
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "part_number"
+    ]
+  },
+  "key_delete_error": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "description": "Object key",
+        "type": "string"
+      },
+      "code": {
+        "description": "Error code",
+        "type": "string"
+      },
+      "message": {
+        "description": "Error message",
+        "type": "string"
+      }
+    }
+  }
+}

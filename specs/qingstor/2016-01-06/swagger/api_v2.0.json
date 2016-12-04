@@ -1,0 +1,110 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2016-01-06",
+    "title": "QingStor",
+    "description": "QingStor provides low-cost and reliable online storage service with unlimited storage space, high read and write performance, high reliability and data safety, fine-grained access control, and easy to use API.",
+    "termsOfService": "https://www.qingcloud.com/about/tos",
+    "license": {
+      "name": "The Apache License (Version 2)",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "contact": {
+      "name": "Yunify SDK Group",
+      "email": "sdk_group@yunify.com"
+    }
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "host": "qingstor.com",
+  "basePath": "/",
+  "paths": {
+    "/": {
+      "$ref": "./qingstor.json"
+    },
+    "/{bucketName}": {
+      "$ref": "./bucket.json"
+    },
+    "/{bucketName}?delete": {
+      "$ref": "./bucket_delete_multiple_objects.json"
+    },
+    "/{bucketName}?stats": {
+      "$ref": "./bucket_stats.json"
+    },
+    "/{bucketName}?acl": {
+      "$ref": "./bucket_acl.json"
+    },
+    "/{bucketName}?cors": {
+      "$ref": "./bucket_cors.json"
+    },
+    "/{bucketName}?policy": {
+      "$ref": "./bucket_policy.json"
+    },
+    "/{bucketName}?mirror": {
+      "$ref": "./bucket_external_mirror.json"
+    },
+    "/{bucketName}/{objectKey}": {
+      "$ref": "./object.json"
+    },
+    "/{bucketName}/{objectKey}?uploads": {
+      "$ref": "./object_multipart.json#/uploads"
+    },
+    "/{bucketName}/{objectKey}?upload_id": {
+      "$ref": "./object_multipart.json#/upload_id"
+    }
+  },
+  "parameters": {
+    "bucketName": {
+      "$ref": "./parameters.json#/bucketName"
+    },
+    "objectKey": {
+      "$ref": "./parameters.json#/objectKey"
+    },
+    "zone": {
+      "$ref": "./parameters.json#/zone"
+    }
+  },
+  "definitions": {
+    "bucket": {
+      "$ref": "./definitions.json#/bucket"
+    },
+    "key": {
+      "$ref": "./definitions.json#/key"
+    },
+    "owner": {
+      "$ref": "./definitions.json#/owner"
+    },
+    "acl": {
+      "$ref": "./definitions.json#/acl"
+    },
+    "grantee": {
+      "$ref": "./definitions.json#/grantee"
+    },
+    "cors_rule": {
+      "$ref": "./definitions.json#/cors_rule"
+    },
+    "statement": {
+      "$ref": "./definitions.json#/statement"
+    },
+    "condition": {
+      "$ref": "./definitions.json#/condition"
+    },
+    "string_like": {
+      "$ref": "./definitions.json#/string_like"
+    },
+    "string_not_like": {
+      "$ref": "./definitions.json#/string_not_like"
+    },
+    "is_null": {
+      "$ref": "./definitions.json#/is_null"
+    },
+    "object_part": {
+      "$ref": "./definitions.json#/object_part"
+    },
+    "key_delete_error": {
+      "$ref": "./definitions.json#/key_delete_error"
+    }
+  }
+}

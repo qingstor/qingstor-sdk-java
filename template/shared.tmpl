@@ -1,0 +1,558 @@
+{{define "RenderOperationValidate"}}
+    {{- $capsule := index . 0 -}}
+    {{- $belongs := index . 1 -}}
+    {{- $operation := index . 2 -}}
+
+    {{- $opID := $operation.ID | camelCase -}}
+        @Override
+        public String validateParam() {
+            {{- template "ValidateCustomizedType" $operation.Request.Params -}}
+            {{- template "ValidateCustomizedType" $operation.Request.Headers -}}
+            {{- template "ValidateCustomizedType" $operation.Request.Elements }}
+
+            return null;
+        }
+{{end}}
+
+{{define "ValidateCustomizedType"}}
+    {{- $customizedType := . -}}
+{{- range $_, $property := $customizedType.Properties -}}
+{{- $isNormalType :=  (eq $property.Type "string") -}}
+{{- $isContentLength := eq $property.ID "Content-Length" -}}
+{{- if and $isNormalType (not $isContentLength) -}}
+    {{- if $property.IsRequired }}
+            if (QSStringUtil.isEmpty(this.get{{$property.ID | camelCase}}())) {
+                return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
+            }
+    {{- end -}}
+    {{- if gt ($property.Enum | len) 0 }}
+            String[] {{$property.ID | camelCase | lowerFirst -}}
+            ValidValues = {
+                {{- $property.Enum | commaConnectedWithQuote -}}
+            };
+
+            boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
+            for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues){
+                if(v.equals(this.get{{$property.ID | camelCase}}())){
+                    {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                }
+            }
+
+            if (!{{$property.ID | camelCase | lowerFirst}}IsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError("{{$property.ID | camelCase}}",
+                        this.get{{$property.ID | camelCase}}()+"",
+                        {{$property.ID | camelCase | lowerFirst}}ValidValues);
+            }
+    {{- end -}}
+{{- end -}}
+
+{{- $isNormalType :=  (eq $property.Type "integer") -}}
+    {{- $isContentLength := eq $property.ID "Content-Length" -}}
+    {{- if and $isNormalType (not $isContentLength) -}}
+        {{- if $property.IsRequired }}
+            if (this.get{{$property.ID | camelCase}}() < 0 ) {
+                return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
+            }
+            {{- end -}}
+            {{- if gt ($property.Enum | len) 0}}
+            String[] {{$property.ID | camelCase | lowerFirst -}}
+            ValidValues = {
+                {{- $property.Enum | commaConnectedWithQuote -}}
+            };
+            boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
+            for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues){
+                if(v.equals(this.get{{$property.ID | camelCase}}()+"")){
+                    {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                }
+            }
+
+            if (!{{$property.ID | camelCase | lowerFirst}}IsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError("{{$property.ID | camelCase}}",
+                        this.get{{$property.ID | camelCase}}()+"",
+                        {{$property.ID | camelCase | lowerFirst}}ValidValues);
+            }
+                {{end -}}
+            {{- end -}}
+
+            {{- if eq $property.Type "object" }}
+            if (this.get{{$property.ID | camelCase}}() != null) {
+                String vValidate = this.get{{$property.ID | camelCase}}().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+                {{ if $property.IsRequired -}}
+            if (this.get{{$property.ID | camelCase}}() == null) {
+                return QSStringUtil.getParameterRequired(
+                    "{{$property.ID | camelCase}}",
+                    "{{$customizedType.ID | camelCase}}");
+            }
+                {{- end -}}
+            {{- end -}}
+
+            {{- if eq $property.Type "array" -}}
+
+                {{- $isNotString := ne $property.ExtraType "string" -}}
+                {{- $isNotInteger := ne $property.ExtraType "integer"}}
+                {{- $isNotTimestamp := ne $property.ExtraType "timestamp" -}}
+                {{- if and $isNotString $isNotInteger $isNotTimestamp}}
+            if (this.get{{$property.ID | camelCase}}() != null && this.get{{$property.ID | camelCase}}().size() > 0 ) {
+                for (int i = 0 ; i < this.get{{$property.ID | camelCase}}().size() ; i++ ) {
+                    String vValidate = this.get{{$property.ID | camelCase}}().get(i).validateParam();
+                    if (!QSStringUtil.isEmpty(vValidate)) {
+                        return vValidate;
+                    }
+                }
+            }
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+
+
+{{define "RenderProperties"}}
+	{{- $customizedType := index . 0 -}}
+	{{- $PropertyExtraTags := index . 1 -}}
+	{{- $PropertyTypes := index . 2 -}}
+
+	{{range $_, $property := $customizedType.Properties -}}
+		{{if $property.Description -}}
+			// {{$property.Description}}
+		{{end -}}
+		{{if $property.Enum -}}
+			// {{$property.ID | camelCase}}'s available values: {{$property.Enum | commaConnected}}
+		{{end -}}
+
+		{{if $property.IsRequired -}}
+            // Required
+        {{- end}}
+
+        {{ if eq $PropertyTypes "header" -}}
+            {{template "PropertyTagsHeader"  $property  }}
+        {{- else if eq $PropertyTypes "body" -}}
+            {{template "PropertyTagsBody"  $property  }}
+        {{- else -}}
+            {{template "PropertyTags"  $property  }}
+        {{- end -}}
+
+
+
+	{{end}}
+{{end}}
+
+
+
+
+
+{{define "Type"}}
+	{{- $typeName := . -}}
+
+	{{- if eq $typeName "string" -}}
+		String
+	{{- else if eq $typeName "boolean" -}}
+		Boolean
+	{{- else if eq $typeName "integer" -}}
+		Integer
+	{{- else if eq $typeName "timestamp" -}}
+		String
+	{{- else if eq $typeName "binary" -}}
+		File
+	{{- else if eq $typeName "array" -}}
+		List
+	{{- else if eq $typeName "object" -}}
+		interface{}
+	{{- else if eq $typeName "map" -}}
+		Map
+	{{- else if eq $typeName "any" -}}
+		interface{}
+	{{- else -}}
+		{{$typeName | camelCase}}Model
+	{{- end -}}
+{{end}}
+
+{{define "PropertyType"}}
+	{{- $property := . -}}
+
+	{{- if eq $property.Type "object" -}}
+		{{template "Type" $property.ExtraType}}
+	{{- else if eq $property.Type "array" -}}
+		List<{{template "Type" $property.ExtraType}}>
+	{{- else if eq $property.Type "map" -}}
+		map[string]{{template "Type" $property.ExtraType}}
+	{{- else if eq $property.Type "any" -}}
+		{{template "Type" $property.Type}}
+	{{- else -}}
+		{{template "Type" $property.Type}}
+	{{- end -}}
+{{end}}
+
+{{define "PropertyTags"}}
+	{{- $property := . -}}
+
+    {{- printf `%s  ` "private" -}}
+
+    {{template "PropertyType" $property}}
+    {{- printf `  %s;` ($property.ID | camelCase | lowerFirst) -}}
+
+    {{ printf ` public void set%s` ($property.ID | camelCase) -}}
+    {{- printf `%s` "(" -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` %s){` ($property.ID | camelCase | lowerFirst) -}}
+    {{- printf ` this.%s =` ($property.Name | camelCase | lowerFirst) -}}
+    {{- printf ` %s;}` ($property.ID | camelCase | lowerFirst) }}
+
+    {{ printf ` @ParamAnnotation(paramType = "query", paramName = "%s")` ($property.Name | normalized) }}
+    {{ printf ` %s` "public " -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` get%s(){` ($property.ID | camelCase) -}}
+
+    {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
+
+
+{{end}}
+
+{{define "PropertyTagsQuery"}}
+	{{- $property := . -}}
+
+    {{- printf `%s  ` "private" -}}
+
+    {{template "PropertyType" $property}}
+    {{- printf `  %s;` ($property.ID | camelCase | lowerFirst) -}}
+
+    {{ printf ` public void set%s` ($property.ID | camelCase) -}}
+    {{- printf `%s` "(" -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` %s){` ($property.ID | camelCase | lowerFirst) -}}
+    {{- printf ` this.%s =` ($property.Name | camelCase | lowerFirst) -}}
+    {{- printf ` %s;}` ($property.ID | camelCase | lowerFirst) }}
+
+    {{ printf ` @ParamAnnotation(paramType = "query", paramName = "%s")` ($property.Name | normalized) }}
+    {{ printf ` %s` "public " -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` get%s(){` ($property.ID | camelCase) -}}
+
+    {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
+
+
+{{end}}
+{{define "PropertyTagsBody"}}
+	{{- $property := . -}}
+
+    {{- printf `%s  ` "private" -}}
+
+    {{template "PropertyType" $property}}
+    {{- printf `  %s;` ($property.ID | camelCase | lowerFirst) -}}
+
+    {{ printf ` public void set%s` ($property.ID | camelCase) -}}
+    {{- printf `%s` "(" -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` %s){` ($property.ID | camelCase | lowerFirst) -}}
+    {{- printf ` this.%s =` ($property.Name | camelCase | lowerFirst) -}}
+    {{- printf ` %s;}` ($property.ID | camelCase | lowerFirst) }}
+
+    {{ printf ` @ParamAnnotation(paramType = "body", paramName = "%s")` ($property.Name | normalized) }}
+    {{ printf ` %s` "public " -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` get%s(){` ($property.ID | camelCase) -}}
+
+    {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
+
+
+
+{{end}}
+{{define "PropertyTagsHeader"}}
+	{{- $property := . -}}
+
+    {{- printf `%s  ` "private" -}}
+
+    {{template "PropertyType" $property}}
+    {{- printf `  %s;` ($property.ID | camelCase | lowerFirst) -}}
+
+    {{ printf ` public void set%s` ($property.ID | camelCase) -}}
+    {{- printf `%s` "(" -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` %s){` ($property.ID | camelCase | lowerFirst) -}}
+    {{- printf ` this.%s =` ($property.Name | camelCase | lowerFirst) -}}
+    {{- printf ` %s;}` ($property.ID | camelCase | lowerFirst) }}
+
+    {{ printf ` @ParamAnnotation(paramType = "header", paramName = "%s")` ($property.Name | normalized) }}
+    {{ printf ` %s` "public " -}}
+    {{template "PropertyType" $property}}
+    {{- printf ` get%s(){` ($property.ID | camelCase) -}}
+
+    {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
+
+
+{{end}}
+
+{{define "PropertyExtraTags"}}
+	{{- $PropertyExtraTags := . -}}
+	{{- if $PropertyExtraTags -}}
+		{{- printf " %s" $PropertyExtraTags -}}
+	{{- end -}}
+{{end}}
+
+
+{{define "RenderOperation"}}
+	{{$belongs := index . 0}}
+	{{$operation := index . 1}}
+
+	{{$opID := $operation.ID | camelCase}}
+
+	{{$newURI := replace $operation.Request.URI "<object-key>" "replace" -1}}
+    {{$hasParams := gt (len $operation.Request.Params.Properties) 0}}
+    {{$hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
+    {{$hasElements := gt (len $operation.Request.Elements.Properties) 0}}
+    {{$hasStringBody := eq $operation.Request.Body.Type "string"}}
+    {{$hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
+    {{$hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
+    /*
+     *
+     {{- if $hasInput}}
+     * @param input
+     {{- end}}
+     * @throws QSException
+     *
+     * Documentation URL: {{$operation.DocumentationURL}}
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public {{$opID}}Output
+    {{if eq $belongs "Bucket" -}}
+        {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
+    {{else -}}
+        {{$opID | camelCase | lowerFirst }}
+    {{end}}
+    (
+    {{if eq $operation.Request.URI $newURI}}
+        {{- if $hasInput}}
+
+         {{$opID}}Input input
+        {{end}}
+    {{- else -}}
+     String objectName
+        {{- if $hasInput}}
+        ,{{$opID}}Input input
+        {{end}}
+    {{end}}
+    ) throws QSException {
+            {{- if $hasInput}}
+
+                if (input == null ){
+                    input = new {{$opID}}Input();
+                }
+            {{end}}
+            Map context = new HashMap();
+            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
+            context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
+            context.put("OperationName","{{$opID}}");
+            context.put("APIName","{{$opID}}");
+            context.put("ServiceName","{{$operation.Name}}");
+            context.put("RequestMethod","{{$operation.Request.Method}}");
+            context.put("RequestURI","{{$operation.Request.URI}}");
+            context.put("bucketNameInput",this.bucketName);
+            {{if eq $operation.Request.URI $newURI}}
+            {{- else -}}
+            context.put("objectNameInput",objectName);
+            {{end}}
+
+            OutputModel backModel = ResourceRequestFactory.getResourceRequest().sendApiRequest(context,
+            {{- if $hasInput}}
+                input
+            {{ else }}
+                null
+            {{end}},
+            {{$opID}}Output.class);
+            if(backModel != null){
+                return ({{$opID}}Output)backModel;
+            }
+            return null;
+        }
+
+/*
+     *{{- if $hasInput}}
+     * @param input
+          {{- end}}
+     * @param callback
+     * @throws QSException
+     *
+     * Documentation URL: {{$operation.DocumentationURL}}
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public void {{if eq $belongs "Bucket" -}}
+                        {{- replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
+                    {{- else -}}
+                        {{$opID | camelCase | lowerFirst }}
+                    {{- end -}}Async(
+        {{if eq $operation.Request.URI $newURI}}
+            {{- if $hasInput}}
+
+             {{$opID}}Input input,
+            {{end}}
+        {{- else -}}
+         String objectName,
+            {{- if $hasInput}}
+            {{$opID}}Input input,
+            {{end}}
+        {{end}}
+        ResponseCallBack<{{camelCase $operation.ID}}Output> callback) throws QSException {
+            {{- if $hasInput}}
+                if (input == null ){
+                    input = new {{$opID}}Input();
+                }
+            {{end}}
+            Map context = new HashMap();
+            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
+            context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
+            context.put("OperationName","{{$opID}}");
+            context.put("APIName","{{$opID}}");
+            context.put("ServiceName","{{$operation.Name}}");
+            context.put("RequestMethod","{{$operation.Request.Method}}");
+            context.put("RequestURI","{{$operation.Request.URI}}");
+            context.put("bucketNameInput",this.bucketName);
+            {{if eq $operation.Request.URI $newURI}}
+            {{- else -}}
+            context.put("objectNameInput",objectName);
+            {{end}}
+
+            if(callback == null){
+                throw new QSException("callback can't be null");
+            }
+
+            ResourceRequestFactory.getResourceRequest().sendApiRequestAsync(context,{{- if $hasInput}}
+                                                                                                    input
+                                                                                                {{ else }}
+                                                                                                    null
+                                                                                                {{end}},callback);
+        }
+
+    {{- if $hasInput}}
+    public static class {{$opID}}Input extends RequestInputModel{
+            {{if $operation.Request.Params.Properties | len}}
+            	{{- $data := $operation.Request.Params -}}
+                {{template "RenderProperties" passThrough $data `` "query"}}
+            {{end}}
+
+            {{if $operation.Request.Headers.Properties | len}}
+                {{- $data := $operation.Request.Headers -}}
+                {{template "RenderProperties" passThrough $data `` "header"}}
+            {{end}}
+
+            {{if $operation.Request.Elements.Properties | len}}
+
+                {{if $operation.Request.Body.Description -}}
+                    // {{$operation.Request.Body.Description}}
+                {{- end}}
+                private  String bodyInput;
+
+                @ParamAnnotation(paramType = "body",paramName = "BodyInput")
+                public String getBodyInput() {
+                   return bodyInput;
+                }
+                //Object json string
+                public void setBodyInput(String bodyInput) {
+                    this.bodyInput=bodyInput;
+                }
+
+                {{- $data := $operation.Request.Elements -}}
+                {{template "RenderProperties" passThrough $data `` "body"}}
+
+
+            {{end}}
+
+            {{if eq $operation.Request.Body.Type "string"}}
+                {{if $operation.Request.Body.Description -}}
+                    // {{$operation.Request.Body.Description}}
+                {{- end}}
+                private  String bodyInput;
+
+                @ParamAnnotation(paramType = "body",paramName = "BodyInput")
+                public String getBodyInput() {
+                   return bodyInput;
+                }
+                //Object json string
+                public void setBodyInput(String bodyInput) {
+                    this.bodyInput=bodyInput;
+                }
+
+            {{else if eq $operation.Request.Body.Type "binary"}}
+                {{if $operation.Request.Body.Description -}}
+                    // {{$operation.Request.Body.Description}}
+                {{- end}}
+                private  File bodyInputFile;
+
+                @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
+                public File getBodyInputFile() {
+                   return bodyInputFile;
+                }
+                //
+                public void setBodyInputFile(File bodyInputFile) {
+                    this.bodyInputFile=bodyInputFile;
+                }
+                private  java.io.InputStream bodyInputStream;
+
+                @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
+                public java.io.InputStream getBodyInputStream() {
+                   return bodyInputStream;
+                }
+                public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+                    this.bodyInputStream=bodyInputStream;
+                }
+
+            {{end}}
+            @Override
+            public String validateParam() {
+                {{template "ValidateCustomizedType" $operation.Request.Params}}
+                {{template "ValidateCustomizedType" $operation.Request.Headers}}
+                {{template "ValidateCustomizedType" $operation.Request.Elements}}
+
+                return null;
+            }
+
+        }
+    {{end}}
+
+
+        public static class {{$opID}}Output extends OutputModel{
+                {{if eq $operation.Response.Body.Type "string"}}
+                    {{if $operation.Response.Body.Description -}}
+                        // {{$operation.Response.Body.Description}}
+                    {{- end}}
+                    private  String bodyInput;
+
+                    @ParamAnnotation(paramType = "body",paramName = "BodyInput")
+                    public String getBodyInput() {
+                       return bodyInput;
+                    }
+                    //Object json string
+                    public void setBodyInput(String bodyInput) {
+                        this.bodyInput=bodyInput;
+                    }
+                {{else if eq $operation.Response.Body.Type "binary"}}
+                    {{if $operation.Response.Body.Description -}}
+                        // {{$operation.Response.Body.Description}}
+                    {{- end}}
+                    private  java.io.InputStream bodyInputStream;
+
+                    @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
+                    public java.io.InputStream getBodyInputStream() {
+                       return bodyInputStream;
+                    }
+                    public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+                        this.bodyInputStream=bodyInputStream;
+                    }
+                {{end}}
+
+                {{if $operation.Response.Elements.Properties | len}}
+                    {{$data := $operation.Response.Elements}}
+                    {{template "RenderProperties" passThrough $data `` "query"}}
+                {{end}}
+
+                {{if $operation.Response.Headers.Properties | len}}
+                    {{$data := $operation.Response.Headers}}
+                    {{template "RenderProperties" passThrough $data `` "header"}}
+                {{end}}
+            }
+
+
+{{end}}
