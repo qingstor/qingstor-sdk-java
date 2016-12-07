@@ -16,8 +16,11 @@
 
 package scenario_impl;
 
+import org.json.JSONObject;
+
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
+import com.qingstor.sdk.utils.QSJSONUtil;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -53,7 +56,8 @@ public class BucketExternalSubServiceTest {
         EvnContext evnContext = TestUtil.getEvnContext();
         Bucket = new Bucket(evnContext,bucketName);
         Bucket.PutBucketExternalMirrorInput input = new Bucket.PutBucketExternalMirrorInput();
-        input.setSourceSite(arg1);
+        JSONObject obj = QSJSONUtil.convertJSONObject(arg1);
+        input.setSourceSite(QSJSONUtil.toString(obj, "source_site"));
         putBucketExternalMirrorOutput  = Bucket.putExternalMirror(input);
     }
 

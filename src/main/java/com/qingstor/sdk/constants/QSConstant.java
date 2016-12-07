@@ -29,6 +29,8 @@ public class QSConstant {
     public static final String PARAM_TYPE_HEADER = "header";
 
     public static final String PARAM_TYPE_BODYINPUTSTREAM = "BodyInputStream";
+    public static final String PARAM_TYPE_BODYINPUTSTRING = "BodyInput";
+    public static final String PARAM_TYPE_BODYINPUTFILE = "BodyInputFile";
 
     public static final String PARAM_KEY_BUCKET_NAME = "bucketNameInput";
     public static final String PARAM_KEY_OBJECT_NAME = "objectNameInput";

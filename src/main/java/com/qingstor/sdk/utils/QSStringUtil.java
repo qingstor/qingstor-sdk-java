@@ -26,14 +26,26 @@ import java.util.Map;
 /** Created by on 11/4/15. */
 public class QSStringUtil {
 
-    public static String objectToJson(String key, Object o) {
+	public static String objectToJson(String key, Object o) {
         StringBuffer buffer = new StringBuffer("{ \"" + key + "\":");
+        buffer.append(objectJSONKeyValue(key,o));
+        buffer.append("}");
+        return buffer.toString();
+    }
+
+    private static String objectJSONKeyValue(String key, Object o) {
+        StringBuffer buffer = new StringBuffer(" \"" + key + "\":");
+        buffer.append(objectJSONValue(o));
+        return buffer.toString();
+    }
+
+    private static String objectJSONValue(Object o) {
+        StringBuffer buffer = new StringBuffer();
         if (o instanceof List) {
             List lst = (List) o;
             buffer.append("[");
             for (int i = 0; i < lst.size(); i++) {
-                Map m = QSParamInvokeUtil.getRequestParams(lst.get(i), "");
-                buffer.append(getMapToJson(m));
+                buffer.append(objectJSONValue(lst.get(i)));
                 if (i + 1 < lst.size()) {
                     buffer.append(",");
                 }
@@ -42,12 +54,18 @@ public class QSStringUtil {
         } else if (o instanceof Map) {
             Map m = (Map) o;
             buffer.append(getMapToJson(m));
-        } else {
-            buffer.append("\"");
+        } else if (o instanceof  Integer
+                || o instanceof  Double
+                || o instanceof  Boolean
+                || o instanceof  Long
+                || o instanceof  Float) {
             buffer.append(o);
-            buffer.append("\"");
+        }else if (o instanceof  String) {
+            buffer.append("\"").append(o).append("\"");
+        }else {
+            Map objMap = QSParamInvokeUtil.getRequestParams(o,"");
+            buffer.append(getMapToJson(objMap));
         }
-        buffer.append("}");
         return buffer.toString();
     }
 
@@ -58,22 +76,10 @@ public class QSStringUtil {
             Map.Entry entry = (Map.Entry) iterator.next();
             String key = (String) entry.getKey();
             Object bodyObj = params.get(key);
-            buffer.append("\"");
-            buffer.append(key);
-            buffer.append("\":");
-            //QingStorSubService.GranteeBody bb = (QingStorSubService.GranteeBody) bodyObj;
-            if (bodyObj instanceof String || bodyObj instanceof Integer) {
-                buffer.append("\"");
-                buffer.append(bodyObj);
-                buffer.append("\"");
-            } else {
-                Map m = QSParamInvokeUtil.getRequestParams(bodyObj, "");
-                buffer.append(getMapToJson(m));
-            }
+            buffer.append(objectJSONKeyValue(key,bodyObj));
             buffer.append(",");
         }
-
-        if (buffer.length() > 0) {
+        if (buffer.length() > 1) {
             buffer.setLength(buffer.length() - 1);
         }
         buffer.append("}");

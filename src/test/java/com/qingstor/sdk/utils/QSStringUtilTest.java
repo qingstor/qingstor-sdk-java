@@ -17,6 +17,11 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,4 +46,27 @@ public class QSStringUtilTest {
         Assert.assertEquals(req.indexOf(QSConstant.SDK_VERSION) > 0, true);
         Assert.assertEquals(req.indexOf(QSConstant.SDK_NAME) == 0, true);
     }
+    
+    @Test
+	public void mapJsonStringTest() {
+
+		Map m = new HashMap();
+		m.put("testString","didididi");
+		m.put("testInt",100);
+		m.put("testInt2","100");
+		m.put("testBoolean",true);
+		ParamTestModel model = new ParamTestModel();
+		model.setAction("testAction");
+		ParamTypeModel typeModel = new ParamTypeModel();
+		typeModel.setAlarmStatus("status");
+		typeModel.setInstanceClass(10);
+		m.put("testObject",typeModel);
+
+		String d = QSStringUtil.getMapToJson(m);
+		System.out.println(d);
+		JSONObject o = QSJSONUtil.convertJSONObject(d);
+		Assert.assertNotNull(o);
+		Assert.assertEquals(QSJSONUtil.toString(o,"testString"),"didididi");
+		Assert.assertEquals(QSJSONUtil.toInt(o,"testInt2"),100);
+	}
 }

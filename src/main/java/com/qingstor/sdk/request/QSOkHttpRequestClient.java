@@ -273,30 +273,21 @@ public class QSOkHttpRequestClient {
         if (bodyContent != null && bodyContent.size() > 0) {
 
             RequestBody body = null;
-
-            Iterator iterator = bodyContent.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String key = (String) entry.getKey();
-                Object bodyObj = bodyContent.get(key);
-                if (bodyObj instanceof String) {
-                    body = RequestBody.create(mediaType, bodyObj.toString());
-                } else if (bodyObj instanceof File) {
-                    body = RequestBody.create(mediaType, (File) bodyObj);
-                } else if (bodyObj instanceof InputStream) {
-                    int contentLength = 0;
-                    if (headParams.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
-                        contentLength =
-                                Integer.parseInt(
-                                        headParams.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
-                    }
-                    body =
-                            new InputStreamUploadBody(
-                                    contentType, (InputStream) bodyObj, contentLength);
-                } else {
-                    String jsonStr = QSStringUtil.objectToJson(key, bodyObj);
-                    body = RequestBody.create(mediaType, jsonStr);
+            Object bodyObj = getBodyContent(bodyContent);
+            if (bodyObj instanceof String) {
+                body = RequestBody.create(mediaType, bodyObj.toString());
+            } else if (bodyObj instanceof File) {
+                body = RequestBody.create(mediaType, (File) bodyObj);
+            } else if (bodyObj instanceof InputStream) {
+                int contentLength = 0;
+                if (headParams.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
+                    contentLength =
+                            Integer.parseInt(
+                                    headParams.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
                 }
+                body =
+                        new InputStreamUploadBody(
+                                contentType, (InputStream) bodyObj, contentLength);
             }
             request = builder.url(singedUrl).method(method, body).build();
             //connection.getOutputStream().write(bodyContent.getBytes());
@@ -314,6 +305,21 @@ public class QSOkHttpRequestClient {
         return request;
     }
 
+    private Object getBodyContent(Map bodyContent){
+    	Iterator iterator = bodyContent.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            String key = (String) entry.getKey();
+            Object bodyObj = bodyContent.get(key);
+            if(QSConstant.PARAM_TYPE_BODYINPUTFILE.equals(key) 
+            		|| QSConstant.PARAM_TYPE_BODYINPUTSTREAM.equals(key)
+            		|| QSConstant.PARAM_TYPE_BODYINPUTSTRING.equals(key)){
+            	return bodyObj;
+            }
+        }
+        String jsonStr = QSStringUtil.getMapToJson(bodyContent);
+        return jsonStr;
+    }
     /**
      * @param method
      * @param bodyContent

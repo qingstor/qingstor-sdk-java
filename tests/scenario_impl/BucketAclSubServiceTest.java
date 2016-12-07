@@ -16,8 +16,13 @@
 
 package scenario_impl;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
+import com.qingstor.sdk.service.Types.ACLModel;
+import com.qingstor.sdk.service.Types.GranteeModel;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -50,7 +55,15 @@ public class BucketAclSubServiceTest {
         EvnContext evnContext = TestUtil.getEvnContext();
         Bucket = new Bucket(evnContext,bucketName);
         Bucket.PutBucketACLInput input = new Bucket.PutBucketACLInput();
-        input.setBodyInput(arg1);
+        ACLModel acl = new ACLModel();
+        acl.setPermission("FULL_CONTROL");
+        GranteeModel gm = new GranteeModel();
+        gm.setName("QS_ALL_USERS");
+        gm.setType("group");
+        acl.setGrantee(gm);
+        List<ACLModel> aa = new ArrayList<ACLModel>();
+        aa.add(acl);
+        input.setACL(aa);
         putBucketACLOutput = Bucket.putACL(input);
     }
 
