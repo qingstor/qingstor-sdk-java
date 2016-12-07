@@ -33,7 +33,7 @@ generate:
 	fi
 	snips \
 		--service=qingstor --service-api-version=latest \
-		--spec="./specs" --template="./template" --output="./src/main/java/com/qingcloud/sdk/service"
+		--spec="./specs" --template="./template" --output="./src/main/java/com/qingstor/sdk/service"
 	rm ./src/main/java/com/qingstor/sdk/service/Object.java
 	gradle formatGenerateCode
 	@echo "ok"

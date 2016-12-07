@@ -15,7 +15,7 @@
       }
     },
     "sub_service": {
-      "file_path": "sub_service.tmpl",
+      "file_path": "sub_services.tmpl",
       "output_file_naming": {
         "prefix": "",
         "suffix": ""

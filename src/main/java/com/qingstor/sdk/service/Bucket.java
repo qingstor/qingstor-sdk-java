@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Bucket {
     private String zone;
     private String bucketName;
@@ -3176,6 +3177,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
+        } // Check whether fetch target object has not been modified
+
+        private String xQSFetchIfUnmodifiedSince;
+
+        public void setXQSFetchIfUnmodifiedSince(String xQSFetchIfUnmodifiedSince) {
+            this.xQSFetchIfUnmodifiedSince = xQSFetchIfUnmodifiedSince;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Fetch-If-Unmodified-Since")
+        public String getXQSFetchIfUnmodifiedSince() {
+            return this.xQSFetchIfUnmodifiedSince;
         } // Fetch source, should be a valid url
 
         private String xQSFetchSource;
