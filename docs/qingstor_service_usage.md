@@ -14,13 +14,15 @@ import com.qingstor.sdk.service.*;
 Initialize the QingStor service with a configuration
 
 ```
-String bucketName = "bucketName";
-QingStor storService = new QingStor(evn, bucketName);
+String zoneName = "pek3a";
+QingStor storService = new QingStor(evn, zoneName);
+
 ```
 
 Initialize the Bucket  service
 
 ``` go
+String bucketName = "bucketName";
 Bucket bucket = storService.getBucket(bucketName);
 ```
 
@@ -29,7 +31,7 @@ InitiateMultipartUpload
 ```
 String objectName = "qing_test.apk";
 
-InitiateMultipartUploadInput inputParam = new InitiateMultipartUploadInput();
+Bucket.InitiateMultipartUploadInput inputParam = new Bucket.InitiateMultipartUploadInput();
 Bucket.InitiateMultipartUploadOutput output = bucket.initiateMultipartUpload(objectName, inputParam);
 
 // Print HTTP message.
@@ -37,6 +39,7 @@ System.out.println(output.getMessage());
 
 // Print the responce upload ID.
 System.out.println(output.getUploadID() + "");
+
         
         
 ```
@@ -61,4 +64,25 @@ String objectName = "qing_test.apk";
 bucket.initiateMultipartUpload(objectName, callback);
 
 
+```
+
+
+uploadMultipart processing：
+
+```
+
+//Please note that Multi Segmentation is based on ContentLength；it will RandomAccessFile begin from ContentLength*PartNumber
+
+
+File f = new File("upload file");
+Bucket.UploadMultipartInput inputUpload = new Bucket.UploadMultipartInput();
+inputUpload.setContentLength(6000000);// single multi part content length
+inputUpload.setBodyInputFile(f);
+inputUpload.setPartNumber(i);// part index
+inputUpload.setUploadID(initMultiOutput.getUploadID());
+Bucket.UploadMultipartOutput uploadMultipartOutput3 = bucket.uploadMultipart(multipart_upload_name,inputUpload);
+			
+			
+			
+			
 ```

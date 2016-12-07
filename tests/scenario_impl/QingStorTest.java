@@ -26,7 +26,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class QingStorServiceTest {
+public class QingStorTest {
 
 	/*Scenario: need to use QingStor service
 		    When initialize QingStor service

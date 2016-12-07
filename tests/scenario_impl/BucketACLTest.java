@@ -27,7 +27,7 @@ import com.qingstor.sdk.service.Types.GranteeModel;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class BucketAclSubServiceTest {
+public class BucketACLTest {
 
 	private Bucket Bucket;
     public static String bucketName = TestUtil.getBucketName();

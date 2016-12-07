@@ -15,7 +15,7 @@ access_key_id: 'ACCESS_KEY_ID'
 secret_access_key: 'SECRET_ACCESS_KEY'
 
 host: 'qingstor.com'
-port: 443
+port: '443'
 protocol: 'https'
 connection_retries: 3
 
@@ -48,6 +48,6 @@ Change API server
 EvnContext  moreEvn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 
 moreEvn.setProtocol("https");
-moreEvn.setHost("privatestor.com");
-moreEvn.setPort(443);
+moreEvn.setHost("qingstor.com");
+moreEvn.setPort("443");
 ```

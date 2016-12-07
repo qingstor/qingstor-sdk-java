@@ -356,6 +356,19 @@
             context.put("objectNameInput",objectName);
             {{end}}
 
+            {{if eq $belongs "QingStorService" -}}
+            {{- else -}}
+            if (QSStringUtil.isEmpty(bucketName)) {
+                throw new QSException("bucketName can't be empty!");
+            }
+            {{- end -}}
+            {{if eq $operation.Request.URI $newURI -}}
+            {{- else -}}
+            if (QSStringUtil.isEmpty(objectName)) {
+                throw new QSException("objectName can't be empty!");
+            }
+            {{- end}}
+
             OutputModel backModel = ResourceRequestFactory.getResourceRequest().sendApiRequest(context,
             {{- if $hasInput}}
                 input
@@ -414,6 +427,19 @@
             {{- else -}}
             context.put("objectNameInput",objectName);
             {{end}}
+
+            {{if eq $belongs "QingStorService" -}}
+            {{- else -}}
+            if (QSStringUtil.isEmpty(bucketName)) {
+                throw new QSException("bucketName can't be empty!");
+            }
+            {{- end -}}
+            {{if eq $operation.Request.URI $newURI -}}
+            {{- else -}}
+            if (QSStringUtil.isEmpty(objectName)) {
+                throw new QSException("objectName can't be empty!");
+            }
+            {{- end}}
 
             if(callback == null){
                 throw new QSException("callback can't be null");

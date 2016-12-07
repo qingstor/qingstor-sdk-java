@@ -60,7 +60,7 @@ public class QSException extends Exception {
 
     @Override
     public String getMessage() {
-        return getErrorMessage()
+        return super.getMessage()
                 + "; Action : "
                 + getServiceName()
                 + "; Error Code: "

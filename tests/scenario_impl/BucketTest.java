@@ -26,7 +26,7 @@ import com.qingstor.sdk.utils.Base64;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class BucketSubServiceTest {
+public class BucketTest {
 
 	private static Bucket Bucket;
 	private static String bucketName = "";

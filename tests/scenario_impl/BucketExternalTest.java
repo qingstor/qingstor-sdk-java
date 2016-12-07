@@ -25,7 +25,7 @@ import com.qingstor.sdk.utils.QSJSONUtil;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class BucketExternalSubServiceTest {
+public class BucketExternalTest {
 
 	private Bucket Bucket;
     public  String bucketName = TestUtil.getBucketName();

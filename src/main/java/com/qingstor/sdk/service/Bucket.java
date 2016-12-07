@@ -67,6 +67,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, DeleteBucketOutput.class);
@@ -96,6 +100,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         if (callback == null) {
             throw new QSException("callback can't be null");
         }
@@ -123,6 +131,10 @@ public class Bucket {
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?cors");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
@@ -153,6 +165,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?cors");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         if (callback == null) {
             throw new QSException("callback can't be null");
         }
@@ -180,6 +196,10 @@ public class Bucket {
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?mirror");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
@@ -210,6 +230,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?mirror");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         if (callback == null) {
             throw new QSException("callback can't be null");
         }
@@ -237,6 +261,10 @@ public class Bucket {
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?policy");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
@@ -266,6 +294,10 @@ public class Bucket {
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?policy");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -300,6 +332,10 @@ public class Bucket {
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>?delete");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
@@ -336,6 +372,10 @@ public class Bucket {
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>?delete");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -462,6 +502,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?acl");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, GetBucketACLOutput.class);
@@ -490,6 +534,10 @@ public class Bucket {
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?acl");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -544,6 +592,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?cors");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, GetBucketCORSOutput.class);
@@ -572,6 +624,10 @@ public class Bucket {
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?cors");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -615,6 +671,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?mirror");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, GetBucketExternalMirrorOutput.class);
@@ -643,6 +703,10 @@ public class Bucket {
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?mirror");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -686,6 +750,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?policy");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, GetBucketPolicyOutput.class);
@@ -714,6 +782,10 @@ public class Bucket {
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?policy");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -757,6 +829,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?stats");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, GetBucketStatisticsOutput.class);
@@ -785,6 +861,10 @@ public class Bucket {
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?stats");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -895,6 +975,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, HeadBucketOutput.class);
@@ -923,6 +1007,10 @@ public class Bucket {
         context.put("RequestMethod", "HEAD");
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -956,6 +1044,10 @@ public class Bucket {
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
@@ -991,6 +1083,10 @@ public class Bucket {
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1176,6 +1272,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, PutBucketOutput.class);
@@ -1204,6 +1304,10 @@ public class Bucket {
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1238,6 +1342,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?acl");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, PutBucketACLOutput.class);
@@ -1271,6 +1379,10 @@ public class Bucket {
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?acl");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1347,6 +1459,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?cors");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, PutBucketCORSOutput.class);
@@ -1381,6 +1497,10 @@ public class Bucket {
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?cors");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1458,6 +1578,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?mirror");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, PutBucketExternalMirrorOutput.class);
@@ -1493,6 +1617,10 @@ public class Bucket {
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?mirror");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1565,6 +1693,10 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>?policy");
         context.put("bucketNameInput", this.bucketName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, PutBucketPolicyOutput.class);
@@ -1599,6 +1731,10 @@ public class Bucket {
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?policy");
         context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1677,6 +1813,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, AbortMultipartUploadOutput.class);
@@ -1714,6 +1857,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1776,6 +1926,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, CompleteMultipartUploadOutput.class);
@@ -1813,6 +1970,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -1947,6 +2111,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, null, DeleteObjectOutput.class);
@@ -1976,6 +2147,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -2010,6 +2188,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
@@ -2046,6 +2231,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -2229,6 +2421,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, HeadObjectOutput.class);
@@ -2264,6 +2463,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -2446,6 +2652,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, InitiateMultipartUploadOutput.class);
@@ -2483,6 +2696,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>?uploads");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -2623,6 +2843,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, ListMultipartOutput.class);
@@ -2660,6 +2887,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -2769,6 +3003,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, OptionsObjectOutput.class);
@@ -2806,6 +3047,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -2953,6 +3201,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, PutObjectOutput.class);
@@ -2988,6 +3243,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -3270,6 +3532,13 @@ public class Bucket {
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
 
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
         OutputModel backModel =
                 ResourceRequestFactory.getResourceRequest()
                         .sendApiRequest(context, input, UploadMultipartOutput.class);
@@ -3307,6 +3576,13 @@ public class Bucket {
         context.put("RequestURI", "/<bucket-name>/<object-key>");
         context.put("bucketNameInput", this.bucketName);
         context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
 
         if (callback == null) {
             throw new QSException("callback can't be null");

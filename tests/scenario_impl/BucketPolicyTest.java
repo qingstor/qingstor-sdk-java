@@ -16,89 +16,84 @@
 
 package scenario_impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class BucketCorSubServiceTest {
+public class BucketPolicyTest {
 
-	public  String bucketName = TestUtil.getBucketName();
+	private String bucketName = TestUtil.getBucketName();
+
     private Bucket Bucket;
 
-    private Bucket.PutBucketCORSOutput putBucketCORSOutput;
-    private Bucket.GetBucketCORSOutput getBucketCORSOutput;
-    private Bucket.DeleteBucketCORSOutput deleteBucketCORSOutput;
+    private Bucket.PutBucketPolicyOutput putBucketPolicyOutput;
+    private Bucket.GetBucketPolicyOutput getBucketPolicyOutput;
+    private Bucket.DeleteBucketPolicyOutput deleteBucketPolicyOutput;
 
-    @When("^initialize the bucket CORS$")
-    public void initialize_the_bucket_CORS() throws Throwable {
+    @When("^initialize the bucket policy$")
+    public void initialize_the_bucket_policy() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
         Bucket = new Bucket(evnContext,bucketName);
     }
 
-    @Then("^the bucket CORS is initialized$")
-    public void the_bucket_CORS_is_initialized() throws Throwable {
+    @Then("^the bucket policy is initialized$")
+    public void the_bucket_policy_is_initialized() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         TestUtil.assertNotNull(this.Bucket);
     }
 
-    @When("^put bucket CORS:$")
-    public void put_bucket_CORS(String arg1) throws Throwable {
+    @When("^put bucket policy:$")
+    public void put_bucket_policy(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
         Bucket = new Bucket(evnContext,bucketName);
-        Bucket.PutBucketCORSInput input = new Bucket.PutBucketCORSInput();
-        List cors = new ArrayList();
-
+        Bucket.PutBucketPolicyInput input = new Bucket.PutBucketPolicyInput();
         input.setBodyInput(arg1);
-        putBucketCORSOutput = Bucket.putCORS(input);
+        putBucketPolicyOutput = Bucket.putPolicy(input);
     }
 
-    @Then("^put bucket CORS status code is (\\d+)$")
-    public void put_bucket_CORS_status_code_is(int arg1) throws Throwable {
+    @Then("^put bucket policy status code is (\\d+)$")
+    public void put_bucket_policy_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("put_bucket_CORS_status_code_msg:"+this.putBucketCORSOutput.getMessage());
-        TestUtil.assertEqual(this.putBucketCORSOutput.getStatueCode(),arg1);
+    	System.out.println("put_bucket_policy_status_code_is:"+this.putBucketPolicyOutput.getMessage());
+        TestUtil.assertEqual(this.putBucketPolicyOutput.getStatueCode(),arg1);
     }
 
-    @When("^get bucket CORS$")
-    public void get_bucket_CORS() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
-        getBucketCORSOutput = Bucket.getCORS();
-    }
-
-    @Then("^get bucket CORS status code is (\\d+)$")
-    public void get_bucket_CORS_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(getBucketCORSOutput.getStatueCode(),arg1);
-    }
-
-    @Then("^get bucket CORS should have allowed origin \"([^\"]*)\"$")
-    public void get_bucket_CORS_should_have_allowed_origin(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        System.out.println("get_bucket_CORS_should_have_allowed_origin_msg:"+this.getBucketCORSOutput.getMessage());
-    }
-
-    @When("^delete bucket CORS$")
-    public void delete_bucket_CORS() throws Throwable {
+    @When("^get bucket policy$")
+    public void get_bucket_policy() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
         Bucket = new Bucket(evnContext,bucketName);
-        deleteBucketCORSOutput = Bucket.deleteCORS();
+        getBucketPolicyOutput = Bucket.getPolicy();
     }
 
-
-    @Then("^delete bucket CORS status code is (\\d+)$")
-    public void delete_bucket_CORS_status_code_is(int arg1) throws Throwable {
+    @Then("^get bucket policy status code is (\\d+)$")
+    public void get_bucket_policy_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(deleteBucketCORSOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(this.getBucketPolicyOutput.getStatueCode(),arg1);
+    }
+
+    @Then("^get bucket policy should have Referer \"([^\"]*)\"$")
+    public void get_bucket_policy_should_have_Referer(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        System.out.println("get_bucket_policy_should_have_Referer:\n"+this.getBucketPolicyOutput.getStatement());
+    }
+
+    @When("^delete bucket policy$")
+    public void delete_bucket_policy() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        EvnContext evnContext = TestUtil.getEvnContext();
+        Bucket = new Bucket(evnContext,bucketName);
+        deleteBucketPolicyOutput = Bucket.deletePolicy();
+    }
+
+    @Then("^delete bucket policy status code is (\\d+)$")
+    public void delete_bucket_policy_status_code_is(int arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        TestUtil.assertEqual(this.deleteBucketPolicyOutput.getStatueCode(),arg1);
     }
 
 

@@ -39,7 +39,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.junit.Cucumber;
 
-public class ObjectMultiSubServiceTest {
+public class ObjectMultiTest {
 
 
 	private static Bucket Bucket;
