@@ -368,7 +368,13 @@ public class QSOkHttpRequestClient {
                     try {
                         rFile = new RandomAccessFile((File) bodyObj, "r");
                         rFile.seek(contentLength * partNumber);
-                        requestBody = new MulitFileuploadBody(contentType, rFile, contentLength);
+                        long contentLeft = ((File) bodyObj).length() - contentLength * (partNumber+1);
+                        int readContentLength =  contentLength;
+                        if(contentLeft < 0){
+                            readContentLength +=contentLeft;
+                            readContentLength = readContentLength > 0 ? readContentLength : 0;
+                        }
+                        requestBody = new MulitFileuploadBody(contentType, rFile, readContentLength);
                     } catch (IOException e) {
                         e.printStackTrace();
                         throw new QSException(e.getMessage());
@@ -431,7 +437,7 @@ public class QSOkHttpRequestClient {
                 sink.write(bufferOut, 0, bytes);
                 count--;
             }
-            if (count == 0 && leftCount > 0) {
+            if (count >= 0 && leftCount > 0) {
                 bufferOut = new byte[leftCount];
                 if ((bytes = file.read(bufferOut)) != -1) {
                     sink.write(bufferOut, 0, bytes);

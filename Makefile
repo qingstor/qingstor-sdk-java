@@ -46,3 +46,9 @@ unit:
 	@echo "run unit test"
 	gradle test
 	@echo "ok"
+	
+buildJar:
+	@echo "run build jar"
+	gradle buildJar
+	gradle buildIncludeDependentJar
+	@echo "ok"
