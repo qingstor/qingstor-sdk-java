@@ -295,7 +295,7 @@ public class QSOkHttpRequestClient {
             if (HttpMethod.permitsRequestBody(method)) {
                 request =
                         builder.url(singedUrl)
-                                .method(method, RequestBody.create(mediaType, ""))
+                                .method(method, new EmptyRequestBody(contentType))
                                 .build();
             } else {
                 request = builder.url(singedUrl).method(method, null).build();
@@ -303,6 +303,35 @@ public class QSOkHttpRequestClient {
         }
 
         return request;
+    }
+    
+    
+    private static class EmptyRequestBody extends RequestBody {
+
+        private String contentType;
+
+        private int contentLength=0;
+
+
+        public EmptyRequestBody(String contentType) {
+            this.contentType = contentType;
+        }
+
+        @Override
+        public long contentLength() throws IOException {
+            return this.contentLength;
+        }
+
+        @Override
+        public void writeTo(BufferedSink sink) throws IOException {
+
+        }
+
+        @Override
+        public MediaType contentType() {
+            return MediaType.parse(this.contentType);
+        }
+
     }
 
     private Object getBodyContent(Map bodyContent){
