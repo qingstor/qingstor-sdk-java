@@ -52,6 +52,7 @@ import okhttp3.internal.http.HttpMethod;
 import okio.BufferedSink;
 import org.json.JSONObject;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class QSOkHttpRequestClient {
 
     private static Logger logger =
@@ -161,8 +162,9 @@ public class QSOkHttpRequestClient {
     }
 
     /**
-     * @param singedUrl
-     * @param
+     * 
+     * @param singedUrl with singed parameter url
+     * @return
      */
     public Request buildUrlRequest(final String singedUrl) {
 
@@ -245,16 +247,18 @@ public class QSOkHttpRequestClient {
     }
 
     /**
-     * @param method
-     * @param bodyContent
-     * @param headParams
-     * @param singedUrl
+     * 
+     * @param method  request method name
+     * @param bodyContent body params
+     * @param signedUrl  with signed param url
+     * @param headParams http head params
+     * @return
      * @throws QSException
      */
     public Request buildStorRequest(
             final String method,
             final Map bodyContent,
-            final String singedUrl,
+            final String signedUrl,
             final Map headParams)
             throws QSException {
 
@@ -289,16 +293,16 @@ public class QSOkHttpRequestClient {
                         new InputStreamUploadBody(
                                 contentType, (InputStream) bodyObj, contentLength);
             }
-            request = builder.url(singedUrl).method(method, body).build();
+            request = builder.url(signedUrl).method(method, body).build();
             //connection.getOutputStream().write(bodyContent.getBytes());
         } else {
             if (HttpMethod.permitsRequestBody(method)) {
                 request =
-                        builder.url(singedUrl)
+                        builder.url(signedUrl)
                                 .method(method, new EmptyRequestBody(contentType))
                                 .build();
             } else {
-                request = builder.url(singedUrl).method(method, null).build();
+                request = builder.url(signedUrl).method(method, null).build();
             }
         }
 
@@ -334,7 +338,7 @@ public class QSOkHttpRequestClient {
 
     }
 
-    private Object getBodyContent(Map bodyContent){
+    public Object getBodyContent(Map bodyContent){
     	Iterator iterator = bodyContent.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();

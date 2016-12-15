@@ -141,36 +141,10 @@ public class BucketTest {
 		// Write code here that turns the phrase above into concrete actions
 
 		Bucket.DeleteMultipleObjectsInput input = new Bucket.DeleteMultipleObjectsInput();
-		arg1 = "{\"quiet\":false,\"objects\":[{\"key\":\"object_0\"},{\"key\":\"object_1\"},{\"key\":\"object_2\"}]}";
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(arg1.getBytes());
-			byte b[] = md.digest();
-			int i;
-			StringBuffer buf = new StringBuffer("");
-			for (int offset = 0; offset < b.length; offset++) {
-				i = b[offset];
-				if (i < 0)
-					i += 256;
-				if (i < 16)
-					buf.append("0");
-				buf.append(Integer.toHexString(i));
-			}
-			String result = buf.toString();
-			//result = MD5.getMD5ofStr(arg1);
-			String result22 = new String(Base64.encode(result.getBytes()));
-			String result22aa = new String(Base64.encode(buf.toString().substring(8, 24).getBytes()));
-			// System.out.println("MD5(" + sourceStr + ",32) = " + result);
-			// System.out.println("MD5(" + sourceStr + ",16) = " +  43319a9d9a8ec16f18b49c77cbfa2114
-			// buf.toString().substring(8, 24));					d1187de372f5180fda8a762c952e25b2
-
-		} catch (NoSuchAlgorithmException e) {
-			System.out.println(e);
-		}
-
+		input.setBodyInput(arg1);
 		// arg1.raw().get(1)
-		input.setBodyInput("{\"quiet\":false,\"objects\":[{\"key\":\"object_0\"},{\"key\":\"object_1\"},{\"key\":\"object_2\"}]}");
-		input.setContentMD5("1UK03AxvZpSNLmYR2oz4qg==");
+		//input.setBodyInput("{\"quiet\":false,\"objects\":[{\"key\":\"object_0\"},{\"key\":\"object_1\"},{\"key\":\"object_2\"}]}");
+		//input.setContentMD5("1UK03AxvZpSNLmYR2oz4qg==");
 		deleteMultipleObjectsOutput = Bucket
 				.deleteMultipleObjects(input);
 		// throw new PendingException();

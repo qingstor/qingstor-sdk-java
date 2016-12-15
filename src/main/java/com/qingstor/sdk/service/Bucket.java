@@ -386,19 +386,6 @@ public class Bucket {
 
     public static class DeleteMultipleObjectsInput extends RequestInputModel {
 
-        // Object MD5sum
-        // Required
-
-        private String contentMD5;
-
-        public void setContentMD5(String contentMD5) {
-            this.contentMD5 = contentMD5;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-MD5")
-        public String getContentMD5() {
-            return this.contentMD5;
-        }
 
         // The request body
         private String bodyInput;
@@ -437,11 +424,6 @@ public class Bucket {
 
         @Override
         public String validateParam() {
-
-            if (QSStringUtil.isEmpty(this.getContentMD5())) {
-                return QSStringUtil.getParameterRequired(
-                        "ContentMD5", "DeleteMultipleObjectsInput");
-            }
 
             if (this.getObjects() != null && this.getObjects().size() > 0) {
                 for (int i = 0; i < this.getObjects().size(); i++) {

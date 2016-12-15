@@ -39,9 +39,11 @@ public class QSConstant {
     public static final String PARAM_KEY_REQUEST_ZONE = "RequestZone";
 
     public static final String PARAM_KEY_REQUEST_API_MULTIPART = "UploadMultipart";
+    public static final String PARAM_KEY_REQUEST_API_DELETE_MULTIPART = "DeleteMultipleObjects";
     public static final String PARAM_KEY_REQUEST_APINAME = "APIName";
 
     public static final String PARAM_KEY_CONTENT_LENGTH = "Content-Length";
+    public static final String PARAM_KEY_CONTENT_MD5 = "Content-MD5";
     public static final String PARAM_KEY_USER_AGENT = "User-Agent";
     public static final String PARAM_KEY_PART_NUMBER = "part_number";
 

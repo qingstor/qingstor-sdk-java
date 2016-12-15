@@ -21,17 +21,21 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
+import com.qingstor.sdk.utils.Base64;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import okhttp3.Request;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class QSRequest implements ResourceRequest {
 
     private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSRequest.class.getName());
@@ -114,7 +118,9 @@ public class QSRequest implements ResourceRequest {
                 QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_HEADER);
 
         String requestApi = (String) context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
-
+        
+        this.initHeadContentMd5(requestApi, paramsBody, paramsHeaders);
+        
         String method = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
         String bucketName = (String) context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
         String requestPath = (String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
@@ -179,6 +185,22 @@ public class QSRequest implements ResourceRequest {
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
             return QSSignatureUtil.generateQSURL(
                     paramsQuery, String.format(storRequestUrl, bucketName) + requestSuffixPath);
+        }
+    }
+    
+    private void initHeadContentMd5(String requestApi,Map paramsBody,Map paramsHead) throws QSException {
+        if(QSConstant.PARAM_KEY_REQUEST_API_DELETE_MULTIPART.equals(requestApi)){
+            if(paramsBody.size() > 0 ){
+                Object bodyContent = QSOkHttpRequestClient.getInstance().getBodyContent(paramsBody);
+                MessageDigest instance = null;
+                try {
+                    instance = MessageDigest.getInstance("MD5");
+                } catch (NoSuchAlgorithmException e) {
+                    throw new QSException("MessageDigest MD5 error",e);
+                }
+                String contentMD5 = new String(Base64.encode(instance.digest(bodyContent.toString().getBytes())));
+                paramsHead.put(QSConstant.PARAM_KEY_CONTENT_MD5,contentMD5);
+            }
         }
     }
 }
