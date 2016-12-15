@@ -3,6 +3,7 @@ build
 .gradle
 .recommenders
 .metadata
+target
 bin
 AUTHORS
 config.yaml
