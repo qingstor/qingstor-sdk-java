@@ -41,6 +41,12 @@ public class TestUtil {
         }
     }
 
+    public static void assertEqual(String i,String j) throws Exception{
+        if(!i.equals(j)){
+            throw new Exception(i + " is not equal "+j);
+        }
+    }
+    
     public static EvnContext getEvnContext(){
     	return EvnContext.loadFromFile("config.yaml");
     }

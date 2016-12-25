@@ -140,6 +140,17 @@ public class Types {
 
     public static class ConditionModel extends RequestInputModel {
 
+        private IPAddressModel iPAddress;
+
+        public void setIPAddress(IPAddressModel iPAddress) {
+            this.iPAddress = iPAddress;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "ip_address")
+        public IPAddressModel getIPAddress() {
+            return this.iPAddress;
+        }
+
         private IsNullModel isNull;
 
         public void setIsNull(IsNullModel isNull) {
@@ -149,6 +160,17 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "is_null")
         public IsNullModel getIsNull() {
             return this.isNull;
+        }
+
+        private NotIPAddressModel notIPAddress;
+
+        public void setNotIPAddress(NotIPAddressModel notIPAddress) {
+            this.notIPAddress = notIPAddress;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "not_ip_address")
+        public NotIPAddressModel getNotIPAddress() {
+            return this.notIPAddress;
         }
 
         private StringLikeModel stringLike;
@@ -176,8 +198,22 @@ public class Types {
         @Override
         public String validateParam() {
 
+            if (this.getIPAddress() != null) {
+                String vValidate = this.getIPAddress().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+
             if (this.getIsNull() != null) {
                 String vValidate = this.getIsNull().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+
+            if (this.getNotIPAddress() != null) {
+                String vValidate = this.getNotIPAddress().validateParam();
                 if (!QSStringUtil.isEmpty(vValidate)) {
                     return vValidate;
                 }
@@ -334,6 +370,28 @@ public class Types {
         }
     }
 
+    public static class IPAddressModel extends RequestInputModel {
+
+        // Source IP
+
+        private List<String> sourceIP;
+
+        public void setSourceIP(List<String> sourceIP) {
+            this.sourceIP = sourceIP;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "source_ip")
+        public List<String> getSourceIP() {
+            return this.sourceIP;
+        }
+
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
     public static class IsNullModel extends RequestInputModel {
 
         // Refer url
@@ -468,6 +526,28 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "message")
         public String getMessage() {
             return this.message;
+        }
+
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
+    public static class NotIPAddressModel extends RequestInputModel {
+
+        // Source IP
+
+        private List<String> sourceIP;
+
+        public void setSourceIP(List<String> sourceIP) {
+            this.sourceIP = sourceIP;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "source_ip")
+        public List<String> getSourceIP() {
+            return this.sourceIP;
         }
 
         @Override

@@ -184,12 +184,12 @@ public class QSSignatureUtil {
                 }
 
                 try {
-                    canonicalized_query += URLEncoder.encode(key, ENCODING);
+                    canonicalized_query += key;
                     String value = params.get(key);
                     if (!value.isEmpty()) {
-                        canonicalized_query += "=" + URLEncoder.encode(value, ENCODING);
+                        canonicalized_query += "=" + value;
                     }
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -242,7 +242,13 @@ public class QSSignatureUtil {
                             put("policy", "policy");
                             put("stats", "stats");
                             put("upload_id", "upload_id");
-                            put("uploads", "uploads");
+                            
+                            put("response-expires", "response-expires");
+                            put("response-cache-control", "response-cache-control");
+                            put("response-content-type", "response-content-type");
+                            put("response-content-language", "response-content-language");
+                            put("response-content-encoding", "response-content-encoding");
+                            put("response-content-disposition", "response-content-disposition");
                         }
                     };
         }
