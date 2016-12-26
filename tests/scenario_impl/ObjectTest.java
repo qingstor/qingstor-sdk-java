@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.service.Bucket;
 
 import cucumber.api.java.en.Then;
@@ -42,6 +43,7 @@ public class ObjectTest {
     private static Bucket.PutObjectOutput objectOutput;
     private static Bucket.PutObjectOutput copyOutput;
     private static Bucket.PutObjectOutput moveOutput;
+    private static Bucket.GetObjectOutput getContentTypeOutput;
 
     private static Bucket.PutObjectOutput putObjectOutput;
     private static Bucket.GetObjectOutput getObjectOutput;
@@ -55,6 +57,7 @@ public class ObjectTest {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
         subService = new Bucket(evnContext,bucketName);
+        evnContext.setLog_level(QSConstant.LOGGER_INFO);
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         //objectOutput = subService.PutObject(arg1,input);
         test_object =arg1;
@@ -101,11 +104,12 @@ public class ObjectTest {
     public void put_object_with_key(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
+        evnContext.setLog_level(QSConstant.LOGGER_INFO);
         subService = new Bucket(evnContext,bucketName);
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         File f = new File("config.yaml");
         input.setBodyInputFile(f);
-        input.setContentType("text/plain");
+        input.setContentType("video/mp4; charset=utf8");
         input.setContentLength((int) f.length());
         this.test_object = arg1;
         putObjectOutput = subService.putObject(test_object,input);
@@ -216,6 +220,21 @@ public class ObjectTest {
         }
         System.out.println("get_object_with_query_signature_length:"+iLength);
     }
+    
+    @When("^get object with content type \"([^\"]*)\"$")
+    public void get_object_with_content_type(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+    	Bucket.GetObjectInput input = new Bucket.GetObjectInput();
+    	input.setResponseContentType(arg1);
+    	getContentTypeOutput = subService.getObject(test_object, input);
+    }
+
+    @Then("^get object content type is \"([^\"]*)\"$")
+    public void get_object_content_type_is(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+    	TestUtil.assertEqual(arg1,getContentTypeOutput.getResponseContentType());
+    }
+    
 
     @When("^head object$")
     public void head_object() throws Throwable {

@@ -15,6 +15,7 @@ test:
 	@if [[ ! -f "$$(which javac)" ]]; then \
 		echo "ERROR: Command \"javac\" not found."; \
 	fi
+	rm build/libs/qingstor*test*.jar
 	gradle buildTestJar
 	mkdir tests/jars
 	cp build/libs/qingstor*test*.jar tests/jars/

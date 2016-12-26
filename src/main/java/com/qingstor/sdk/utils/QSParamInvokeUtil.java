@@ -150,7 +150,8 @@ public class QSParamInvokeUtil {
             } else if (value instanceof Integer
                     || value instanceof Long
                     || value instanceof Float
-                    || value instanceof Double) {
+                    || value instanceof Double
+                    || value instanceof Boolean) {
                 result.put(key, String.valueOf(value));
             } else {
                 result.put(key, value);

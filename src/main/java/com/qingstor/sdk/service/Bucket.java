@@ -2229,6 +2229,73 @@ public class Bucket {
     }
 
     public static class GetObjectInput extends RequestInputModel {
+        // Specified the Cache-Control response header
+
+        private String responseCacheControl;
+
+        public void setResponseCacheControl(String responseCacheControl) {
+            this.responseCacheControl = responseCacheControl;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-cache-control")
+        public String getResponseCacheControl() {
+            return this.responseCacheControl;
+        } // Specified the Content-Disposition response header
+
+        private String responseContentDisposition;
+
+        public void setResponseContentDisposition(String responseContentDisposition) {
+            this.responseContentDisposition = responseContentDisposition;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-disposition")
+        public String getResponseContentDisposition() {
+            return this.responseContentDisposition;
+        } // Specified the Content-Encoding response header
+
+        private String responseContentEncoding;
+
+        public void setResponseContentEncoding(String responseContentEncoding) {
+            this.responseContentEncoding = responseContentEncoding;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-encoding")
+        public String getResponseContentEncoding() {
+            return this.responseContentEncoding;
+        } // Specified the Content-Language response header
+
+        private String responseContentLanguage;
+
+        public void setResponseContentLanguage(String responseContentLanguage) {
+            this.responseContentLanguage = responseContentLanguage;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-language")
+        public String getResponseContentLanguage() {
+            return this.responseContentLanguage;
+        } // Specified the Content-Type response header
+
+        private String responseContentType;
+
+        public void setResponseContentType(String responseContentType) {
+            this.responseContentType = responseContentType;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-type")
+        public String getResponseContentType() {
+            return this.responseContentType;
+        } // Specified the Expires response header
+
+        private String responseExpires;
+
+        public void setResponseExpires(String responseExpires) {
+            this.responseExpires = responseExpires;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-expires")
+        public String getResponseExpires() {
+            return this.responseExpires;
+        }
 
         // Check whether the ETag matches
 
@@ -2354,6 +2421,76 @@ public class Bucket {
             return this.contentRange;
         } // MD5sum of the object
 
+        // Specified the Cache-Control response header
+
+        private String responseCacheControl;
+
+        public void setResponseCacheControl(String responseCacheControl) {
+            this.responseCacheControl = responseCacheControl;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Cache-Control")
+        public String getResponseCacheControl() {
+            return this.responseCacheControl;
+        } // Specified the Content-Disposition response header
+
+        private String responseContentDisposition;
+
+        public void setResponseContentDisposition(String responseContentDisposition) {
+            this.responseContentDisposition = responseContentDisposition;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Disposition")
+        public String getResponseContentDisposition() {
+            return this.responseContentDisposition;
+        } // Specified the Content-Encoding response header
+
+        private String responseContentEncoding;
+
+        public void setResponseContentEncoding(String responseContentEncoding) {
+            this.responseContentEncoding = responseContentEncoding;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Encoding")
+        public String getResponseContentEncoding() {
+            return this.responseContentEncoding;
+        } // Specified the Content-Language response header
+
+        private String responseContentLanguage;
+
+        public void setResponseContentLanguage(String responseContentLanguage) {
+            this.responseContentLanguage = responseContentLanguage;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Language")
+        public String getResponseContentLanguage() {
+            return this.responseContentLanguage;
+        } // Specified the Content-Type response header
+
+        private String responseContentType;
+
+        public void setResponseContentType(String responseContentType) {
+            this.responseContentType = responseContentType;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Type")
+        public String getResponseContentType() {
+            return this.responseContentType;
+        } // Specified the Expires response header
+
+        private String responseExpires;
+
+        public void setResponseExpires(String responseExpires) {
+            this.responseExpires = responseExpires;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Expires")
+        public String getResponseExpires() {
+            return this.responseExpires;
+        }
+
+
+        
         private String eTag;
 
         public void setETag(String eTag) {
