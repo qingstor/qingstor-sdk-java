@@ -264,7 +264,11 @@ public class QSSignatureUtil {
     public static String formatGmtDate(Date date) {
         SimpleDateFormat df = new SimpleDateFormat(GMT_DATE_FORMAT, Locale.US);
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        return df.format(date);
+        String dateStr = df.format(date);
+        if(dateStr.indexOf("+")>0){
+            return dateStr.substring(0,dateStr.indexOf("+"));
+        }
+        return dateStr;
     }
 
     public static String getObjectAuthRequestUrl(
