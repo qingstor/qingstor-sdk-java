@@ -17,8 +17,8 @@ Before your start, please login [QingCloud Console](https://console.qingcloud.co
 ___API AccessKey Example:___
 
 ``` yaml
-qy_access_key_id: ACCESS_KEY_ID_EXAMPLE
-qy_secret_access_key: SECRET_ACCESS_KEY_EXAMPLE
+access_key_id: ACCESS_KEY_ID_EXAMPLE
+secret_access_key: SECRET_ACCESS_KEY_EXAMPLE
 ```
 
 ### Usage
