@@ -146,7 +146,7 @@ public class QSRequest implements ResourceRequest {
                         requestPath,
                         paramsQuery,
                         paramsHeaders);
-        String requestSuffixPath = requestPath.replace("/" + bucketName, "");
+        String requestSuffixPath = getRequestSuffixPath(requestPath,bucketName);
         paramsHeaders.put("Authorization", authSign);
         logger.log(Level.INFO, authSign);
         String singedUrl =
@@ -172,6 +172,13 @@ public class QSRequest implements ResourceRequest {
         }
     }
 
+    private String getRequestSuffixPath(String requestPath,String bucketName){
+        if(QSStringUtil.isEmpty(bucketName)){
+            return requestPath;
+        }
+        return requestPath.substring(bucketName.length()+1,requestPath.length());
+    }
+    
     private static String getSignedUrl(
             String serviceUrl,
             String zone,
