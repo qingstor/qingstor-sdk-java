@@ -61,7 +61,8 @@ ResponseCallBack callback = new ResponseCallBack<Bucket.InitiateMultipartUploadO
 
 String objectName = "qing_test.apk";
 
-bucket.initiateMultipartUpload(objectName, callback);
+Bucket.InitiateMultipartUploadInput input = new Bucket.InitiateMultipartUploadInput();
+bucket.initiateMultipartUploadAsync(objectName,input, callback);
 
 
 ```
