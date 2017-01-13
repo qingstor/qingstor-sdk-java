@@ -1,5 +1,5 @@
 # Change Log
-All notable changes to QingStor SDK for Go will be documented in this file.
+All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 ## [v2.1.2] - 2017-01-13
 
@@ -39,7 +39,7 @@ All notable changes to QingStor SDK for Go will be documented in this file.
 
 ### Added
 
-- QingStor SDK for the Go programming language.
+- QingStor SDK for the JAVA programming language.
 
 [v2.1.2]: https://github.com/yunify/qingstor-sdk-java/compare/v2.1.1...v2.1.2
 [v2.1.1]: https://github.com/yunify/qingstor-sdk-java/compare/v2.1.0...v2.1.1
