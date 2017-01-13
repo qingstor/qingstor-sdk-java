@@ -10,6 +10,11 @@ The official QingStor SDK for the Java programming language.
 
 ## Getting Started
 
+### Installation
+
+Refer to the [Installation Guide](docs/installation.md), and have this SDK installed.
+
+
 ### Preparation
 
 Before your start, please login [QingCloud Console](https://console.qingcloud.com/access_keys/) to create a pair of QingCloud API AccessKey.
