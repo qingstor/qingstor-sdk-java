@@ -87,3 +87,32 @@ Bucket.UploadMultipartOutput uploadMultipartOutput3 = bucket.uploadMultipart(mul
 			
 			
 ```
+
+
+### Android Example
+
+```
+
+EvnContext evn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+        QingStor storService = new QingStor(evn);
+        try {
+            Bucket bucket = storService.getBucket(bucketName, zoneId);
+            
+            Bucket.PutObjectInput input = new Bucket.PutObjectInput();
+            File f = new File(path);
+            input.setBodyInputFile(f);
+            input.setContentType("text/plain");
+            input.setContentLength((int) f.length());
+            bucket.putObjectAsync(putFileName, input, new ResponseCallBack<Bucket.PutObjectOutput>() {
+                @Override
+                public void onAPIResponse(Bucket.PutObjectOutput putObjectOutput) throws QSException {
+                    
+                }
+            });
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
+        	
+			
+			
+```

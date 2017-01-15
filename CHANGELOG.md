@@ -3,11 +3,9 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 ## [v2.1.2] - 2017-01-13
 
-### Changed
+### Fixed
 
-- Fix ：Object name is contain the same as the bucket name will get error suffix path.
-- Reference document modification.
-- Add CHANGLELOG and Installation guide.
+- Object name is contain the same as the bucket name will get error suffix path.
 
 
 ## [v2.1.1] - 2016-12-28
@@ -19,15 +17,15 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 ## [v2.1.0] - 2016-12-25
 
-### Changed
-
-- Fix signer bug.
-- Add more parameters to sign.
-
 ### Added
 
 - Add request parameters for GET Object.
 - Add IP address conditions for bucket policy.
+- Add more parameters to sign.
+
+### Fixed
+
+- Fix signer bug.
 
 ## [v2.0.1] - 2016-12-15
 
@@ -41,8 +39,8 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 - QingStor SDK for the JAVA programming language.
 
-[v2.1.2]: https://github.com/yunify/qingstor-sdk-java/compare/v2.1.1...v2.1.2
-[v2.1.1]: https://github.com/yunify/qingstor-sdk-java/compare/v2.1.0...v2.1.1
-[v2.1.0]: https://github.com/yunify/qingstor-sdk-java/compare/v2.0.1...v2.1.0
-[v2.0.1]: https://github.com/yunify/qingstor-sdk-java/compare/v2.0.0...v2.0.1
-[v2.0.0]: https://github.com/yunify/qingstor-sdk-java/compare/v2.0.0...v2.0.0
+[v2.1.2]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.1...2.1.2
+[v2.1.1]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.0...2.1.1
+[v2.1.0]: https://github.com/yunify/qingstor-sdk-java/compare/2.0.1...2.1.0
+[v2.0.1]: https://github.com/yunify/qingstor-sdk-java/compare/2.0.0...2.0.1
+
