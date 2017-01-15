@@ -300,7 +300,7 @@
 
 	{{$opID := $operation.ID | camelCase}}
 
-	{{$newURI := replace $operation.Request.URI "<object-key>" "replace" -1}}
+	{{$newURI := replace $operation.Request.URI "{objectKey}" "replace" -1}}
     {{$hasParams := gt (len $operation.Request.Params.Properties) 0}}
     {{$hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
     {{$hasElements := gt (len $operation.Request.Elements.Properties) 0}}
@@ -342,6 +342,12 @@
                     input = new {{$opID}}Input();
                 }
             {{end}}
+            
+			{{$uri := $operation.Request.URI}}
+			{{$uri := replace $uri "{" "<" -1}}
+			{{$uri := replace $uri "}" ">" -1}}
+			{{$uri := dashConnected $uri}}
+	 
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
             context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
@@ -349,7 +355,7 @@
             context.put("APIName","{{$opID}}");
             context.put("ServiceName","{{$operation.Name}}");
             context.put("RequestMethod","{{$operation.Request.Method}}");
-            context.put("RequestURI","{{$operation.Request.URI}}");
+            context.put("RequestURI","{{$uri}}");
             context.put("bucketNameInput",this.bucketName);
             {{if eq $operation.Request.URI $newURI}}
             {{- else -}}
@@ -414,6 +420,12 @@
                     input = new {{$opID}}Input();
                 }
             {{end}}
+            
+            {{$uri := $operation.Request.URI}}
+	 		{{$uri := replace $uri "{" "<" -1}}
+	 		{{$uri := replace $uri "}" ">" -1}}
+	 		{{$uri := dashConnected $uri}}
+	 		
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
             context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
@@ -421,7 +433,7 @@
             context.put("APIName","{{$opID}}");
             context.put("ServiceName","{{$operation.Name}}");
             context.put("RequestMethod","{{$operation.Request.Method}}");
-            context.put("RequestURI","{{$operation.Request.URI}}");
+            context.put("RequestURI","{{$uri}}");
             context.put("bucketNameInput",this.bucketName);
             {{if eq $operation.Request.URI $newURI}}
             {{- else -}}
