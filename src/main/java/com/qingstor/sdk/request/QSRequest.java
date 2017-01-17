@@ -26,6 +26,7 @@ import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -33,12 +34,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import okhttp3.Request;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSRequest implements ResourceRequest {
 
     private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSRequest.class.getName());
+
+    private static final String REQUEST_PREFIX = "/";
 
     @Override
     public void sendApiRequestAsync(
@@ -118,22 +122,17 @@ public class QSRequest implements ResourceRequest {
                 QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_HEADER);
 
         String requestApi = (String) context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
-        
+
         this.initHeadContentMd5(requestApi, paramsBody, paramsHeaders);
-        
+
         String method = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
         String bucketName = (String) context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
         String requestPath = (String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
 
+        String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
         if (context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
             requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName);
-            String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
-            try {
-                objectName = URLEncoder.encode(objectName, QSConstant.ENCODING_UTF8);
-            } catch (UnsupportedEncodingException e) {
-                throw new QSException("Auth signature error", e);
-            }
-            requestPath = requestPath.replace(QSConstant.OBJECT_NAME_REPLACE, objectName);
+            requestPath = requestPath.replace(QSConstant.OBJECT_NAME_REPLACE, QSStringUtil.chineseCharactersEncoding(objectName));
         } else {
             requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName + "/");
         }
@@ -146,7 +145,7 @@ public class QSRequest implements ResourceRequest {
                         requestPath,
                         paramsQuery,
                         paramsHeaders);
-        String requestSuffixPath = getRequestSuffixPath(requestPath,bucketName);
+        String requestSuffixPath = getRequestSuffixPath((String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH), bucketName, objectName);
         paramsHeaders.put("Authorization", authSign);
         logger.log(Level.INFO, authSign);
         String singedUrl =
@@ -172,13 +171,27 @@ public class QSRequest implements ResourceRequest {
         }
     }
 
-    private String getRequestSuffixPath(String requestPath,String bucketName){
-        if(QSStringUtil.isEmpty(bucketName)){
-            return requestPath;
+    private String getRequestSuffixPath(String requestPath, String bucketName, String objectName) throws QSException {
+        if (QSStringUtil.isEmpty(bucketName)) {
+            return REQUEST_PREFIX;
         }
-        return requestPath.substring(bucketName.length()+1,requestPath.length());
+        String suffixPath = requestPath.replace(REQUEST_PREFIX + QSConstant.BUCKET_NAME_REPLACE, "").replace(REQUEST_PREFIX + QSConstant.OBJECT_NAME_REPLACE, "");
+        if (QSStringUtil.isEmpty(objectName)) {
+            objectName = "";
+        } else {
+            try {
+                objectName = URLEncoder.encode(objectName, QSConstant.ENCODING_UTF8).replace("%2F", REQUEST_PREFIX);
+            } catch (UnsupportedEncodingException e) {
+                logger.log(Level.FINEST, e.getMessage());
+                throw new QSException("Auth signature error", e);
+            }
+        }
+
+        return REQUEST_PREFIX + objectName + suffixPath;
     }
+
     
+
     private static String getSignedUrl(
             String serviceUrl,
             String zone,
@@ -194,19 +207,19 @@ public class QSRequest implements ResourceRequest {
                     paramsQuery, String.format(storRequestUrl, bucketName) + requestSuffixPath);
         }
     }
-    
-    private void initHeadContentMd5(String requestApi,Map paramsBody,Map paramsHead) throws QSException {
-        if(QSConstant.PARAM_KEY_REQUEST_API_DELETE_MULTIPART.equals(requestApi)){
-            if(paramsBody.size() > 0 ){
+
+    private void initHeadContentMd5(String requestApi, Map paramsBody, Map paramsHead) throws QSException {
+        if (QSConstant.PARAM_KEY_REQUEST_API_DELETE_MULTIPART.equals(requestApi)) {
+            if (paramsBody.size() > 0) {
                 Object bodyContent = QSOkHttpRequestClient.getInstance().getBodyContent(paramsBody);
                 MessageDigest instance = null;
                 try {
                     instance = MessageDigest.getInstance("MD5");
                 } catch (NoSuchAlgorithmException e) {
-                    throw new QSException("MessageDigest MD5 error",e);
+                    throw new QSException("MessageDigest MD5 error", e);
                 }
                 String contentMD5 = new String(Base64.encode(instance.digest(bodyContent.toString().getBytes())));
-                paramsHead.put(QSConstant.PARAM_KEY_CONTENT_MD5,contentMD5);
+                paramsHead.put(QSConstant.PARAM_KEY_CONTENT_MD5, contentMD5);
             }
         }
     }

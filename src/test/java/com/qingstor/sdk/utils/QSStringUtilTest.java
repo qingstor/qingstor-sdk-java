@@ -17,6 +17,7 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,4 +70,21 @@ public class QSStringUtilTest {
 		Assert.assertEquals(QSJSONUtil.toString(o,"testString"),"didididi");
 		Assert.assertEquals(QSJSONUtil.toInt(o,"testInt2"),100);
 	}
+    
+    
+    @Test
+    public void testChineseCharactersEncoding() {
+        String req;
+		try {
+			req = QSStringUtil.chineseCharactersEncoding("中文编码测试/{}-==辛苦、");
+			System.out.println(req);
+			Assert.assertEquals(req.indexOf("{}") > 0, true);
+	        Assert.assertEquals(req.indexOf("中文编码") == -1, true);
+		} catch (QSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+    }
+    
 }

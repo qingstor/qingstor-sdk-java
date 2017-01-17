@@ -58,15 +58,14 @@ public class QSException extends Exception {
         this.errorMessage = errorMessage;
     }
 
-    @Override
-    public String getMessage() {
-        return super.getMessage()
-                + "; Action : "
-                + getServiceName()
-                + "; Error Code: "
-                + getErrorCode()
-                + "; Error Message: "
-                + getErrorMessage()
-                + ")";
-    }
+	@Override
+	public String getMessage() {
+		String cause = super.getMessage();
+		if (getCause() != null) {
+			cause += "\n" + getCause().getMessage();
+		}
+		return getErrorMessage() + "; Action : " + getServiceName() + "; Error Code: " + getErrorCode()
+				+ "; Error Message: " + cause + ")";
+	}
+
 }

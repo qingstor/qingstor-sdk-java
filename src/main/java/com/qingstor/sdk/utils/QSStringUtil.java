@@ -17,11 +17,14 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 /** Created by on 11/4/15. */
 public class QSStringUtil {
@@ -136,5 +139,32 @@ public class QSStringUtil {
         return String.format(
                 "%s value %s is not allowed, should be one of %s ",
                 paraName, value, buf.toString());
+    }
+    
+    /**
+     * Chinese characters transform
+     *
+     * @param str
+     * @return
+     */
+    public static String chineseCharactersEncoding(String str) throws QSException {
+        if (QSStringUtil.isEmpty(str)) {
+            return "";
+        }
+        StringBuffer buffer = new StringBuffer();
+        try {
+            String chinese = "[\u0391-\uFFE5]";
+            for (int i = 0; i < str.length(); i++) {
+                String temp = str.substring(i, i + 1);
+                if (temp.matches(chinese)) {
+                    buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
+                } else {
+                    buffer.append(temp);
+                }
+            }
+            return buffer.toString();
+        } catch (UnsupportedEncodingException e) {
+            throw new QSException("UnsupportedEncodingException:", e);
+        }
     }
 }
