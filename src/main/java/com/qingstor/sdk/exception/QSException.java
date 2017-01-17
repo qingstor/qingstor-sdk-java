@@ -64,8 +64,7 @@ public class QSException extends Exception {
 		if (getCause() != null) {
 			cause += "\n" + getCause().getMessage();
 		}
-		return getErrorMessage() + "; Action : " + getServiceName() + "; Error Code: " + getErrorCode()
-				+ "; Error Message: " + cause + ")";
+		return String.format("Error Code: %s; Error Message: %s",getErrorCode(),cause) ;
 	}
 
 }

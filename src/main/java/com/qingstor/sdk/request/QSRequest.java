@@ -179,15 +179,10 @@ public class QSRequest implements ResourceRequest {
         if (QSStringUtil.isEmpty(objectName)) {
             objectName = "";
         } else {
-            try {
-                objectName = URLEncoder.encode(objectName, QSConstant.ENCODING_UTF8).replace("%2F", REQUEST_PREFIX);
-            } catch (UnsupportedEncodingException e) {
-                logger.log(Level.FINEST, e.getMessage());
-                throw new QSException("Auth signature error", e);
-            }
+        	objectName = QSStringUtil.chineseCharactersEncoding(objectName);
         }
 
-        return REQUEST_PREFIX + objectName + suffixPath;
+        return String.format("%s%s%s", REQUEST_PREFIX, objectName, suffixPath);
     }
 
     
