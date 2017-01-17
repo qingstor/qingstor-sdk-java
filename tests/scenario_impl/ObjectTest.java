@@ -35,6 +35,8 @@ public class ObjectTest {
 
     private static Bucket subService;
     private static String bucketName = TestUtil.getBucketName();
+    private static String chinesePrefix = "中文测试/";
+    private static String chineseSuffix = "/中文test";
     private static String test_object = "";
     private static String test_object_copy = "";
     private static String test_object_move = "";
@@ -111,14 +113,14 @@ public class ObjectTest {
         input.setBodyInputFile(f);
         input.setContentType("video/mp4; charset=utf8");
         input.setContentLength((int) f.length());
-        this.test_object = arg1;
+        this.test_object = chinesePrefix+arg1+chineseSuffix;
         putObjectOutput = subService.putObject(test_object,input);
     }
 
     @Then("^put object status code is (\\d+)$")
     public void put_object_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("put_object_status_code_msg:"+this.putObjectOutput.getMessage());
+        System.out.println("put_object_status_code_msg:"+this.putObjectOutput.getMessage()+test_object);
         TestUtil.assertEqual(putObjectOutput.getStatueCode(),arg1);
     }
 

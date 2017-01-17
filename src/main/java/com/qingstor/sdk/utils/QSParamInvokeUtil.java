@@ -43,11 +43,9 @@ public class QSParamInvokeUtil {
                     initParameterMap(tmpClass, model, retParametersMap, paramType);
                     tmpClass = tmpClass.getSuperclass();
                 }
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
+            } 
         }
         if (QSConstant.PARAM_TYPE_HEADER.equals(paramType)) {
             if (!retParametersMap.containsKey(QSConstant.HEADER_PARAM_KEY_DATE)) {
@@ -65,7 +63,7 @@ public class QSParamInvokeUtil {
     @SuppressWarnings("PARAMETER")
     private static void initParameterMap(
             Class objClass, Object source, Map retParametersMap, String paramType)
-            throws InvocationTargetException, IllegalAccessException {
+            throws InvocationTargetException, IllegalAccessException, QSException {
         Field[] declaredField = objClass.getDeclaredFields();
         for (Field field : declaredField) {
             String methodName = "get" + capitalize(field.getName());
@@ -96,7 +94,7 @@ public class QSParamInvokeUtil {
 
     private static void setParameterToMap(
             Method m, Object source, Map retParametersMap, String paramKey)
-            throws InvocationTargetException, IllegalAccessException {
+            throws InvocationTargetException, IllegalAccessException, QSException {
         Object[] invokeParams = null;
         Object objValue = m.invoke(source, invokeParams);
         if (objValue != null) {
@@ -107,8 +105,9 @@ public class QSParamInvokeUtil {
                     || cls.equals(Long.class)
                     || cls.equals(Float.class)) {
                 retParametersMap.put(paramKey, objValue + "");
-            } else {
-
+            } else if(cls.equals(String.class)){
+                retParametersMap.put(paramKey, QSStringUtil.chineseCharactersEncoding(objValue+""));
+            }else {
                 retParametersMap.put(paramKey, objValue);
             }
         }
