@@ -153,10 +153,9 @@ public class QSStringUtil {
         }
         StringBuffer buffer = new StringBuffer();
         try {
-            String chinese = "[\u0391-\uFFE5]";
             for (int i = 0; i < str.length(); i++) {
                 String temp = str.substring(i, i + 1);
-                if (temp.matches(chinese)) {
+                if (temp.getBytes().length>1) {
                     buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
                 } else {
                     buffer.append(temp);
