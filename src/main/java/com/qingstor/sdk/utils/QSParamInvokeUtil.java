@@ -106,7 +106,7 @@ public class QSParamInvokeUtil {
                     || cls.equals(Float.class)) {
                 retParametersMap.put(paramKey, objValue + "");
             } else if(cls.equals(String.class)){
-                retParametersMap.put(paramKey, QSStringUtil.chineseCharactersEncoding(objValue+""));
+                retParametersMap.put(paramKey, QSStringUtil.asciiCharactersEncoding(objValue+""));
             }else {
                 retParametersMap.put(paramKey, objValue);
             }

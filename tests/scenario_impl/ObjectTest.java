@@ -36,7 +36,7 @@ public class ObjectTest {
     private static Bucket subService;
     private static String bucketName = TestUtil.getBucketName();
     private static String chinesePrefix = "中文测试/";
-    private static String chineseSuffix = "/中文test";
+    private static String chineseSuffix = "/中 文test";
     private static String test_object = "";
     private static String test_object_copy = "";
     private static String test_object_move = "";
