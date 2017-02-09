@@ -97,7 +97,7 @@ public class QSJSONUtil {
     }
 
     public static Double toDouble(JSONArray labelDatas, int i) {
-        if (labelDatas == null || labelDatas.length() >= i) return 0.0;
+        if (labelDatas == null || labelDatas.length() <= i) return 0.0;
         double rst = 0;
         try {
             rst = labelDatas.getDouble(i);

@@ -513,9 +513,15 @@ public class QSOkHttpRequestClient {
             byte[] bufferOut = new byte[readSize];
             int count = contentLength / readSize;
             int leftCount = contentLength % readSize;
+            int iReadLength = 0;
             while (count > 0 && (bytes = file.read(bufferOut)) != -1) {
                 sink.write(bufferOut, 0, bytes);
                 count--;
+                iReadLength += bytes;
+                if(bytes != readSize){
+                    count = (contentLength - iReadLength)/readSize;
+                    leftCount = (contentLength - iReadLength) % readSize;
+                }
             }
             if (count == 0 && leftCount > 0) {
                 bufferOut = new byte[leftCount];
