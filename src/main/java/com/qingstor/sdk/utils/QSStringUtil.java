@@ -147,7 +147,7 @@ public class QSStringUtil {
      * @param str
      * @return
      */
-    public static String chineseCharactersEncoding(String str) throws QSException {
+    public static String asciiCharactersEncoding(String str) throws QSException {
         if (QSStringUtil.isEmpty(str)) {
             return "";
         }
@@ -157,6 +157,35 @@ public class QSStringUtil {
                 String temp = str.substring(i, i + 1);
                 if (temp.getBytes().length>1) {
                     buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
+                } else {
+                    buffer.append(temp);
+                }
+            }
+            return buffer.toString();
+        } catch (UnsupportedEncodingException e) {
+            throw new QSException("UnsupportedEncodingException:", e);
+        }
+    }
+    
+    
+    /**
+     * urlpath characters transform
+     *
+     * @param str
+     * @return
+     */
+    public static String urlCharactersEncoding(String str) throws QSException {
+        if (QSStringUtil.isEmpty(str)) {
+            return "";
+        }
+        StringBuffer buffer = new StringBuffer();
+        try {
+            for (int i = 0; i < str.length(); i++) {
+                String temp = str.substring(i, i + 1);
+                if (temp.getBytes().length>1) {
+                    buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
+                } else if(" ".equals(temp)){
+                	buffer.append("%20");
                 } else {
                     buffer.append(temp);
                 }

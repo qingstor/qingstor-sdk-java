@@ -132,7 +132,7 @@ public class QSRequest implements ResourceRequest {
         String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
         if (context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
             requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName);
-            requestPath = requestPath.replace(QSConstant.OBJECT_NAME_REPLACE, QSStringUtil.chineseCharactersEncoding(objectName));
+            requestPath = requestPath.replace(QSConstant.OBJECT_NAME_REPLACE, QSStringUtil.urlCharactersEncoding(objectName));
         } else {
             requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName + "/");
         }
@@ -179,7 +179,7 @@ public class QSRequest implements ResourceRequest {
         if (QSStringUtil.isEmpty(objectName)) {
             objectName = "";
         } else {
-        	objectName = QSStringUtil.chineseCharactersEncoding(objectName);
+        	objectName = QSStringUtil.urlCharactersEncoding(objectName);
         }
 
         return String.format("%s%s%s", REQUEST_PREFIX, objectName, suffixPath);
