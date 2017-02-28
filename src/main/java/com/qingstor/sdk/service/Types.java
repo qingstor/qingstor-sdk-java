@@ -287,14 +287,14 @@ public class Types {
             return this.exposeHeaders;
         } // Max age seconds
 
-        private Integer maxAgeSeconds;
+        private Long maxAgeSeconds;
 
-        public void setMaxAgeSeconds(Integer maxAgeSeconds) {
+        public void setMaxAgeSeconds(Long maxAgeSeconds) {
             this.maxAgeSeconds = maxAgeSeconds;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "max_age_seconds")
-        public Integer getMaxAgeSeconds() {
+        public Long getMaxAgeSeconds() {
             return this.maxAgeSeconds;
         }
 
@@ -462,25 +462,25 @@ public class Types {
             return this.mimeType;
         } // Last modified time in unix time format
 
-        private Integer modified;
+        private Long modified;
 
-        public void setModified(Integer modified) {
+        public void setModified(Long modified) {
             this.modified = modified;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "modified")
-        public Integer getModified() {
+        public Long getModified() {
             return this.modified;
         } // Object content size
 
-        private Integer size;
+        private Long size;
 
-        public void setSize(Integer size) {
+        public void setSize(Long size) {
             this.size = size;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "size")
-        public Integer getSize() {
+        public Long getSize() {
             return this.size;
         }
 
@@ -584,25 +584,25 @@ public class Types {
         } // Object part number
         // Required
 
-        private Integer partNumber;
+        private Long partNumber;
 
-        public void setPartNumber(Integer partNumber) {
+        public void setPartNumber(Long partNumber) {
             this.partNumber = partNumber;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number")
-        public Integer getPartNumber() {
+        public Long getPartNumber() {
             return this.partNumber;
         } // Object part size
 
-        private Integer size;
+        private Long size;
 
-        public void setSize(Integer size) {
+        public void setSize(Long size) {
             this.size = size;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "size")
-        public Integer getSize() {
+        public Long getSize() {
             return this.size;
         }
 
@@ -793,6 +793,50 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "Referer")
         public List<String> getReferer() {
             return this.referer;
+        }
+
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
+    public static class UploadsModel extends RequestInputModel {
+
+        // Object part created time
+
+        private String created;
+
+        public void setCreated(String created) {
+            this.created = created;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "created")
+        public String getCreated() {
+            return this.created;
+        } // Object key
+
+        private String key;
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "key")
+        public String getKey() {
+            return this.key;
+        } // Object upload id
+
+        private String uploadID;
+
+        public void setUploadID(String uploadID) {
+            this.uploadID = uploadID;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "upload_id")
+        public String getUploadID() {
+            return this.uploadID;
         }
 
         @Override

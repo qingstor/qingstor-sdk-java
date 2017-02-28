@@ -147,14 +147,14 @@ public class QingStor {
             return this.buckets;
         } // Bucket count
 
-        private Integer count;
+        private Long count;
 
-        public void setCount(Integer count) {
+        public void setCount(Long count) {
             this.count = count;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "count")
-        public Integer getCount() {
+        public Long getCount() {
             return this.count;
         }
     }

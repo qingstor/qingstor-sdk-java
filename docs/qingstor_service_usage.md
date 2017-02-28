@@ -102,7 +102,7 @@ EvnContext evn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
             File f = new File(path);
             input.setBodyInputFile(f);
             input.setContentType("text/plain");
-            input.setContentLength((int) f.length());
+            input.setContentLength(f.length());
             bucket.putObjectAsync(putFileName, input, new ResponseCallBack<Bucket.PutObjectOutput>() {
                 @Override
                 public void onAPIResponse(Bucket.PutObjectOutput putObjectOutput) throws QSException {

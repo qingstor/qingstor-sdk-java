@@ -283,10 +283,10 @@ public class QSOkHttpRequestClient {
             } else if (bodyObj instanceof File) {
                 body = RequestBody.create(mediaType, (File) bodyObj);
             } else if (bodyObj instanceof InputStream) {
-                int contentLength = 0;
+                long contentLength = 0;
                 if (headParams.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
                     contentLength =
-                            Integer.parseInt(
+                            Long.parseLong(
                                     headParams.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
                 }
                 body =
@@ -485,11 +485,11 @@ public class QSOkHttpRequestClient {
 
         private String contentType;
 
-        private int contentLength;
+        private long contentLength;
 
         private InputStream file;
 
-        public InputStreamUploadBody(String contentType, InputStream rFile, int contentLength) {
+        public InputStreamUploadBody(String contentType, InputStream rFile, long contentLength) {
             this.contentLength = contentLength;
             this.contentType = contentType;
             this.file = rFile;
@@ -511,9 +511,9 @@ public class QSOkHttpRequestClient {
             int readSize = 1024;
             int bytes = 0;
             byte[] bufferOut = new byte[readSize];
-            int count = contentLength / readSize;
-            int leftCount = contentLength % readSize;
-            int iReadLength = 0;
+            long count = contentLength / readSize;
+            long leftCount = contentLength % readSize;
+            long iReadLength = 0;
             while (count > 0 && (bytes = file.read(bufferOut)) != -1) {
                 sink.write(bufferOut, 0, bytes);
                 count--;
@@ -524,7 +524,7 @@ public class QSOkHttpRequestClient {
                 }
             }
             if (count == 0 && leftCount > 0) {
-                bufferOut = new byte[leftCount];
+                bufferOut = new byte[(int) leftCount];
                 if ((bytes = file.read(bufferOut)) != -1) {
                     sink.write(bufferOut, 0, bytes);
                 }

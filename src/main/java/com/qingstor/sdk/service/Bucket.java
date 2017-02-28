@@ -155,6 +155,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteCORSAsync(ResponseCallBack<DeleteBucketCORSOutput> callback)
             throws QSException {
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -220,6 +221,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteExternalMirrorAsync(
             ResponseCallBack<DeleteBucketExternalMirrorOutput> callback) throws QSException {
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -285,6 +287,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deletePolicyAsync(ResponseCallBack<DeleteBucketPolicyOutput> callback)
             throws QSException {
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -676,6 +679,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getExternalMirrorAsync(ResponseCallBack<GetBucketExternalMirrorOutput> callback)
             throws QSException {
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -755,6 +759,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getPolicyAsync(ResponseCallBack<GetBucketPolicyOutput> callback)
             throws QSException {
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -834,6 +839,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getStatisticsAsync(ResponseCallBack<GetBucketStatisticsOutput> callback)
             throws QSException {
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -859,14 +865,14 @@ public class Bucket {
 
         // Objects count in the bucket
 
-        private Integer count;
+        private Long count;
 
-        public void setCount(Integer count) {
+        public void setCount(Long count) {
             this.count = count;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "count")
-        public Integer getCount() {
+        public Long getCount() {
             return this.count;
         } // Bucket created time
 
@@ -903,14 +909,14 @@ public class Bucket {
             return this.name;
         } // Bucket storage size
 
-        private Integer size;
+        private Long size;
 
-        public void setSize(Integer size) {
+        public void setSize(Long size) {
             this.size = size;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "size")
-        public Integer getSize() {
+        public Long getSize() {
             return this.size;
         } // Bucket status
         // Status's available values: active, suspended
@@ -1008,6 +1014,228 @@ public class Bucket {
      * @param input
      * @throws QSException
      *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public ListMultipartUploadsOutput listMultipartUploads(ListMultipartUploadsInput input)
+            throws QSException {
+
+        if (input == null) {
+            input = new ListMultipartUploadsInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "ListMultipartUploads");
+        context.put("APIName", "ListMultipartUploads");
+        context.put("ServiceName", "List Multipart Uploads");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?uploads");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        OutputModel backModel =
+                ResourceRequestFactory.getResourceRequest()
+                        .sendApiRequest(context, input, ListMultipartUploadsOutput.class);
+        if (backModel != null) {
+            return (ListMultipartUploadsOutput) backModel;
+        }
+        return null;
+    }
+
+    /*
+     *
+     * @param input
+     * @param callback
+     * @throws QSException
+     *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void listMultipartUploadsAsync(
+            ListMultipartUploadsInput input, ResponseCallBack<ListMultipartUploadsOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new ListMultipartUploadsInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "ListMultipartUploads");
+        context.put("APIName", "ListMultipartUploads");
+        context.put("ServiceName", "List Multipart Uploads");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?uploads");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        ResourceRequestFactory.getResourceRequest().sendApiRequestAsync(context, input, callback);
+    }
+
+    public static class ListMultipartUploadsInput extends RequestInputModel {
+        // Put all keys that share a common prefix into a list
+
+        private String delimiter;
+
+        public void setDelimiter(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "delimiter")
+        public String getDelimiter() {
+            return this.delimiter;
+        } // Results count limit
+
+        private Long limit;
+
+        public void setLimit(Long limit) {
+            this.limit = limit;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "limit")
+        public Long getLimit() {
+            return this.limit;
+        } // Limit results to keys that start at this marker
+
+        private String marker;
+
+        public void setMarker(String marker) {
+            this.marker = marker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "marker")
+        public String getMarker() {
+            return this.marker;
+        } // Limits results to keys that begin with the prefix
+
+        private String prefix;
+
+        public void setPrefix(String prefix) {
+            this.prefix = prefix;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "prefix")
+        public String getPrefix() {
+            return this.prefix;
+        }
+
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
+    public static class ListMultipartUploadsOutput extends OutputModel {
+
+        // Other object keys that share common prefixes
+
+        private List<String> commonPrefixes;
+
+        public void setCommonPrefixes(List<String> commonPrefixes) {
+            this.commonPrefixes = commonPrefixes;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "common_prefixes")
+        public List<String> getCommonPrefixes() {
+            return this.commonPrefixes;
+        } // Delimiter that specified in request parameters
+
+        private String delimiter;
+
+        public void setDelimiter(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "delimiter")
+        public String getDelimiter() {
+            return this.delimiter;
+        } // Limit that specified in request parameters
+
+        private Long limit;
+
+        public void setLimit(Long limit) {
+            this.limit = limit;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "limit")
+        public Long getLimit() {
+            return this.limit;
+        } // Marker that specified in request parameters
+
+        private String marker;
+
+        public void setMarker(String marker) {
+            this.marker = marker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "marker")
+        public String getMarker() {
+            return this.marker;
+        } // Bucket name
+
+        private String name;
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "name")
+        public String getName() {
+            return this.name;
+        } // The last key in keys list
+
+        private String nextMarker;
+
+        public void setNextMarker(String nextMarker) {
+            this.nextMarker = nextMarker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "next_marker")
+        public String getNextMarker() {
+            return this.nextMarker;
+        } // Prefix that specified in request parameters
+
+        private String prefix;
+
+        public void setPrefix(String prefix) {
+            this.prefix = prefix;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "prefix")
+        public String getPrefix() {
+            return this.prefix;
+        } // Multipart uploads
+
+        private List<UploadsModel> uploads;
+
+        public void setUploads(List<UploadsModel> uploads) {
+            this.uploads = uploads;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "uploads")
+        public List<UploadsModel> getUploads() {
+            return this.uploads;
+        }
+    }
+
+    /*
+     *
+     * @param input
+     * @throws QSException
+     *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -1091,14 +1319,14 @@ public class Bucket {
             return this.delimiter;
         } // Results count limit
 
-        private Integer limit;
+        private Long limit;
 
-        public void setLimit(Integer limit) {
+        public void setLimit(Long limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Integer getLimit() {
+        public Long getLimit() {
             return this.limit;
         } // Limit results to keys that start at this marker
 
@@ -1168,14 +1396,14 @@ public class Bucket {
             return this.keys;
         } // Limit that specified in request parameters
 
-        private Integer limit;
+        private Long limit;
 
-        public void setLimit(Integer limit) {
+        public void setLimit(Long limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Integer getLimit() {
+        public Long getLimit() {
             return this.limit;
         } // Marker that specified in request parameters
 
@@ -2119,6 +2347,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteObjectAsync(String objectName, ResponseCallBack<DeleteObjectOutput> callback)
             throws QSException {
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -2689,14 +2918,14 @@ public class Bucket {
 
         // Object content length
 
-        private Integer contentLength;
+        private Long contentLength;
 
-        public void setContentLength(Integer contentLength) {
+        public void setContentLength(Long contentLength) {
             this.contentLength = contentLength;
         }
 
         @ParamAnnotation(paramType = "header", paramName = "Content-Length")
-        public Integer getContentLength() {
+        public Long getContentLength() {
             return this.contentLength;
         } // Object content type
 
@@ -3024,25 +3253,25 @@ public class Bucket {
     public static class ListMultipartInput extends RequestInputModel {
         // Limit results count
 
-        private Integer limit;
+        private Long limit;
 
-        public void setLimit(Integer limit) {
+        public void setLimit(Long limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Integer getLimit() {
+        public Long getLimit() {
             return this.limit;
         } // Object multipart upload part number
 
-        private Integer partNumberMarker;
+        private Long partNumberMarker;
 
-        public void setPartNumberMarker(Integer partNumberMarker) {
+        public void setPartNumberMarker(Long partNumberMarker) {
             this.partNumberMarker = partNumberMarker;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number_marker")
-        public Integer getPartNumberMarker() {
+        public Long getPartNumberMarker() {
             return this.partNumberMarker;
         } // Object multipart upload ID
         // Required
@@ -3073,14 +3302,14 @@ public class Bucket {
 
         // Object multipart count
 
-        private Integer count;
+        private Long count;
 
-        public void setCount(Integer count) {
+        public void setCount(Long count) {
             this.count = count;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "count")
-        public Integer getCount() {
+        public Long getCount() {
             return this.count;
         } // Object parts
 
@@ -3382,14 +3611,14 @@ public class Bucket {
         // Object content size
         // Required
 
-        private Integer contentLength;
+        private Long contentLength;
 
-        public void setContentLength(Integer contentLength) {
+        public void setContentLength(Long contentLength) {
             this.contentLength = contentLength;
         }
 
         @ParamAnnotation(paramType = "header", paramName = "Content-Length")
-        public Integer getContentLength() {
+        public Long getContentLength() {
             return this.contentLength;
         } // Object MD5sum
 
@@ -3714,14 +3943,14 @@ public class Bucket {
         // Object multipart upload part number
         // Required
 
-        private Integer partNumber;
+        private Long partNumber;
 
-        public void setPartNumber(Integer partNumber) {
+        public void setPartNumber(Long partNumber) {
             this.partNumber = partNumber;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number")
-        public Integer getPartNumber() {
+        public Long getPartNumber() {
             return this.partNumber;
         } // Object multipart upload ID
         // Required
@@ -3739,14 +3968,14 @@ public class Bucket {
 
         // Object multipart content length
 
-        private Integer contentLength;
+        private Long contentLength;
 
-        public void setContentLength(Integer contentLength) {
+        public void setContentLength(Long contentLength) {
             this.contentLength = contentLength;
         }
 
         @ParamAnnotation(paramType = "header", paramName = "Content-Length")
-        public Integer getContentLength() {
+        public Long getContentLength() {
             return this.contentLength;
         } // Object multipart content MD5sum
 
