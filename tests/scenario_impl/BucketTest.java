@@ -25,6 +25,7 @@ import com.qingstor.sdk.utils.Base64;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.en.Given;
 
 public class BucketTest {
 
@@ -38,7 +39,8 @@ public class BucketTest {
 	private static Bucket.DeleteBucketOutput deleteBucketOutput;
 	private static Bucket.GetBucketStatisticsOutput getBucketStatisticsOutput;
 	private static Bucket.DeleteMultipleObjectsOutput deleteMultipleObjectsOutput;
-
+	private static Bucket.ListMultipartUploadsOutput listMultipartUploadsOutput;
+	
 	@When("^initialize the bucket$")
 	public void initialize_the_bucket() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
@@ -94,7 +96,7 @@ public class BucketTest {
 	public void list_objects() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		Bucket.ListObjectsInput input = new Bucket.ListObjectsInput();
-		input.setLimit(20);
+		input.setLimit(20l);
 		listObjectsOutput = Bucket.listObjects(input);
 	}
 
@@ -178,6 +180,26 @@ public class BucketTest {
 		// Write code here that turns the phrase above into concrete actions
 		System.out.println("get_bucket_statistics_status_msg:" + getBucketStatisticsOutput.getStatus());
 
+	}
+	
+	@Given("^an object created by Initiate Multipart Upload$")
+	public void an_object_created_by_Initiate_Multipart_Upload() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		Bucket.InitiateMultipartUploadInput input = new Bucket.InitiateMultipartUploadInput();
+        Bucket.InitiateMultipartUploadOutput output = Bucket.initiateMultipartUpload("dididtes单独",input);
+	}
+
+	@When("^list multipart uploads$")
+	public void list_multipart_uploads() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		listMultipartUploadsOutput = Bucket.listMultipartUploads(null);
+        System.out.println(listMultipartUploadsOutput.getMessage());
+	}
+
+	@Then("^list multipart uploads count is (\\d+)$")
+	public void list_multipart_uploads_count_is(int arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		System.out.println(listMultipartUploadsOutput.getUploads().size());
 	}
 
 }
