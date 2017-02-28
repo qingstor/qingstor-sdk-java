@@ -54,14 +54,14 @@ public class ObjectTest {
     private static Bucket.DeleteObjectOutput deleteObjectOutput2;
 
     @When("^initialize the object with key \"([^\"]*)\"$")
-    public void initialize_the_object_with_key(String statueCode) throws Throwable {
+    public void initialize_the_object_with_key(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
         subService = new Bucket(evnContext,bucketName);
         evnContext.setLog_level(QSConstant.LOGGER_INFO);
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         //objectOutput = subService.PutObject(statueCode,input);
-        test_object =statueCode;
+        test_object =objectKey;
 
     }
 
@@ -129,7 +129,7 @@ public class ObjectTest {
         //
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         input.setXQSCopySource("/" + bucketName + "/" + this.test_object);
-        this.test_object_copy = objectKey;
+        this.test_object_copy = objectKey+"copy";
         copyOutput = subService.putObject(test_object_copy,input);
     }
 
@@ -146,7 +146,7 @@ public class ObjectTest {
         // Write code here that turns the phrase above into concrete actions
         //
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
-        this.test_object_move = objectKey;
+        this.test_object_move = objectKey+"move";
         input.setXQSMoveSource("/" + bucketName + "/" + test_object_copy);
         moveOutput = subService.putObject(test_object_move,input);
     }
@@ -163,7 +163,7 @@ public class ObjectTest {
     public void get_object(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Bucket.GetObjectInput input = new Bucket.GetObjectInput();
-        getObjectOutput = subService.getObject(objectKey,input);
+        getObjectOutput = subService.getObject(objectKey+"move",input);
     }
 
     @Then("^get object status code is (\\d+)$")
