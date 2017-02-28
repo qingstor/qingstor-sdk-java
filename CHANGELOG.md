@@ -23,20 +23,17 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 - Assii character encode.
 
-
 ## [v2.1.2] - 2017-01-13
 
 ### Fixed
 
 - Object name is contain the same as the bucket name will get error suffix path.
 
-
 ## [v2.1.1] - 2016-12-28
 
 ### Changed
 
 - Android adapter.
-
 
 ## [v2.1.0] - 2016-12-25
 
@@ -67,4 +64,6 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 [v2.1.3]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.2...2.1.3
 [v2.1.2]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.1...2.1.2
 [v2.1.1]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.0...2.1.1
+[v2.1.0]: https://github.com/yunify/qingstor-sdk-java/compare/2.0.1...2.1.0
+[v2.0.1]: https://github.com/yunify/qingstor-sdk-java/compare/2.0.0...2.0.1
 
