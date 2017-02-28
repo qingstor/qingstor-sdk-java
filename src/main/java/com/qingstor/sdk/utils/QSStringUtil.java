@@ -21,13 +21,21 @@ import com.qingstor.sdk.exception.QSException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 /** Created by on 11/4/15. */
 public class QSStringUtil {
+	
+	static CharsetEncoder asciiEncoder =
+            	Charset.forName("US-ASCII").newEncoder(); // or "ISO-8859-1" for ISO Latin 1
+
+    public static boolean isPureAscii(String v) {
+        return asciiEncoder.canEncode(v);
+    }
 
 	public static String objectToJson(String key, Object o) {
         StringBuffer buffer = new StringBuffer("{ \"" + key + "\":");
@@ -155,7 +163,7 @@ public class QSStringUtil {
         try {
             for (int i = 0; i < str.length(); i++) {
                 String temp = str.substring(i, i + 1);
-                if (temp.getBytes().length>1) {
+                if (!isPureAscii(temp)) {
                     buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
                 } else {
                     buffer.append(temp);
@@ -182,12 +190,12 @@ public class QSStringUtil {
         try {
             for (int i = 0; i < str.length(); i++) {
                 String temp = str.substring(i, i + 1);
-                if (temp.getBytes().length>1) {
-                    buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
-                } else if(" ".equals(temp)){
-                	buffer.append("%20");
-                } else {
+                if (" ".equals(temp)) {
+                    buffer.append("%20");
+                } else if ("/".equals(temp) || "&".equals(temp)|| "=".equals(temp)|| ":".equals(temp)) {
                     buffer.append(temp);
+                } else {
+                    buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
                 }
             }
             return buffer.toString();

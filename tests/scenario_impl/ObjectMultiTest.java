@@ -95,8 +95,8 @@ public class ObjectMultiTest {
         TestUtil.assertEqual(initOutput.getStatueCode(),arg1);
     }
 
-    @When("^upload the first part$")
-    public void upload_the_first_part() throws Throwable {
+    @When("^upload the first part with key \"([^\"]*)\"$")
+    public void upload_the_first_part(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //inputI.setContentType(apkContentType);
 
@@ -123,9 +123,10 @@ public class ObjectMultiTest {
         int part_number = 0;
         File f = new File("/tmp/sdk_bin_part_0");
         Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
-        input.setContentLength((int) f.length());
+        input.setXQSEncryptionCustomerKey(arg1);
+        input.setContentLength(f.length());
         input.setBodyInputFile(f);
-        input.setPartNumber(part_number);
+        input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput1 = Bucket.uploadMultipart(multipart_upload_name,input);
 
@@ -138,8 +139,8 @@ public class ObjectMultiTest {
         TestUtil.assertEqual(this.uploadMultipartOutput1.getStatueCode(),arg1);
     }
 
-    @When("^upload the second part$")
-    public void upload_the_second_part() throws Throwable {
+    @When("^upload the second part with key \"([^\"]*)\"$")
+    public void upload_the_second_part(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
         try {
@@ -164,9 +165,10 @@ public class ObjectMultiTest {
         int part_number = 0;
         File f = new File("/tmp/sdk_bin_part_1");
         Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
-        input.setContentLength((int) f.length());
+        input.setXQSEncryptionCustomerKey(arg1);
+        input.setContentLength( f.length());
         input.setBodyInputFile(f);
-        input.setPartNumber(part_number);
+        input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput2 = Bucket.uploadMultipart(multipart_upload_name,input);
     }
@@ -178,8 +180,8 @@ public class ObjectMultiTest {
         TestUtil.assertEqual(this.uploadMultipartOutput2.getStatueCode(),arg1);
     }
 
-    @When("^upload the third part$")
-    public void upload_the_third_part() throws Throwable {
+    @When("^upload the third part with key \"([^\"]*)\"$")
+    public void upload_the_third_part(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
         try {
@@ -204,9 +206,10 @@ public class ObjectMultiTest {
         int part_number = 0;
         File f = new File("/tmp/sdk_bin_part_2");
         Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
-        input.setContentLength((int) f.length());
+        input.setXQSEncryptionCustomerKey(arg1);
+        input.setContentLength( f.length());
         input.setBodyInputFile(f);
-        input.setPartNumber(part_number);
+        input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput3 = Bucket.uploadMultipart(multipart_upload_name,input);
     }
@@ -217,14 +220,14 @@ public class ObjectMultiTest {
         TestUtil.assertEqual(this.uploadMultipartOutput3.getStatueCode(),arg1);
     }
 
-    @When("^list multipart$")
-    public void list_multipart() throws Throwable {
+    @When("^list multipart with key \"([^\"]*)\"$")
+    public void list_multipart(String key) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
 
 
         Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
         input.setUploadID(initOutput.getUploadID());
-        input.setLimit(10);
+        input.setLimit(10l);
         listMultipartOutput = Bucket.listMultipart(multipart_upload_name,input);
     }
 
@@ -241,8 +244,8 @@ public class ObjectMultiTest {
         System.out.println("list_multipart_object_parts_count_is:"+this.listMultipartOutput.getCount());
     }
 
-    @When("^complete multipart upload$")
-    public void complete_multipart_upload() throws Throwable {
+    @When("^complete multipart upload with key \"([^\"]*)\"$")
+    public void complete_multipart_upload(String key) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Bucket.CompleteMultipartUploadInput input = new Bucket.CompleteMultipartUploadInput();
         //inputI.setContentType(apkContentType);
@@ -259,7 +262,7 @@ public class ObjectMultiTest {
                 "}";
         input.setBodyInput(content);
 
-        completeMultipartUploadOutput = Bucket.completeMultipartUpload(multipart_upload_name,input);
+        completeMultipartUploadOutput = Bucket.completeMultipartUpload(key,input);
     }
 
     @Then("^complete multipart upload status code is (\\d+)$")
@@ -269,15 +272,15 @@ public class ObjectMultiTest {
         TestUtil.assertEqual(completeMultipartUploadOutput.getStatueCode(),arg1);
     }
 
-    @When("^abort multipart upload$")
-    public void abort_multipart_upload() throws Throwable {
+    @When("^abort multipart upload with key \"([^\"]*)\"$")
+    public void abort_multipart_upload(String key) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Bucket.AbortMultipartUploadInput input = new Bucket.AbortMultipartUploadInput();
         //inputI.setContentType(apkContentType);
 
 
         input.setUploadID(initOutput.getUploadID());
-        abortMultipartUploadOutput = Bucket.abortMultipartUpload(multipart_upload_name,input);
+        abortMultipartUploadOutput = Bucket.abortMultipartUpload(key,input);
 
     }
 
@@ -287,12 +290,12 @@ public class ObjectMultiTest {
         TestUtil.assertEqual(abortMultipartUploadOutput.getStatueCode(),arg1);
     }
 
-    @When("^delete the multipart object$")
-    public void delete_the_multipart_object() throws Throwable {
+    @When("^delete the multipart object with key \"([^\"]*)\"$")
+    public void delete_the_multipart_object(String key) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
 
-        deleteObjectOutput = Bucket.deleteObject(multipart_upload_name);
+        deleteObjectOutput = Bucket.deleteObject(key);
 
     }
 
