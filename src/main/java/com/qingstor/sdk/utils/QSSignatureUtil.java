@@ -290,7 +290,7 @@ public class QSSignatureUtil {
             context.put("RequestURI", "/<bucket-name>/<object-key>");
             context.put("bucketNameInput", bucketName);
             context.put("objectNameInput", objectName);
-            int expiresTime = (int) (new Date().getTime() / 1000 + expiresSecond);
+            long expiresTime =  (new Date().getTime() / 1000 + expiresSecond);
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
             String serviceUrl = evnContext.getRequestUrl();
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
@@ -326,7 +326,7 @@ public class QSSignatureUtil {
                 : null;
     }
 
-    public static String getExpireAuth(Map context, int expiresSecond, RequestInputModel params)
+    public static String getExpireAuth(Map context, long expiresSecond, RequestInputModel params)
             throws UnsupportedEncodingException {
 
         EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
