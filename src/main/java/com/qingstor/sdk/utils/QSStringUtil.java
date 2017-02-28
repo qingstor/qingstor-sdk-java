@@ -30,8 +30,7 @@ import java.util.Map;
 /** Created by on 11/4/15. */
 public class QSStringUtil {
 	
-	static CharsetEncoder asciiEncoder =
-            	Charset.forName("US-ASCII").newEncoder(); // or "ISO-8859-1" for ISO Latin 1
+	static CharsetEncoder asciiEncoder = Charset.forName("US-ASCII").newEncoder(); // or "ISO-8859-1" for ISO Latin 1
 
     public static boolean isPureAscii(String v) {
         return asciiEncoder.canEncode(v);

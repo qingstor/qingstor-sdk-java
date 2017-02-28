@@ -164,8 +164,7 @@ public class BucketTest {
 	public void get_bucket_statistics() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 
-		getBucketStatisticsOutput = Bucket
-				.getStatistics();
+		getBucketStatisticsOutput = Bucket.getStatistics();
 	}
 
 	@Then("^get bucket statistics status code is (\\d+)$")
@@ -200,6 +199,7 @@ public class BucketTest {
 	public void list_multipart_uploads_count_is(int arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 		System.out.println(listMultipartUploadsOutput.getUploads().size());
+		TestUtil.assertEqual(listMultipartUploadsOutput.getUploads().size(), arg1);
 	}
 
 }
