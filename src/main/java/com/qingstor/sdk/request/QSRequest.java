@@ -50,6 +50,7 @@ public class QSRequest implements ResourceRequest {
             throws QSException {
         String validate = paramBean != null ? paramBean.validateParam() : "";
         EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        context.put(QSConstant.PARAM_KEY_USER_AGENT, evnContext.getAdditionalUserAgent());
         String evnValidate = evnContext.validateParam();
         if (!QSStringUtil.isEmpty(validate) || !QSStringUtil.isEmpty(evnValidate)) {
             if (QSStringUtil.isEmpty(validate)) {
@@ -90,6 +91,7 @@ public class QSRequest implements ResourceRequest {
             throws QSException {
         String validate = paramBean != null ? paramBean.validateParam() : "";
         EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        context.put(QSConstant.PARAM_KEY_USER_AGENT, evnContext.getAdditionalUserAgent());
         String evnValidate = evnContext.validateParam();
         if (!QSStringUtil.isEmpty(validate) || !QSStringUtil.isEmpty(evnValidate)) {
             if (QSStringUtil.isEmpty(validate)) {
@@ -120,7 +122,10 @@ public class QSRequest implements ResourceRequest {
         Map paramsBody = QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_BODY);
         Map paramsHeaders =
                 QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_HEADER);
-
+        if(context.get(QSConstant.PARAM_KEY_USER_AGENT) != null){
+        	paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, context.get(QSConstant.PARAM_KEY_USER_AGENT));
+        }
+        
         String requestApi = (String) context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
 
         this.initHeadContentMd5(requestApi, paramsBody, paramsHeaders);

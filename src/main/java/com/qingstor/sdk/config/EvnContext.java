@@ -44,6 +44,7 @@ public class EvnContext implements ParamValidate {
     private String protocol = default_protocal;
     private String uri;
     private String log_level = QSConstant.LOGGER_ERROR;
+    private String additionalUserAgent;
 
     private boolean safeOkHttp = true;
 
@@ -161,6 +162,7 @@ public class EvnContext implements ParamValidate {
             evn.setUri(confParams.get("uri"));
             evn.setPort(confParams.get("port"));
             evn.setLog_level(confParams.get("log_level"));
+            evn.setAdditionalUserAgent(confParams.get("additional_user_agent"));
             
         }
         return evn;
@@ -177,6 +179,22 @@ public class EvnContext implements ParamValidate {
         }
 		this.log_level = log_level;
 	}
+	
+	
+
+	/**
+	 * @return the additionalUserAgent
+	 */
+	public String getAdditionalUserAgent() {
+		return additionalUserAgent;
+	}
+
+	/**
+	 * @param additionalUserAgent the additionalUserAgent to set
+	 */
+	public void setAdditionalUserAgent(String additionalUserAgent) {
+		this.additionalUserAgent = additionalUserAgent;
+	}
 
 	@Override
     public String validateParam() {
@@ -189,6 +207,18 @@ public class EvnContext implements ParamValidate {
         if (QSStringUtil.isEmpty(getRequestUrl())) {
             return QSStringUtil.getParameterRequired("host", "EvnContext");
         }
+        if(!QSStringUtil.isEmpty(getAdditionalUserAgent())){
+        	for (int i = 0; i < getAdditionalUserAgent().length(); i++) {
+                char temp = getAdditionalUserAgent().charAt(i);
+                int value = (int)temp;
+                // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
+                if (value < 32 || value > 126 || value == 32 || value == 34) {
+                	return "additional User-Agent contains characters that not allowed :"
+                				+getAdditionalUserAgent().substring(i, i + 1);
+           		 }
+            }
+        }
         return null;
     }
+	
 }
