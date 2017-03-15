@@ -30,10 +30,13 @@ public class EvnContextTest {
     @Test
     public void testDefault() {
         EvnContext evnContext = new EvnContext("testkey", "test_asss");
+        evnContext.setAdditionalUserAgent("\"");
         Assert.assertEquals(evnContext.getAccessKey(), "testkey");
         Assert.assertEquals(evnContext.getAccessSecret(), "test_asss");
         Assert.assertEquals(evnContext.getRequestUrl(), "https://qingstor.com");
         Assert.assertEquals(evnContext.getLog_level(), QSConstant.LOGGER_ERROR);
+        String validate = evnContext.validateParam();
+        Assert.assertNotNull(validate);
     }
 
     @Test
@@ -41,6 +44,7 @@ public class EvnContextTest {
         String config =
                 "access_key: 'testkey'\n"
                         + "access_secret: 'test_asss'\n"
+                        + "additional_user_agent: 'test/integration'\n"
                         + "host: qingcloud.com\n"
                         + "port: 443\n"
                         + "protocol: https\n";
@@ -62,6 +66,7 @@ public class EvnContextTest {
             Assert.assertEquals(evnContext.getAccessKey(), "testkey");
             Assert.assertEquals(evnContext.getAccessSecret(), "test_asss");
             Assert.assertEquals(evnContext.getRequestUrl(), "https://qingcloud.com:443");
+            Assert.assertEquals(evnContext.getAdditionalUserAgent(), "test/integration");
         }
     }
 }
