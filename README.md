@@ -1,10 +1,10 @@
 # QingStor SDK for Java
 
-<span style="display: inline-block">
+
 [![Build Status](https://travis-ci.org/yunify/qingstor-sdk-java.svg?branch=master)]()
 [![API Reference](http://img.shields.io/badge/api-reference-green.svg)](http://docs.qingcloud.com)
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
-</span>
+
 
 The official QingStor SDK for the Java programming language.
 
