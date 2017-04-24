@@ -22,7 +22,6 @@ import com.qingstor.sdk.exception.QSException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +29,11 @@ import java.util.Map;
 /** Created by on 11/4/15. */
 public class QSStringUtil {
 	
-	static CharsetEncoder asciiEncoder = Charset.forName("US-ASCII").newEncoder(); // or "ISO-8859-1" for ISO Latin 1
+	static Charset asciiCharset = Charset.forName("US-ASCII"); // or "ISO-8859-1" for ISO Latin 1
 
     public static boolean isPureAscii(String v) {
-        return asciiEncoder.canEncode(v);
+    	// encoders are not thread-safe, create a new one on every call
+        return asciiCharset.newEncoder().canEncode(v);
     }
 
 	public static String objectToJson(String key, Object o) {
