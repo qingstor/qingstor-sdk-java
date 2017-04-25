@@ -76,9 +76,9 @@ public class QSStringUtilTest {
     public void testChineseCharactersEncoding() {
         String req;
 		try {
-			req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}-==辛苦、");
+			req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}&:-==辛苦、");
 			System.out.println(req);
-			Assert.assertEquals(req.indexOf("{}") > 0, true);
+			Assert.assertEquals(req.indexOf("{}") < 0, true);
 	        Assert.assertEquals(req.indexOf("中文编码") == -1, true);
 		} catch (QSException e) {
 			// TODO Auto-generated catch block
@@ -87,47 +87,6 @@ public class QSStringUtilTest {
         
     }
     
-    private static int iThreadCount = 0;
-    
-    class PutObjectRunable implements Runnable {
-    	
-    	String threadObjectName;
-    	
-    	public PutObjectRunable(String objectName){
-    		this.threadObjectName = objectName;
-    	}
-    	
-        @Override
-        public void run()  {
-        	String req;
-        	try {
-        		for(int i = 0 ; i < 100 ; i++){
-        			req = QSStringUtil.asciiCharactersEncoding(threadObjectName);
-        			System.out.println("---PutObjectRunable---");
-        			Assert.assertEquals(req.indexOf("{}") > 0, true);
-        	        Assert.assertEquals(req.indexOf("中文编码") == -1, true);
-        		}
-    			
-    		} catch (QSException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-            iThreadCount--;
-        }
-    }
-    
-    @Test
-    public void testMultiThread() throws InterruptedException {
-    	iThreadCount = 100;
-        for(int i = 0 ; i < 100 ; i++){
-            PutObjectRunable tt = new PutObjectRunable("中文编码测试/{}-==辛苦、");
-            new Thread(tt).start();
-        }
-        while (iThreadCount>1) {
-            Thread.sleep(10000);
-        }
-        
-    }
     
     
 }

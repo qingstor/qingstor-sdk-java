@@ -158,48 +158,15 @@ public class QSStringUtil {
         if (QSStringUtil.isEmpty(str)) {
             return "";
         }
-        StringBuffer buffer = new StringBuffer();
         try {
-            for (int i = 0; i < str.length(); i++) {
-                String temp = str.substring(i, i + 1);
-                if (!isPureAscii(temp)) {
-                    buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
-                } else {
-                    buffer.append(temp);
-                }
-            }
-            return buffer.toString();
+            String encoded = URLEncoder.encode(str, QSConstant.ENCODING_UTF8);
+            encoded = encoded.replace("%2F", "/");
+            encoded = encoded.replace("%3D", "=");
+            encoded = encoded.replace("+", "%20");
+            return encoded;
         } catch (UnsupportedEncodingException e) {
             throw new QSException("UnsupportedEncodingException:", e);
         }
     }
     
-    
-    /**
-     * urlpath characters transform
-     *
-     * @param str
-     * @return
-     */
-    public static String urlCharactersEncoding(String str) throws QSException {
-        if (QSStringUtil.isEmpty(str)) {
-            return "";
-        }
-        StringBuffer buffer = new StringBuffer();
-        try {
-            for (int i = 0; i < str.length(); i++) {
-                String temp = str.substring(i, i + 1);
-                if (" ".equals(temp)) {
-                    buffer.append("%20");
-                } else if ("/".equals(temp) || "&".equals(temp)|| "=".equals(temp)|| ":".equals(temp)) {
-                    buffer.append(temp);
-                } else {
-                    buffer.append(URLEncoder.encode(temp, QSConstant.ENCODING_UTF8));
-                }
-            }
-            return buffer.toString();
-        } catch (UnsupportedEncodingException e) {
-            throw new QSException("UnsupportedEncodingException:", e);
-        }
-    }
 }
