@@ -15,8 +15,9 @@ test:
 	@if [[ ! -f "$$(which javac)" ]]; then \
 		echo "ERROR: Command \"javac\" not found."; \
 	fi
-	rm build/libs/qingstor*test*.jar
-	gradle buildTestJar
+	rm -f build/libs/qingstor*test*.jar
+	./gradlew buildTestJar
+	rm -fr tests/jars
 	mkdir tests/jars
 	cp build/libs/qingstor*test*.jar tests/jars/
 	pushd "tests";\
@@ -24,7 +25,7 @@ test:
 	java -cp "./jars/*:." cucumber.api.cli.Main -g scenario_impl features;\
 	popd
 	rm -fr tests/jars
-	rm tests/scenario_impl/*.class
+	rm -f tests/scenario_impl/*.class
 	
 	@echo "ok"
 
@@ -36,7 +37,7 @@ generate:
 		--service=qingstor --service-api-version=latest \
 		--spec="./specs" --template="./template" --output="./src/main/java/com/qingstor/sdk/service"
 	rm ./src/main/java/com/qingstor/sdk/service/Object.java
-	gradle formatGenerateCode
+	./gradlew formatGenerateCode
 	@echo "ok"
 
 update:
@@ -45,11 +46,11 @@ update:
 
 unit:
 	@echo "run unit test"
-	gradle test
+	./gradlew test
 	@echo "ok"
 	
 buildJar:
 	@echo "run build jar"
-	gradle buildJar
-	gradle buildIncludeDependentJar
+	./gradlew buildJar
+	./gradlew buildIncludeDependentJar
 	@echo "ok"
