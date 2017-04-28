@@ -54,3 +54,4 @@ buildJar:
 	./gradlew buildJar
 	./gradlew buildIncludeDependentJar
 	@echo "ok"
+
