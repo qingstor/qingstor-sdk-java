@@ -76,9 +76,9 @@ public class QSStringUtilTest {
     public void testChineseCharactersEncoding() {
         String req;
 		try {
-			req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}-==辛苦、");
+			req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}&:-==辛苦、");
 			System.out.println(req);
-			Assert.assertEquals(req.indexOf("{}") > 0, true);
+			Assert.assertEquals(req.indexOf("{}") < 0, true);
 	        Assert.assertEquals(req.indexOf("中文编码") == -1, true);
 		} catch (QSException e) {
 			// TODO Auto-generated catch block
@@ -86,5 +86,7 @@ public class QSStringUtilTest {
 		}
         
     }
+    
+    
     
 }

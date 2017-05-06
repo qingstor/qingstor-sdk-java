@@ -31,6 +31,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -122,6 +124,8 @@ public class QSRequest implements ResourceRequest {
         Map paramsBody = QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_BODY);
         Map paramsHeaders =
                 QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_HEADER);
+        paramsHeaders = this.headParamEncoding(paramsHeaders);
+        
         if(context.get(QSConstant.PARAM_KEY_USER_AGENT) != null){
         	paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, context.get(QSConstant.PARAM_KEY_USER_AGENT));
         }
@@ -137,7 +141,7 @@ public class QSRequest implements ResourceRequest {
         String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
         if (context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
             requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName);
-            requestPath = requestPath.replace(QSConstant.OBJECT_NAME_REPLACE, QSStringUtil.urlCharactersEncoding(objectName));
+            requestPath = requestPath.replace(QSConstant.OBJECT_NAME_REPLACE, QSStringUtil.asciiCharactersEncoding(objectName));
         } else {
             requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName + "/");
         }
@@ -184,12 +188,29 @@ public class QSRequest implements ResourceRequest {
         if (QSStringUtil.isEmpty(objectName)) {
             objectName = "";
         } else {
-        	objectName = QSStringUtil.urlCharactersEncoding(objectName);
+        	objectName = QSStringUtil.asciiCharactersEncoding(objectName);
         }
 
         return String.format("%s%s%s", REQUEST_PREFIX, objectName, suffixPath);
     }
 
+    
+    private Map headParamEncoding(Map headParams) throws QSException{
+    	Map head = new HashMap();
+    	Iterator iterator = headParams.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            String key = (String) entry.getKey();
+            if (!key.startsWith("x-qs-") && !key.startsWith("X-QS-")) {
+            	head.put(key, headParams.get(key));
+            } else{
+            	String keyValue = QSStringUtil.asciiCharactersEncoding(headParams.get(key)+"");
+            	head.put(key, keyValue);
+            }
+        }
+        
+        return head;
+    }
     
 
     private static String getSignedUrl(

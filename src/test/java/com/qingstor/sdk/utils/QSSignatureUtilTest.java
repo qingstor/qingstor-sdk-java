@@ -30,7 +30,7 @@ import org.junit.Test;
 public class QSSignatureUtilTest {
 
     @Test
-    public void testSignature() {
+    public void testSignature() throws QSException {
         ParamTestModel instancesInput = new ParamTestModel();
         instancesInput.setAction("TestAction");
         List<String> imgs =
