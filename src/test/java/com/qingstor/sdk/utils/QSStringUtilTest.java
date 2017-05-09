@@ -52,7 +52,7 @@ public class QSStringUtilTest {
 	public void mapJsonStringTest() {
 
 		Map m = new HashMap();
-		m.put("testString","didididi");
+		m.put("testString","didi恐龙当家！@#￥%……&*#￥%……&“”：'''\\didi");
 		m.put("testInt",100);
 		m.put("testInt2","100");
 		m.put("testBoolean",true);
@@ -63,11 +63,11 @@ public class QSStringUtilTest {
 		typeModel.setInstanceClass(10);
 		m.put("testObject",typeModel);
 
-		String d = QSStringUtil.getMapToJson(m);
+		String d = QSStringUtil.getObjectToJson(m);
 		System.out.println(d);
 		JSONObject o = QSJSONUtil.convertJSONObject(d);
 		Assert.assertNotNull(o);
-		Assert.assertEquals(QSJSONUtil.toString(o,"testString"),"didididi");
+		Assert.assertEquals(QSJSONUtil.toString(o,"testString"),"didi恐龙当家！@#￥%……&*#￥%……&“”：'''\\didi");
 		Assert.assertEquals(QSJSONUtil.toInt(o,"testInt2"),100);
 	}
     

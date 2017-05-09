@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 /** Created by on 11/4/15. */
 public class QSStringUtil {
 
@@ -42,6 +44,7 @@ public class QSStringUtil {
     }
 
     private static String objectJSONValue(Object o) {
+    	
         StringBuffer buffer = new StringBuffer();
         if (o instanceof List) {
             List lst = (List) o;
@@ -53,9 +56,6 @@ public class QSStringUtil {
                 }
             }
             buffer.append("]");
-        } else if (o instanceof Map) {
-            Map m = (Map) o;
-            buffer.append(getMapToJson(m));
         } else if (o instanceof  Integer
                 || o instanceof  Double
                 || o instanceof  Boolean
@@ -65,27 +65,27 @@ public class QSStringUtil {
         }else if (o instanceof  String) {
             buffer.append("\"").append(o).append("\"");
         }else {
-            Map objMap = QSParamInvokeUtil.getRequestParams(o,"");
-            buffer.append(getMapToJson(objMap));
+            buffer.append(getObjectToJson(o));
         }
         return buffer.toString();
     }
 
-    public static String getMapToJson(Map params) {
-        Iterator iterator = params.entrySet().iterator();
-        StringBuffer buffer = new StringBuffer("{");
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            String key = (String) entry.getKey();
-            Object bodyObj = params.get(key);
-            buffer.append(objectJSONKeyValue(key,bodyObj));
-            buffer.append(",");
-        }
-        if (buffer.length() > 1) {
-            buffer.setLength(buffer.length() - 1);
-        }
-        buffer.append("}");
-        return buffer.toString();
+    public static String getObjectToJson(Object o) {
+    	JSONObject json = null;
+    	if(o instanceof Map){
+    		json = new JSONObject();
+            Iterator iterator = ((Map)o).entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                String key = (String) entry.getKey();
+                Object bodyObj = ((Map)o).get(key);
+                json.put(key, bodyObj);
+            }
+    	} else{
+    		json = new JSONObject(o);
+    	}
+    	
+        return json.toString();
     }
 
     public static String percentEncode(String value, String encoding)

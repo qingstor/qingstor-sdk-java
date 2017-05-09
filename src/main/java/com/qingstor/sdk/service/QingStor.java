@@ -159,6 +159,7 @@ public class QingStor {
         }
     }
 
+    @Deprecated
     public com.qingstor.sdk.service.Bucket getBucket(String bucketName) {
         return new com.qingstor.sdk.service.Bucket(this.evnContext, this.zone, bucketName);
     }

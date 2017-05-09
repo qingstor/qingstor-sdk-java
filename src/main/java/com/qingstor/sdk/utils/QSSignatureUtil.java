@@ -280,7 +280,7 @@ public class QSSignatureUtil {
             throws QSException {
         Map context = new HashMap();
         try {
-            objectName = percentEncode(objectName);
+            objectName = QSStringUtil.asciiCharactersEncoding(objectName);
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, zone);
             context.put(QSConstant.EVN_CONTEXT_KEY, evnContext);
             context.put("OperationName", "GetObject");
@@ -314,16 +314,6 @@ public class QSSignatureUtil {
         } catch (UnsupportedEncodingException e) {
             throw new QSException("Auth signature error", e);
         }
-    }
-
-    public static String percentEncode(String value) throws UnsupportedEncodingException {
-        return value != null
-                ? URLEncoder.encode(value, QSConstant.ENCODING_UTF8)
-                        .replaceAll("%2F", "/")
-                        .replaceAll("%2B", "+")
-                        .replaceAll("%2A", "*")
-                        .replaceAll("%7E", "~")
-                : null;
     }
 
     public static String getExpireAuth(Map context, long expiresSecond, RequestInputModel params)
