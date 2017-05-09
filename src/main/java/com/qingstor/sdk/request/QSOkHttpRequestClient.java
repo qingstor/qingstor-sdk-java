@@ -350,7 +350,7 @@ public class QSOkHttpRequestClient {
             	return bodyObj;
             }
         }
-        String jsonStr = QSStringUtil.getMapToJson(bodyContent);
+        String jsonStr = QSStringUtil.getObjectToJson(bodyContent);
         return jsonStr;
     }
     /**

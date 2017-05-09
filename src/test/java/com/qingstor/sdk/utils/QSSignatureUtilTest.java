@@ -63,21 +63,6 @@ public class QSSignatureUtilTest {
     }
 
     @Test
-    public void testEncodeString() {
-        String req1 = null;
-        String req2 = null;
-        try {
-            req1 = QSSignatureUtil.percentEncode("test/obj+.txt");
-            req2 = QSSignatureUtil.percentEncode("test/在obj.txt");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(req1, "test/obj+.txt");
-
-        Assert.assertNotEquals(req2, "test/在obj.txt");
-    }
-
-    @Test
     public void testExpireString() {
         EvnContext evnContext = new EvnContext("testkey", "test_asss");
 
