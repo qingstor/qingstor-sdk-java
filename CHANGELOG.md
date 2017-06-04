@@ -1,11 +1,12 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
-## [v2.1.7] - 2017-04-24
+## [v2.1.7] - 2017-06-04
 
 ### Fixed
 
 - Object to jsonstring optimization.
+- Adjust response message model.
 
 ## [v2.1.6] - 2017-04-24
 
