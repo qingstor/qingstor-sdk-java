@@ -22,9 +22,13 @@ public class OutputModel {
 
     private String message;
 
-    private Integer retCode;
-
     private Integer statueCode;
+    
+    private String code;
+    
+    private String requestId;
+    
+    private String url;
 
     @ParamAnnotation(paramType = "query", paramName = "statue_code")
     public Integer getStatueCode() {
@@ -35,16 +39,46 @@ public class OutputModel {
         this.statueCode = statueCode;
     }
 
-    @ParamAnnotation(paramType = "query", paramName = "ret_code")
-    public Integer getRetCode() {
-        return retCode;
-    }
+    /**
+	 * @return the error code
+	 */
+    @ParamAnnotation(paramType = "query", paramName = "code")
+	public String getCode() {
+		return code;
+	}
 
-    public void setRetCode(Integer retCode) {
-        this.retCode = retCode;
-    }
+	/**
+	 * @param response code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    @ParamAnnotation(paramType = "query", paramName = "message")
+	/**
+	 * @return the requestId
+	 */
+	@ParamAnnotation(paramType = "query", paramName = "request_id")
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
+
+	/**
+	 * @return the help url
+	 */
+	@ParamAnnotation(paramType = "query", paramName = "url")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	@ParamAnnotation(paramType = "query", paramName = "message")
     public String getMessage() {
         return message;
     }
