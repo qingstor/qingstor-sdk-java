@@ -20,35 +20,36 @@ import com.qingstor.sdk.annotation.ParamAnnotation;
 
 public class OutputModel {
 
-    private String message;
+	private String message;
 
-    private Integer statueCode;
-    
-    private String code;
-    
-    private String requestId;
-    
-    private String url;
+	private Integer statueCode;
 
-    @ParamAnnotation(paramType = "query", paramName = "statue_code")
-    public Integer getStatueCode() {
-        return statueCode;
-    }
+	private String code;
 
-    public void setStatueCode(Integer statueCode) {
-        this.statueCode = statueCode;
-    }
+	private String requestId;
 
-    /**
+	private String url;
+
+	@ParamAnnotation(paramType = "query", paramName = "statue_code")
+	public Integer getStatueCode() {
+		return statueCode;
+	}
+
+	public void setStatueCode(Integer statueCode) {
+		this.statueCode = statueCode;
+	}
+
+	/**
 	 * @return the error code
 	 */
-    @ParamAnnotation(paramType = "query", paramName = "code")
+	@ParamAnnotation(paramType = "query", paramName = "code")
 	public String getCode() {
 		return code;
 	}
 
 	/**
 	 * @param response code to set
+	 * 
 	 */
 	public void setCode(String code) {
 		this.code = code;
@@ -79,11 +80,11 @@ public class OutputModel {
 	}
 
 	@ParamAnnotation(paramType = "query", paramName = "message")
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }
