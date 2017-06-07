@@ -42,8 +42,8 @@ public class EvnContextTest {
     @Test
     public void testConfig() {
         String config =
-                "access_key: 'testkey'\n"
-                        + "access_secret: 'test_asss'\n"
+                "access_key_id: 'testkey'\n"
+                        + "access_secret_key: 'test_asss'\n"
                         + "additional_user_agent: 'test/integration'\n"
                         + "host: qingcloud.com\n"
                         + "port: 443\n"
