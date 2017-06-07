@@ -16,9 +16,6 @@
 
 package com.qingstor.sdk.config;
 
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.request.ParamValidate;
-import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,13 +24,14 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EvnContext implements ParamValidate {
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.request.ParamValidate;
+import com.qingstor.sdk.utils.QSStringUtil;
 
-    public static String qingcloudIaasHost = "api.qingcloud.com";
+public class EvnContext implements ParamValidate {
 
     public static String qingcloudStorHost = "qingstor.com";
     public static String default_protocal = "https";
-    public static String default_iaas_uri = "/iaas";
 
     private String accessKey;
 
@@ -155,8 +153,8 @@ public class EvnContext implements ParamValidate {
                     }
                 }
             }
-            evn.setAccessKey(confParams.get("access_key"));
-            evn.setAccessSecret(confParams.get("access_secret"));
+            evn.setAccessKey(confParams.get("access_key_id"));
+            evn.setAccessSecret(confParams.get("access_secret_key"));
             evn.setProtocol(confParams.get("protocol"));
             evn.setHost(confParams.get("host"));
             evn.setUri(confParams.get("uri"));
