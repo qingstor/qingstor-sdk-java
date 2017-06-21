@@ -427,6 +427,17 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "created")
         public String getCreated() {
             return this.created;
+        } // Whether this key is encrypted
+
+        private Boolean encrypted;
+
+        public void setEncrypted(Boolean encrypted) {
+            this.encrypted = encrypted;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "encrypted")
+        public Boolean getEncrypted() {
+            return this.encrypted;
         } // MD5sum of the object
 
         private String etag;
@@ -700,7 +711,6 @@ public class Types {
         public String getID() {
             return this.iD;
         } // The resources to apply bucket policy
-        // Required
 
         private List<String> resource;
 
