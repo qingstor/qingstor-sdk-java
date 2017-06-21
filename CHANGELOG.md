@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.1.8] - 2017-06-21
+
+### Changed
+
+- Modify List Multipart Uploads API.
+- Add new headers to UploadMultipart.
+- Add Content-Length to GetObject response headers.
+
 ## [v2.1.7] - 2017-06-04
 
 ### Fixed
@@ -72,6 +80,7 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 - QingStor SDK for the JAVA programming language.
 
+[v2.1.8]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.7...2.1.8
 [v2.1.7]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.6...2.1.7
 [v2.1.6]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.5...2.1.6
 [v2.1.5]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.4...2.1.5
