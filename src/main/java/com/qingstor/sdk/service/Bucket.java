@@ -2637,7 +2637,18 @@ public class Bucket {
             this.bodyInputStream = bodyInputStream;
         }
 
-        // Range of response data content
+        // Object content length
+
+        private Long contentLength;
+
+        public void setContentLength(Long contentLength) {
+            this.contentLength = contentLength;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Length")
+        public Long getContentLength() {
+            return this.contentLength;
+        } // Range of response data content
 
         private String contentRange;
 
@@ -3988,6 +3999,118 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "Content-MD5")
         public String getContentMD5() {
             return this.contentMD5;
+        } // Specify range of the source object
+
+        private String xQSCopyRange;
+
+        public void setXQSCopyRange(String xQSCopyRange) {
+            this.xQSCopyRange = xQSCopyRange;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Range")
+        public String getXQSCopyRange() {
+            return this.xQSCopyRange;
+        } // Copy source, format (/<bucket-name>/<object-key>)
+
+        private String xQSCopySource;
+
+        public void setXQSCopySource(String xQSCopySource) {
+            this.xQSCopySource = xQSCopySource;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source")
+        public String getXQSCopySource() {
+            return this.xQSCopySource;
+        } // Encryption algorithm of the object
+
+        private String xQSCopySourceEncryptionCustomerAlgorithm;
+
+        public void setXQSCopySourceEncryptionCustomerAlgorithm(
+                String xQSCopySourceEncryptionCustomerAlgorithm) {
+            this.xQSCopySourceEncryptionCustomerAlgorithm =
+                    xQSCopySourceEncryptionCustomerAlgorithm;
+        }
+
+        @ParamAnnotation(
+            paramType = "header",
+            paramName = "X-QS-Copy-Source-Encryption-Customer-Algorithm"
+        )
+        public String getXQSCopySourceEncryptionCustomerAlgorithm() {
+            return this.xQSCopySourceEncryptionCustomerAlgorithm;
+        } // Encryption key of the object
+
+        private String xQSCopySourceEncryptionCustomerKey;
+
+        public void setXQSCopySourceEncryptionCustomerKey(
+                String xQSCopySourceEncryptionCustomerKey) {
+            this.xQSCopySourceEncryptionCustomerKey = xQSCopySourceEncryptionCustomerKey;
+        }
+
+        @ParamAnnotation(
+            paramType = "header",
+            paramName = "X-QS-Copy-Source-Encryption-Customer-Key"
+        )
+        public String getXQSCopySourceEncryptionCustomerKey() {
+            return this.xQSCopySourceEncryptionCustomerKey;
+        } // MD5sum of encryption key
+
+        private String xQSCopySourceEncryptionCustomerKeyMD5;
+
+        public void setXQSCopySourceEncryptionCustomerKeyMD5(
+                String xQSCopySourceEncryptionCustomerKeyMD5) {
+            this.xQSCopySourceEncryptionCustomerKeyMD5 = xQSCopySourceEncryptionCustomerKeyMD5;
+        }
+
+        @ParamAnnotation(
+            paramType = "header",
+            paramName = "X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+        )
+        public String getXQSCopySourceEncryptionCustomerKeyMD5() {
+            return this.xQSCopySourceEncryptionCustomerKeyMD5;
+        } // Check whether the Etag of copy source matches the specified value
+
+        private String xQSCopySourceIfMatch;
+
+        public void setXQSCopySourceIfMatch(String xQSCopySourceIfMatch) {
+            this.xQSCopySourceIfMatch = xQSCopySourceIfMatch;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Match")
+        public String getXQSCopySourceIfMatch() {
+            return this.xQSCopySourceIfMatch;
+        } // Check whether the copy source has been modified since the specified date
+
+        private String xQSCopySourceIfModifiedSince;
+
+        public void setXQSCopySourceIfModifiedSince(String xQSCopySourceIfModifiedSince) {
+            this.xQSCopySourceIfModifiedSince = xQSCopySourceIfModifiedSince;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Modified-Since")
+        public String getXQSCopySourceIfModifiedSince() {
+            return this.xQSCopySourceIfModifiedSince;
+        } // Check whether the Etag of copy source does not matches the specified value
+
+        private String xQSCopySourceIfNoneMatch;
+
+        public void setXQSCopySourceIfNoneMatch(String xQSCopySourceIfNoneMatch) {
+            this.xQSCopySourceIfNoneMatch = xQSCopySourceIfNoneMatch;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-None-Match")
+        public String getXQSCopySourceIfNoneMatch() {
+            return this.xQSCopySourceIfNoneMatch;
+        } // Check whether the copy source has not been unmodified since the specified date
+
+        private String xQSCopySourceIfUnmodifiedSince;
+
+        public void setXQSCopySourceIfUnmodifiedSince(String xQSCopySourceIfUnmodifiedSince) {
+            this.xQSCopySourceIfUnmodifiedSince = xQSCopySourceIfUnmodifiedSince;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Unmodified-Since")
+        public String getXQSCopySourceIfUnmodifiedSince() {
+            return this.xQSCopySourceIfUnmodifiedSince;
         } // Encryption algorithm of the object
 
         private String xQSEncryptionCustomerAlgorithm;
