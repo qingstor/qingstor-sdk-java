@@ -32,6 +32,7 @@ Now you are ready to code. You can read the detailed guides in the list below to
 
 - [Configuration Guide](docs/configuration.md)
 - [QingStor Service Usage Guide](docs/qingstor_service_usage.md)
+- [Signature Server Guide](docs/qingstor_signature_server_example.md)
 
 Checkout our [releases](https://github.com/yunify/qingstor-sdk-java/releases) and [change logs](https://github.com/yunify/qingstor-sdk-java/blob/master/CHANGELOGS) for information about the latest features, bug fixes and new ideas.
 
