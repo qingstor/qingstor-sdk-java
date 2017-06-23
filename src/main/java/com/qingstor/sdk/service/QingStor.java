@@ -22,6 +22,7 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
+import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Types.*;
@@ -58,6 +59,29 @@ public class QingStor {
             input = new ListBucketsInput();
         }
 
+        RequestHandler requestHandler = this.listBucketsRequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (ListBucketsOutput) backModel;
+        }
+        return null;
+    }
+
+    /*
+     *
+     * @param input
+     * @throws QSException
+     *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler listBucketsRequest(ListBucketsInput input) throws QSException {
+
+        if (input == null) {
+            input = new ListBucketsInput();
+        }
+
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
@@ -68,13 +92,32 @@ public class QingStor {
         context.put("RequestURI", "/");
         context.put("bucketNameInput", this.bucketName);
 
-        OutputModel backModel =
+        RequestHandler requestHandler =
                 ResourceRequestFactory.getResourceRequest()
-                        .sendApiRequest(context, input, ListBucketsOutput.class);
-        if (backModel != null) {
-            return (ListBucketsOutput) backModel;
+                        .getRequest(context, input, ListBucketsOutput.class);
+
+        return requestHandler;
+    }
+    /*
+     *
+     * @param input
+     * @param callback
+     * @throws QSException
+     *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void listBucketsAsync(
+            ListBucketsInput input, ResponseCallBack<ListBucketsOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new ListBucketsInput();
         }
-        return null;
+
+        RequestHandler requestHandler = this.listBucketsAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
     }
 
     /*
@@ -86,7 +129,7 @@ public class QingStor {
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public void listBucketsAsync(
+    public RequestHandler listBucketsAsyncRequest(
             ListBucketsInput input, ResponseCallBack<ListBucketsOutput> callback)
             throws QSException {
         if (input == null) {
@@ -107,7 +150,10 @@ public class QingStor {
             throw new QSException("callback can't be null");
         }
 
-        ResourceRequestFactory.getResourceRequest().sendApiRequestAsync(context, input, callback);
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
     }
 
     public static class ListBucketsInput extends RequestInputModel {

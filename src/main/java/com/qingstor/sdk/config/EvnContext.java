@@ -199,9 +199,7 @@ public class EvnContext implements ParamValidate {
         if (QSStringUtil.isEmpty(getAccessKey())) {
             return QSStringUtil.getParameterRequired("AccessKey", "EvnContext");
         }
-        if (QSStringUtil.isEmpty(getAccessSecret())) {
-            return QSStringUtil.getParameterRequired("AccessSecret", "EvnContext");
-        }
+        
         if (QSStringUtil.isEmpty(getRequestUrl())) {
             return QSStringUtil.getParameterRequired("host", "EvnContext");
         }

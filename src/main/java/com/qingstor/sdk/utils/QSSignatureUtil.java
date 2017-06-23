@@ -41,10 +41,16 @@ public class QSSignatureUtil {
 
     private static final String ENCODING = "UTF-8";
     private static final String ALGORITHM = "HmacSHA256";
-    private static final String ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     private static final String GMT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
     private static Map keysMap;
 
+    /**
+     *
+     * @param parameters
+     * @param requestUrl
+     * @return
+     * @throws QSException
+     */
     public static String generateQSURL(Map<String, String> parameters, String requestUrl)
             throws QSException {
 
@@ -53,7 +59,6 @@ public class QSSignatureUtil {
 
         String[] sortedKeys = parameters.keySet().toArray(new String[] {});
         Arrays.sort(sortedKeys);
-        String query = "";
         int count = 0;
 
         try {
@@ -91,7 +96,7 @@ public class QSSignatureUtil {
      * @param accessKey: API access key ID
      * @param secretKey: API secret access key ID
      * @param method: HTTP method
-     * @param authPath:
+     * @param requestURI:
      * @param params: HTTP request parameters
      * @param headers: HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
@@ -99,14 +104,14 @@ public class QSSignatureUtil {
      *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
      *     about how to do signature of request against QingStor.
      */
-    public static String getAuth(
+    public static String generateAuthorization(
             String accessKey,
             String secretKey,
             String method,
-            String authPath,
+            String requestURI,
             Map<String, String> params,
             Map<String, String> headers) {
-        String signature = getSignature(accessKey, secretKey, method, authPath, params, headers);
+        String signature = generateSignature(secretKey, method, requestURI, params, headers);
         return String.format("QS %s:%s", accessKey, signature);
     }
 
@@ -115,8 +120,26 @@ public class QSSignatureUtil {
      *
      * @param accessKey: API access key ID
      * @param secretKey: API secret access key ID
+     * @param strToSign: strToSign
+     * @return a string which can be used as value of HTTP request header field "Authorization"
+     *     directly.
+     *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     *     about how to do signature of request against QingStor.
+     */
+    public static String generateAuthorization(
+            String accessKey,
+            String secretKey,
+            String strToSign) {
+        String signature = generateSignature(secretKey, strToSign);
+        return String.format("QS %s:%s", accessKey, signature);
+    }
+
+    /**
+     * Generate signature for request against QingStor.
+     *
+     * @param secretKey: API secret access key ID
      * @param method: HTTP method
-     * @param authPath:
+     * @param requestURI:
      * @param params: HTTP request parameters
      * @param headers: HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
@@ -124,15 +147,26 @@ public class QSSignatureUtil {
      *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
      *     about how to do signature of request against QingStor.
      */
-    public static String getSignature(
-            String accessKey,
+    public static String generateSignature(
             String secretKey,
+            String method,
+            String requestURI,
+            Map<String, String> params,
+            Map<String, String> headers) {
+        String signature = "";
+        String strToSign = getStringToSignature(method,requestURI,params,headers);
+        logger.log(Level.INFO, "== String to sign ==\n" + strToSign + "\n");
+        signature = generateSignature(secretKey, strToSign);
+        return signature;
+    }
+
+
+    public static String getStringToSignature(
             String method,
             String authPath,
             Map<String, String> params,
             Map<String, String> headers) {
         final String SEPARATOR = "&";
-        String signature = "";
         String strToSign = "";
 
         strToSign += method.toUpperCase() + "\n";
@@ -204,11 +238,10 @@ public class QSSignatureUtil {
 
         logger.log(Level.INFO, "== String to sign ==\n" + strToSign + "\n");
 
-        signature = genSignature(secretKey, strToSign);
-        return signature;
+        return strToSign;
     }
 
-    public static String genSignature(String secretKey, String strToSign) {
+    public static String generateSignature(String secretKey, String strToSign) {
         byte[] signData = null;
         try {
             Mac mac = Mac.getInstance(ALGORITHM);
@@ -255,11 +288,6 @@ public class QSSignatureUtil {
         return keysMap.containsKey(key);
     }
 
-    public static String formatIso8601Date(Date date) {
-        SimpleDateFormat df = new SimpleDateFormat(ISO8601_DATE_FORMAT);
-        df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        return df.format(date);
-    }
 
     public static String formatGmtDate(Date date) {
         SimpleDateFormat df = new SimpleDateFormat(GMT_DATE_FORMAT, Locale.US);
@@ -339,8 +367,7 @@ public class QSSignatureUtil {
                             (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME));
         }
         String authSign =
-                getSignature(
-                        evnContext.getAccessKey(),
+        		generateSignature(
                         evnContext.getAccessSecret(),
                         method,
                         requestPath,

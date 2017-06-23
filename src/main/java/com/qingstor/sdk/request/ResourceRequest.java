@@ -61,4 +61,26 @@ public interface ResourceRequest {
     public OutputModel sendApiRequest(
             String requestUrl, Map context, Class<? extends OutputModel> outputClass)
             throws QSException;
+
+    /**
+     * @param context
+     * @param paramBean
+     * @param callback
+     * @throws QSException
+     */
+    public RequestHandler getRequestAsync(
+            Map context, RequestInputModel paramBean, ResponseCallBack callback) throws QSException;
+
+    /**
+     * @param requestUrl
+     * @param context
+     * @param outputClass
+     * @return
+     * @throws QSException
+     */
+    public RequestHandler getRequest(
+            Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
+            throws QSException;
+
+
 }

@@ -300,7 +300,6 @@ public class Types {
 
         @Override
         public String validateParam() {
-
             if (QSStringUtil.isEmpty(this.getAllowedOrigin())) {
                 return QSStringUtil.getParameterRequired("AllowedOrigin", "CORSRule");
             }
@@ -349,7 +348,6 @@ public class Types {
 
         @Override
         public String validateParam() {
-
             if (QSStringUtil.isEmpty(this.getType())) {
                 return QSStringUtil.getParameterRequired("Type", "Grantee");
             }
@@ -744,7 +742,6 @@ public class Types {
                     return vValidate;
                 }
             }
-
             if (QSStringUtil.isEmpty(this.getEffect())) {
                 return QSStringUtil.getParameterRequired("Effect", "Statement");
             }

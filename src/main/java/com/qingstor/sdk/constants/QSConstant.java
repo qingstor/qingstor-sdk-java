@@ -45,6 +45,7 @@ public class QSConstant {
     public static final String PARAM_KEY_CONTENT_LENGTH = "Content-Length";
     public static final String PARAM_KEY_CONTENT_MD5 = "Content-MD5";
     public static final String PARAM_KEY_USER_AGENT = "User-Agent";
+    public static final String PARAM_KEY_EXPIRES = "expires";
     public static final String PARAM_KEY_PART_NUMBER = "part_number";
 
     public static final String BUCKET_NAME_REPLACE = "<bucket-name>";
@@ -67,6 +68,10 @@ public class QSConstant {
     public static final String HEADER_PARAM_KEY_EXPIRES = "Expires";
 
     public static final String HEADER_PARAM_KEY_CONTENTTYPE = "Content-Type";
+
+    public static final String HEADER_PARAM_KEY_AUTHORIZATION = "Authorization";
+
+    public static final String HEADER_PARAM_KEY_SIGNATURE = "Signature";
 
     public static final int REQUEST_ERROR_CODE = 10000;
 
