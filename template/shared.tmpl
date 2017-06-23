@@ -21,9 +21,12 @@
 {{- $isContentLength := eq $property.ID "Content-Length" -}}
 {{- if and $isNormalType (not $isContentLength) -}}
     {{- if $property.IsRequired }}
+        {{- if eq ($property.ID | camelCase) "ContentMD5" }}
+        {{- else -}}
             if (QSStringUtil.isEmpty(this.get{{$property.ID | camelCase}}())) {
                 return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
             }
+        {{- end -}}
     {{- end -}}
     {{- if gt ($property.Enum | len) 0 }}
             String[] {{$property.ID | camelCase | lowerFirst -}}
@@ -343,11 +346,72 @@
                 }
             {{end}}
             
-			{{$uri := $operation.Request.URI}}
-			{{$uri := replace $uri "{" "<" -1}}
-			{{$uri := replace $uri "}" ">" -1}}
-			{{$uri := dashConnected $uri}}
-	 
+			RequestHandler requestHandler = this.{{if eq $belongs "Bucket" -}}
+                {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
+                {{else -}}
+                    {{$opID | camelCase | lowerFirst -}}
+                {{end}}Request(
+                {{if eq $operation.Request.URI $newURI}}
+                {{- else -}}
+                objectName
+                {{end}}
+                {{if $hasInput -}}
+                {{if eq $operation.Request.URI $newURI}}
+                {{- else -}}
+                ,
+                {{end}}
+                    input    
+                {{end -}}
+            );
+
+            OutputModel backModel = requestHandler.send();
+            if(backModel != null){
+                return ({{$opID}}Output)backModel;
+            }
+            return null;
+        }
+
+    /*
+     *
+     {{- if $hasInput}}
+     * @param input
+     {{- end}}
+     * @throws QSException
+     *
+     * Documentation URL: {{$operation.DocumentationURL}}
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public RequestHandler
+    {{if eq $belongs "Bucket" -}}
+        {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
+    {{else -}}
+        {{$opID | camelCase | lowerFirst -}}
+    {{end -}}Request
+    (
+    {{if eq $operation.Request.URI $newURI -}}
+        {{- if $hasInput -}}
+
+         {{$opID -}}Input input
+        {{end}}
+    {{ else -}}
+     String objectName
+        {{- if $hasInput}}
+        ,{{$opID}}Input input
+        {{end}}
+    {{end}}
+    ) throws QSException {
+            {{- if $hasInput}}
+
+                if (input == null ){
+                    input = new {{$opID}}Input();
+                }
+            {{end}}
+            
+            {{$uri := $operation.Request.URI}}
+            {{$uri := replace $uri "{" "<" -1}}
+            {{$uri := replace $uri "}" ">" -1}}
+            {{$uri := dashConnected $uri}}
+     
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
             context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
@@ -374,20 +438,18 @@
                 throw new QSException("objectName can't be empty!");
             }
             {{- end}}
+            
+            RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest().getRequest(context,
+                {{- if $hasInput}}
+                    input
+                {{ else }}
+                    null
+                {{end}},
+                {{$opID}}Output.class);
 
-            OutputModel backModel = ResourceRequestFactory.getResourceRequest().sendApiRequest(context,
-            {{- if $hasInput}}
-                input
-            {{ else }}
-                null
-            {{end}},
-            {{$opID}}Output.class);
-            if(backModel != null){
-                return ({{$opID}}Output)backModel;
-            }
-            return null;
+            return requestHandler;
         }
-
 /*
      *{{- if $hasInput}}
      * @param input
@@ -416,16 +478,80 @@
         {{end}}
         ResponseCallBack<{{camelCase $operation.ID}}Output> callback) throws QSException {
             {{- if $hasInput}}
+
+                if (input == null ){
+                    input = new {{$opID}}Input();
+                }
+            {{end}}
+            
+            RequestHandler requestHandler = this.{{if eq $belongs "Bucket" -}}
+                {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
+                {{else -}}
+                    {{$opID | camelCase | lowerFirst -}}
+                {{end}}AsyncRequest(
+                {{if eq $operation.Request.URI $newURI}}
+                {{- else -}}
+                objectName
+                {{end}}
+                {{if $hasInput -}}
+                    {{if eq $operation.Request.URI $newURI}}
+                    {{- else -}}
+                    ,
+                    {{end}}
+                    input,callback    
+                {{- else -}}
+                    {{if eq $operation.Request.URI $newURI}}
+                    callback
+                    {{- else -}}
+                    ,callback
+                    {{end}}
+                    
+                {{end -}}
+            );
+
+            requestHandler.sendAsync();
+
+        }
+
+
+/*
+     *{{- if $hasInput}}
+     * @param input
+          {{- end}}
+     * @param callback
+     * @throws QSException
+     *
+     * Documentation URL: {{$operation.DocumentationURL}}
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public RequestHandler {{if eq $belongs "Bucket" -}}
+                        {{- replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
+                    {{- else -}}
+                        {{$opID | camelCase | lowerFirst }}
+                    {{- end -}}AsyncRequest(
+        {{if eq $operation.Request.URI $newURI}}
+            {{- if $hasInput}}
+
+             {{$opID}}Input input,
+            {{end}}
+        {{- else -}}
+         String objectName,
+            {{- if $hasInput}}
+            {{$opID}}Input input,
+            {{end}}
+        {{end}}
+        ResponseCallBack<{{camelCase $operation.ID}}Output> callback) throws QSException {
+            {{- if $hasInput}}
                 if (input == null ){
                     input = new {{$opID}}Input();
                 }
             {{end}}
             
             {{$uri := $operation.Request.URI}}
-	 		{{$uri := replace $uri "{" "<" -1}}
-	 		{{$uri := replace $uri "}" ">" -1}}
-	 		{{$uri := dashConnected $uri}}
-	 		
+            {{$uri := replace $uri "{" "<" -1}}
+            {{$uri := replace $uri "}" ">" -1}}
+            {{$uri := dashConnected $uri}}
+            
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
             context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
@@ -457,12 +583,14 @@
                 throw new QSException("callback can't be null");
             }
 
-            ResourceRequestFactory.getResourceRequest().sendApiRequestAsync(context,{{- if $hasInput}}
+            RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequestAsync(context,{{- if $hasInput}}
                                                                                                     input
                                                                                                 {{ else }}
                                                                                                     null
                                                                                                 {{end}},callback);
+            return requestHandler;
         }
+
 
     {{- if $hasInput}}
     public static class {{$opID}}Input extends RequestInputModel{

@@ -36,6 +36,7 @@ import com.qingstor.sdk.utils.QSStringUtil;
 import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.request.ResponseCallBack;
+import com.qingstor.sdk.request.RequestHandler;
 
 import okhttp3.Request;
 
@@ -71,57 +72,112 @@ public class Bucket {
          * @return
          * @throws QSException
          */
+         @Deprecated
         public String GetObjectSignatureUrl(String objectName,int expiresSecond) throws QSException{
             return QSSignatureUtil.getObjectAuthRequestUrl(this.evnContext,this.zone,bucketName,objectName,expiresSecond);
         }
 
-        /**
-         *
-         * @param signaturedRequest
-         * @return
-         * @throws QSException
-         */
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
-            Map context = new HashMap();
-            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
-            context.put("OperationName","GetObject");
-            context.put("APIName","GetObject");
-            context.put("ServiceName","QingStor");
-            context.put("RequestMethod","GET");
-            context.put("RequestURI","/<bucket-name>/<object-key>");
+     /**
+     * @param objectName
+     * @param expires
+     * @return
+     * @throws QSException
+     * Documentation URL: https://docs.qingcloud.com/qingstor/api/common/signature.html
+     */
+    public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
+        
+        RequestHandler requestHandler = this.GetObjectBySignatureUrlRequest(objectName, expires);
+        
+        return requestHandler.getExpiresRequestUrl();
+    }
+        
+    /**
+     * @param objectName
+     * @param expires
+     * @return
+     * @throws QSException
+     * Documentation URL: https://docs.qingcloud.com/qingstor/api/common/signature.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler GetObjectBySignatureUrlRequest(String objectName, long expires)
+            throws QSException {
 
-            Object backModel = ResourceRequestFactory.getResourceRequest().sendApiRequest(signaturedRequest,context,GetObjectOutput.class);
-            if(backModel != null){
-                return (GetObjectOutput)backModel;
-            }
-            return null;
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
+        context.put("OperationName", "GetObject");
+        context.put("APIName", "GetObject");
+        context.put("ServiceName", "Get Object");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        context.put("bucketNameInput", this.bucketName);
+        context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
         }
 
-        /**
-         *
-         * @param signaturedRequest
-         * @param callback
-         * @throws QSException
-         */
-         @SuppressWarnings({ "rawtypes", "unchecked" })
-        public void GetObjectBySignatureUrlAsync(String signaturedRequest,ResponseCallBack<GetObjectOutput> callback) throws QSException {
-            Map context = new HashMap();
-            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
-            context.put("OperationName","GetObject");
-            context.put("APIName","GetObject");
-            context.put("ServiceName","QingStor");
-            context.put("RequestMethod","GET");
-            context.put("RequestURI","/<bucket-name>/<object-key>");
+        RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequest(context, new RequestInputModel(), OutputModel.class);
 
-            if(callback == null){
-                throw new QSException("callback can't be null");
-            }
+        return requestHandler;
+    }
 
-            ResourceRequestFactory.getResourceRequest().sendApiRequestAsync(signaturedRequest,context,callback);
+    /**
+     * @param signaturedRequest
+     * @return
+     * @throws QSException
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "GetObject");
+        context.put("APIName", "GetObject");
+        context.put("ServiceName", "QingStor");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>/<object-key>");
+
+        Object backModel =
+                ResourceRequestFactory.getResourceRequest()
+                        .sendApiRequest(signaturedRequest, context, GetObjectOutput.class);
+        if (backModel != null) {
+            return (GetObjectOutput) backModel;
         }
+        return null;
+    }
+    
+    
+
+    /**
+     * @param signaturedRequest
+     * @param callback
+     * @throws QSException
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void GetObjectBySignatureUrlAsync(
+            String signaturedRequest, ResponseCallBack<GetObjectOutput> callback)
+            throws QSException {
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "GetObject");
+        context.put("APIName", "GetObject");
+        context.put("ServiceName", "QingStor");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>/<object-key>");
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        ResourceRequestFactory.getResourceRequest()
+                .sendApiRequestAsync(signaturedRequest, context, callback);
+    }
         {{end}}
 
     {{end}}
