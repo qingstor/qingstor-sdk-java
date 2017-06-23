@@ -51,7 +51,7 @@ public class QSSignatureUtilTest {
         */
         String d = QSSignatureUtil.formatGmtDate(new Date());
         String url =
-                QSSignatureUtil.getAuth(
+                QSSignatureUtil.generateAuthorization(
                         "QYACCESSKEYIDEXAMPLE",
                         "wudajefiLSJDWIFJLSD",
                         "GET",

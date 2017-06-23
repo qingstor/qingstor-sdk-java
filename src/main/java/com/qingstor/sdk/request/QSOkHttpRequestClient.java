@@ -61,7 +61,7 @@ public class QSOkHttpRequestClient {
     private OkHttpClient client = null;
     private OkHttpClient unsafeClient = null;
 
-    private static QSOkHttpRequestClient ins;
+    private static volatile QSOkHttpRequestClient ins;
 
     protected QSOkHttpRequestClient() {
         intiOkHttpClient();
@@ -169,6 +169,7 @@ public class QSOkHttpRequestClient {
     public Request buildUrlRequest(final String singedUrl) {
 
         Request request = new Request.Builder().url(singedUrl).build();
+
         // Execute the request and retrieve the response.
         return request;
     }
