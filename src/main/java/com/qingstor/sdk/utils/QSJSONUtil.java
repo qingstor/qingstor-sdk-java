@@ -16,7 +16,6 @@
 
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.annotation.ParamAnnotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -28,9 +27,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.qingstor.sdk.annotation.ParamAnnotation;
 
 public class QSJSONUtil {
 

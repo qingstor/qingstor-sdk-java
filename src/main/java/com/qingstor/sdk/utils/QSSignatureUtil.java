@@ -16,10 +16,6 @@
 
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.config.EvnContext;
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.RequestInputModel;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
@@ -33,8 +29,14 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.RequestInputModel;
 
 public class QSSignatureUtil {
     private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSSignatureUtil.class.getName());

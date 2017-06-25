@@ -16,9 +16,10 @@
 
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.constants.QSConstant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.qingstor.sdk.constants.QSConstant;
 
 public class QSLoggerUtil {
 

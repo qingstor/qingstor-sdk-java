@@ -16,26 +16,13 @@
 
 package com.qingstor.sdk.request;
 
+import java.util.Map;
+
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
-import com.qingstor.sdk.utils.Base64;
-import com.qingstor.sdk.utils.QSLoggerUtil;
-import com.qingstor.sdk.utils.QSParamInvokeUtil;
-import com.qingstor.sdk.utils.QSSignatureUtil;
-import com.qingstor.sdk.utils.QSStringUtil;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import okhttp3.Request;
 
