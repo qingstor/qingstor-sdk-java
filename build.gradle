@@ -96,11 +96,13 @@ dependencies {
     // The production code uses the SLF4J logging API at compile time
     compile 'org.json:json:20140107'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'org.yaml:snakeyaml:1.17'
 
     formatComile 'com.google.googlejavaformat:google-java-format:1.1:all-deps'
 
     providedCompile 'org.json:json:20140107'
     providedCompile 'com.squareup.okhttp3:okhttp:3.2.0'
+    providedCompile 'org.yaml:snakeyaml:1.17'
     providedCompile 'info.cukes:cucumber-java:' + cucumberVersion
     providedCompile 'info.cukes:cucumber-junit:' + cucumberVersion
 
@@ -116,4 +118,5 @@ dependencies {
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'org.json:json:20140107'
     testCompile 'com.squareup.okhttp3:okhttp:3.2.0'
+    testCompile 'org.yaml:snakeyaml:1.17'
 }

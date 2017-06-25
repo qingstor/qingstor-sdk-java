@@ -17,6 +17,8 @@
 package com.qingstor.sdk.config;
 
 import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,10 +42,10 @@ public class EvnContextTest {
     }
 
     @Test
-    public void testConfig() {
+    public void testConfig() throws QSException {
         String config =
                 "access_key_id: 'testkey'\n"
-                        + "access_secret_key: 'test_asss'\n"
+                        + "secret_access_key: 'test_asss'\n"
                         + "additional_user_agent: 'test/integration'\n"
                         + "host: qingcloud.com\n"
                         + "port: 443\n"

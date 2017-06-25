@@ -19,12 +19,16 @@ package com.qingstor.sdk.config;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.yaml.snakeyaml.Yaml;
+
 import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ParamValidate;
 import com.qingstor.sdk.utils.QSStringUtil;
 
@@ -126,46 +130,40 @@ public class EvnContext implements ParamValidate {
         QSConstant.LOGGER_LEVEL = this.getLog_level();
     }
 
-    public static EvnContext loadFromFile(String filePathName) {
+    public static EvnContext loadFromFile(String filePathName) throws QSException {
         EvnContext evn = new EvnContext();
         File f = new File(filePathName);
         if (f.exists()) {
             BufferedReader br = null;
-            Map<String, String> confParams = new HashMap<String, String>();
-            try {
-                br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-                String strConf = null;
-
-                while ((strConf = br.readLine()) != null) {
-                    String[] str = strConf.split(":");
-                    if (str.length > 1) {
-                        confParams.put(str[0].trim(), str[1].replaceAll("'","").trim());
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            evn.setAccessKey(confParams.get("access_key_id"));
-            evn.setAccessSecret(confParams.get("access_secret_key"));
-            evn.setProtocol(confParams.get("protocol"));
-            evn.setHost(confParams.get("host"));
-            evn.setUri(confParams.get("uri"));
-            evn.setPort(confParams.get("port"));
-            evn.setLog_level(confParams.get("log_level"));
-            evn.setAdditionalUserAgent(confParams.get("additional_user_agent"));
             
+            Yaml yaml = new Yaml();
+            try {
+				Map confParams = (Map) yaml.load(new FileInputStream(f));
+				evn.setAccessKey(getYamlConfig("access_key_id",confParams));
+	            evn.setAccessSecret(getYamlConfig("secret_access_key",confParams));
+	            evn.setProtocol(getYamlConfig("protocol",confParams));
+	            evn.setHost(getYamlConfig("host",confParams));
+	            evn.setUri(getYamlConfig("uri",confParams));
+	            evn.setPort(getYamlConfig("port",confParams));
+	            evn.setLog_level(getYamlConfig("log_level",confParams));
+	            evn.setAdditionalUserAgent(getYamlConfig("additional_user_agent",confParams));
+	            
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new QSException("Yaml config error:", e);
+			}
+
         }
         return evn;
     }
     
+    private static String getYamlConfig(String key,Map config) {
+    	if(config.containsKey(key)){
+    		return String.valueOf(config.get(key));
+    	}
+    	return null;
+    }
 
     public String getLog_level() {
 		return log_level;
