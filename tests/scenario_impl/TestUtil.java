@@ -48,7 +48,12 @@ public class TestUtil {
     }
     
     public static EvnContext getEvnContext(){
-    	return EvnContext.loadFromFile("config.yaml");
+    	try{
+    		return EvnContext.loadFromFile("config.yaml");
+    	} catch (Exception e) {
+            e.printStackTrace();
+        }
+    	return null;
     }
 
     public static String getZone(){

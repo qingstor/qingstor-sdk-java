@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.security.cert.CertificateException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -536,13 +537,10 @@ public class QSOkHttpRequestClient {
     }
 
     public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {
-        String errorJson =
-                String.format(
-                        "{'%s':%s,'%s':'%s'}",
-                        QSConstant.QC_CODE_FIELD_NAME,
-                        code + "",
-                        QSConstant.QC_MESSAGE_FIELD_NAME,
-                        content);
-        QSJSONUtil.jsonFillValue2Object(errorJson, model);
+    	Map<String,Object> errorMap = new HashMap<String,Object>();
+    	errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);
+    	errorMap.put(QSConstant.QC_MESSAGE_FIELD_NAME, content);
+    	
+        QSJSONUtil.jsonFillValue2Object(QSStringUtil.getObjectToJson(errorMap), model);
     }
 }
