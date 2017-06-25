@@ -16,9 +16,6 @@
 
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
@@ -26,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
+
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
 
 /** Created by on 11/4/15. */
 public class QSStringUtil {

@@ -16,10 +16,11 @@
 
 package com.qingstor.sdk.request;
 
+import java.util.Map;
+
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
-import java.util.Map;
 
 public interface ResourceRequest {
 

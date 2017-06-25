@@ -16,13 +16,6 @@
 
 package com.qingstor.sdk.request;
 
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.OutputModel;
-import com.qingstor.sdk.utils.QSJSONUtil;
-import com.qingstor.sdk.utils.QSLoggerUtil;
-import com.qingstor.sdk.utils.QSParamInvokeUtil;
-import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,12 +27,24 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+
+import org.json.JSONObject;
+
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.OutputModel;
+import com.qingstor.sdk.utils.QSJSONUtil;
+import com.qingstor.sdk.utils.QSLoggerUtil;
+import com.qingstor.sdk.utils.QSParamInvokeUtil;
+import com.qingstor.sdk.utils.QSStringUtil;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -51,7 +56,6 @@ import okhttp3.ResponseBody;
 import okhttp3.internal.Util;
 import okhttp3.internal.http.HttpMethod;
 import okio.BufferedSink;
-import org.json.JSONObject;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSOkHttpRequestClient {

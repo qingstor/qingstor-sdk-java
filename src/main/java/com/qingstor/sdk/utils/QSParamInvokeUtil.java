@@ -16,11 +16,6 @@
 
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.annotation.ParamAnnotation;
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.OutputModel;
-import com.qingstor.sdk.request.ResponseCallBack;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,6 +26,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.OutputModel;
+import com.qingstor.sdk.request.ResponseCallBack;
 
 public class QSParamInvokeUtil {
 

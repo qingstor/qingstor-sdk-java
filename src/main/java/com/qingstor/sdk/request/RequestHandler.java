@@ -16,6 +16,10 @@
 
 package com.qingstor.sdk.request;
 
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
@@ -24,10 +28,6 @@ import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
-
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import okhttp3.Request;
 
