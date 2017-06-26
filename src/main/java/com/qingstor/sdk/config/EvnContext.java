@@ -50,6 +50,13 @@ public class EvnContext implements ParamValidate {
         return safeOkHttp;
     }
 
+    
+    /**
+     * This method will be deleted in subsequent releases
+     * 
+     * @param safeOkHttp
+     */
+    @Deprecated
     public void setSafeOkHttp(boolean safeOkHttp) {
         this.safeOkHttp = safeOkHttp;
     }
