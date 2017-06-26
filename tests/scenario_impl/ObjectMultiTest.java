@@ -25,6 +25,7 @@ import cucumber.api.java.en.When;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class ObjectMultiTest {
@@ -91,7 +92,7 @@ public class ObjectMultiTest {
 
         Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
         try {
-            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_0\nbs=1m\ncount=5");// 启动另一个进程来执行命令
+            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_0\nbs=1048576\ncount=6");// 启动另一个进程来执行命令
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
@@ -133,7 +134,7 @@ public class ObjectMultiTest {
         // Write code here that turns the phrase above into concrete actions
         Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
         try {
-            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_1\nbs=1m\ncount=5");// 启动另一个进程来执行命令
+            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_1\nbs=1048576\ncount=6");// 启动另一个进程来执行命令
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
@@ -151,12 +152,12 @@ public class ObjectMultiTest {
             e.printStackTrace();
         }
 
-        int part_number = 0;
+        int part_number = 1;
         File f = new File("/tmp/sdk_bin_part_1");
         Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
         input.setXQSEncryptionCustomerKey(objectKey);
         input.setContentLength(f.length());
-        input.setBodyInputFile(f);
+        input.setBodyInputStream(new FileInputStream(f));
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput2 = Bucket.uploadMultipart(multipart_upload_name, input);
@@ -174,7 +175,7 @@ public class ObjectMultiTest {
         // Write code here that turns the phrase above into concrete actions
         Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
         try {
-            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_2\nbs=1m\ncount=5");// 启动另一个进程来执行命令
+            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_2\nbs=1048576\ncount=6");// 启动另一个进程来执行命令
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
@@ -192,12 +193,12 @@ public class ObjectMultiTest {
             e.printStackTrace();
         }
 
-        int part_number = 0;
+        int part_number = 2;
         File f = new File("/tmp/sdk_bin_part_2");
         Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
         input.setXQSEncryptionCustomerKey(objectKey);
         input.setContentLength(f.length());
-        input.setBodyInputFile(f);
+        input.setBodyInputStream(new FileInputStream(f));
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput3 = Bucket.uploadMultipart(multipart_upload_name, input);
