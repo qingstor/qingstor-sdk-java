@@ -134,6 +134,7 @@ public class QSBuilder {
                 bucketName,
                 paramsQuery,
                 requestSuffixPath);
+        logger.log(Level.INFO, "== requestUrl ==\n" + this.requestUrl + "\n");
     }
 
     private Map headParamEncoding(Map headParams) throws QSException {
