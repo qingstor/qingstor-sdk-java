@@ -67,6 +67,7 @@ public class QSOkHttpRequestClient {
         unsafeClient = getUnsafeOkHttpClient();
     }
 
+    @Deprecated
     private static OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
