@@ -44,7 +44,7 @@ public class ObjectTest {
     private static Bucket.DeleteObjectOutput deleteObjectOutput;
     private static Bucket.DeleteObjectOutput deleteObjectOutput2;
 
-    @When("^put object with key \"([^\"]*)\"$")
+    @When("^put object with key \"(.*)\"")
     public void put_object_with_key(String objectKey) throws Throwable {
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         File f = new File("config.yaml");
@@ -60,7 +60,7 @@ public class ObjectTest {
         TestUtil.assertEqual(putObjectOutput.getStatueCode(), statueCode);
     }
 
-    @When("^copy object with key \"([^\"]*)\"$")
+    @When("^copy object with key \"(.*)\"$")
     public void copy_object_with_key(String objectKey) throws Throwable {
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         input.setXQSCopySource("/" + bucketName + "/" + objectKey);
@@ -73,7 +73,7 @@ public class ObjectTest {
         TestUtil.assertEqual(copyOutput.getStatueCode(), statueCode);
     }
 
-    @When("^move object with key \"([^\"]*)\"$")
+    @When("^move object with key \"(.*)\"$")
     public void move_object_with_key(String objectKey) throws Throwable {
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         input.setXQSMoveSource("/" + bucketName + "/" + objectKey + "copy");
@@ -86,7 +86,7 @@ public class ObjectTest {
         TestUtil.assertEqual(moveOutput.getStatueCode(), statueCode);
     }
 
-    @When("^get object with key \"([^\"]*)\"$")
+    @When("^get object with key \"(.*)\"$")
     public void get_object(String objectKey) throws Throwable {
         Bucket.GetObjectInput input = new Bucket.GetObjectInput();
         getObjectOutput = testBucket.getObject(objectKey + "move", input);
@@ -115,7 +115,7 @@ public class ObjectTest {
     }
 
 
-    @When("^get object \"([^\"]*)\" with query signature$")
+    @When("^get object \"(.*)\" with query signature$")
     public void get_object_with_query_signature(String statueCode) throws Throwable {
         String reqUrl = testBucket.GetObjectSignatureUrl(statueCode, 1000);
         getObjectOutput = testBucket.GetObjectBySignatureUrl(reqUrl);
@@ -141,20 +141,20 @@ public class ObjectTest {
         System.out.println("get_object_with_query_signature_length:" + iLength);
     }
 
-    @When("^get object with content type \"([^\"]*)\"$")
-    public void get_object_with_content_type(String objectKey) throws Throwable {
+    @When("^get object \"(.*)\" with content type \"(.*)\"$")
+    public void get_object_with_content_type(String objectKey, String contentType) throws Throwable {
         Bucket.GetObjectInput input = new Bucket.GetObjectInput();
-        input.setResponseContentType(objectKey);
+        input.setResponseContentType(contentType);
         getContentTypeOutput = testBucket.getObject(objectKey, input);
     }
 
-    @Then("^get object content type is \"([^\"]*)\"$")
+    @Then("^get object content type is \"(.*)\"$")
     public void get_object_content_type_is(String statueCode) throws Throwable {
         TestUtil.assertEqual(statueCode, getContentTypeOutput.getResponseContentType());
     }
 
 
-    @When("^head object with key \"([^\"]*)\"$")
+    @When("^head object with key \"(.*)\"$")
     public void head_object(String objectKey) throws Throwable {
         Bucket.HeadObjectInput input = new Bucket.HeadObjectInput();
 
@@ -165,13 +165,22 @@ public class ObjectTest {
     public void head_object_status_code_is(int statueCode) throws Throwable {
         TestUtil.assertEqual(headObjectOutput.getStatueCode(), statueCode);
     }
-    
+
+    @When("^options object \"(.*)\" with method \"(.*)\" and origin \"(.*)\"$")
+    public void options_object_with_method_and_origin(String objectKey, String method, String origin) throws Throwable {
+        Bucket.OptionsObjectInput input = new Bucket.OptionsObjectInput();
+        input.setAccessControlRequestMethod(method);
+        input.setOrigin(origin);
+        optionObjectOutput = testBucket.optionsObject(objectKey, input);
+        System.out.println(optionObjectOutput.getMessage());
+    }
+
     @Then("^options object status code is (\\d+)$")
     public void options_object_status_code_is(int statueCode) throws Throwable {
         TestUtil.assertEqual(optionObjectOutput.getStatueCode(), statueCode);
     }
 
-    @When("^delete object with key \"([^\"]*)\"$")
+    @When("^delete object with key \"(.*)\"$")
     public void delete_object(String objectKey) throws Throwable {
         deleteObjectOutput = testBucket.deleteObject(objectKey);
     }
@@ -181,7 +190,7 @@ public class ObjectTest {
         TestUtil.assertEqual(deleteObjectOutput.getStatueCode(), statueCode);
     }
 
-    @When("^delete the move object with key \"([^\"]*)\"$")
+    @When("^delete the move object with key \"(.*)\"$")
     public void delete_the_move_object(String objectKey) throws Throwable {
         deleteObjectOutput2 = testBucket.deleteObject(objectKey);
     }
@@ -190,24 +199,6 @@ public class ObjectTest {
     public void delete_the_move_object_status_code_is(int statueCode) throws Throwable {
         TestUtil.assertEqual(deleteObjectOutput2.getStatueCode(), statueCode);
     }
-
-    @When("^get object \"([^\"]*)\" with content type \"([^\"]*)\"$")
-    public void get_object_with_content_type(String objectKey, String contentType) throws Throwable {
-        Bucket.GetObjectInput input = new Bucket.GetObjectInput();
-        input.setResponseContentType(contentType);
-        getContentTypeOutput = testBucket.getObject(objectKey, input);
-        System.out.println(getContentTypeOutput.getMessage());
-    }
-
-    @When("^options object \"([^\"]*)\" with method \"([^\"]*)\" and origin \"([^\"]*)\"$")
-    public void options_object_with_method_and_origin(String objectKey, String method, String origin) throws Throwable {
-        Bucket.OptionsObjectInput input = new Bucket.OptionsObjectInput();
-        input.setAccessControlRequestMethod(method);
-        input.setOrigin(origin);
-        optionObjectOutput = testBucket.optionsObject(objectKey, input);
-        System.out.println(optionObjectOutput.getMessage());
-    }
-
 
 }
 
