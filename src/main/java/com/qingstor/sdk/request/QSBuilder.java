@@ -16,6 +16,13 @@
 
 package com.qingstor.sdk.request;
 
+import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.RequestInputModel;
+import com.qingstor.sdk.utils.*;
+import okhttp3.Request;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -25,18 +32,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.qingstor.sdk.config.EvnContext;
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.RequestInputModel;
-import com.qingstor.sdk.utils.Base64;
-import com.qingstor.sdk.utils.QSLoggerUtil;
-import com.qingstor.sdk.utils.QSParamInvokeUtil;
-import com.qingstor.sdk.utils.QSSignatureUtil;
-import com.qingstor.sdk.utils.QSStringUtil;
-
-import okhttp3.Request;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSBuilder {
@@ -85,36 +80,36 @@ public class QSBuilder {
 
         String requestApi = (String) context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
         this.initHeadContentMd5(requestApi, paramsBody, paramsHeaders);
-        
+
         this.requestMethod = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
 
 
     }
 
-    private void doSignature() throws QSException{
-    	
-    	String authSign = this.getParamSignature();
+    private void doSignature() throws QSException {
+
+        String authSign = this.getParamSignature();
         logger.log(Level.INFO, "== authSign ==\n" + authSign + "\n");
 
         paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
     }
-    
+
     private String getParamSignature() throws QSException {
 
         String authSign = "";
         EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
-        try{
+        try {
 
-	        if (this.checkExpiresParam()) {
-	            authSign =
-	                    QSSignatureUtil.generateSignature(evnContext.getAccessSecret(), this.getStringToSignature());
-	            authSign = URLEncoder.encode(authSign, QSConstant.ENCODING_UTF8);
-	        } else {
-	            authSign =
-	                    QSSignatureUtil.generateAuthorization(
-	                            evnContext.getAccessKey(), evnContext.getAccessSecret(), this.getStringToSignature());
-	
-	        }
+            if (this.checkExpiresParam()) {
+                authSign =
+                        QSSignatureUtil.generateSignature(evnContext.getAccessSecret(), this.getStringToSignature());
+                authSign = URLEncoder.encode(authSign, QSConstant.ENCODING_UTF8);
+            } else {
+                authSign =
+                        QSSignatureUtil.generateAuthorization(
+                                evnContext.getAccessKey(), evnContext.getAccessSecret(), this.getStringToSignature());
+
+            }
         } catch (Exception e) {
             throw new QSException("Auth signature error", e);
         }
@@ -207,19 +202,19 @@ public class QSBuilder {
 
     public void setSignature(String accessKey, String signature) throws QSException {
 
-    	try {
-    		EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        try {
+            EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
             evnContext.setAccessKey(accessKey);
-    		if (this.checkExpiresParam()) {
+            if (this.checkExpiresParam()) {
                 signature = URLEncoder.encode(signature, QSConstant.ENCODING_UTF8);
             } else {
                 signature = String.format("QS %s:%s", accessKey, signature);
             }
             this.paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, signature);
-    	} catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new QSException("Auth signature error", e);
         }
-        
+
 
     }
 
@@ -238,13 +233,13 @@ public class QSBuilder {
     }
 
     public Request getRequest() throws QSException {
-    	if (this.checkExpiresParam()) {
-    		throw new QSException("You need to 'getExpiresRequestUrl' do request!");
-    	}
-    	
-    	this.getSignature();
-        
-    	String requestApi = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
+        if (this.checkExpiresParam()) {
+            throw new QSException("You need to 'getExpiresRequestUrl' do request!");
+        }
+
+        this.getSignature();
+
+        String requestApi = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
         if (QSConstant.PARAM_KEY_REQUEST_API_MULTIPART.equals(requestApi)) {
             Request request =
                     QSOkHttpRequestClient.getInstance()
@@ -301,13 +296,13 @@ public class QSBuilder {
         }
 
     }
-    
-    private String getSignature() throws QSException{
-    	Object signature = this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION);
-    	if (signature == null){
-    		this.doSignature();
-    		return String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
-    	}
-    	return String.valueOf(signature);
+
+    private String getSignature() throws QSException {
+        Object signature = this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION);
+        if (signature == null) {
+            this.doSignature();
+            return String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
+        }
+        return String.valueOf(signature);
     }
 }

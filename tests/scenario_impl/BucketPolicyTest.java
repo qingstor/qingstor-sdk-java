@@ -18,13 +18,12 @@ package scenario_impl;
 
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
-
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class BucketPolicyTest {
 
-	private String bucketName = TestUtil.getBucketName();
+    private String bucketName = TestUtil.getBucketName();
     public static String zone = TestUtil.getZone();
 
     private Bucket Bucket;
@@ -50,7 +49,7 @@ public class BucketPolicyTest {
     public void put_bucket_policy(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketPolicyInput input = new Bucket.PutBucketPolicyInput();
         input.setBodyInput(arg1);
         putBucketPolicyOutput = Bucket.putPolicy(input);
@@ -59,42 +58,42 @@ public class BucketPolicyTest {
     @Then("^put bucket policy status code is (\\d+)$")
     public void put_bucket_policy_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-    	System.out.println("put_bucket_policy_status_code_is:"+this.putBucketPolicyOutput.getMessage());
-        TestUtil.assertEqual(this.putBucketPolicyOutput.getStatueCode(),arg1);
+        System.out.println("put_bucket_policy_status_code_is:" + this.putBucketPolicyOutput.getMessage());
+        TestUtil.assertEqual(this.putBucketPolicyOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket policy$")
     public void get_bucket_policy() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         getBucketPolicyOutput = Bucket.getPolicy();
     }
 
     @Then("^get bucket policy status code is (\\d+)$")
     public void get_bucket_policy_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(this.getBucketPolicyOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(this.getBucketPolicyOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket policy should have Referer \"([^\"]*)\"$")
     public void get_bucket_policy_should_have_Referer(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("get_bucket_policy_should_have_Referer:\n"+this.getBucketPolicyOutput.getStatement());
+        System.out.println("get_bucket_policy_should_have_Referer:\n" + this.getBucketPolicyOutput.getStatement());
     }
 
     @When("^delete bucket policy$")
     public void delete_bucket_policy() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         deleteBucketPolicyOutput = Bucket.deletePolicy();
     }
 
     @Then("^delete bucket policy status code is (\\d+)$")
     public void delete_bucket_policy_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(this.deleteBucketPolicyOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(this.deleteBucketPolicyOutput.getStatueCode(), arg1);
     }
 
 

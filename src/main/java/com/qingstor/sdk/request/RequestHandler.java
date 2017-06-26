@@ -16,10 +16,6 @@
 
 package com.qingstor.sdk.request;
 
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
@@ -28,8 +24,11 @@ import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
-
 import okhttp3.Request;
+
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class RequestHandler {
@@ -76,7 +75,7 @@ public class RequestHandler {
     }
 
     public OutputModel send() throws QSException {
-    	
+
         String validate = this.check();
         if (!QSStringUtil.isEmpty(validate)) {
             try {
@@ -101,8 +100,8 @@ public class RequestHandler {
         return this.builder.getStringToSignature();
     }
 
-    public void setSignature(String accessKey, String signature) throws QSException{
-        this.builder.setSignature(accessKey,signature);
+    public void setSignature(String accessKey, String signature) throws QSException {
+        this.builder.setSignature(accessKey, signature);
     }
 
     public String getExpiresRequestUrl() throws QSException {
@@ -123,7 +122,7 @@ public class RequestHandler {
     }
 
     public QSBuilder getBuilder() {
-    	return this.builder;
+        return this.builder;
     }
 
 

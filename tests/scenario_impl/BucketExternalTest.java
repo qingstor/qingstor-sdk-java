@@ -16,19 +16,17 @@
 
 package scenario_impl;
 
-import org.json.JSONObject;
-
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.utils.QSJSONUtil;
-
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.json.JSONObject;
 
 public class BucketExternalTest {
 
-	private Bucket Bucket;
-    public  String bucketName = TestUtil.getBucketName();
+    private Bucket Bucket;
+    public String bucketName = TestUtil.getBucketName();
     public static String zone = TestUtil.getZone();
 
     private Bucket.PutBucketExternalMirrorOutput putBucketExternalMirrorOutput;
@@ -55,17 +53,17 @@ public class BucketExternalTest {
     public void put_bucket_external_mirror(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketExternalMirrorInput input = new Bucket.PutBucketExternalMirrorInput();
         JSONObject obj = QSJSONUtil.convertJSONObject(arg1);
         input.setSourceSite(QSJSONUtil.toString(obj, "source_site"));
-        putBucketExternalMirrorOutput  = Bucket.putExternalMirror(input);
+        putBucketExternalMirrorOutput = Bucket.putExternalMirror(input);
     }
 
     @Then("^put bucket external mirror status code is (\\d+)$")
     public void put_bucket_external_mirror_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(putBucketExternalMirrorOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(putBucketExternalMirrorOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket external mirror$")
@@ -73,27 +71,27 @@ public class BucketExternalTest {
         // Write code here that turns the phrase above into concrete actions
 
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         getBucketExternalMirrorOutput = Bucket.getExternalMirror();
     }
 
     @Then("^get bucket external mirror status code is (\\d+)$")
     public void get_bucket_external_mirror_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(getBucketExternalMirrorOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(getBucketExternalMirrorOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket external mirror should have source_site \"([^\"]*)\"$")
     public void get_bucket_external_mirror_should_have_source_site(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("get_bucket_external_mirror_should_have_source_site:"+getBucketExternalMirrorOutput.getSourceSite());
+        System.out.println("get_bucket_external_mirror_should_have_source_site:" + getBucketExternalMirrorOutput.getSourceSite());
     }
 
     @When("^delete bucket external mirror$")
     public void delete_bucket_external_mirror() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
 
         deleteBucketExternalMirrorOutput = Bucket.deleteExternalMirror();
 
@@ -102,7 +100,7 @@ public class BucketExternalTest {
     @Then("^delete bucket external mirror status code is (\\d+)$")
     public void delete_bucket_external_mirror_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(deleteBucketExternalMirrorOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(deleteBucketExternalMirrorOutput.getStatueCode(), arg1);
     }
 
 

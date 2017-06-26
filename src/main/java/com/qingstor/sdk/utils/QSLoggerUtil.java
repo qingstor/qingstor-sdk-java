@@ -16,10 +16,10 @@
 
 package com.qingstor.sdk.utils;
 
+import com.qingstor.sdk.constants.QSConstant;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.qingstor.sdk.constants.QSConstant;
 
 public class QSLoggerUtil {
 
@@ -31,9 +31,9 @@ public class QSLoggerUtil {
             logger.setLevel(Level.WARNING);
         } else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_INFO)) {
             logger.setLevel(Level.INFO);
-        }else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_DEBUG)) {
+        } else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_DEBUG)) {
             logger.setLevel(Level.ALL);
-        }else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_FATAL)) {
+        } else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_FATAL)) {
             logger.setLevel(Level.SEVERE);
         } else {
             logger.setLevel(Level.WARNING);

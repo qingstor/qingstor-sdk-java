@@ -17,6 +17,7 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
+
 import java.util.List;
 
 public class ParamTypeModel {

@@ -16,20 +16,19 @@
 
 package scenario_impl;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.service.Types.ACLModel;
 import com.qingstor.sdk.service.Types.GranteeModel;
-
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BucketACLTest {
 
-	private Bucket Bucket;
+    private Bucket Bucket;
     public static String bucketName = TestUtil.getBucketName();
     public static String zone = TestUtil.getZone();
 
@@ -40,7 +39,7 @@ public class BucketACLTest {
     public void initialize_the_bucket_ACL() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        		//TestUtil.getEvnContext();
+        //TestUtil.getEvnContext();
         Bucket = new Bucket(evnContext, zone, bucketName);
     }
 
@@ -54,7 +53,7 @@ public class BucketACLTest {
     public void put_bucket_ACL(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketACLInput input = new Bucket.PutBucketACLInput();
         ACLModel acl = new ACLModel();
         acl.setPermission("FULL_CONTROL");
@@ -71,29 +70,29 @@ public class BucketACLTest {
     @Then("^put bucket ACL status code is (\\d+)$")
     public void put_bucket_ACL_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("put_bucket_ACL_status_code_msg:"+this.putBucketACLOutput.getMessage());
-        TestUtil.assertEqual(this.putBucketACLOutput.getStatueCode(),arg1);
+        System.out.println("put_bucket_ACL_status_code_msg:" + this.putBucketACLOutput.getMessage());
+        TestUtil.assertEqual(this.putBucketACLOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket ACL$")
     public void get_bucket_ACL() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         getBucketACLOutput = Bucket.getACL();
     }
 
     @Then("^get bucket ACL status code is (\\d+)$")
     public void get_bucket_ACL_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("get_bucket_ACL_status_code_msg:"+this.getBucketACLOutput.getMessage());
-        TestUtil.assertEqual(this.getBucketACLOutput.getStatueCode(),arg1);
+        System.out.println("get_bucket_ACL_status_code_msg:" + this.getBucketACLOutput.getMessage());
+        TestUtil.assertEqual(this.getBucketACLOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket ACL should have grantee name \"([^\"]*)\"$")
     public void get_bucket_ACL_shoud_have_grantee_name(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("get_bucket_ACL_shoud_have_grantee_name:"+this.getBucketACLOutput.getACL());
+        System.out.println("get_bucket_ACL_shoud_have_grantee_name:" + this.getBucketACLOutput.getACL());
     }
 
 

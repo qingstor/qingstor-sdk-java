@@ -18,14 +18,10 @@ package com.qingstor.sdk.config;
 
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.*;
 
 public class EvnContextTest {
 

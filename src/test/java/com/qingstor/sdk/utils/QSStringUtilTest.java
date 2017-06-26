@@ -18,13 +18,12 @@ package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class QSStringUtilTest {
 
@@ -47,46 +46,45 @@ public class QSStringUtilTest {
         Assert.assertEquals(req.indexOf(QSConstant.SDK_VERSION) > 0, true);
         Assert.assertEquals(req.indexOf(QSConstant.SDK_NAME) == 0, true);
     }
-    
+
     @Test
-	public void mapJsonStringTest() {
+    public void mapJsonStringTest() {
 
-		Map m = new HashMap();
-		m.put("testString","didi恐龙当家！@#￥%……&*#￥%……&“”：'''\\didi");
-		m.put("testInt",100);
-		m.put("testInt2","100");
-		m.put("testBoolean",true);
-		ParamTestModel model = new ParamTestModel();
-		model.setAction("testAction");
-		ParamTypeModel typeModel = new ParamTypeModel();
-		typeModel.setAlarmStatus("status");
-		typeModel.setInstanceClass(10);
-		m.put("testObject",typeModel);
+        Map m = new HashMap();
+        m.put("testString", "didi恐龙当家！@#￥%……&*#￥%……&“”：'''\\didi");
+        m.put("testInt", 100);
+        m.put("testInt2", "100");
+        m.put("testBoolean", true);
+        ParamTestModel model = new ParamTestModel();
+        model.setAction("testAction");
+        ParamTypeModel typeModel = new ParamTypeModel();
+        typeModel.setAlarmStatus("status");
+        typeModel.setInstanceClass(10);
+        m.put("testObject", typeModel);
 
-		String d = QSStringUtil.getObjectToJson(m);
-		System.out.println(d);
-		JSONObject o = QSJSONUtil.convertJSONObject(d);
-		Assert.assertNotNull(o);
-		Assert.assertEquals(QSJSONUtil.toString(o,"testString"),"didi恐龙当家！@#￥%……&*#￥%……&“”：'''\\didi");
-		Assert.assertEquals(QSJSONUtil.toInt(o,"testInt2"),100);
-	}
-    
-    
+        String d = QSStringUtil.getObjectToJson(m);
+        System.out.println(d);
+        JSONObject o = QSJSONUtil.convertJSONObject(d);
+        Assert.assertNotNull(o);
+        Assert.assertEquals(QSJSONUtil.toString(o, "testString"), "didi恐龙当家！@#￥%……&*#￥%……&“”：'''\\didi");
+        Assert.assertEquals(QSJSONUtil.toInt(o, "testInt2"), 100);
+    }
+
+
     @Test
     public void testChineseCharactersEncoding() {
         String req;
-		try {
-			req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}&:-==辛苦、");
-			System.out.println(req);
-			Assert.assertEquals(req.indexOf("{}") < 0, true);
-	        Assert.assertEquals(req.indexOf("中文编码") == -1, true);
-		} catch (QSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+        try {
+            req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}&:-==辛苦、");
+            System.out.println(req);
+            Assert.assertEquals(req.indexOf("{}") < 0, true);
+            Assert.assertEquals(req.indexOf("中文编码") == -1, true);
+        } catch (QSException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
-    
-    
-    
+
+
 }

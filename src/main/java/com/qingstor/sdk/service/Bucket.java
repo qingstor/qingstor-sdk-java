@@ -28,11 +28,11 @@ import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class Bucket {
     private String zone;
@@ -96,6 +96,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -146,7 +147,8 @@ public class Bucket {
         return requestHandler;
     }
 
-    public static class DeleteBucketOutput extends OutputModel {}
+    public static class DeleteBucketOutput extends OutputModel {
+    }
 
     /*
      *
@@ -195,6 +197,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -246,7 +249,8 @@ public class Bucket {
         return requestHandler;
     }
 
-    public static class DeleteBucketCORSOutput extends OutputModel {}
+    public static class DeleteBucketCORSOutput extends OutputModel {
+    }
 
     /*
      *
@@ -295,6 +299,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -346,7 +351,8 @@ public class Bucket {
         return requestHandler;
     }
 
-    public static class DeleteBucketExternalMirrorOutput extends OutputModel {}
+    public static class DeleteBucketExternalMirrorOutput extends OutputModel {
+    }
 
     /*
      *
@@ -395,6 +401,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -446,7 +453,8 @@ public class Bucket {
         return requestHandler;
     }
 
-    public static class DeleteBucketPolicyOutput extends OutputModel {}
+    public static class DeleteBucketPolicyOutput extends OutputModel {
+    }
 
     /*
      *
@@ -507,6 +515,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -594,6 +603,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
+
         //Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
@@ -712,6 +722,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -836,6 +847,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -949,6 +961,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -1063,6 +1076,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -1177,6 +1191,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -1358,6 +1373,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -1408,7 +1424,8 @@ public class Bucket {
         return requestHandler;
     }
 
-    public static class HeadBucketOutput extends OutputModel {}
+    public static class HeadBucketOutput extends OutputModel {
+    }
 
     /*
      *
@@ -1469,6 +1486,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -1735,6 +1753,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -2002,6 +2021,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -2052,7 +2072,8 @@ public class Bucket {
         return requestHandler;
     }
 
-    public static class PutBucketOutput extends OutputModel {}
+    public static class PutBucketOutput extends OutputModel {
+    }
 
     /*
      *
@@ -2111,6 +2132,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -2181,6 +2203,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
+
         //Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
@@ -2214,7 +2237,8 @@ public class Bucket {
         }
     }
 
-    public static class PutBucketACLOutput extends OutputModel {}
+    public static class PutBucketACLOutput extends OutputModel {
+    }
 
     /*
      *
@@ -2273,6 +2297,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -2344,6 +2369,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
+
         //Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
@@ -2377,7 +2403,8 @@ public class Bucket {
         }
     }
 
-    public static class PutBucketCORSOutput extends OutputModel {}
+    public static class PutBucketCORSOutput extends OutputModel {
+    }
 
     /*
      *
@@ -2438,6 +2465,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -2511,6 +2539,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
+
         //Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
@@ -2540,7 +2569,8 @@ public class Bucket {
         }
     }
 
-    public static class PutBucketExternalMirrorOutput extends OutputModel {}
+    public static class PutBucketExternalMirrorOutput extends OutputModel {
+    }
 
     /*
      *
@@ -2599,6 +2629,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -2670,6 +2701,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
+
         //Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
@@ -2703,7 +2735,8 @@ public class Bucket {
         }
     }
 
-    public static class PutBucketPolicyOutput extends OutputModel {}
+    public static class PutBucketPolicyOutput extends OutputModel {
+    }
 
     /*
      *
@@ -2768,6 +2801,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -2864,7 +2898,8 @@ public class Bucket {
         }
     }
 
-    public static class AbortMultipartUploadOutput extends OutputModel {}
+    public static class AbortMultipartUploadOutput extends OutputModel {
+    }
 
     /*
      *
@@ -2929,6 +2964,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -3067,6 +3103,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
+
         //Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
@@ -3103,7 +3140,8 @@ public class Bucket {
         }
     }
 
-    public static class CompleteMultipartUploadOutput extends OutputModel {}
+    public static class CompleteMultipartUploadOutput extends OutputModel {
+    }
 
     /*
      *
@@ -3156,6 +3194,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param callback
@@ -3211,7 +3250,8 @@ public class Bucket {
         return requestHandler;
     }
 
-    public static class DeleteObjectOutput extends OutputModel {}
+    public static class DeleteObjectOutput extends OutputModel {
+    }
 
     /*
      *
@@ -3275,6 +3315,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -3699,6 +3740,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -3976,6 +4018,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -4216,6 +4259,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -4423,6 +4467,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -4669,6 +4714,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -4804,8 +4850,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Algorithm"
+                paramType = "header",
+                paramName = "X-QS-Copy-Source-Encryption-Customer-Algorithm"
         )
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
@@ -4819,8 +4865,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key"
+                paramType = "header",
+                paramName = "X-QS-Copy-Source-Encryption-Customer-Key"
         )
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
@@ -4834,8 +4880,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+                paramType = "header",
+                paramName = "X-QS-Copy-Source-Encryption-Customer-Key-MD5"
         )
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
@@ -4958,6 +5004,7 @@ public class Bucket {
         public File getBodyInputFile() {
             return bodyInputFile;
         }
+
         //
         public void setBodyInputFile(File bodyInputFile) {
             this.bodyInputFile = bodyInputFile;
@@ -4981,7 +5028,8 @@ public class Bucket {
         }
     }
 
-    public static class PutObjectOutput extends OutputModel {}
+    public static class PutObjectOutput extends OutputModel {
+    }
 
     /*
      *
@@ -5046,6 +5094,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input
@@ -5199,8 +5248,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Algorithm"
+                paramType = "header",
+                paramName = "X-QS-Copy-Source-Encryption-Customer-Algorithm"
         )
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
@@ -5214,8 +5263,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key"
+                paramType = "header",
+                paramName = "X-QS-Copy-Source-Encryption-Customer-Key"
         )
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
@@ -5229,8 +5278,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+                paramType = "header",
+                paramName = "X-QS-Copy-Source-Encryption-Customer-Key-MD5"
         )
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
@@ -5320,6 +5369,7 @@ public class Bucket {
         public File getBodyInputFile() {
             return bodyInputFile;
         }
+
         //
         public void setBodyInputFile(File bodyInputFile) {
             this.bodyInputFile = bodyInputFile;
@@ -5350,7 +5400,8 @@ public class Bucket {
         }
     }
 
-    public static class UploadMultipartOutput extends OutputModel {}
+    public static class UploadMultipartOutput extends OutputModel {
+    }
 
     /**
      * @param objectName
@@ -5369,7 +5420,7 @@ public class Bucket {
      * @param expires
      * @return
      * @throws QSException Documentation URL:
-     *     https://docs.qingcloud.com/qingstor/api/common/signature.html
+     *                     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
 
@@ -5383,7 +5434,7 @@ public class Bucket {
      * @param expires
      * @return
      * @throws QSException Documentation URL:
-     *     https://docs.qingcloud.com/qingstor/api/common/signature.html
+     *                     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler GetObjectBySignatureUrlRequest(String objectName, long expires)

@@ -16,33 +16,21 @@
 
 package scenario_impl;
 
+import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.service.Bucket;
+import com.qingstor.sdk.service.Bucket.InitiateMultipartUploadOutput;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-
-import org.junit.runner.RunWith;
-
-import com.qingstor.sdk.config.EvnContext;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.service.Bucket;
-import com.qingstor.sdk.service.Bucket.InitiateMultipartUploadOutput;
-import com.qingstor.sdk.service.QingStor;
-import com.qingstor.sdk.service.QingStor.ListBucketsInput;
-import com.qingstor.sdk.service.QingStor.ListBucketsOutput;
-
-import cucumber.api.PendingException;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import cucumber.api.junit.Cucumber;
 
 public class ObjectMultiTest {
 
 
-	private static Bucket Bucket;
+    private static Bucket Bucket;
     private static String bucketName = TestUtil.getBucketName();
     public static String zone = TestUtil.getZone();
     //private String multiObjectName = "test";
@@ -59,6 +47,7 @@ public class ObjectMultiTest {
 
     private static String multipart_upload_name = "";
     private static String multipart_upload_id = "";
+
     @When("^initiate multipart upload with key \"([^\"]*)\"$")
     public void initiate_multipart_upload_with_key(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
@@ -68,18 +57,17 @@ public class ObjectMultiTest {
         Bucket.InitiateMultipartUploadInput input = new Bucket.InitiateMultipartUploadInput();
         //input.setContentType(apkContentType);
 
-        initOutput = Bucket.initiateMultipartUpload(objectKey,input);
+        initOutput = Bucket.initiateMultipartUpload(objectKey, input);
         multipart_upload_name = objectKey;
         multipart_upload_id = this.initOutput.getUploadID();
     }
-
 
 
     @Then("^multipart upload is initialized$")
     public void the_object_multipart_upload_is_initialized() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         TestUtil.assertNotNull(this.initOutput);
-        System.out.println("the_object_multipart_upload_is_initialized:"+this.initOutput.getUploadID());
+        System.out.println("the_object_multipart_upload_is_initialized:" + this.initOutput.getUploadID());
         multipart_upload_id = this.initOutput.getUploadID();
     }
 
@@ -93,7 +81,7 @@ public class ObjectMultiTest {
     public void initiate_multipart_upload_status_code_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
-        TestUtil.assertEqual(initOutput.getStatueCode(),statusCode);
+        TestUtil.assertEqual(initOutput.getStatueCode(), statusCode);
     }
 
     @When("^upload the first part with key \"([^\"]*)\"$")
@@ -129,15 +117,15 @@ public class ObjectMultiTest {
         input.setBodyInputFile(f);
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
-        uploadMultipartOutput1 = Bucket.uploadMultipart(multipart_upload_name,input);
+        uploadMultipartOutput1 = Bucket.uploadMultipart(multipart_upload_name, input);
 
     }
 
     @Then("^upload the first part status code is (\\d+)$")
     public void upload_the_first_part_status_code_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("upload_the_first_part_status_code_msg"+uploadMultipartOutput1.getMessage());
-        TestUtil.assertEqual(this.uploadMultipartOutput1.getStatueCode(),statusCode);
+        System.out.println("upload_the_first_part_status_code_msg" + uploadMultipartOutput1.getMessage());
+        TestUtil.assertEqual(this.uploadMultipartOutput1.getStatueCode(), statusCode);
     }
 
     @When("^upload the second part with key \"([^\"]*)\"$")
@@ -167,18 +155,18 @@ public class ObjectMultiTest {
         File f = new File("/tmp/sdk_bin_part_1");
         Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
         input.setXQSEncryptionCustomerKey(objectKey);
-        input.setContentLength( f.length());
+        input.setContentLength(f.length());
         input.setBodyInputFile(f);
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
-        uploadMultipartOutput2 = Bucket.uploadMultipart(multipart_upload_name,input);
+        uploadMultipartOutput2 = Bucket.uploadMultipart(multipart_upload_name, input);
     }
 
     @Then("^upload the second part status code is (\\d+)$")
     public void upload_the_second_part_status_code_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("upload_the_first_part_status_code_is2"+uploadMultipartOutput2.getMessage());
-        TestUtil.assertEqual(this.uploadMultipartOutput2.getStatueCode(),statusCode);
+        System.out.println("upload_the_first_part_status_code_is2" + uploadMultipartOutput2.getMessage());
+        TestUtil.assertEqual(this.uploadMultipartOutput2.getStatueCode(), statusCode);
     }
 
     @When("^upload the third part with key \"([^\"]*)\"$")
@@ -208,17 +196,17 @@ public class ObjectMultiTest {
         File f = new File("/tmp/sdk_bin_part_2");
         Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
         input.setXQSEncryptionCustomerKey(objectKey);
-        input.setContentLength( f.length());
+        input.setContentLength(f.length());
         input.setBodyInputFile(f);
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
-        uploadMultipartOutput3 = Bucket.uploadMultipart(multipart_upload_name,input);
+        uploadMultipartOutput3 = Bucket.uploadMultipart(multipart_upload_name, input);
     }
 
     @Then("^upload the third part status code is (\\d+)$")
     public void upload_the_third_part_status_code_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(this.uploadMultipartOutput3.getStatueCode(),statusCode);
+        TestUtil.assertEqual(this.uploadMultipartOutput3.getStatueCode(), statusCode);
     }
 
     @When("^list multipart with key \"([^\"]*)\"$")
@@ -229,20 +217,20 @@ public class ObjectMultiTest {
         Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
         input.setUploadID(initOutput.getUploadID());
         input.setLimit(10l);
-        listMultipartOutput = Bucket.listMultipart(multipart_upload_name,input);
+        listMultipartOutput = Bucket.listMultipart(multipart_upload_name, input);
     }
 
     @Then("^list multipart status code is (\\d+)$")
     public void list_multipart_status_code_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("list_multipart_status_code_msg"+listMultipartOutput.getMessage());
-        TestUtil.assertEqual(this.listMultipartOutput.getStatueCode(),statusCode);
+        System.out.println("list_multipart_status_code_msg" + listMultipartOutput.getMessage());
+        TestUtil.assertEqual(this.listMultipartOutput.getStatueCode(), statusCode);
     }
 
     @Then("^list multipart object parts count is (\\d+)$")
     public void list_multipart_object_parts_count_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("list_multipart_object_parts_count_is:"+this.listMultipartOutput.getCount());
+        System.out.println("list_multipart_object_parts_count_is:" + this.listMultipartOutput.getCount());
     }
 
     @When("^complete multipart upload with key \"([^\"]*)\"$")
@@ -250,7 +238,6 @@ public class ObjectMultiTest {
         // Write code here that turns the phrase above into concrete actions
         Bucket.CompleteMultipartUploadInput input = new Bucket.CompleteMultipartUploadInput();
         //inputI.setContentType(apkContentType);
-
 
 
         input.setUploadID(initOutput.getUploadID());
@@ -263,14 +250,14 @@ public class ObjectMultiTest {
                 "}";
         input.setBodyInput(content);
 
-        completeMultipartUploadOutput = Bucket.completeMultipartUpload(objectKey,input);
+        completeMultipartUploadOutput = Bucket.completeMultipartUpload(objectKey, input);
     }
 
     @Then("^complete multipart upload status code is (\\d+)$")
     public void complete_multipart_upload_status_code_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("complete_multipart_upload_status_code_msg"+completeMultipartUploadOutput.getMessage());
-        TestUtil.assertEqual(completeMultipartUploadOutput.getStatueCode(),statusCode);
+        System.out.println("complete_multipart_upload_status_code_msg" + completeMultipartUploadOutput.getMessage());
+        TestUtil.assertEqual(completeMultipartUploadOutput.getStatueCode(), statusCode);
     }
 
     @When("^abort multipart upload with key \"([^\"]*)\"$")
@@ -281,14 +268,14 @@ public class ObjectMultiTest {
 
 
         input.setUploadID(initOutput.getUploadID());
-        abortMultipartUploadOutput = Bucket.abortMultipartUpload(objectKey,input);
+        abortMultipartUploadOutput = Bucket.abortMultipartUpload(objectKey, input);
 
     }
 
     @Then("^abort multipart upload status code is (\\d+)$")
     public void abort_multipart_upload_status_code_is(int statusCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(abortMultipartUploadOutput.getStatueCode(),statusCode);
+        TestUtil.assertEqual(abortMultipartUploadOutput.getStatueCode(), statusCode);
     }
 
     @When("^delete the multipart object with key \"([^\"]*)\"$")
@@ -307,6 +294,6 @@ public class ObjectMultiTest {
         TestUtil.assertEqual(deleteObjectOutput.getStatueCode(), statusCode);
     }
 
-    
+
 }
 

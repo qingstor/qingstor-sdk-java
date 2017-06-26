@@ -21,7 +21,6 @@ import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.service.QingStor;
 import com.qingstor.sdk.service.QingStor.ListBucketsInput;
 import com.qingstor.sdk.service.QingStor.ListBucketsOutput;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -29,7 +28,7 @@ import cucumber.api.java.en.When;
 public class QingStorTest {
 
 	/*Scenario: need to use QingStor service
-		    When initialize QingStor service
+            When initialize QingStor service
 		    Then the QingStor service is initialized
 
   # GET Service (List Buckets)
@@ -37,48 +36,48 @@ public class QingStorTest {
 	    When list buckets
 	    Then list buckets status code is 200
     */
-	
-	private QingStor storSerivce;
-	private ListBucketsOutput listOutput;
-	
+
+    private QingStor storSerivce;
+    private ListBucketsOutput listOutput;
+
     @Given("^need to use QingStor service$")
     public void initService() throws Throwable {
-    	EvnContext evnContext = TestUtil.getEvnContext(); 
-    	storSerivce = new QingStor(evnContext);
-    	System.out.print("test : initService");
+        EvnContext evnContext = TestUtil.getEvnContext();
+        storSerivce = new QingStor(evnContext);
+        System.out.print("test : initService");
     }
-    
+
     @When("^initialize QingStor service$")
     public void initialize_QingStor_service() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-    	EvnContext evnContext = TestUtil.getEvnContext(); 
-    	storSerivce = new QingStor(evnContext);
-    	System.out.print("test : initService");
+        EvnContext evnContext = TestUtil.getEvnContext();
+        storSerivce = new QingStor(evnContext);
+        System.out.print("test : initService");
     }
-    
+
     @Then("^the QingStor service is initialized$")
     public void initialized_QingStor_service() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-    	if(this.storSerivce == null){
-    		throw new QSException("not initialized");
-    	}
+        if (this.storSerivce == null) {
+            throw new QSException("not initialized");
+        }
     }
 
     @When("^list buckets$")
     public void list_buckets() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-    	EvnContext evnContext = TestUtil.getEvnContext(); 
-    	storSerivce = new QingStor(evnContext);
-    	this.listOutput = storSerivce.listBuckets(new ListBucketsInput());
+        EvnContext evnContext = TestUtil.getEvnContext();
+        storSerivce = new QingStor(evnContext);
+        this.listOutput = storSerivce.listBuckets(new ListBucketsInput());
     }
 
     @Then("^list buckets status code is (\\d+)$")
     public void list_buckets_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-    	TestUtil.assertNotNull(this.listOutput.getStatueCode());
-    	TestUtil.assertEqual(arg1, this.listOutput.getStatueCode());
+        TestUtil.assertNotNull(this.listOutput.getStatueCode());
+        TestUtil.assertEqual(arg1, this.listOutput.getStatueCode());
     }
 
-    
+
 }
 

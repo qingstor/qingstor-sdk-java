@@ -16,27 +16,21 @@
 
 package com.qingstor.sdk.utils;
 
+import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.RequestInputModel;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import com.qingstor.sdk.config.EvnContext;
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.RequestInputModel;
 
 public class QSSignatureUtil {
     private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSSignatureUtil.class.getName());
@@ -47,7 +41,6 @@ public class QSSignatureUtil {
     private static Map keysMap;
 
     /**
-     *
      * @param parameters
      * @param requestUrl
      * @return
@@ -59,7 +52,7 @@ public class QSSignatureUtil {
         parameters = QSParamInvokeUtil.serializeParams(parameters);
         StringBuilder sbStringToSign = new StringBuilder();
 
-        String[] sortedKeys = parameters.keySet().toArray(new String[] {});
+        String[] sortedKeys = parameters.keySet().toArray(new String[]{});
         Arrays.sort(sortedKeys);
         int count = 0;
 
@@ -95,16 +88,16 @@ public class QSSignatureUtil {
     /**
      * Generate signature for request against QingStor.
      *
-     * @param accessKey: API access key ID
-     * @param secretKey: API secret access key ID
-     * @param method: HTTP method
+     * @param accessKey:  API access key ID
+     * @param secretKey:  API secret access key ID
+     * @param method:     HTTP method
      * @param requestURI:
-     * @param params: HTTP request parameters
-     * @param headers: HTTP request headers
+     * @param params:     HTTP request parameters
+     * @param headers:    HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
-     *     directly.
-     *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
-     *     about how to do signature of request against QingStor.
+     * directly.
+     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     * about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
             String accessKey,
@@ -124,9 +117,9 @@ public class QSSignatureUtil {
      * @param secretKey: API secret access key ID
      * @param strToSign: strToSign
      * @return a string which can be used as value of HTTP request header field "Authorization"
-     *     directly.
-     *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
-     *     about how to do signature of request against QingStor.
+     * directly.
+     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     * about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
             String accessKey,
@@ -139,15 +132,15 @@ public class QSSignatureUtil {
     /**
      * Generate signature for request against QingStor.
      *
-     * @param secretKey: API secret access key ID
-     * @param method: HTTP method
+     * @param secretKey:  API secret access key ID
+     * @param method:     HTTP method
      * @param requestURI:
-     * @param params: HTTP request parameters
-     * @param headers: HTTP request headers
+     * @param params:     HTTP request parameters
+     * @param headers:    HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
-     *     directly.
-     *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
-     *     about how to do signature of request against QingStor.
+     * directly.
+     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     * about how to do signature of request against QingStor.
      */
     public static String generateSignature(
             String secretKey,
@@ -156,7 +149,7 @@ public class QSSignatureUtil {
             Map<String, String> params,
             Map<String, String> headers) {
         String signature = "";
-        String strToSign = getStringToSignature(method,requestURI,params,headers);
+        String strToSign = getStringToSignature(method, requestURI, params, headers);
         logger.log(Level.INFO, "== String to sign ==\n" + strToSign + "\n");
         signature = generateSignature(secretKey, strToSign);
         return signature;
@@ -196,7 +189,7 @@ public class QSSignatureUtil {
 
         // Generate signed headers.
         if (headers != null) {
-            String[] sortedHeadersKeys = headers.keySet().toArray(new String[] {});
+            String[] sortedHeadersKeys = headers.keySet().toArray(new String[]{});
             Arrays.sort(sortedHeadersKeys);
             for (String key : sortedHeadersKeys) {
                 if (!key.startsWith("x-qs-") && !key.startsWith("X-QS-")) continue;
@@ -207,7 +200,7 @@ public class QSSignatureUtil {
         // Generate canonicalized query string.
         String canonicalized_query = "";
         if (params != null) {
-            String[] sortedParamsKeys = params.keySet().toArray(new String[] {});
+            String[] sortedParamsKeys = params.keySet().toArray(new String[]{});
             Arrays.sort(sortedParamsKeys);
             for (String key : sortedParamsKeys) {
 
@@ -277,7 +270,7 @@ public class QSSignatureUtil {
                             put("policy", "policy");
                             put("stats", "stats");
                             put("upload_id", "upload_id");
-                            
+
                             put("response-expires", "response-expires");
                             put("response-cache-control", "response-cache-control");
                             put("response-content-type", "response-content-type");
@@ -295,8 +288,8 @@ public class QSSignatureUtil {
         SimpleDateFormat df = new SimpleDateFormat(GMT_DATE_FORMAT, Locale.US);
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
         String dateStr = df.format(date);
-        if(dateStr.indexOf("+")>0){
-            return dateStr.substring(0,dateStr.indexOf("+"));
+        if (dateStr.indexOf("+") > 0) {
+            return dateStr.substring(0, dateStr.indexOf("+"));
         }
         return dateStr;
     }
@@ -320,7 +313,7 @@ public class QSSignatureUtil {
             context.put("RequestURI", "/<bucket-name>/<object-key>");
             context.put("bucketNameInput", bucketName);
             context.put("objectNameInput", objectName);
-            long expiresTime =  (new Date().getTime() / 1000 + expiresSecond);
+            long expiresTime = (new Date().getTime() / 1000 + expiresSecond);
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
             String serviceUrl = evnContext.getRequestUrl();
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
@@ -369,7 +362,7 @@ public class QSSignatureUtil {
                             (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME));
         }
         String authSign =
-        		generateSignature(
+                generateSignature(
                         evnContext.getAccessSecret(),
                         method,
                         requestPath,
