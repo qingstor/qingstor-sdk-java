@@ -192,7 +192,7 @@ public class ObjectTest {
 
     @When("^delete the move object with key \"(.*)\"$")
     public void delete_the_move_object(String objectKey) throws Throwable {
-        deleteObjectOutput2 = testBucket.deleteObject(objectKey);
+        deleteObjectOutput2 = testBucket.deleteObject(objectKey+ "move");
     }
 
     @Then("^delete the move object status code is (\\d+)$")
