@@ -20,11 +20,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.yaml.snakeyaml.Yaml;
+
 import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.exception.QSException;
 
 public class TestUtil {
 
@@ -46,7 +50,7 @@ public class TestUtil {
             throw new Exception(i + " is not equal "+j);
         }
     }
-    
+
     public static EvnContext getEvnContext(){
     	try{
     		return EvnContext.loadFromFile("config.yaml");
@@ -56,42 +60,30 @@ public class TestUtil {
     	return null;
     }
 
-    public static String getZone(){
+    public static String getZone() {
     	return getFileConfig("zone");
     }
 
-    public static String getBucketName(){
+    public static String getBucketName() {
     	return getFileConfig("bucket_name");
     }
 
-    private static String getFileConfig(String key){
-    	File f = new File("test_config.yaml");
-        if(f.exists()){
-            BufferedReader br = null;
-            Map<String,String> confParams = new HashMap<String,String>();
-            try {
-                br = new BufferedReader(new
-                        InputStreamReader(new FileInputStream(f)));
-                String strConf = null;
 
-                while ((strConf = br.readLine()) != null){
-                    String[] str = strConf.split(":");
-                    if(str.length > 1){
-                        confParams.put(str[0].trim(),str[1].trim());
-                    }
+    private static String getFileConfig(String key) {
+        File f = new File("test_config.yaml");
+        if (f.exists()) {
+            BufferedReader br = null;
+            Yaml yaml = new Yaml();
+            try {
+                Map confParams = (Map) yaml.load(new FileInputStream(f));
+                if(confParams.containsKey(key)){
+                    return String.valueOf(confParams.get(key));
                 }
-            } catch (Exception e) {
+                return "";
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
-            }finally {
-                if(br != null){
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
-            return confParams.get(key);
         }
         return "";
     }
