@@ -32,7 +32,6 @@ public class ObjectMultiTest {
     private static EvnContext evnContext = TestUtil.getEvnContext();
     private static Bucket testBucket = new Bucket(evnContext, zone, bucketName);
 
-    //private String multiObjectName = "test";
     private static String apkContentType = "application/vnd.android.package-archive";
     private static Bucket.UploadMultipartOutput uploadMultipartOutput1;
     private static Bucket.UploadMultipartOutput uploadMultipartOutput2;
@@ -49,28 +48,10 @@ public class ObjectMultiTest {
 
     @When("^initiate multipart upload with key \"([^\"]*)\"$")
     public void initiate_multipart_upload_with_key(String objectKey) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Bucket.InitiateMultipartUploadInput input = new Bucket.InitiateMultipartUploadInput();
-        //input.setContentType(apkContentType);
-
         initOutput = testBucket.initiateMultipartUpload(objectKey, input);
         multipart_upload_name = objectKey;
         multipart_upload_id = this.initOutput.getUploadID();
-    }
-
-
-    @Then("^multipart upload is initialized$")
-    public void the_object_multipart_upload_is_initialized() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertNotNull(this.initOutput);
-        System.out.println("the_object_multipart_upload_is_initialized:" + this.initOutput.getUploadID());
-        multipart_upload_id = this.initOutput.getUploadID();
-    }
-
-    @When("^initiate multipart upload$")
-    public void initiate_multipart_upload() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException(); 03ce946f30943afa97b7cd82a11cd45d
     }
 
     @Then("^initiate multipart upload status code is (\\d+)$")
@@ -82,21 +63,16 @@ public class ObjectMultiTest {
 
     @When("^upload the first part with key \"([^\"]*)\"$")
     public void upload_the_first_part(String objectKey) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //inputI.setContentType(apkContentType);
-
-        Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
+        Runtime run = Runtime.getRuntime();
         try {
-            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_0\nbs=1048576\ncount=6");// 启动另一个进程来执行命令
+            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_0\nbs=1048576\ncount=6");
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
             while ((lineStr = inBr.readLine()) != null)
-                //获得命令执行后在控制台的输出信息
-                System.out.println(lineStr);// 打印输出信息
-            //检查命令是否执行失败。
+                System.out.println(lineStr);
             if (p.waitFor() != 0) {
-                if (p.exitValue() == 1)//p.exitValue()==0表示正常结束，1：非正常结束
+                if (p.exitValue() == 1)
                     System.err.println("命令执行失败!");
             }
             inBr.close();
@@ -119,26 +95,22 @@ public class ObjectMultiTest {
 
     @Then("^upload the first part status code is (\\d+)$")
     public void upload_the_first_part_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("upload_the_first_part_status_code_msg" + uploadMultipartOutput1.getMessage());
         TestUtil.assertEqual(this.uploadMultipartOutput1.getStatueCode(), statusCode);
     }
 
     @When("^upload the second part with key \"([^\"]*)\"$")
     public void upload_the_second_part(String objectKey) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
+        Runtime run = Runtime.getRuntime();
         try {
-            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_1\nbs=1048576\ncount=6");// 启动另一个进程来执行命令
+            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_1\nbs=1048576\ncount=6");
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
             while ((lineStr = inBr.readLine()) != null)
-                //获得命令执行后在控制台的输出信息
-                System.out.println(lineStr);// 打印输出信息
-            //检查命令是否执行失败。
+                System.out.println(lineStr);
             if (p.waitFor() != 0) {
-                if (p.exitValue() == 1)//p.exitValue()==0表示正常结束，1：非正常结束
+                if (p.exitValue() == 1)
                     System.err.println("命令执行失败!");
             }
             inBr.close();
@@ -160,26 +132,22 @@ public class ObjectMultiTest {
 
     @Then("^upload the second part status code is (\\d+)$")
     public void upload_the_second_part_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("upload_the_first_part_status_code_is2" + uploadMultipartOutput2.getMessage());
         TestUtil.assertEqual(this.uploadMultipartOutput2.getStatueCode(), statusCode);
     }
 
     @When("^upload the third part with key \"([^\"]*)\"$")
     public void upload_the_third_part(String objectKey) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        Runtime run = Runtime.getRuntime();//返回与当前 Java 应用程序相关的运行时对象
+        Runtime run = Runtime.getRuntime();
         try {
-            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_2\nbs=1048576\ncount=6");// 启动另一个进程来执行命令
+            Process p = run.exec("dd\nif=/dev/zero\nof=/tmp/sdk_bin_part_2\nbs=1048576\ncount=6");
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
             while ((lineStr = inBr.readLine()) != null)
-                //获得命令执行后在控制台的输出信息
-                System.out.println(lineStr);// 打印输出信息
-            //检查命令是否执行失败。
+                System.out.println(lineStr);
             if (p.waitFor() != 0) {
-                if (p.exitValue() == 1)//p.exitValue()==0表示正常结束，1：非正常结束
+                if (p.exitValue() == 1)
                     System.err.println("命令执行失败!");
             }
             inBr.close();
@@ -201,15 +169,11 @@ public class ObjectMultiTest {
 
     @Then("^upload the third part status code is (\\d+)$")
     public void upload_the_third_part_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(this.uploadMultipartOutput3.getStatueCode(), statusCode);
     }
 
     @When("^list multipart with key \"([^\"]*)\"$")
     public void list_multipart(String key) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-
-
         Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
         input.setUploadID(initOutput.getUploadID());
         input.setLimit(10l);
@@ -218,24 +182,18 @@ public class ObjectMultiTest {
 
     @Then("^list multipart status code is (\\d+)$")
     public void list_multipart_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("list_multipart_status_code_msg" + listMultipartOutput.getMessage());
         TestUtil.assertEqual(this.listMultipartOutput.getStatueCode(), statusCode);
     }
 
     @Then("^list multipart object parts count is (\\d+)$")
     public void list_multipart_object_parts_count_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("list_multipart_object_parts_count_is:" + this.listMultipartOutput.getCount());
     }
 
     @When("^complete multipart upload with key \"([^\"]*)\"$")
     public void complete_multipart_upload(String objectKey) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Bucket.CompleteMultipartUploadInput input = new Bucket.CompleteMultipartUploadInput();
-        //inputI.setContentType(apkContentType);
-
-
         input.setUploadID(initOutput.getUploadID());
         String content = "{\n" +
                 "    \"object_parts\": [\n" +
@@ -251,18 +209,13 @@ public class ObjectMultiTest {
 
     @Then("^complete multipart upload status code is (\\d+)$")
     public void complete_multipart_upload_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("complete_multipart_upload_status_code_msg" + completeMultipartUploadOutput.getMessage());
         TestUtil.assertEqual(completeMultipartUploadOutput.getStatueCode(), statusCode);
     }
 
     @When("^abort multipart upload with key \"([^\"]*)\"$")
     public void abort_multipart_upload(String objectKey) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Bucket.AbortMultipartUploadInput input = new Bucket.AbortMultipartUploadInput();
-        //inputI.setContentType(apkContentType);
-
-
         input.setUploadID(initOutput.getUploadID());
         abortMultipartUploadOutput = testBucket.abortMultipartUpload(objectKey, input);
 
@@ -270,23 +223,16 @@ public class ObjectMultiTest {
 
     @Then("^abort multipart upload status code is (\\d+)$")
     public void abort_multipart_upload_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(abortMultipartUploadOutput.getStatueCode(), statusCode);
     }
 
     @When("^delete the multipart object with key \"([^\"]*)\"$")
     public void delete_the_multipart_object(String objectKey) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
-
         deleteObjectOutput = testBucket.deleteObject(objectKey);
-
     }
 
     @Then("^delete the multipart object status code is (\\d+)$")
     public void delete_the_multipart_object_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
         TestUtil.assertEqual(deleteObjectOutput.getStatueCode(), statusCode);
     }
 

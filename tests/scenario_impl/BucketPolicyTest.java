@@ -35,7 +35,6 @@ public class BucketPolicyTest {
 
     @When("^put bucket policy:$")
     public void put_bucket_policy(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Bucket.PutBucketPolicyInput input = new Bucket.PutBucketPolicyInput();
         System.out.println("put_bucket_policy:" + arg1);
         input.setBodyInput(arg1);
@@ -44,38 +43,32 @@ public class BucketPolicyTest {
 
     @Then("^put bucket policy status code is (\\d+)$")
     public void put_bucket_policy_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("put_bucket_policy_status_code_is:" + this.putBucketPolicyOutput.getMessage());
         TestUtil.assertEqual(this.putBucketPolicyOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket policy$")
     public void get_bucket_policy() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         getBucketPolicyOutput = testBucket.getPolicy();
     }
 
     @Then("^get bucket policy status code is (\\d+)$")
     public void get_bucket_policy_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(this.getBucketPolicyOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket policy should have Referer \"([^\"]*)\"$")
     public void get_bucket_policy_should_have_Referer(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("get_bucket_policy_should_have_Referer:\n" + this.getBucketPolicyOutput.getStatement());
     }
 
     @When("^delete bucket policy$")
     public void delete_bucket_policy() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         deleteBucketPolicyOutput = testBucket.deletePolicy();
     }
 
     @Then("^delete bucket policy status code is (\\d+)$")
     public void delete_bucket_policy_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(this.deleteBucketPolicyOutput.getStatueCode(), arg1);
     }
 
