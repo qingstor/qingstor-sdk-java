@@ -25,39 +25,23 @@ import org.json.JSONObject;
 
 public class BucketExternalTest {
 
-    private Bucket Bucket;
-    public String bucketName = TestUtil.getBucketName();
-    public static String zone = TestUtil.getZone();
+    private static String bucketName = TestUtil.getBucketName();
+    private static String zone = TestUtil.getZone();
+    private static EvnContext evnContext = TestUtil.getEvnContext();
+    private static Bucket testBucket = new Bucket(evnContext, zone, bucketName);
 
     private Bucket.PutBucketExternalMirrorOutput putBucketExternalMirrorOutput;
     private Bucket.GetBucketExternalMirrorOutput getBucketExternalMirrorOutput;
     private Bucket.DeleteBucketExternalMirrorOutput deleteBucketExternalMirrorOutput;
 
 
-    @When("^initialize the bucket external mirror$")
-    public void initialize_the_bucket_external_mirror() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, zone, bucketName);
-
-    }
-
-    @Then("^the bucket external mirror is initialized$")
-    public void the_bucket_external_mirror_is_initialized() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertNotNull(Bucket);
-    }
-
-
     @When("^put bucket external mirror:$")
     public void put_bucket_external_mirror(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketExternalMirrorInput input = new Bucket.PutBucketExternalMirrorInput();
         JSONObject obj = QSJSONUtil.convertJSONObject(arg1);
         input.setSourceSite(QSJSONUtil.toString(obj, "source_site"));
-        putBucketExternalMirrorOutput = Bucket.putExternalMirror(input);
+        putBucketExternalMirrorOutput = testBucket.putExternalMirror(input);
     }
 
     @Then("^put bucket external mirror status code is (\\d+)$")
@@ -69,10 +53,7 @@ public class BucketExternalTest {
     @When("^get bucket external mirror$")
     public void get_bucket_external_mirror() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
-        getBucketExternalMirrorOutput = Bucket.getExternalMirror();
+        getBucketExternalMirrorOutput = testBucket.getExternalMirror();
     }
 
     @Then("^get bucket external mirror status code is (\\d+)$")
@@ -90,10 +71,7 @@ public class BucketExternalTest {
     @When("^delete bucket external mirror$")
     public void delete_bucket_external_mirror() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
-
-        deleteBucketExternalMirrorOutput = Bucket.deleteExternalMirror();
+        deleteBucketExternalMirrorOutput = testBucket.deleteExternalMirror();
 
     }
 

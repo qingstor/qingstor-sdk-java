@@ -26,37 +26,23 @@ import java.util.List;
 
 public class BucketCORTest {
 
-    public String bucketName = TestUtil.getBucketName();
-    public static String zone = TestUtil.getZone();
-    private Bucket Bucket;
+    private static String bucketName = TestUtil.getBucketName();
+    private static String zone = TestUtil.getZone();
+    private static EvnContext evnContext = TestUtil.getEvnContext();
+    private static Bucket testBucket = new Bucket(evnContext, zone, bucketName);
 
     private Bucket.PutBucketCORSOutput putBucketCORSOutput;
     private Bucket.GetBucketCORSOutput getBucketCORSOutput;
     private Bucket.DeleteBucketCORSOutput deleteBucketCORSOutput;
 
-    @When("^initialize the bucket CORS$")
-    public void initialize_the_bucket_CORS() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, zone, bucketName);
-    }
-
-    @Then("^the bucket CORS is initialized$")
-    public void the_bucket_CORS_is_initialized() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertNotNull(this.Bucket);
-    }
-
     @When("^put bucket CORS:$")
     public void put_bucket_CORS(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketCORSInput input = new Bucket.PutBucketCORSInput();
         List cors = new ArrayList();
 
         input.setBodyInput(arg1);
-        putBucketCORSOutput = Bucket.putCORS(input);
+        putBucketCORSOutput = testBucket.putCORS(input);
     }
 
     @Then("^put bucket CORS status code is (\\d+)$")
@@ -69,9 +55,7 @@ public class BucketCORTest {
     @When("^get bucket CORS$")
     public void get_bucket_CORS() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
-        getBucketCORSOutput = Bucket.getCORS();
+        getBucketCORSOutput = testBucket.getCORS();
     }
 
     @Then("^get bucket CORS status code is (\\d+)$")
@@ -89,9 +73,7 @@ public class BucketCORTest {
     @When("^delete bucket CORS$")
     public void delete_bucket_CORS() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
-        deleteBucketCORSOutput = Bucket.deleteCORS();
+        deleteBucketCORSOutput = testBucket.deleteCORS();
     }
 
 
