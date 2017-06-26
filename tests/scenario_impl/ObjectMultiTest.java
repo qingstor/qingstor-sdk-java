@@ -56,8 +56,6 @@ public class ObjectMultiTest {
 
     @Then("^initiate multipart upload status code is (\\d+)$")
     public void initiate_multipart_upload_status_code_is(int statusCode) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
         TestUtil.assertEqual(initOutput.getStatueCode(), statusCode);
     }
 
