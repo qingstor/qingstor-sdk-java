@@ -31,6 +31,7 @@ public class BucketACLTest {
 
 	private Bucket Bucket;
     public static String bucketName = TestUtil.getBucketName();
+    public static String zone = TestUtil.getZone();
 
     private Bucket.PutBucketACLOutput putBucketACLOutput;
     private Bucket.GetBucketACLOutput getBucketACLOutput;
@@ -38,9 +39,9 @@ public class BucketACLTest {
     @When("^initialize the bucket ACL$")
     public void initialize_the_bucket_ACL() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext(); 
+        EvnContext evnContext = TestUtil.getEvnContext();
         		//TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, zone, bucketName);
     }
 
     @Then("^the bucket ACL is initialized$")

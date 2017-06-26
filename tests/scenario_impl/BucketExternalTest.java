@@ -29,6 +29,7 @@ public class BucketExternalTest {
 
 	private Bucket Bucket;
     public  String bucketName = TestUtil.getBucketName();
+    public static String zone = TestUtil.getZone();
 
     private Bucket.PutBucketExternalMirrorOutput putBucketExternalMirrorOutput;
     private Bucket.GetBucketExternalMirrorOutput getBucketExternalMirrorOutput;
@@ -39,7 +40,7 @@ public class BucketExternalTest {
     public void initialize_the_bucket_external_mirror() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, zone, bucketName);
 
     }
 

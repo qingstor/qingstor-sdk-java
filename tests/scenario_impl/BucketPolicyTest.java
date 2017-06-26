@@ -25,6 +25,7 @@ import cucumber.api.java.en.When;
 public class BucketPolicyTest {
 
 	private String bucketName = TestUtil.getBucketName();
+    public static String zone = TestUtil.getZone();
 
     private Bucket Bucket;
 
@@ -36,7 +37,7 @@ public class BucketPolicyTest {
     public void initialize_the_bucket_policy() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, zone, bucketName);
     }
 
     @Then("^the bucket policy is initialized$")
