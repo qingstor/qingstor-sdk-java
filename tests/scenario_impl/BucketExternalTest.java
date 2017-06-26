@@ -37,7 +37,6 @@ public class BucketExternalTest {
 
     @When("^put bucket external mirror:$")
     public void put_bucket_external_mirror(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Bucket.PutBucketExternalMirrorInput input = new Bucket.PutBucketExternalMirrorInput();
         JSONObject obj = QSJSONUtil.convertJSONObject(arg1);
         input.setSourceSite(QSJSONUtil.toString(obj, "source_site"));
@@ -46,38 +45,32 @@ public class BucketExternalTest {
 
     @Then("^put bucket external mirror status code is (\\d+)$")
     public void put_bucket_external_mirror_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(putBucketExternalMirrorOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket external mirror$")
     public void get_bucket_external_mirror() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         getBucketExternalMirrorOutput = testBucket.getExternalMirror();
     }
 
     @Then("^get bucket external mirror status code is (\\d+)$")
     public void get_bucket_external_mirror_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(getBucketExternalMirrorOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket external mirror should have source_site \"([^\"]*)\"$")
     public void get_bucket_external_mirror_should_have_source_site(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("get_bucket_external_mirror_should_have_source_site:" + getBucketExternalMirrorOutput.getSourceSite());
     }
 
     @When("^delete bucket external mirror$")
     public void delete_bucket_external_mirror() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         deleteBucketExternalMirrorOutput = testBucket.deleteExternalMirror();
 
     }
 
     @Then("^delete bucket external mirror status code is (\\d+)$")
     public void delete_bucket_external_mirror_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(deleteBucketExternalMirrorOutput.getStatueCode(), arg1);
     }
 

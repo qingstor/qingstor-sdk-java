@@ -38,7 +38,6 @@ public class BucketACLTest {
 
     @When("^put bucket ACL:$")
     public void put_bucket_ACL(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Bucket.PutBucketACLInput input = new Bucket.PutBucketACLInput();
         ACLModel acl = new ACLModel();
         acl.setPermission("FULL_CONTROL");
@@ -54,27 +53,23 @@ public class BucketACLTest {
 
     @Then("^put bucket ACL status code is (\\d+)$")
     public void put_bucket_ACL_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("put_bucket_ACL_status_code_msg:" + this.putBucketACLOutput.getMessage());
         TestUtil.assertEqual(this.putBucketACLOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket ACL$")
     public void get_bucket_ACL() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         getBucketACLOutput = testBucket.getACL();
     }
 
     @Then("^get bucket ACL status code is (\\d+)$")
     public void get_bucket_ACL_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("get_bucket_ACL_status_code_msg:" + this.getBucketACLOutput.getMessage());
         TestUtil.assertEqual(this.getBucketACLOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket ACL should have grantee name \"([^\"]*)\"$")
     public void get_bucket_ACL_shoud_have_grantee_name(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("get_bucket_ACL_shoud_have_grantee_name:" + this.getBucketACLOutput.getACL());
     }
 

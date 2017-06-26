@@ -37,7 +37,6 @@ public class BucketCORTest {
 
     @When("^put bucket CORS:$")
     public void put_bucket_CORS(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Bucket.PutBucketCORSInput input = new Bucket.PutBucketCORSInput();
         List cors = new ArrayList();
 
@@ -47,39 +46,33 @@ public class BucketCORTest {
 
     @Then("^put bucket CORS status code is (\\d+)$")
     public void put_bucket_CORS_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("put_bucket_CORS_status_code_msg:" + this.putBucketCORSOutput.getMessage());
         TestUtil.assertEqual(this.putBucketCORSOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket CORS$")
     public void get_bucket_CORS() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         getBucketCORSOutput = testBucket.getCORS();
     }
 
     @Then("^get bucket CORS status code is (\\d+)$")
     public void get_bucket_CORS_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(getBucketCORSOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket CORS should have allowed origin \"([^\"]*)\"$")
     public void get_bucket_CORS_should_have_allowed_origin(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         System.out.println("get_bucket_CORS_should_have_allowed_origin_msg:" + this.getBucketCORSOutput.getMessage());
     }
 
     @When("^delete bucket CORS$")
     public void delete_bucket_CORS() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         deleteBucketCORSOutput = testBucket.deleteCORS();
     }
 
 
     @Then("^delete bucket CORS status code is (\\d+)$")
     public void delete_bucket_CORS_status_code_is(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         TestUtil.assertEqual(deleteBucketCORSOutput.getStatueCode(), arg1);
     }
 
