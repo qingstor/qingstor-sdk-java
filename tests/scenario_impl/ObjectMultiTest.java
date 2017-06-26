@@ -22,18 +22,16 @@ import com.qingstor.sdk.service.Bucket.InitiateMultipartUploadOutput;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class ObjectMultiTest {
 
 
-    private static Bucket Bucket;
     private static String bucketName = TestUtil.getBucketName();
-    public static String zone = TestUtil.getZone();
+    private static String zone = TestUtil.getZone();
+    private static EvnContext evnContext = TestUtil.getEvnContext();
+    private static Bucket testBucket = new Bucket(evnContext, zone, bucketName);
+
     //private String multiObjectName = "test";
     private static String apkContentType = "application/vnd.android.package-archive";
     private static Bucket.UploadMultipartOutput uploadMultipartOutput1;
@@ -52,13 +50,10 @@ public class ObjectMultiTest {
     @When("^initiate multipart upload with key \"([^\"]*)\"$")
     public void initiate_multipart_upload_with_key(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, zone, bucketName);
-
         Bucket.InitiateMultipartUploadInput input = new Bucket.InitiateMultipartUploadInput();
         //input.setContentType(apkContentType);
 
-        initOutput = Bucket.initiateMultipartUpload(objectKey, input);
+        initOutput = testBucket.initiateMultipartUpload(objectKey, input);
         multipart_upload_name = objectKey;
         multipart_upload_id = this.initOutput.getUploadID();
     }
@@ -118,7 +113,7 @@ public class ObjectMultiTest {
         input.setBodyInputFile(f);
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
-        uploadMultipartOutput1 = Bucket.uploadMultipart(multipart_upload_name, input);
+        uploadMultipartOutput1 = testBucket.uploadMultipart(multipart_upload_name, input);
 
     }
 
@@ -160,7 +155,7 @@ public class ObjectMultiTest {
         input.setBodyInputStream(new FileInputStream(f));
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
-        uploadMultipartOutput2 = Bucket.uploadMultipart(multipart_upload_name, input);
+        uploadMultipartOutput2 = testBucket.uploadMultipart(multipart_upload_name, input);
     }
 
     @Then("^upload the second part status code is (\\d+)$")
@@ -201,7 +196,7 @@ public class ObjectMultiTest {
         input.setBodyInputStream(new FileInputStream(f));
         input.setPartNumber((long) part_number);
         input.setUploadID(multipart_upload_id);
-        uploadMultipartOutput3 = Bucket.uploadMultipart(multipart_upload_name, input);
+        uploadMultipartOutput3 = testBucket.uploadMultipart(multipart_upload_name, input);
     }
 
     @Then("^upload the third part status code is (\\d+)$")
@@ -218,7 +213,7 @@ public class ObjectMultiTest {
         Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
         input.setUploadID(initOutput.getUploadID());
         input.setLimit(10l);
-        listMultipartOutput = Bucket.listMultipart(multipart_upload_name, input);
+        listMultipartOutput = testBucket.listMultipart(multipart_upload_name, input);
     }
 
     @Then("^list multipart status code is (\\d+)$")
@@ -251,7 +246,7 @@ public class ObjectMultiTest {
                 "}";
         input.setBodyInput(content);
 
-        completeMultipartUploadOutput = Bucket.completeMultipartUpload(objectKey, input);
+        completeMultipartUploadOutput = testBucket.completeMultipartUpload(objectKey, input);
     }
 
     @Then("^complete multipart upload status code is (\\d+)$")
@@ -269,7 +264,7 @@ public class ObjectMultiTest {
 
 
         input.setUploadID(initOutput.getUploadID());
-        abortMultipartUploadOutput = Bucket.abortMultipartUpload(objectKey, input);
+        abortMultipartUploadOutput = testBucket.abortMultipartUpload(objectKey, input);
 
     }
 
@@ -284,7 +279,7 @@ public class ObjectMultiTest {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
 
-        deleteObjectOutput = Bucket.deleteObject(objectKey);
+        deleteObjectOutput = testBucket.deleteObject(objectKey);
 
     }
 

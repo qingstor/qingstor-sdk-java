@@ -28,32 +28,17 @@ import java.util.List;
 
 public class BucketACLTest {
 
-    private Bucket Bucket;
-    public static String bucketName = TestUtil.getBucketName();
-    public static String zone = TestUtil.getZone();
+    private static String bucketName = TestUtil.getBucketName();
+    private static String zone = TestUtil.getZone();
+    private static EvnContext evnContext = TestUtil.getEvnContext();
+    private static Bucket testBucket = new Bucket(evnContext, zone, bucketName);
 
     private Bucket.PutBucketACLOutput putBucketACLOutput;
     private Bucket.GetBucketACLOutput getBucketACLOutput;
 
-    @When("^initialize the bucket ACL$")
-    public void initialize_the_bucket_ACL() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        //TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, zone, bucketName);
-    }
-
-    @Then("^the bucket ACL is initialized$")
-    public void the_bucket_ACL_is_initialized() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertNotNull(Bucket);
-    }
-
     @When("^put bucket ACL:$")
     public void put_bucket_ACL(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketACLInput input = new Bucket.PutBucketACLInput();
         ACLModel acl = new ACLModel();
         acl.setPermission("FULL_CONTROL");
@@ -64,7 +49,7 @@ public class BucketACLTest {
         List<ACLModel> aa = new ArrayList<ACLModel>();
         aa.add(acl);
         input.setACL(aa);
-        putBucketACLOutput = Bucket.putACL(input);
+        putBucketACLOutput = testBucket.putACL(input);
     }
 
     @Then("^put bucket ACL status code is (\\d+)$")
@@ -77,9 +62,7 @@ public class BucketACLTest {
     @When("^get bucket ACL$")
     public void get_bucket_ACL() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
-        getBucketACLOutput = Bucket.getACL();
+        getBucketACLOutput = testBucket.getACL();
     }
 
     @Then("^get bucket ACL status code is (\\d+)$")

@@ -23,36 +23,23 @@ import cucumber.api.java.en.When;
 
 public class BucketPolicyTest {
 
-    private String bucketName = TestUtil.getBucketName();
-    public static String zone = TestUtil.getZone();
-
-    private Bucket Bucket;
+    private static String bucketName = TestUtil.getBucketName();
+    private static String zone = TestUtil.getZone();
+    private static EvnContext evnContext = TestUtil.getEvnContext();
+    private static Bucket testBucket = new Bucket(evnContext, zone, bucketName);
 
     private Bucket.PutBucketPolicyOutput putBucketPolicyOutput;
     private Bucket.GetBucketPolicyOutput getBucketPolicyOutput;
     private Bucket.DeleteBucketPolicyOutput deleteBucketPolicyOutput;
 
-    @When("^initialize the bucket policy$")
-    public void initialize_the_bucket_policy() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, zone, bucketName);
-    }
-
-    @Then("^the bucket policy is initialized$")
-    public void the_bucket_policy_is_initialized() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertNotNull(this.Bucket);
-    }
 
     @When("^put bucket policy:$")
     public void put_bucket_policy(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketPolicyInput input = new Bucket.PutBucketPolicyInput();
+        System.out.println("put_bucket_policy:" + arg1);
         input.setBodyInput(arg1);
-        putBucketPolicyOutput = Bucket.putPolicy(input);
+        putBucketPolicyOutput = testBucket.putPolicy(input);
     }
 
     @Then("^put bucket policy status code is (\\d+)$")
@@ -65,9 +52,7 @@ public class BucketPolicyTest {
     @When("^get bucket policy$")
     public void get_bucket_policy() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
-        getBucketPolicyOutput = Bucket.getPolicy();
+        getBucketPolicyOutput = testBucket.getPolicy();
     }
 
     @Then("^get bucket policy status code is (\\d+)$")
@@ -85,9 +70,7 @@ public class BucketPolicyTest {
     @When("^delete bucket policy$")
     public void delete_bucket_policy() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext, bucketName);
-        deleteBucketPolicyOutput = Bucket.deletePolicy();
+        deleteBucketPolicyOutput = testBucket.deletePolicy();
     }
 
     @Then("^delete bucket policy status code is (\\d+)$")
