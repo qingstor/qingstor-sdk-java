@@ -35,6 +35,7 @@ public class ObjectTest {
 
 	private static Bucket subService;
     private static String bucketName = TestUtil.getBucketName();
+    private static String zone = TestUtil.getZone();
     
     private static String test_object = "";
     private static String test_object_copy = "";
@@ -57,7 +58,7 @@ public class ObjectTest {
     public void initialize_the_object_with_key(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        subService = new Bucket(evnContext,bucketName);
+        subService = new Bucket(evnContext, zone, bucketName);
         evnContext.setLog_level(QSConstant.LOGGER_INFO);
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         //objectOutput = subService.PutObject(statueCode,input);

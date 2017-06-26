@@ -44,6 +44,7 @@ public class ObjectMultiTest {
 
 	private static Bucket Bucket;
     private static String bucketName = TestUtil.getBucketName();
+    public static String zone = TestUtil.getZone();
     //private String multiObjectName = "test";
     private static String apkContentType = "application/vnd.android.package-archive";
     private static Bucket.UploadMultipartOutput uploadMultipartOutput1;
@@ -62,7 +63,7 @@ public class ObjectMultiTest {
     public void initiate_multipart_upload_with_key(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, zone, bucketName);
 
         Bucket.InitiateMultipartUploadInput input = new Bucket.InitiateMultipartUploadInput();
         //input.setContentType(apkContentType);

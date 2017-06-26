@@ -31,6 +31,7 @@ public class BucketTest {
 
 	private static Bucket Bucket;
 	private static String bucketName = "";
+	public static String zone = TestUtil.getZone();
 
 	private static Bucket.PutBucketOutput putBucketOutput;
 	private static Bucket.PutBucketOutput putBucketOutput2;
@@ -46,7 +47,7 @@ public class BucketTest {
 		// Write code here that turns the phrase above into concrete actions
 		bucketName = System.currentTimeMillis() + "test";
 		EvnContext evnContext = TestUtil.getEvnContext();
-		Bucket = new Bucket(evnContext, bucketName);
+		Bucket = new Bucket(evnContext, zone, bucketName);
 
 	}
 
