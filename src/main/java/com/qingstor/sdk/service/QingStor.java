@@ -25,7 +25,8 @@ import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.request.ResponseCallBack;
-import com.qingstor.sdk.service.Types.*;
+import com.qingstor.sdk.service.Types.BucketModel;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,7 @@ public class QingStor {
 
         return requestHandler;
     }
+
     /*
      *
      * @param input

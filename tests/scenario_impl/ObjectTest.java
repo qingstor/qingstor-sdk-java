@@ -16,27 +16,23 @@
 
 package scenario_impl;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.service.Bucket;
-
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 public class ObjectTest {
 
 
-	private static Bucket subService;
+    private static Bucket subService;
     private static String bucketName = TestUtil.getBucketName();
     private static String zone = TestUtil.getZone();
-    
+
     private static String test_object = "";
     private static String test_object_copy = "";
     private static String test_object_move = "";
@@ -62,7 +58,7 @@ public class ObjectTest {
         evnContext.setLog_level(QSConstant.LOGGER_INFO);
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         //objectOutput = subService.PutObject(statueCode,input);
-        test_object =objectKey;
+        test_object = objectKey;
 
     }
 
@@ -76,7 +72,7 @@ public class ObjectTest {
     public void initialize_the_copy_object_with_key(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
-        copyOutput = subService.putObject(objectKey,input);
+        copyOutput = subService.putObject(objectKey, input);
         test_object_copy = objectKey;
     }
 
@@ -84,14 +80,14 @@ public class ObjectTest {
     public void the_copy_object_is_initialized() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         ///TestUtil.assertEqual(copyOutput.getStatueCode(),);
-        System.out.println("the_copy_object_is_initialized:"+test_object_copy);
+        System.out.println("the_copy_object_is_initialized:" + test_object_copy);
     }
 
     @When("^initialize the move object with key \"([^\"]*)\"$")
     public void initialize_the_move_object_with_key(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
-        moveOutput = subService.putObject(objectKey,input);
+        moveOutput = subService.putObject(objectKey, input);
         test_object_move = objectKey;
     }
 
@@ -99,7 +95,7 @@ public class ObjectTest {
     public void the_move_object_is_initialized() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //
-        System.out.println("the_move_object_is_initialized:"+test_object_move);
+        System.out.println("the_move_object_is_initialized:" + test_object_move);
     }
 
     @When("^put object with key \"([^\"]*)\"$")
@@ -107,21 +103,21 @@ public class ObjectTest {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
         evnContext.setLog_level(QSConstant.LOGGER_INFO);
-        subService = new Bucket(evnContext,bucketName);
+        subService = new Bucket(evnContext, bucketName);
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         File f = new File("config.yaml");
         input.setBodyInputFile(f);
         input.setContentType("video/mp4; charset=utf8");
-        input.setContentLength( f.length());
+        input.setContentLength(f.length());
         this.test_object = objectKey;
-        putObjectOutput = subService.putObject(test_object,input);
+        putObjectOutput = subService.putObject(test_object, input);
     }
 
     @Then("^put object status code is (\\d+)$")
     public void put_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("put_object_status_code_msg:"+this.putObjectOutput.getMessage()+test_object);
-        TestUtil.assertEqual(putObjectOutput.getStatueCode(),statueCode);
+        System.out.println("put_object_status_code_msg:" + this.putObjectOutput.getMessage() + test_object);
+        TestUtil.assertEqual(putObjectOutput.getStatueCode(), statueCode);
     }
 
     @When("^copy object with key \"([^\"]*)\"$")
@@ -130,16 +126,16 @@ public class ObjectTest {
         //
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         input.setXQSCopySource("/" + bucketName + "/" + this.test_object);
-        this.test_object_copy = objectKey+"copy";
-        copyOutput = subService.putObject(test_object_copy,input);
+        this.test_object_copy = objectKey + "copy";
+        copyOutput = subService.putObject(test_object_copy, input);
     }
 
     @Then("^copy object status code is (\\d+)$")
-    public void copy_object_status_code_is(int statueCode)  throws Throwable {
+    public void copy_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //
-        System.out.println("put_the_copy_object_status_code_message:"+this.test_object+copyOutput.getMessage()+test_object_copy);
-        TestUtil.assertEqual(copyOutput.getStatueCode(),statueCode);
+        System.out.println("put_the_copy_object_status_code_message:" + this.test_object + copyOutput.getMessage() + test_object_copy);
+        TestUtil.assertEqual(copyOutput.getStatueCode(), statueCode);
     }
 
     @When("^move object with key \"([^\"]*)\"$")
@@ -147,43 +143,43 @@ public class ObjectTest {
         // Write code here that turns the phrase above into concrete actions
         //
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
-        this.test_object_move = objectKey+"move";
+        this.test_object_move = objectKey + "move";
         input.setXQSMoveSource("/" + bucketName + "/" + test_object_copy);
-        moveOutput = subService.putObject(test_object_move,input);
+        moveOutput = subService.putObject(test_object_move, input);
     }
 
     @Then("^move object status code is (\\d+)$")
     public void move_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //
-        System.out.println("put_the_move_object_status_code_message:"+copyOutput.getMessage());
-        TestUtil.assertEqual(moveOutput.getStatueCode(),statueCode);
+        System.out.println("put_the_move_object_status_code_message:" + copyOutput.getMessage());
+        TestUtil.assertEqual(moveOutput.getStatueCode(), statueCode);
     }
 
     @When("^get object with key \"([^\"]*)\"$")
     public void get_object(String objectKey) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Bucket.GetObjectInput input = new Bucket.GetObjectInput();
-        getObjectOutput = subService.getObject(objectKey+"move",input);
+        getObjectOutput = subService.getObject(objectKey + "move", input);
     }
 
     @Then("^get object status code is (\\d+)$")
     public void get_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(getObjectOutput.getStatueCode(),statueCode);
+        TestUtil.assertEqual(getObjectOutput.getStatueCode(), statueCode);
     }
 
     @Then("^get object content length is (\\d+)$")
     public void get_object_content_length_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         int iLength = 0;
-        if(getObjectOutput != null && getObjectOutput.getBodyInputStream() != null){
+        if (getObjectOutput != null && getObjectOutput.getBodyInputStream() != null) {
             File ff = new File("/tmp/get_object.txt");
             OutputStream out = new FileOutputStream(ff);
             int bytesRead = 0;
             byte[] buffer = new byte[1024];
-            while ((bytesRead = getObjectOutput.getBodyInputStream().read(buffer,0,1024)) != -1){
-                out.write(buffer,0,bytesRead);
+            while ((bytesRead = getObjectOutput.getBodyInputStream().read(buffer, 0, 1024)) != -1) {
+                out.write(buffer, 0, bytesRead);
                 iLength += bytesRead;
             }
             out.close();
@@ -197,7 +193,7 @@ public class ObjectTest {
     public void get_object_with_query_signature(String statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //
-        String reqUrl = subService.GetObjectSignatureUrl(statueCode,1000);
+        String reqUrl = subService.GetObjectSignatureUrl(statueCode, 1000);
         getObjectOutput = subService.GetObjectBySignatureUrl(reqUrl);
 
     }
@@ -206,21 +202,21 @@ public class ObjectTest {
     public void get_object_with_query_signature_content_length_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //
-        System.out.println("get_object_with_query_signature_statue:"+getObjectOutput.getStatueCode());
+        System.out.println("get_object_with_query_signature_statue:" + getObjectOutput.getStatueCode());
         int iLength = 0;
-        if(getObjectOutput != null && getObjectOutput.getBodyInputStream() != null){
+        if (getObjectOutput != null && getObjectOutput.getBodyInputStream() != null) {
             File ff = new File("/tmp/get_sign_object.txt");
             OutputStream out = new FileOutputStream(ff);
             int bytesRead = 0;
             byte[] buffer = new byte[1024];
-            while ((bytesRead = getObjectOutput.getBodyInputStream().read(buffer,0,1024)) != -1){
-                out.write(buffer,0,bytesRead);
+            while ((bytesRead = getObjectOutput.getBodyInputStream().read(buffer, 0, 1024)) != -1) {
+                out.write(buffer, 0, bytesRead);
                 iLength += bytesRead;
             }
             out.close();
             getObjectOutput.getBodyInputStream().close();
         }
-        System.out.println("get_object_with_query_signature_length:"+iLength);
+        System.out.println("get_object_with_query_signature_length:" + iLength);
     }
 
     @When("^get object with content type \"([^\"]*)\"$")
@@ -234,7 +230,7 @@ public class ObjectTest {
     @Then("^get object content type is \"([^\"]*)\"$")
     public void get_object_content_type_is(String statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(statueCode,getContentTypeOutput.getResponseContentType());
+        TestUtil.assertEqual(statueCode, getContentTypeOutput.getResponseContentType());
     }
 
 
@@ -243,13 +239,13 @@ public class ObjectTest {
         // Write code here that turns the phrase above into concrete actions
         Bucket.HeadObjectInput input = new Bucket.HeadObjectInput();
 
-        headObjectOutput = subService.headObject(objectKey,input);
+        headObjectOutput = subService.headObject(objectKey, input);
     }
 
     @Then("^head object status code is (\\d+)$")
     public void head_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(headObjectOutput.getStatueCode(),statueCode);
+        TestUtil.assertEqual(headObjectOutput.getStatueCode(), statueCode);
     }
 
     @When("^options object with method \"([^\"]*)\" and origin \"([^\"]*)\"$")
@@ -258,13 +254,13 @@ public class ObjectTest {
         Bucket.OptionsObjectInput input = new Bucket.OptionsObjectInput();
         input.setAccessControlRequestMethod(method);
         input.setOrigin(origin);
-        optionObjectOutput = subService.optionsObject(test_object_move,input);
+        optionObjectOutput = subService.optionsObject(test_object_move, input);
     }
 
     @Then("^options object status code is (\\d+)$")
     public void options_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(optionObjectOutput.getStatueCode(),statueCode);
+        TestUtil.assertEqual(optionObjectOutput.getStatueCode(), statueCode);
     }
 
     @When("^delete object with key \"([^\"]*)\"$")
@@ -277,7 +273,7 @@ public class ObjectTest {
     @Then("^delete object status code is (\\d+)$")
     public void delete_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(deleteObjectOutput.getStatueCode(),statueCode);
+        TestUtil.assertEqual(deleteObjectOutput.getStatueCode(), statueCode);
     }
 
     @When("^delete the move object with key \"([^\"]*)\"$")
@@ -290,9 +286,8 @@ public class ObjectTest {
     @Then("^delete the move object status code is (\\d+)$")
     public void delete_the_move_object_status_code_is(int statueCode) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(deleteObjectOutput2.getStatueCode(),statueCode);
+        TestUtil.assertEqual(deleteObjectOutput2.getStatueCode(), statueCode);
     }
-
 
 
     @When("^get object \"([^\"]*)\" with content type \"([^\"]*)\"$")
@@ -300,8 +295,8 @@ public class ObjectTest {
         // Write code here that turns the phrase above into concrete actions
         Bucket.GetObjectInput input = new Bucket.GetObjectInput();
         input.setResponseContentType(contentType);
-        getContentTypeOutput = subService.getObject(objectKey,input);
-        System.out.println(getContentTypeOutput.getMessage());   
+        getContentTypeOutput = subService.getObject(objectKey, input);
+        System.out.println(getContentTypeOutput.getMessage());
     }
 
 
@@ -311,7 +306,7 @@ public class ObjectTest {
         Bucket.OptionsObjectInput input = new Bucket.OptionsObjectInput();
         input.setAccessControlRequestMethod(method);
         input.setOrigin(origin);
-        optionObjectOutput = subService.optionsObject(objectKey,input);
+        optionObjectOutput = subService.optionsObject(objectKey, input);
         System.out.println(optionObjectOutput.getMessage());
     }
 

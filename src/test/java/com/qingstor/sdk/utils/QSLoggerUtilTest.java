@@ -16,13 +16,14 @@
 
 package com.qingstor.sdk.utils;
 
-import static org.junit.Assert.*;
-
 import com.qingstor.sdk.constants.QSConstant;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static org.junit.Assert.*;
 
 public class QSLoggerUtilTest {
 

@@ -16,23 +16,15 @@
 
 package com.qingstor.sdk.utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
+import com.qingstor.sdk.annotation.ParamAnnotation;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.qingstor.sdk.annotation.ParamAnnotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.util.*;
 
 public class QSJSONUtil {
 
@@ -374,7 +366,8 @@ public class QSJSONUtil {
         return obj;
     }
 
-    public static void responceFillValue2Object(okhttp3.Response response, Object targetObj) {}
+    public static void responceFillValue2Object(okhttp3.Response response, Object targetObj) {
+    }
 
     public static boolean jsonFillValue2Object(String jsonStr, Object targetObj) {
         JSONObject o = toJSONObject(jsonStr);

@@ -20,71 +20,70 @@ import com.qingstor.sdk.annotation.ParamAnnotation;
 
 public class OutputModel {
 
-	private String message;
+    private String message;
 
-	private Integer statueCode;
+    private Integer statueCode;
 
-	private String code;
+    private String code;
 
-	private String requestId;
+    private String requestId;
 
-	private String url;
+    private String url;
 
-	@ParamAnnotation(paramType = "query", paramName = "statue_code")
-	public Integer getStatueCode() {
-		return statueCode;
-	}
+    @ParamAnnotation(paramType = "query", paramName = "statue_code")
+    public Integer getStatueCode() {
+        return statueCode;
+    }
 
-	public void setStatueCode(Integer statueCode) {
-		this.statueCode = statueCode;
-	}
+    public void setStatueCode(Integer statueCode) {
+        this.statueCode = statueCode;
+    }
 
-	/**
-	 * @return the error code
-	 */
-	@ParamAnnotation(paramType = "query", paramName = "code")
-	public String getCode() {
-		return code;
-	}
+    /**
+     * @return the error code
+     */
+    @ParamAnnotation(paramType = "query", paramName = "code")
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 * @param response code to set
-	 * 
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
+    /**
+     * @param response code to set
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 * @return the requestId
-	 */
-	@ParamAnnotation(paramType = "query", paramName = "request_id")
-	public String getRequestId() {
-		return requestId;
-	}
+    /**
+     * @return the requestId
+     */
+    @ParamAnnotation(paramType = "query", paramName = "request_id")
+    public String getRequestId() {
+        return requestId;
+    }
 
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
-	}
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
-	/**
-	 * @return the help url
-	 */
-	@ParamAnnotation(paramType = "query", paramName = "url")
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @return the help url
+     */
+    @ParamAnnotation(paramType = "query", paramName = "url")
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	@ParamAnnotation(paramType = "query", paramName = "message")
-	public String getMessage() {
-		return message;
-	}
+    @ParamAnnotation(paramType = "query", paramName = "message")
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

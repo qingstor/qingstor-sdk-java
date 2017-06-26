@@ -16,18 +16,17 @@
 
 package scenario_impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
-
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BucketCORTest {
 
-	public String bucketName = TestUtil.getBucketName();
+    public String bucketName = TestUtil.getBucketName();
     public static String zone = TestUtil.getZone();
     private Bucket Bucket;
 
@@ -52,7 +51,7 @@ public class BucketCORTest {
     public void put_bucket_CORS(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         Bucket.PutBucketCORSInput input = new Bucket.PutBucketCORSInput();
         List cors = new ArrayList();
 
@@ -63,35 +62,35 @@ public class BucketCORTest {
     @Then("^put bucket CORS status code is (\\d+)$")
     public void put_bucket_CORS_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("put_bucket_CORS_status_code_msg:"+this.putBucketCORSOutput.getMessage());
-        TestUtil.assertEqual(this.putBucketCORSOutput.getStatueCode(),arg1);
+        System.out.println("put_bucket_CORS_status_code_msg:" + this.putBucketCORSOutput.getMessage());
+        TestUtil.assertEqual(this.putBucketCORSOutput.getStatueCode(), arg1);
     }
 
     @When("^get bucket CORS$")
     public void get_bucket_CORS() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         getBucketCORSOutput = Bucket.getCORS();
     }
 
     @Then("^get bucket CORS status code is (\\d+)$")
     public void get_bucket_CORS_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(getBucketCORSOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(getBucketCORSOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket CORS should have allowed origin \"([^\"]*)\"$")
     public void get_bucket_CORS_should_have_allowed_origin(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("get_bucket_CORS_should_have_allowed_origin_msg:"+this.getBucketCORSOutput.getMessage());
+        System.out.println("get_bucket_CORS_should_have_allowed_origin_msg:" + this.getBucketCORSOutput.getMessage());
     }
 
     @When("^delete bucket CORS$")
     public void delete_bucket_CORS() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         EvnContext evnContext = TestUtil.getEvnContext();
-        Bucket = new Bucket(evnContext,bucketName);
+        Bucket = new Bucket(evnContext, bucketName);
         deleteBucketCORSOutput = Bucket.deleteCORS();
     }
 
@@ -99,7 +98,7 @@ public class BucketCORTest {
     @Then("^delete bucket CORS status code is (\\d+)$")
     public void delete_bucket_CORS_status_code_is(int arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        TestUtil.assertEqual(deleteBucketCORSOutput.getStatueCode(),arg1);
+        TestUtil.assertEqual(deleteBucketCORSOutput.getStatueCode(), arg1);
     }
 
 

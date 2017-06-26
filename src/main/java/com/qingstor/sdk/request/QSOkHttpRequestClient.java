@@ -16,6 +16,20 @@
 
 package com.qingstor.sdk.request;
 
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.OutputModel;
+import com.qingstor.sdk.utils.QSJSONUtil;
+import com.qingstor.sdk.utils.QSLoggerUtil;
+import com.qingstor.sdk.utils.QSParamInvokeUtil;
+import com.qingstor.sdk.utils.QSStringUtil;
+import okhttp3.*;
+import okhttp3.internal.Util;
+import okhttp3.internal.http.HttpMethod;
+import okio.BufferedSink;
+import org.json.JSONObject;
+
+import javax.net.ssl.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,35 +41,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.json.JSONObject;
-
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.OutputModel;
-import com.qingstor.sdk.utils.QSJSONUtil;
-import com.qingstor.sdk.utils.QSLoggerUtil;
-import com.qingstor.sdk.utils.QSParamInvokeUtil;
-import com.qingstor.sdk.utils.QSStringUtil;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import okhttp3.internal.Util;
-import okhttp3.internal.http.HttpMethod;
-import okio.BufferedSink;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSOkHttpRequestClient {
@@ -86,23 +71,25 @@ public class QSOkHttpRequestClient {
         try {
             // Create a trust manager that does not validate certificate chains
             final TrustManager[] trustAllCerts =
-                    new TrustManager[] {
-                        new X509TrustManager() {
-                            @Override
-                            public void checkClientTrusted(
-                                    java.security.cert.X509Certificate[] chain, String authType)
-                                    throws CertificateException {}
+                    new TrustManager[]{
+                            new X509TrustManager() {
+                                @Override
+                                public void checkClientTrusted(
+                                        java.security.cert.X509Certificate[] chain, String authType)
+                                        throws CertificateException {
+                                }
 
-                            @Override
-                            public void checkServerTrusted(
-                                    java.security.cert.X509Certificate[] chain, String authType)
-                                    throws CertificateException {}
+                                @Override
+                                public void checkServerTrusted(
+                                        java.security.cert.X509Certificate[] chain, String authType)
+                                        throws CertificateException {
+                                }
 
-                            @Override
-                            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                                return new java.security.cert.X509Certificate[] {};
+                                @Override
+                                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                                    return new java.security.cert.X509Certificate[]{};
+                                }
                             }
-                        }
                     };
 
             // Install the all-trusting trust manager
@@ -167,7 +154,6 @@ public class QSOkHttpRequestClient {
     }
 
     /**
-     * 
      * @param singedUrl with singed parameter url
      * @return
      */
@@ -253,11 +239,10 @@ public class QSOkHttpRequestClient {
     }
 
     /**
-     * 
-     * @param method  request method name
+     * @param method      request method name
      * @param bodyContent body params
-     * @param signedUrl  with signed param url
-     * @param headParams http head params
+     * @param signedUrl   with signed param url
+     * @param headParams  http head params
      * @return
      * @throws QSException
      */
@@ -270,7 +255,7 @@ public class QSOkHttpRequestClient {
 
         Request.Builder builder = new Request.Builder();
         Request request = null;
-        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[] {});
+        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[]{});
         for (String key : sortedHeadersKeys) {
             builder.addHeader(key, headParams.get(key) + "");
         }
@@ -314,13 +299,13 @@ public class QSOkHttpRequestClient {
 
         return request;
     }
-    
-    
+
+
     private static class EmptyRequestBody extends RequestBody {
 
         private String contentType;
 
-        private int contentLength=0;
+        private int contentLength = 0;
 
 
         public EmptyRequestBody(String contentType) {
@@ -344,21 +329,22 @@ public class QSOkHttpRequestClient {
 
     }
 
-    public Object getBodyContent(Map bodyContent){
-    	Iterator iterator = bodyContent.entrySet().iterator();
+    public Object getBodyContent(Map bodyContent) {
+        Iterator iterator = bodyContent.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String key = (String) entry.getKey();
             Object bodyObj = bodyContent.get(key);
-            if(QSConstant.PARAM_TYPE_BODYINPUTFILE.equals(key) 
-            		|| QSConstant.PARAM_TYPE_BODYINPUTSTREAM.equals(key)
-            		|| QSConstant.PARAM_TYPE_BODYINPUTSTRING.equals(key)){
-            	return bodyObj;
+            if (QSConstant.PARAM_TYPE_BODYINPUTFILE.equals(key)
+                    || QSConstant.PARAM_TYPE_BODYINPUTSTREAM.equals(key)
+                    || QSConstant.PARAM_TYPE_BODYINPUTSTRING.equals(key)) {
+                return bodyObj;
             }
         }
         String jsonStr = QSStringUtil.getObjectToJson(bodyContent);
         return jsonStr;
     }
+
     /**
      * @param method
      * @param bodyContent
@@ -375,7 +361,7 @@ public class QSOkHttpRequestClient {
             throws QSException {
 
         Request.Builder builder = new Request.Builder();
-        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[] {});
+        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[]{});
         for (String key : sortedHeadersKeys) {
             builder.addHeader(key, headParams.get(key) + "");
         }
@@ -407,10 +393,10 @@ public class QSOkHttpRequestClient {
                     try {
                         rFile = new RandomAccessFile((File) bodyObj, "r");
                         rFile.seek(contentLength * partNumber);
-                        long contentLeft = ((File) bodyObj).length() - contentLength * (partNumber+1);
-                        int readContentLength =  contentLength;
-                        if(contentLeft < 0){
-                            readContentLength +=contentLeft;
+                        long contentLeft = ((File) bodyObj).length() - contentLength * (partNumber + 1);
+                        int readContentLength = contentLength;
+                        if (contentLeft < 0) {
+                            readContentLength += contentLeft;
                             readContentLength = readContentLength > 0 ? readContentLength : 0;
                         }
                         requestBody = new MulitFileuploadBody(contentType, rFile, readContentLength);
@@ -524,8 +510,8 @@ public class QSOkHttpRequestClient {
                 sink.write(bufferOut, 0, bytes);
                 count--;
                 iReadLength += bytes;
-                if(bytes != readSize){
-                    count = (contentLength - iReadLength)/readSize;
+                if (bytes != readSize) {
+                    count = (contentLength - iReadLength) / readSize;
                     leftCount = (contentLength - iReadLength) % readSize;
                 }
             }
@@ -541,10 +527,10 @@ public class QSOkHttpRequestClient {
     }
 
     public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {
-    	Map<String,Object> errorMap = new HashMap<String,Object>();
-    	errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);
-    	errorMap.put(QSConstant.QC_MESSAGE_FIELD_NAME, content);
-    	
+        Map<String, Object> errorMap = new HashMap<String, Object>();
+        errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);
+        errorMap.put(QSConstant.QC_MESSAGE_FIELD_NAME, content);
+
         QSJSONUtil.jsonFillValue2Object(QSStringUtil.getObjectToJson(errorMap), model);
     }
 }

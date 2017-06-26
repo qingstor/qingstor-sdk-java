@@ -16,56 +16,51 @@
 
 package scenario_impl;
 
+import com.qingstor.sdk.config.EvnContext;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.Map;
-
-import org.yaml.snakeyaml.Yaml;
-
-import com.qingstor.sdk.config.EvnContext;
-import com.qingstor.sdk.exception.QSException;
 
 public class TestUtil {
 
-	public static void assertNotNull(Object o) throws Exception{
-        if(o == null){
+    public static void assertNotNull(Object o) throws Exception {
+        if (o == null) {
             throw new Exception("is null");
         }
     }
 
 
-    public static void assertEqual(int i,int j) throws Exception{
-        if(i != j){
-            throw new Exception(i + " is not equal "+j);
+    public static void assertEqual(int i, int j) throws Exception {
+        if (i != j) {
+            throw new Exception(i + " is not equal " + j);
         }
     }
 
-    public static void assertEqual(String i,String j) throws Exception{
-        if(!i.equals(j)){
-            throw new Exception(i + " is not equal "+j);
+    public static void assertEqual(String i, String j) throws Exception {
+        if (!i.equals(j)) {
+            throw new Exception(i + " is not equal " + j);
         }
     }
 
-    public static EvnContext getEvnContext(){
-    	try{
-    		return EvnContext.loadFromFile("config.yaml");
-    	} catch (Exception e) {
+    public static EvnContext getEvnContext() {
+        try {
+            return EvnContext.loadFromFile("config.yaml");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    	return null;
+        return null;
     }
 
     public static String getZone() {
-    	return getFileConfig("zone");
+        return getFileConfig("zone");
     }
 
     public static String getBucketName() {
-    	return getFileConfig("bucket_name");
+        return getFileConfig("bucket_name");
     }
 
 
@@ -76,7 +71,7 @@ public class TestUtil {
             Yaml yaml = new Yaml();
             try {
                 Map confParams = (Map) yaml.load(new FileInputStream(f));
-                if(confParams.containsKey(key)){
+                if (confParams.containsKey(key)) {
                     return String.valueOf(confParams.get(key));
                 }
                 return "";

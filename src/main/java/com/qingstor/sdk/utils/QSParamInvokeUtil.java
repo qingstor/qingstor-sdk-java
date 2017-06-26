@@ -16,22 +16,14 @@
 
 package com.qingstor.sdk.utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.request.ResponseCallBack;
+
+import java.lang.reflect.*;
+import java.util.*;
 
 public class QSParamInvokeUtil {
 
@@ -46,7 +38,7 @@ public class QSParamInvokeUtil {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            } 
+            }
         }
         if (QSConstant.PARAM_TYPE_HEADER.equals(paramType)) {
             if (!retParametersMap.containsKey(QSConstant.HEADER_PARAM_KEY_DATE)) {
@@ -106,9 +98,9 @@ public class QSParamInvokeUtil {
                     || cls.equals(Long.class)
                     || cls.equals(Float.class)) {
                 retParametersMap.put(paramKey, objValue + "");
-            } else if(cls.equals(String.class)){
+            } else if (cls.equals(String.class)) {
                 retParametersMap.put(paramKey, objValue);
-            }else {
+            } else {
                 retParametersMap.put(paramKey, objValue);
             }
         }

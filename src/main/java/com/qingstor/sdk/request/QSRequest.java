@@ -16,15 +16,14 @@
 
 package com.qingstor.sdk.request;
 
-import java.util.Map;
-
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
-
 import okhttp3.Request;
+
+import java.util.Map;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSRequest implements ResourceRequest {

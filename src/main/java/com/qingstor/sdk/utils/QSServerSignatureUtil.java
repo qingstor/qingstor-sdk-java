@@ -17,7 +17,7 @@
 package com.qingstor.sdk.utils;
 
 public class QSServerSignatureUtil {
-   
+
 
     /**
      * Generate signature for request against QingStor.
@@ -26,9 +26,9 @@ public class QSServerSignatureUtil {
      * @param secretKey: API secret access key ID
      * @param strToSign: strToSign
      * @return a string which can be used as value of HTTP request header field "Authorization"
-     *     directly.
-     *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
-     *     about how to do signature of request against QingStor.
+     * directly.
+     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     * about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
             String accessKey,
@@ -36,15 +36,15 @@ public class QSServerSignatureUtil {
             String strToSign) {
         return QSSignatureUtil.generateAuthorization(accessKey, secretKey, strToSign);
     }
-    
+
     /**
      * Generate signature for request against QingStor.
+     *
      * @param secretKey
      * @param strToSign
      * @return signature
-     * 
+     * <p>
      * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
-     * 
      */
     public static String generateSignature(String secretKey, String strToSign) {
         return QSSignatureUtil.generateSignature(secretKey, strToSign);

@@ -16,16 +16,17 @@
 
 package com.qingstor.sdk.utils;
 
-import static org.junit.Assert.*;
-
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.service.Bucket;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class QSParamInvokeUtilTest {
 

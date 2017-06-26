@@ -16,23 +16,24 @@
 
 package com.qingstor.sdk.utils;
 
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
-
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-
-/** Created by on 11/4/15. */
+/**
+ * Created by on 11/4/15.
+ */
 public class QSStringUtil {
 
-	public static String objectToJson(String key, Object o) {
+    public static String objectToJson(String key, Object o) {
         StringBuffer buffer = new StringBuffer("{ \"" + key + "\":");
-        buffer.append(objectJSONKeyValue(key,o));
+        buffer.append(objectJSONKeyValue(key, o));
         buffer.append("}");
         return buffer.toString();
     }
@@ -44,7 +45,7 @@ public class QSStringUtil {
     }
 
     private static String objectJSONValue(Object o) {
-    	
+
         StringBuffer buffer = new StringBuffer();
         if (o instanceof List) {
             List lst = (List) o;
@@ -56,35 +57,35 @@ public class QSStringUtil {
                 }
             }
             buffer.append("]");
-        } else if (o instanceof  Integer
-                || o instanceof  Double
-                || o instanceof  Boolean
-                || o instanceof  Long
-                || o instanceof  Float) {
+        } else if (o instanceof Integer
+                || o instanceof Double
+                || o instanceof Boolean
+                || o instanceof Long
+                || o instanceof Float) {
             buffer.append(o);
-        }else if (o instanceof  String) {
+        } else if (o instanceof String) {
             buffer.append("\"").append(o).append("\"");
-        }else {
+        } else {
             buffer.append(getObjectToJson(o));
         }
         return buffer.toString();
     }
 
     public static String getObjectToJson(Object o) {
-    	JSONObject json = null;
-    	if(o instanceof Map){
-    		json = new JSONObject();
-            Iterator iterator = ((Map)o).entrySet().iterator();
+        JSONObject json = null;
+        if (o instanceof Map) {
+            json = new JSONObject();
+            Iterator iterator = ((Map) o).entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 String key = (String) entry.getKey();
-                Object bodyObj = ((Map)o).get(key);
+                Object bodyObj = ((Map) o).get(key);
                 json.put(key, bodyObj);
             }
-    	} else{
-    		json = new JSONObject(o);
-    	}
-    	
+        } else {
+            json = new JSONObject(o);
+        }
+
         return json.toString();
     }
 
@@ -92,9 +93,9 @@ public class QSStringUtil {
             throws UnsupportedEncodingException {
         return value != null
                 ? URLEncoder.encode(value, encoding)
-                        .replace("+", "%20")
-                        .replace("*", "%2A")
-                        .replace("%7E", "~")
+                .replace("+", "%20")
+                .replace("*", "%2A")
+                .replace("%7E", "~")
                 : null;
     }
 
@@ -106,7 +107,7 @@ public class QSStringUtil {
     }
 
     public static String getUserAgent() {
-    	String osName = System.getProperty("os.name"); //操作系统名称
+        String osName = System.getProperty("os.name"); //操作系统名称
         String langVersion = System.getProperty("java.version"); //java.version系统版本
         String userAgent =
                 QSConstant.SDK_NAME
@@ -139,7 +140,7 @@ public class QSStringUtil {
                 "%s value %s is not allowed, should be one of %s ",
                 paraName, value, buf.toString());
     }
-    
+
     /**
      * Chinese characters transform
      *
@@ -160,5 +161,5 @@ public class QSStringUtil {
             throw new QSException("UnsupportedEncodingException:", e);
         }
     }
-    
+
 }

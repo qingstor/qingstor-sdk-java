@@ -82,7 +82,7 @@ public class QSConstant {
     public static String LOGGER_INFO = "info";
     public static String LOGGER_DEBUG = "debug";
     public static String LOGGER_FATAL = "fatal";
-    
+
 
     public static int HTTPCLIENT_CONNECTION_TIME_OUT = 60; // Seconds
     public static int HTTPCLIENT_READ_TIME_OUT = 100; // Seconds
