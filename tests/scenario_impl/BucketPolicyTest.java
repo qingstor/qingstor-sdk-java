@@ -16,8 +16,12 @@
 
 package scenario_impl;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
+import com.qingstor.sdk.utils.QSJSONUtil;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -34,10 +38,15 @@ public class BucketPolicyTest {
 
 
     @When("^put bucket policy:$")
-    public void put_bucket_policy(String arg1) throws Throwable {
+    public void put_bucket_policy(String policy) throws Throwable {
         Bucket.PutBucketPolicyInput input = new Bucket.PutBucketPolicyInput();
-        System.out.println("put_bucket_policy:" + arg1);
-        input.setBodyInput(arg1);
+        System.out.println("put_bucket_policy:" + policy);
+        JSONObject o = new QSJSONUtil().toJSONObject(policy);
+        JSONObject statment = (JSONObject) o.getJSONArray("statement").get(0);
+        JSONArray resource = statment.getJSONArray("resource");
+        resource.put(bucketName+"/*");
+        System.out.println("put_bucket_policy:" + o.toString());
+        input.setBodyInput( o.toString());
         putBucketPolicyOutput = testBucket.putPolicy(input);
     }
 
