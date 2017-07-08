@@ -25,8 +25,7 @@ import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.request.ResponseCallBack;
-import com.qingstor.sdk.service.Types.BucketModel;
-
+import com.qingstor.sdk.service.Types.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,10 +35,6 @@ public class QingStor {
     private String zone;
     private EvnContext evnContext;
     private String bucketName;
-
-    public QingStor(EvnContext evnContext) {
-        this(evnContext, QSConstant.STOR_DEFAULT_ZONE);
-    }
 
     public QingStor(EvnContext evnContext, String zone) {
         this.evnContext = evnContext;
@@ -99,7 +94,6 @@ public class QingStor {
 
         return requestHandler;
     }
-
     /*
      *
      * @param input
@@ -205,11 +199,6 @@ public class QingStor {
         public Long getCount() {
             return this.count;
         }
-    }
-
-    @Deprecated
-    public com.qingstor.sdk.service.Bucket getBucket(String bucketName) {
-        return new com.qingstor.sdk.service.Bucket(this.evnContext, this.zone, bucketName);
     }
 
     public com.qingstor.sdk.service.Bucket getBucket(String bucketName, String zone) {

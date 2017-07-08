@@ -61,8 +61,6 @@ public class QSConstant {
 
     public static final String SDK_TYPE_STOR = "qingcloud_stor";
 
-    public static final String STOR_DEFAULT_ZONE = "pek3a";
-
     public static final String HEADER_PARAM_KEY_DATE = "Date";
 
     public static final String HEADER_PARAM_KEY_EXPIRES = "Expires";

@@ -43,9 +43,7 @@ public class QingStor {
     private String zone;
     private EvnContext evnContext;
     private String bucketName;
-    public QingStor(EvnContext evnContext){
-        this(evnContext, QSConstant.STOR_DEFAULT_ZONE);
-    }
+    
 
     public QingStor(EvnContext evnContext,String zone){
         this.evnContext = evnContext;
@@ -57,10 +55,6 @@ public class QingStor {
 	{{template "RenderOperation" passThrough $belongs $operation}}
 {{end}}
 
-    @Deprecated
-    public com.qingstor.sdk.service.Bucket getBucket(String bucketName){
-        return new com.qingstor.sdk.service.Bucket(this.evnContext,this.zone,bucketName);
-    }
 
     public com.qingstor.sdk.service.Bucket getBucket(String bucketName,String zone){
             return new com.qingstor.sdk.service.Bucket(this.evnContext,zone,bucketName);
