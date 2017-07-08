@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.1.9] - 2017-07-08
+
+### Changed
+
+- Remove default zone.
+- Remove deprecated method.
+
 ## [v2.1.9] - 2017-06-23
 
 ### Changed
@@ -86,6 +93,7 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 - QingStor SDK for the JAVA programming language.
 
+[v2.1.10]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.9...2.1.10
 [v2.1.9]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.8...2.1.9
 [v2.1.8]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.7...2.1.8
 [v2.1.7]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.6...2.1.7
