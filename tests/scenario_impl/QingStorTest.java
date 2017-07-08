@@ -27,13 +27,15 @@ import cucumber.api.java.en.When;
 public class QingStorTest {
 
     private EvnContext evnContext = TestUtil.getEvnContext();
-    private QingStor storSerivce = new QingStor(evnContext);
+    
+    private QingStor storSerivce;
+    
     private ListBucketsOutput listOutput;
 
     @When("^initialize QingStor service$")
     public void initialize_QingStor_service() throws Throwable {
         EvnContext evnContext = TestUtil.getEvnContext();
-        storSerivce = new QingStor(evnContext);
+        storSerivce = new QingStor(evnContext, TestUtil.getZone());
         System.out.print("test : initService");
     }
 
@@ -47,7 +49,7 @@ public class QingStorTest {
     @When("^list buckets$")
     public void list_buckets() throws Throwable {
         EvnContext evnContext = TestUtil.getEvnContext();
-        storSerivce = new QingStor(evnContext);
+        storSerivce = new QingStor(evnContext, TestUtil.getZone());
         this.listOutput = storSerivce.listBuckets(new ListBucketsInput());
     }
 

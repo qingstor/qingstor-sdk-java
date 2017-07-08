@@ -45,9 +45,6 @@ public class Bucket {
     private String bucketName;
     private EvnContext evnContext;
 
-    public Bucket(EvnContext evnContext,String bucketName) {
-        this(evnContext, QSConstant.STOR_DEFAULT_ZONE,bucketName);
-    }
 
     public Bucket(EvnContext evnContext, String zone,String bucketName) {
         this.evnContext = evnContext;
