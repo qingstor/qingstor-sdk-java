@@ -7,6 +7,7 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 - Remove default zone.
 - Remove deprecated method.
+- Update dependency okhttp lib to 3.5.0.
 
 ## [v2.1.9] - 2017-06-23
 
