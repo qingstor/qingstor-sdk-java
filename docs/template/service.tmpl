@@ -1,0 +1,46 @@
+{{- $capsule := . -}}
+{{- $service := .Data.Service -}}
+{{- $subServices := .Data.SubServices -}}
+{{- $customizedTypes := .Data.CustomizedTypes -}}
+
+## QingStor Service Class
+
+QingStor Service Class provides {{$service.Name}} Service API (API Version {{$service.APIVersion}})
+
+### Parameters
+
+|Name|Type|Description|
+|-|-|-|
+|zone|String|zone's name|
+|evnContent|EvnContent|Config that initializes a QingStor service|
+|bucketName|String|bucket'name|
+
+### Attribute
+
+|Name|Type|Description|
+|-|-|-|
+|zone|String|zone's name|
+|evnContent|EveContent|Config that initializes a QingStor service|
+
+
+### Functions
+
+{{- range $_, $operation := $service.Operations}}
+{{- template "RenderOperation" passThrough $service.Name $operation $customizedTypes}}
+{{- end}}
+
+#### Bucket
+
+Create a Bucket instance with QingStor service
+
+##### Parameters
+
+|Name|Type|Description|
+|-|-|-|
+|bucket_name|str|Bucket's name|
+|zone|str|Zone's name|
+
+##### Returns
+
+Bucket: Create a Bucket instance
+
