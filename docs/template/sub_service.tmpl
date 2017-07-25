@@ -1,0 +1,31 @@
+{{ "" }}
+{{- $service := .Data.Service}}
+{{- $subServices := .Data.SubServices}}
+{{- $customizedTypes := .Data.CustomizedTypes -}}
+
+## Bucket Class
+
+Bucket Class provides Bucket and Object level APIs.
+
+### Parameters
+{{" "}}
+|Name|Type|Description|
+|-|-|-|
+|zone|String|Zone that belongs to which area|
+|bucketName|String|bucket name|
+|evnContent|EvnContent|evnContent that initializes a QingStor service|
+
+### Attribute
+
+|Name|Type|Description|
+|-|-|-|
+|zone|String|Zone that belongs to which area|
+|bucketName|String|bucket name|
+
+### Functions
+{{" "}}
+{{- range $_, $subService := $subServices}}
+{{- range $_, $operation := $subService.Operations}}
+{{- template "RenderOperation" passThrough $subService.Name $operation $customizedTypes}}
+{{- end}}
+{{- end}}
