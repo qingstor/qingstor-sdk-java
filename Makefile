@@ -7,6 +7,7 @@ help:
 	@echo "  unit              to run all sort of unit tests except runtime"
 	@echo "  update            to update git submodules"
 	@echo "  generate          to generate service code"
+	@echo "  generate-docs      to geterate  service and bucket APIs docs"
 
 all: update generate unit
 
@@ -26,7 +27,6 @@ test:
 	popd
 	rm -fr tests/jars
 	rm -f tests/scenario_impl/*.class
-	
 	@echo "ok"
 
 generate:
@@ -39,6 +39,16 @@ generate:
 	rm ./src/main/java/com/qingstor/sdk/service/Object.java
 	./gradlew formatGenerateCode
 	@echo "ok"
+
+generate-docs:
+	@if [[ ! -f "$$(which snips)" ]]; then \
+		echo "ERROR: Command \"snips\" not found.";\
+	fi
+	snips \
+	        --service=qingstor --service-api-version=latest \
+		--spec="./specs" --template="./docs/template" --output="./docs/source/api"
+	rm ./docs/source/api/object.md
+	@echo
 
 update:
 	git submodule update --init
@@ -54,4 +64,3 @@ buildJar:
 	./gradlew buildJar
 	./gradlew buildIncludeDependentJar
 	@echo "ok"
-
