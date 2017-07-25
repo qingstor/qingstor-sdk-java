@@ -1,0 +1,120 @@
+{{define "BuildRequest"}}
+    {{- $service := index . 0}}
+    {{- $operation := index . 1}}
+    {{- $opID := replace $operation.ID "Bucket" "" -1}}
+    {{- $hasParams := gt (len $operation.Request.Params.Properties) 0}}
+    {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
+    {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
+    {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
+    {{- $hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
+    {{- $hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
+
+{{- if ne $service "QingStor"}}
+#### {{$opID | lowerFirst }}Request
+{{- end}}
+{{- if eq $service "QingStor"}}
+#### {{$operation.ID | lowerFirst }}Request
+{{" "}}
+{{- end}}
+{{- if ne $service "QingStor"}}
+{{" "}}
+Build request for {{$opID | lowerFirst }}
+{{- end}}
+{{- if eq $service "QingStor"}}
+Build request for {{$operation.ID | lowerFirst }}
+{{- end}}
+See Also: {{$operation.DocumentationURL}}
+
+##### Parameters
+
+{{- if or $hasParams $hasHeaders $hasElements}}
+|Name|Type|Description|
+|-|-|-|
+{{- if eq $service "Object"}}
+|object_key|str|Object key name|
+{{- end}}
+{{- range $id, $property := $operation.Request.Headers.Properties}}
+|{{$property.Name| lowerFirst}}|{{$property.Type}}|{{$property.Description}}|
+{{- end}}
+{{- range $id, $property := $operation.Request.Params.Properties}}
+|{{$property.Name| lowerFirst}}|{{$property.Type}}|{{$property.Description}}|
+{{- end}}
+{{- range $id, $property := $operation.Request.Elements.Properties}}
+|{{$property.Name| lowerFirst}}|{{$property.Type}}|{{$property.Description}}|
+{{- end}}
+{{- end}}
+{{- if not (or $hasParams $hasHeaders $hasElements)}}
+
+None
+{{- end}}
+
+##### Returns
+
+RequestHandler:handle the request
+{{" "}}
+{{- end}}
+
+{{define "BuildNormalOperation"}}
+    {{- $service := index . 0}}
+    {{- $operation := index . 1}}
+    {{- $opID := replace $operation.ID "Bucket" "" -1}}
+
+    {{- $hasParams := gt (len $operation.Request.Params.Properties) 0}}
+    {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
+    {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
+    {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
+    {{- $hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
+    {{- $hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
+
+{{- if ne $service "QingStor"}}
+#### {{$opID | lowerFirst}}
+{{" "}}
+{{- end}}
+{{- if eq $service "QingStor"}}
+#### {{$operation.ID | lowerFirst }}
+{{" "}}
+{{- end}}
+{{- if ne $service "QingStor"}}
+Send {{$opID | lowerFirst }}Rrequest
+{{- end}}
+{{- if eq $service "QingStor"}}
+Send {{$operation.ID | lowerFirst }}Request
+{{- end}}
+See Also: {{$operation.DocumentationURL}}
+
+##### Parameters
+{{" "}}
+{{- if and (or $hasParams $hasHeaders $hasElements)}}
+|Name|Type|Description|
+|-|-|-|
+{{- if eq $service "Object"}}
+|object_key|str|Object key name|
+{{- end}}
+{{- range $id, $property := $operation.Request.Headers.Properties}}
+|{{$property.Name| lowerFirst}}|{{$property.Type}}|{{$property.Description}}|
+{{- end}}
+{{- range $id, $property := $operation.Request.Params.Properties}}
+|{{$property.Name| lowerFirst}}|{{$property.Type}}|{{$property.Description}}|
+{{- end}}
+{{- range $id, $property := $operation.Request.Elements.Properties}}
+|{{$property.Name| lowerFirst}}|{{$property.Type}}|{{$property.Description}}|
+{{- end}}
+{{- end}}
+{{- if not (or $hasParams $hasHeaders $hasElements)}}
+None
+{{- end}}
+
+##### Returns
+
+DeleteBucketCORSOutput: Remove the cross-source resource sharing (cors) policy for storage space
+{{" "}}
+{{- end -}}
+
+{{define "RenderOperation"}}
+{{- $service := index . 0}}
+{{- $operation := index . 1}}
+{{- $customizedTypes := index . 2}}
+{{- template "BuildRequest" passThrough $service $operation}}
+{{- template "BuildNormalOperation" passThrough $service $operation}}
+{{- end}}
+
