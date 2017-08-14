@@ -149,6 +149,7 @@ public class QSOkHttpRequestClient {
             fillResponseValue2Object(response, model);
             return model;
         } catch (Exception e) {
+        	e.printStackTrace();
             logger.log(Level.SEVERE, e.getMessage());
             throw new QSException(e.getMessage());
         }
