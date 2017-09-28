@@ -81,7 +81,7 @@ public class BucketTest {
     @When("^list objects$")
     public void list_objects() throws Throwable {
         Bucket.ListObjectsInput input = new Bucket.ListObjectsInput();
-        input.setLimit(20l);
+        input.setLimit(20);
         listObjectsOutput = testBucket.listObjects(input);
     }
 
@@ -153,7 +153,7 @@ public class BucketTest {
     @When("^list multipart uploads$")
     public void list_multipart_uploads() throws Throwable {
     	ListMultipartUploadsInput input = new ListMultipartUploadsInput();
-    	input.setLimit(1l);
+    	input.setLimit(1);
         listMultipartUploadsOutput = testBucket.listMultipartUploads(input);
         System.out.println(listMultipartUploadsOutput.getMessage());
     }

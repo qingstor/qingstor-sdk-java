@@ -287,14 +287,14 @@ public class Types {
             return this.exposeHeaders;
         } // Max age seconds
 
-        private Long maxAgeSeconds;
+        private Integer maxAgeSeconds;
 
-        public void setMaxAgeSeconds(Long maxAgeSeconds) {
+        public void setMaxAgeSeconds(Integer maxAgeSeconds) {
             this.maxAgeSeconds = maxAgeSeconds;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "max_age_seconds")
-        public Long getMaxAgeSeconds() {
+        public Integer getMaxAgeSeconds() {
             return this.maxAgeSeconds;
         }
 
@@ -471,14 +471,14 @@ public class Types {
             return this.mimeType;
         } // Last modified time in unix time format
 
-        private Long modified;
+        private Integer modified;
 
-        public void setModified(Long modified) {
+        public void setModified(Integer modified) {
             this.modified = modified;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "modified")
-        public Long getModified() {
+        public Integer getModified() {
             return this.modified;
         } // Object content size
 
@@ -593,14 +593,14 @@ public class Types {
         } // Object part number
         // Required
 
-        private Long partNumber;
+        private Integer partNumber;
 
-        public void setPartNumber(Long partNumber) {
+        public void setPartNumber(Integer partNumber) {
             this.partNumber = partNumber;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number")
-        public Long getPartNumber() {
+        public Integer getPartNumber() {
             return this.partNumber;
         } // Object part size
 
