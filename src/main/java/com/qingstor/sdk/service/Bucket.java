@@ -1552,14 +1552,14 @@ public class Bucket {
             return this.keyMarker;
         } // Results count limit
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Limits results to keys that begin with the prefix
 
@@ -1618,14 +1618,14 @@ public class Bucket {
             return this.delimiter;
         } // Limit that specified in request parameters
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Marker that specified in request parameters
 
@@ -1829,14 +1829,14 @@ public class Bucket {
             return this.delimiter;
         } // Results count limit
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Limit results to keys that start at this marker
 
@@ -1906,14 +1906,14 @@ public class Bucket {
             return this.keys;
         } // Limit that specified in request parameters
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Marker that specified in request parameters
 
@@ -3121,7 +3121,21 @@ public class Bucket {
         }
     }
 
-    public static class CompleteMultipartUploadOutput extends OutputModel {}
+    public static class CompleteMultipartUploadOutput extends OutputModel {
+
+        // Encryption algorithm of the object
+
+        private String xQSEncryptionCustomerAlgorithm;
+
+        public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
+            this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        public String getXQSEncryptionCustomerAlgorithm() {
+            return this.xQSEncryptionCustomerAlgorithm;
+        }
+    }
 
     /*
      *
@@ -3640,6 +3654,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "ETag")
         public String getETag() {
             return this.eTag;
+        }
+
+        private String lastModified;
+
+        public void setLastModified(String lastModified) {
+            this.lastModified = lastModified;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Last-Modified")
+        public String getLastModified() {
+            return this.lastModified;
         } // Encryption algorithm of the object
 
         private String xQSEncryptionCustomerAlgorithm;
@@ -4572,25 +4597,25 @@ public class Bucket {
     public static class ListMultipartInput extends RequestInputModel {
         // Limit results count
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Object multipart upload part number
 
-        private Long partNumberMarker;
+        private Integer partNumberMarker;
 
-        public void setPartNumberMarker(Long partNumberMarker) {
+        public void setPartNumberMarker(Integer partNumberMarker) {
             this.partNumberMarker = partNumberMarker;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number_marker")
-        public Long getPartNumberMarker() {
+        public Integer getPartNumberMarker() {
             return this.partNumberMarker;
         } // Object multipart upload ID
         // Required
@@ -4620,14 +4645,14 @@ public class Bucket {
 
         // Object multipart count
 
-        private Long count;
+        private Integer count;
 
-        public void setCount(Long count) {
+        public void setCount(Integer count) {
             this.count = count;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "count")
-        public Long getCount() {
+        public Integer getCount() {
             return this.count;
         } // Object parts
 
@@ -5264,7 +5289,32 @@ public class Bucket {
         }
     }
 
-    public static class PutObjectOutput extends OutputModel {}
+    public static class PutObjectOutput extends OutputModel {
+
+        // MD5sum of the object
+
+        private String eTag;
+
+        public void setETag(String eTag) {
+            this.eTag = eTag;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        public String getETag() {
+            return this.eTag;
+        } // Encryption algorithm of the object
+
+        private String xQSEncryptionCustomerAlgorithm;
+
+        public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
+            this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        public String getXQSEncryptionCustomerAlgorithm() {
+            return this.xQSEncryptionCustomerAlgorithm;
+        }
+    }
 
     /*
      *
@@ -5404,14 +5454,14 @@ public class Bucket {
         // Object multipart upload part number
         // Required
 
-        private Long partNumber;
+        private Integer partNumber;
 
-        public void setPartNumber(Long partNumber) {
+        public void setPartNumber(Integer partNumber) {
             this.partNumber = partNumber;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number")
-        public Long getPartNumber() {
+        public Integer getPartNumber() {
             return this.partNumber;
         } // Object multipart upload ID
         // Required
@@ -5633,7 +5683,43 @@ public class Bucket {
         }
     }
 
-    public static class UploadMultipartOutput extends OutputModel {}
+    public static class UploadMultipartOutput extends OutputModel {
+
+        // MD5sum of the object
+
+        private String eTag;
+
+        public void setETag(String eTag) {
+            this.eTag = eTag;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        public String getETag() {
+            return this.eTag;
+        } // Range of response data content
+
+        private String xQSContentCopyRange;
+
+        public void setXQSContentCopyRange(String xQSContentCopyRange) {
+            this.xQSContentCopyRange = xQSContentCopyRange;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Content-Copy-Range")
+        public String getXQSContentCopyRange() {
+            return this.xQSContentCopyRange;
+        } // Encryption algorithm of the object
+
+        private String xQSEncryptionCustomerAlgorithm;
+
+        public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
+            this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        public String getXQSEncryptionCustomerAlgorithm() {
+            return this.xQSEncryptionCustomerAlgorithm;
+        }
+    }
 
     /**
      * @param objectName
