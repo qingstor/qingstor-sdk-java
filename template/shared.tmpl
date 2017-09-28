@@ -6,7 +6,7 @@
     {{- $opID := $operation.ID | camelCase -}}
         @Override
         public String validateParam() {
-            {{- template "ValidateCustomizedType" $operation.Request.Params -}}
+            {{- template "ValidateCustomizedType" $operation.Request.Query -}}
             {{- template "ValidateCustomizedType" $operation.Request.Headers -}}
             {{- template "ValidateCustomizedType" $operation.Request.Elements }}
 
@@ -156,7 +156,9 @@
 	{{- else if eq $typeName "boolean" -}}
 		Boolean
 	{{- else if eq $typeName "integer" -}}
-		Long
+		Integer
+    {{- else if eq $typeName "long" -}}
+        Long
 	{{- else if eq $typeName "timestamp" -}}
 		String
 	{{- else if eq $typeName "binary" -}}
@@ -303,8 +305,8 @@
 
 	{{$opID := $operation.ID | camelCase}}
 
-	{{$newURI := replace $operation.Request.URI "{objectKey}" "replace" -1}}
-    {{$hasParams := gt (len $operation.Request.Params.Properties) 0}}
+	{{$newURI := replace $operation.Request.Path "{objectKey}" "replace" -1}}
+    {{$hasParams := gt (len $operation.Request.Query.Properties) 0}}
     {{$hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
     {{$hasElements := gt (len $operation.Request.Elements.Properties) 0}}
     {{$hasStringBody := eq $operation.Request.Body.Type "string"}}
@@ -327,7 +329,7 @@
         {{$opID | camelCase | lowerFirst }}
     {{end}}
     (
-    {{if eq $operation.Request.URI $newURI}}
+    {{if eq $operation.Request.Path $newURI}}
         {{- if $hasInput}}
 
          {{$opID}}Input input
@@ -351,12 +353,12 @@
                 {{else -}}
                     {{$opID | camelCase | lowerFirst -}}
                 {{end}}Request(
-                {{if eq $operation.Request.URI $newURI}}
+                {{if eq $operation.Request.Path $newURI}}
                 {{- else -}}
                 objectName
                 {{end}}
                 {{if $hasInput -}}
-                {{if eq $operation.Request.URI $newURI}}
+                {{if eq $operation.Request.Path $newURI}}
                 {{- else -}}
                 ,
                 {{end}}
@@ -388,7 +390,7 @@
         {{$opID | camelCase | lowerFirst -}}
     {{end -}}Request
     (
-    {{if eq $operation.Request.URI $newURI -}}
+    {{if eq $operation.Request.Path $newURI -}}
         {{- if $hasInput -}}
 
          {{$opID -}}Input input
@@ -407,7 +409,7 @@
                 }
             {{end}}
             
-            {{$uri := $operation.Request.URI}}
+            {{$uri := $operation.Request.Path}}
             {{$uri := replace $uri "{" "<" -1}}
             {{$uri := replace $uri "}" ">" -1}}
             {{$uri := dashConnected $uri}}
@@ -421,7 +423,7 @@
             context.put("RequestMethod","{{$operation.Request.Method}}");
             context.put("RequestURI","{{$uri}}");
             context.put("bucketNameInput",this.bucketName);
-            {{if eq $operation.Request.URI $newURI}}
+            {{if eq $operation.Request.Path $newURI}}
             {{- else -}}
             context.put("objectNameInput",objectName);
             {{end}}
@@ -432,7 +434,7 @@
                 throw new QSException("bucketName can't be empty!");
             }
             {{- end -}}
-            {{if eq $operation.Request.URI $newURI -}}
+            {{if eq $operation.Request.Path $newURI -}}
             {{- else -}}
             if (QSStringUtil.isEmpty(objectName)) {
                 throw new QSException("objectName can't be empty!");
@@ -465,7 +467,7 @@
                     {{- else -}}
                         {{$opID | camelCase | lowerFirst }}
                     {{- end -}}Async(
-        {{if eq $operation.Request.URI $newURI}}
+        {{if eq $operation.Request.Path $newURI}}
             {{- if $hasInput}}
 
              {{$opID}}Input input,
@@ -489,18 +491,18 @@
                 {{else -}}
                     {{$opID | camelCase | lowerFirst -}}
                 {{end}}AsyncRequest(
-                {{if eq $operation.Request.URI $newURI}}
+                {{if eq $operation.Request.Path $newURI}}
                 {{- else -}}
                 objectName
                 {{end}}
                 {{if $hasInput -}}
-                    {{if eq $operation.Request.URI $newURI}}
+                    {{if eq $operation.Request.Path $newURI}}
                     {{- else -}}
                     ,
                     {{end}}
                     input,callback    
                 {{- else -}}
-                    {{if eq $operation.Request.URI $newURI}}
+                    {{if eq $operation.Request.Path $newURI}}
                     callback
                     {{- else -}}
                     ,callback
@@ -529,7 +531,7 @@
                     {{- else -}}
                         {{$opID | camelCase | lowerFirst }}
                     {{- end -}}AsyncRequest(
-        {{if eq $operation.Request.URI $newURI}}
+        {{if eq $operation.Request.Path $newURI}}
             {{- if $hasInput}}
 
              {{$opID}}Input input,
@@ -547,7 +549,7 @@
                 }
             {{end}}
             
-            {{$uri := $operation.Request.URI}}
+            {{$uri := $operation.Request.Path}}
             {{$uri := replace $uri "{" "<" -1}}
             {{$uri := replace $uri "}" ">" -1}}
             {{$uri := dashConnected $uri}}
@@ -561,7 +563,7 @@
             context.put("RequestMethod","{{$operation.Request.Method}}");
             context.put("RequestURI","{{$uri}}");
             context.put("bucketNameInput",this.bucketName);
-            {{if eq $operation.Request.URI $newURI}}
+            {{if eq $operation.Request.Path $newURI}}
             {{- else -}}
             context.put("objectNameInput",objectName);
             {{end}}
@@ -572,7 +574,7 @@
                 throw new QSException("bucketName can't be empty!");
             }
             {{- end -}}
-            {{if eq $operation.Request.URI $newURI -}}
+            {{if eq $operation.Request.Path $newURI -}}
             {{- else -}}
             if (QSStringUtil.isEmpty(objectName)) {
                 throw new QSException("objectName can't be empty!");
@@ -594,8 +596,8 @@
 
     {{- if $hasInput}}
     public static class {{$opID}}Input extends RequestInputModel{
-            {{if $operation.Request.Params.Properties | len}}
-            	{{- $data := $operation.Request.Params -}}
+            {{if $operation.Request.Query.Properties | len}}
+            	{{- $data := $operation.Request.Query -}}
                 {{template "RenderProperties" passThrough $data `` "query"}}
             {{end}}
 
@@ -668,7 +670,7 @@
             {{end}}
             @Override
             public String validateParam() {
-                {{template "ValidateCustomizedType" $operation.Request.Params}}
+                {{template "ValidateCustomizedType" $operation.Request.Query}}
                 {{template "ValidateCustomizedType" $operation.Request.Headers}}
                 {{template "ValidateCustomizedType" $operation.Request.Elements}}
 
@@ -680,9 +682,10 @@
 
 
         public static class {{$opID}}Output extends OutputModel{
-                {{if eq $operation.Response.Body.Type "string"}}
-                    {{if $operation.Response.Body.Description -}}
-                        // {{$operation.Response.Body.Description}}
+            {{range $_, $response := $operation.Responses}}
+                {{if eq $response.Body.Type "string"}}
+                    {{if $response.Body.Description -}}
+                        // {{$response.Body.Description}}
                     {{- end}}
                     private  String bodyInput;
 
@@ -694,9 +697,9 @@
                     public void setBodyInput(String bodyInput) {
                         this.bodyInput=bodyInput;
                     }
-                {{else if eq $operation.Response.Body.Type "binary"}}
-                    {{if $operation.Response.Body.Description -}}
-                        // {{$operation.Response.Body.Description}}
+                {{else if eq $response.Body.Type "binary"}}
+                    {{if $response.Body.Description -}}
+                        // {{$response.Body.Description}}
                     {{- end}}
                     private  java.io.InputStream bodyInputStream;
 
@@ -709,16 +712,17 @@
                     }
                 {{end}}
 
-                {{if $operation.Response.Elements.Properties | len}}
-                    {{$data := $operation.Response.Elements}}
+                {{if $response.Elements.Properties | len}}
+                    {{$data := $response.Elements}}
                     {{template "RenderProperties" passThrough $data `` "query"}}
                 {{end}}
 
-                {{if $operation.Response.Headers.Properties | len}}
-                    {{$data := $operation.Response.Headers}}
+                {{if $response.Headers.Properties | len}}
+                    {{$data := $response.Headers}}
                     {{template "RenderProperties" passThrough $data `` "header"}}
                 {{end}}
-            }
+            {{end}}
+        }
 
 
 {{end}}
