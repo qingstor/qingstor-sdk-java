@@ -1,7 +1,18 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
-## [v2.1.9] - 2017-07-08
+## [v2.2.0] - 2017-09-28
+
+### Added
+
+- Add image process API.
+
+### Changed
+
+- Add Last-Modified to getObject response heead.
+- Optimize type definition. 
+
+## [v2.1.10] - 2017-07-08
 
 ### Changed
 
@@ -93,7 +104,7 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 ### Added
 
 - QingStor SDK for the JAVA programming language.
-
+[v2.2.0]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.10...2.2.0
 [v2.1.10]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.9...2.1.10
 [v2.1.9]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.8...2.1.9
 [v2.1.8]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.7...2.1.8
