@@ -9,7 +9,7 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 ### Changed
 
-- Add Last-Modified to getObject response heead.
+- Add Last-Modified to getObject response head.
 - Optimize type definition. 
 
 ## [v2.1.10] - 2017-07-08
