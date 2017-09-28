@@ -85,7 +85,7 @@ public class ObjectMultiTest {
         input.setXQSEncryptionCustomerKey(objectKey);
         input.setContentLength(f.length());
         input.setBodyInputFile(f);
-        input.setPartNumber((long) part_number);
+        input.setPartNumber(part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput1 = testBucket.uploadMultipart(multipart_upload_name, input);
 
@@ -123,7 +123,7 @@ public class ObjectMultiTest {
         input.setXQSEncryptionCustomerKey(objectKey);
         input.setContentLength(f.length());
         input.setBodyInputStream(new FileInputStream(f));
-        input.setPartNumber((long) part_number);
+        input.setPartNumber( part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput2 = testBucket.uploadMultipart(multipart_upload_name, input);
     }
@@ -160,7 +160,7 @@ public class ObjectMultiTest {
         input.setXQSEncryptionCustomerKey(objectKey);
         input.setContentLength(f.length());
         input.setBodyInputStream(new FileInputStream(f));
-        input.setPartNumber((long) part_number);
+        input.setPartNumber(part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput3 = testBucket.uploadMultipart(multipart_upload_name, input);
     }
@@ -174,7 +174,7 @@ public class ObjectMultiTest {
     public void list_multipart(String key) throws Throwable {
         Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
         input.setUploadID(initOutput.getUploadID());
-        input.setLimit(10l);
+        input.setLimit(10);
         listMultipartOutput = testBucket.listMultipart(multipart_upload_name, input);
     }
 

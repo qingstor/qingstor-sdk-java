@@ -1539,28 +1539,28 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
+        } // Limit results returned from the first key after key_marker sorted by alphabetical order
+
+        private String keyMarker;
+
+        public void setKeyMarker(String keyMarker) {
+            this.keyMarker = keyMarker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "key_marker")
+        public String getKeyMarker() {
+            return this.keyMarker;
         } // Results count limit
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
-        } // Limit results to keys that start at this marker
-
-        private String marker;
-
-        public void setMarker(String marker) {
-            this.marker = marker;
-        }
-
-        @ParamAnnotation(paramType = "query", paramName = "marker")
-        public String getMarker() {
-            return this.marker;
         } // Limits results to keys that begin with the prefix
 
         private String prefix;
@@ -1572,6 +1572,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "prefix")
         public String getPrefix() {
             return this.prefix;
+        } // Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
+
+        private String uploadIDMarker;
+
+        public void setUploadIDMarker(String uploadIDMarker) {
+            this.uploadIDMarker = uploadIDMarker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "upload_id_marker")
+        public String getUploadIDMarker() {
+            return this.uploadIDMarker;
         }
 
         @Override
@@ -1607,14 +1618,14 @@ public class Bucket {
             return this.delimiter;
         } // Limit that specified in request parameters
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Marker that specified in request parameters
 
@@ -1638,17 +1649,28 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "name")
         public String getName() {
             return this.name;
-        } // The last key in keys list
+        } // The last key in uploads list
 
-        private String nextMarker;
+        private String nextKeyMarker;
 
-        public void setNextMarker(String nextMarker) {
-            this.nextMarker = nextMarker;
+        public void setNextKeyMarker(String nextKeyMarker) {
+            this.nextKeyMarker = nextKeyMarker;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "next_marker")
-        public String getNextMarker() {
-            return this.nextMarker;
+        @ParamAnnotation(paramType = "query", paramName = "next_key_marker")
+        public String getNextKeyMarker() {
+            return this.nextKeyMarker;
+        } // The last upload_id in uploads list
+
+        private String nextUploadIDMarker;
+
+        public void setNextUploadIDMarker(String nextUploadIDMarker) {
+            this.nextUploadIDMarker = nextUploadIDMarker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "next_upload_id_marker")
+        public String getNextUploadIDMarker() {
+            return this.nextUploadIDMarker;
         } // Prefix that specified in request parameters
 
         private String prefix;
@@ -1807,14 +1829,14 @@ public class Bucket {
             return this.delimiter;
         } // Results count limit
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Limit results to keys that start at this marker
 
@@ -1884,14 +1906,14 @@ public class Bucket {
             return this.keys;
         } // Limit that specified in request parameters
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Marker that specified in request parameters
 
@@ -3099,7 +3121,21 @@ public class Bucket {
         }
     }
 
-    public static class CompleteMultipartUploadOutput extends OutputModel {}
+    public static class CompleteMultipartUploadOutput extends OutputModel {
+
+        // Encryption algorithm of the object
+
+        private String xQSEncryptionCustomerAlgorithm;
+
+        public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
+            this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        public String getXQSEncryptionCustomerAlgorithm() {
+            return this.xQSEncryptionCustomerAlgorithm;
+        }
+    }
 
     /*
      *
@@ -3618,6 +3654,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "ETag")
         public String getETag() {
             return this.eTag;
+        }
+
+        private String lastModified;
+
+        public void setLastModified(String lastModified) {
+            this.lastModified = lastModified;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Last-Modified")
+        public String getLastModified() {
+            return this.lastModified;
         } // Encryption algorithm of the object
 
         private String xQSEncryptionCustomerAlgorithm;
@@ -3906,6 +3953,271 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
+        }
+    }
+
+    /*
+     *
+     * @param input
+     * @throws QSException
+     *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public ImageProcessOutput imageProcess(String objectName, ImageProcessInput input)
+            throws QSException {
+
+        if (input == null) {
+            input = new ImageProcessInput();
+        }
+
+        RequestHandler requestHandler = this.imageProcessRequest(objectName, input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (ImageProcessOutput) backModel;
+        }
+        return null;
+    }
+
+    /*
+     *
+     * @param input
+     * @throws QSException
+     *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler imageProcessRequest(String objectName, ImageProcessInput input)
+            throws QSException {
+
+        if (input == null) {
+            input = new ImageProcessInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "ImageProcess");
+        context.put("APIName", "ImageProcess");
+        context.put("ServiceName", "Image Process");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>/<object-key>?image");
+        context.put("bucketNameInput", this.bucketName);
+        context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, ImageProcessOutput.class);
+
+        return requestHandler;
+    }
+    /*
+     *
+     * @param input
+     * @param callback
+     * @throws QSException
+     *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void imageProcessAsync(
+            String objectName,
+            ImageProcessInput input,
+            ResponseCallBack<ImageProcessOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new ImageProcessInput();
+        }
+
+        RequestHandler requestHandler = this.imageProcessAsyncRequest(objectName, input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /*
+     *
+     * @param input
+     * @param callback
+     * @throws QSException
+     *
+     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler imageProcessAsyncRequest(
+            String objectName,
+            ImageProcessInput input,
+            ResponseCallBack<ImageProcessOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new ImageProcessInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "ImageProcess");
+        context.put("APIName", "ImageProcess");
+        context.put("ServiceName", "Image Process");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>/<object-key>?image");
+        context.put("bucketNameInput", this.bucketName);
+        context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+
+    public static class ImageProcessInput extends RequestInputModel {
+        // Image process action
+        // Required
+
+        private String action;
+
+        public void setAction(String action) {
+            this.action = action;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "action")
+        public String getAction() {
+            return this.action;
+        } // Specified the Cache-Control response header
+
+        private String responseCacheControl;
+
+        public void setResponseCacheControl(String responseCacheControl) {
+            this.responseCacheControl = responseCacheControl;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-cache-control")
+        public String getResponseCacheControl() {
+            return this.responseCacheControl;
+        } // Specified the Content-Disposition response header
+
+        private String responseContentDisposition;
+
+        public void setResponseContentDisposition(String responseContentDisposition) {
+            this.responseContentDisposition = responseContentDisposition;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-disposition")
+        public String getResponseContentDisposition() {
+            return this.responseContentDisposition;
+        } // Specified the Content-Encoding response header
+
+        private String responseContentEncoding;
+
+        public void setResponseContentEncoding(String responseContentEncoding) {
+            this.responseContentEncoding = responseContentEncoding;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-encoding")
+        public String getResponseContentEncoding() {
+            return this.responseContentEncoding;
+        } // Specified the Content-Language response header
+
+        private String responseContentLanguage;
+
+        public void setResponseContentLanguage(String responseContentLanguage) {
+            this.responseContentLanguage = responseContentLanguage;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-language")
+        public String getResponseContentLanguage() {
+            return this.responseContentLanguage;
+        } // Specified the Content-Type response header
+
+        private String responseContentType;
+
+        public void setResponseContentType(String responseContentType) {
+            this.responseContentType = responseContentType;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-content-type")
+        public String getResponseContentType() {
+            return this.responseContentType;
+        } // Specified the Expires response header
+
+        private String responseExpires;
+
+        public void setResponseExpires(String responseExpires) {
+            this.responseExpires = responseExpires;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "response-expires")
+        public String getResponseExpires() {
+            return this.responseExpires;
+        }
+
+        // Check whether the object has been modified
+
+        private String ifModifiedSince;
+
+        public void setIfModifiedSince(String ifModifiedSince) {
+            this.ifModifiedSince = ifModifiedSince;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "If-Modified-Since")
+        public String getIfModifiedSince() {
+            return this.ifModifiedSince;
+        }
+
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getAction())) {
+                return QSStringUtil.getParameterRequired("Action", "ImageProcessInput");
+            }
+
+            return null;
+        }
+    }
+
+    public static class ImageProcessOutput extends OutputModel {
+
+        // The response body
+        private java.io.InputStream bodyInputStream;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
+        public java.io.InputStream getBodyInputStream() {
+            return bodyInputStream;
+        }
+
+        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+            this.bodyInputStream = bodyInputStream;
+        }
+
+        // Object content length
+
+        private Long contentLength;
+
+        public void setContentLength(Long contentLength) {
+            this.contentLength = contentLength;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Length")
+        public Long getContentLength() {
+            return this.contentLength;
         }
     }
 
@@ -4285,25 +4597,25 @@ public class Bucket {
     public static class ListMultipartInput extends RequestInputModel {
         // Limit results count
 
-        private Long limit;
+        private Integer limit;
 
-        public void setLimit(Long limit) {
+        public void setLimit(Integer limit) {
             this.limit = limit;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "limit")
-        public Long getLimit() {
+        public Integer getLimit() {
             return this.limit;
         } // Object multipart upload part number
 
-        private Long partNumberMarker;
+        private Integer partNumberMarker;
 
-        public void setPartNumberMarker(Long partNumberMarker) {
+        public void setPartNumberMarker(Integer partNumberMarker) {
             this.partNumberMarker = partNumberMarker;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number_marker")
-        public Long getPartNumberMarker() {
+        public Integer getPartNumberMarker() {
             return this.partNumberMarker;
         } // Object multipart upload ID
         // Required
@@ -4333,14 +4645,14 @@ public class Bucket {
 
         // Object multipart count
 
-        private Long count;
+        private Integer count;
 
-        public void setCount(Long count) {
+        public void setCount(Integer count) {
             this.count = count;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "count")
-        public Long getCount() {
+        public Integer getCount() {
             return this.count;
         } // Object parts
 
@@ -4977,7 +5289,32 @@ public class Bucket {
         }
     }
 
-    public static class PutObjectOutput extends OutputModel {}
+    public static class PutObjectOutput extends OutputModel {
+
+        // MD5sum of the object
+
+        private String eTag;
+
+        public void setETag(String eTag) {
+            this.eTag = eTag;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        public String getETag() {
+            return this.eTag;
+        } // Encryption algorithm of the object
+
+        private String xQSEncryptionCustomerAlgorithm;
+
+        public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
+            this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        public String getXQSEncryptionCustomerAlgorithm() {
+            return this.xQSEncryptionCustomerAlgorithm;
+        }
+    }
 
     /*
      *
@@ -5117,14 +5454,14 @@ public class Bucket {
         // Object multipart upload part number
         // Required
 
-        private Long partNumber;
+        private Integer partNumber;
 
-        public void setPartNumber(Long partNumber) {
+        public void setPartNumber(Integer partNumber) {
             this.partNumber = partNumber;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "part_number")
-        public Long getPartNumber() {
+        public Integer getPartNumber() {
             return this.partNumber;
         } // Object multipart upload ID
         // Required
@@ -5346,7 +5683,43 @@ public class Bucket {
         }
     }
 
-    public static class UploadMultipartOutput extends OutputModel {}
+    public static class UploadMultipartOutput extends OutputModel {
+
+        // MD5sum of the object
+
+        private String eTag;
+
+        public void setETag(String eTag) {
+            this.eTag = eTag;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        public String getETag() {
+            return this.eTag;
+        } // Range of response data content
+
+        private String xQSContentCopyRange;
+
+        public void setXQSContentCopyRange(String xQSContentCopyRange) {
+            this.xQSContentCopyRange = xQSContentCopyRange;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Content-Copy-Range")
+        public String getXQSContentCopyRange() {
+            return this.xQSContentCopyRange;
+        } // Encryption algorithm of the object
+
+        private String xQSEncryptionCustomerAlgorithm;
+
+        public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
+            this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        public String getXQSEncryptionCustomerAlgorithm() {
+            return this.xQSEncryptionCustomerAlgorithm;
+        }
+    }
 
     /**
      * @param objectName
