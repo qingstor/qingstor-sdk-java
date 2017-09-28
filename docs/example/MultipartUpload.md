@@ -37,7 +37,7 @@ for(int i = 0 ; i < 3 ; i++) { //Multiparts
 	int part_number = i;
     Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
     input.setXQSEncryptionCustomerKey(objectKey+i);
-    input.setContentLength(f.length());
+    input.setContentLength("single_part_length");
     input.setBodyInputFile(f);
     input.setPartNumber((long) part_number);
     input.setUploadID(multipart_upload_id);
