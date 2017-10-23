@@ -69,6 +69,7 @@ public class ObjectTest {
 
     @Then("^copy object status code is (\\d+)$")
     public void copy_object_status_code_is(int statueCode) throws Throwable {
+    	
         System.out.println("put_the_copy_object_status_code_message:" + copyOutput.getMessage());
         TestUtil.assertEqual(copyOutput.getStatueCode(), statueCode);
     }
@@ -150,6 +151,9 @@ public class ObjectTest {
 
     @Then("^get object content type is \"(.*)\"$")
     public void get_object_content_type_is(String statueCode) throws Throwable {
+    	if(getContentTypeOutput.getBodyInputStream() != null){
+    		getContentTypeOutput.getBodyInputStream().close();
+    	}
         TestUtil.assertEqual(statueCode, getContentTypeOutput.getResponseContentType());
     }
 
