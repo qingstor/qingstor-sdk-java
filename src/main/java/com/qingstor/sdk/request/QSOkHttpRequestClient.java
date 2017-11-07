@@ -489,11 +489,7 @@ public class QSOkHttpRequestClient {
             this.file = rFile;
         }
 
-        @Override
-        public long contentLength() throws IOException {
-            return this.contentLength;
-        }
-
+        
         @Override
         public MediaType contentType() {
             return MediaType.parse(this.contentType);
@@ -502,7 +498,18 @@ public class QSOkHttpRequestClient {
         @Override
         public void writeTo(BufferedSink sink) throws IOException {
 
-            int readSize = 1024;
+        	if (contentLength > 0) {
+        		writeWithContentLength(sink);
+        	} else {
+        		writeAll(sink);
+        	}
+            
+            Util.closeQuietly(file);
+        }
+        
+        private void writeWithContentLength(BufferedSink sink) throws IOException{
+        	logger.log(Level.INFO, "---writeWithContentLength----");
+        	int readSize = 1024;
             int bytes = 0;
             byte[] bufferOut = new byte[readSize];
             long count = contentLength / readSize;
@@ -523,8 +530,17 @@ public class QSOkHttpRequestClient {
                     sink.write(bufferOut, 0, bytes);
                 }
             }
-
-            Util.closeQuietly(file);
+        }
+        
+        private void writeAll(BufferedSink sink) throws IOException{
+			logger.log(Level.INFO, "---writeAll----");
+			int readSize = 1024;
+			int bytes = 0;
+			byte[] bufferOut = new byte[readSize];
+			
+			while ((bytes = file.read(bufferOut)) != -1) {
+			    sink.write(bufferOut, 0, bytes);
+			}
         }
     }
 
