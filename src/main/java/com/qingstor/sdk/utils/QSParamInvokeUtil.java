@@ -86,22 +86,50 @@ public class QSParamInvokeUtil {
     }
 
     private static void setParameterToMap(
-            Method m, Object source, Map retParametersMap, String paramKey)
-            throws InvocationTargetException, IllegalAccessException, QSException {
+            Method m, Object source, Map targetParametersMap, String paramKey)
+            throws QSException {
         Object[] invokeParams = null;
-        Object objValue = m.invoke(source, invokeParams);
-        if (objValue != null) {
-            Class cls = objValue.getClass();
-            if (cls.equals(Integer.class)
-                    || cls.equals(Double.class)
-                    || cls.equals(Boolean.class)
-                    || cls.equals(Long.class)
-                    || cls.equals(Float.class)) {
-                retParametersMap.put(paramKey, objValue + "");
-            } else if (cls.equals(String.class)) {
-                retParametersMap.put(paramKey, objValue);
-            } else {
-                retParametersMap.put(paramKey, objValue);
+        try {
+        	Object objValue = m.invoke(source, invokeParams);
+            if (objValue != null) {
+                Class cls = objValue.getClass();
+                if (cls.equals(Integer.class)
+                        || cls.equals(Double.class)
+                        || cls.equals(Boolean.class)
+                        || cls.equals(Long.class)
+                        || cls.equals(Float.class)
+                        || cls.equals(String.class)) {
+                	targetParametersMap.put(paramKey, String.valueOf(objValue));
+                } else {
+                	targetParametersMap.put(paramKey, objValue);
+                }
+            	
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new QSException("IllegalAccessException", e);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+            throw new QSException("InvocationTargetException", e);
+        }
+    }
+    
+    @SuppressWarnings("PARAMETER")
+    public static void invokeObject2Map(
+            Class sourceClass, Object source, Map targetParametersMap) throws QSException {
+        Field[] declaredField = sourceClass.getDeclaredFields();
+        for (Field field : declaredField) {
+            String methodName = "get" + capitalize(field.getName());
+            String fieldName = field.getName();
+            Method[] methods = sourceClass.getDeclaredMethods();
+            for (Method m : methods) {
+                if (m.getName().equalsIgnoreCase(methodName)) {
+                    ParamAnnotation annotation = m.getAnnotation(ParamAnnotation.class);
+                    if (annotation != null && !QSStringUtil.isEmpty(annotation.paramName())) {
+                        fieldName = annotation.paramName();
+                    }
+                    setParameterToMap(m, source, targetParametersMap, fieldName);
+                }
             }
         }
     }

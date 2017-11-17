@@ -18,10 +18,14 @@ package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,44 +35,60 @@ import java.util.Map;
  */
 public class QSStringUtil {
 
-    public static String objectToJson(String key, Object o) {
+    public static String objectToJson(String key, Object o) throws QSException {
         StringBuffer buffer = new StringBuffer("{ \"" + key + "\":");
         buffer.append(objectJSONKeyValue(key, o));
         buffer.append("}");
         return buffer.toString();
     }
 
-    private static String objectJSONKeyValue(String key, Object o) {
+    private static String objectJSONKeyValue(String key, Object o) throws QSException {
         StringBuffer buffer = new StringBuffer(" \"" + key + "\":");
         buffer.append(objectJSONValue(o));
         return buffer.toString();
     }
 
-    private static String objectJSONValue(Object o) {
+    public static Object objectJSONValue(Object o) throws QSException {
 
-        StringBuffer buffer = new StringBuffer();
         if (o instanceof List) {
             List lst = (List) o;
-            buffer.append("[");
+            JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < lst.size(); i++) {
-                buffer.append(objectJSONValue(lst.get(i)));
-                if (i + 1 < lst.size()) {
-                    buffer.append(",");
-                }
+                QSJSONUtil.putJsonData(jsonArray, i, objectJSONValue(lst.get(i)));
             }
-            buffer.append("]");
+            return jsonArray;
         } else if (o instanceof Integer
                 || o instanceof Double
                 || o instanceof Boolean
                 || o instanceof Long
-                || o instanceof Float) {
-            buffer.append(o);
-        } else if (o instanceof String) {
-            buffer.append("\"").append(o).append("\"");
+                || o instanceof Float
+                || o instanceof String) {
+            return String.valueOf(o);
+        } else if (o instanceof Map) {
+            return getMapToJson((Map) o);
         } else {
-            buffer.append(getObjectToJson(o));
+            Map params = new HashMap();
+            QSParamInvokeUtil.invokeObject2Map(o.getClass(), o, params);
+            return getMapToJson(params);
         }
-        return buffer.toString();
+    }
+    
+    public static JSONObject getMapToJson(Map o) throws QSException {
+        JSONObject json = new JSONObject();
+        try {
+            Iterator iterator = o.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                String key = (String) entry.getKey();
+                Object bodyObj = o.get(key);
+                json.put(key, objectJSONValue(bodyObj));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            throw new QSException("ObjectToJson", e);
+        }
+
+        return json;
     }
 
     public static String getObjectToJson(Object o) {

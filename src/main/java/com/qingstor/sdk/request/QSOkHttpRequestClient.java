@@ -16,6 +16,23 @@
 
 package com.qingstor.sdk.request;
 
+import java.io.IOException;
+import java.security.cert.CertificateException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import org.json.JSONObject;
+
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
@@ -23,23 +40,15 @@ import com.qingstor.sdk.utils.QSJSONUtil;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.security.cert.CertificateException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.net.ssl.*;
-import okhttp3.*;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okhttp3.internal.Util;
-import okhttp3.internal.http.HttpMethod;
-import okio.BufferedSink;
-import org.json.JSONObject;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSOkHttpRequestClient {
@@ -238,303 +247,28 @@ public class QSOkHttpRequestClient {
     }
 
     /**
-     * @param method request method name
-     * @param bodyContent body params
-     * @param signedUrl with signed param url
+     * @param method     request method name
+     * @param signedUrl  with signed param url
      * @param headParams http head params
      * @return
-     * @throws QSException
+     * @throws BoxException
      */
-    public Request buildStorRequest(
-            final String method,
-            final Map bodyContent,
-            final String signedUrl,
-            final Map headParams)
+    public Request buildRequest(
+            final String method, final String signedUrl, RequestBody requestBody, final Map headParams)
             throws QSException {
 
         Request.Builder builder = new Request.Builder();
-        Request request = null;
-        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[] {});
+        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[]{});
         for (String key : sortedHeadersKeys) {
-            builder.addHeader(key, headParams.get(key) + "");
+            builder.addHeader(key, String.valueOf(headParams.get(key)));
         }
         if (!headParams.containsKey(QSConstant.PARAM_KEY_USER_AGENT)) {
             builder.addHeader(QSConstant.PARAM_KEY_USER_AGENT, QSStringUtil.getUserAgent());
         }
-
-        String contentType = headParams.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE) + "";
-        MediaType mediaType = MediaType.parse(contentType);
-        if (bodyContent != null && bodyContent.size() > 0) {
-
-            RequestBody body = null;
-            Object bodyObj = getBodyContent(bodyContent);
-            if (bodyObj instanceof String) {
-                body = RequestBody.create(mediaType, bodyObj.toString());
-            } else if (bodyObj instanceof File) {
-                body = RequestBody.create(mediaType, (File) bodyObj);
-            } else if (bodyObj instanceof InputStream) {
-                long contentLength = 0;
-                if (headParams.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
-                    contentLength =
-                            Long.parseLong(
-                                    headParams.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
-                }
-                body = new InputStreamUploadBody(contentType, (InputStream) bodyObj, contentLength);
-            }
-            request = builder.url(signedUrl).method(method, body).build();
-            //connection.getOutputStream().write(bodyContent.getBytes());
-        } else {
-            if (HttpMethod.permitsRequestBody(method)) {
-                request =
-                        builder.url(signedUrl)
-                                .method(method, new EmptyRequestBody(contentType))
-                                .build();
-            } else {
-                request = builder.url(signedUrl).method(method, null).build();
-            }
-        }
-
-        return request;
+        return builder.url(signedUrl).method(method, requestBody).build();
     }
-
-    private static class EmptyRequestBody extends RequestBody {
-
-        private String contentType;
-
-        private int contentLength = 0;
-
-        public EmptyRequestBody(String contentType) {
-            this.contentType = contentType;
-        }
-
-        @Override
-        public long contentLength() throws IOException {
-            return this.contentLength;
-        }
-
-        @Override
-        public void writeTo(BufferedSink sink) throws IOException {}
-
-        @Override
-        public MediaType contentType() {
-            return MediaType.parse(this.contentType);
-        }
-    }
-
-    public Object getBodyContent(Map bodyContent) {
-        Iterator iterator = bodyContent.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            String key = (String) entry.getKey();
-            Object bodyObj = bodyContent.get(key);
-            if (QSConstant.PARAM_TYPE_BODYINPUTFILE.equals(key)
-                    || QSConstant.PARAM_TYPE_BODYINPUTSTREAM.equals(key)
-                    || QSConstant.PARAM_TYPE_BODYINPUTSTRING.equals(key)) {
-                return bodyObj;
-            }
-        }
-        String jsonStr = QSStringUtil.getObjectToJson(bodyContent);
-        return jsonStr;
-    }
-
-    /**
-     * @param method
-     * @param bodyContent
-     * @param headParams
-     * @param singedUrl
-     * @throws QSException
-     */
-    public Request buildStorMultiUpload(
-            final String method,
-            final Map bodyContent,
-            final String singedUrl,
-            final Map headParams,
-            final Map queryParams)
-            throws QSException {
-
-        Request.Builder builder = new Request.Builder();
-        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[] {});
-        for (String key : sortedHeadersKeys) {
-            builder.addHeader(key, headParams.get(key) + "");
-        }
-        if (!headParams.containsKey(QSConstant.PARAM_KEY_USER_AGENT)) {
-            builder.addHeader(QSConstant.PARAM_KEY_USER_AGENT, QSStringUtil.getUserAgent());
-        }
-        if (bodyContent != null && bodyContent.size() > 0) {
-
-            String contentType = headParams.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE) + "";
-
-            MediaType mediaType = MediaType.parse(contentType);
-            RequestBody requestBody = null;
-
-            Iterator iterator = bodyContent.entrySet().iterator();
-            int contentLength =
-                    Integer.parseInt(headParams.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
-            int partNumber =
-                    Integer.parseInt(queryParams.get(QSConstant.PARAM_KEY_PART_NUMBER) + "");
-
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String key = (String) entry.getKey();
-                Object bodyObj = bodyContent.get(key);
-                if (bodyObj instanceof String) {
-                    requestBody = RequestBody.create(mediaType, bodyObj.toString());
-                } else if (bodyObj instanceof File) {
-
-                    RandomAccessFile rFile = null;
-                    try {
-                        rFile = new RandomAccessFile((File) bodyObj, "r");
-                        rFile.seek(contentLength * partNumber);
-                        long contentLeft =
-                                ((File) bodyObj).length() - contentLength * (partNumber + 1);
-                        int readContentLength = contentLength;
-                        if (contentLeft < 0) {
-                            readContentLength += contentLeft;
-                            readContentLength = readContentLength > 0 ? readContentLength : 0;
-                        }
-                        requestBody =
-                                new MulitFileuploadBody(contentType, rFile, readContentLength);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        throw new QSException(e.getMessage());
-                    }
-
-                } else if (bodyObj instanceof InputStream) {
-
-                    requestBody =
-                            new InputStreamUploadBody(
-                                    contentType, (InputStream) bodyObj, contentLength);
-
-                } else {
-                    String jsonStr = QSStringUtil.objectToJson(key, bodyObj);
-                    requestBody = RequestBody.create(mediaType, jsonStr);
-                }
-            }
-            //connection.getOutputStream().write(bodyContent.getBytes());
-            if (requestBody != null) {
-                builder.method(method, requestBody);
-            }
-        }
-
-        Request request = builder.url(singedUrl).build();
-        return request;
-    }
-
-    private static class MulitFileuploadBody extends RequestBody {
-
-        private String contentType;
-
-        private int contentLength;
-
-        private RandomAccessFile file;
-
-        public MulitFileuploadBody(String contentType, RandomAccessFile rFile, int contentLength) {
-            this.contentLength = contentLength;
-            this.contentType = contentType;
-            this.file = rFile;
-        }
-
-        @Override
-        public long contentLength() throws IOException {
-            return this.contentLength;
-        }
-
-        @Override
-        public MediaType contentType() {
-            return MediaType.parse(this.contentType);
-        }
-
-        @Override
-        public void writeTo(BufferedSink sink) throws IOException {
-
-            int readSize = 1024;
-            int bytes = 0;
-            byte[] bufferOut = new byte[readSize];
-            int count = contentLength / readSize;
-            int leftCount = contentLength % readSize;
-            while (count > 0 && (bytes = file.read(bufferOut)) != -1) {
-                sink.write(bufferOut, 0, bytes);
-                count--;
-            }
-            if (count >= 0 && leftCount > 0) {
-                bufferOut = new byte[leftCount];
-                if ((bytes = file.read(bufferOut)) != -1) {
-                    sink.write(bufferOut, 0, bytes);
-                }
-            }
-
-            Util.closeQuietly(file);
-        }
-    }
-
-    private static class InputStreamUploadBody extends RequestBody {
-
-        private String contentType;
-
-        private long contentLength;
-
-        private InputStream file;
-
-        public InputStreamUploadBody(String contentType, InputStream rFile, long contentLength) {
-            this.contentLength = contentLength;
-            this.contentType = contentType;
-            this.file = rFile;
-        }
-
-        @Override
-        public MediaType contentType() {
-            return MediaType.parse(this.contentType);
-        }
-
-        @Override
-        public void writeTo(BufferedSink sink) throws IOException {
-
-            if (contentLength > 0) {
-                writeWithContentLength(sink);
-            } else {
-                writeAll(sink);
-            }
-
-            Util.closeQuietly(file);
-        }
-
-        private void writeWithContentLength(BufferedSink sink) throws IOException {
-            logger.log(Level.INFO, "---writeWithContentLength----");
-            int readSize = 1024;
-            int bytes = 0;
-            byte[] bufferOut = new byte[readSize];
-            long count = contentLength / readSize;
-            long leftCount = contentLength % readSize;
-            long iReadLength = 0;
-            while (count > 0 && (bytes = file.read(bufferOut)) != -1) {
-                sink.write(bufferOut, 0, bytes);
-                count--;
-                iReadLength += bytes;
-                if (bytes != readSize) {
-                    count = (contentLength - iReadLength) / readSize;
-                    leftCount = (contentLength - iReadLength) % readSize;
-                }
-            }
-            if (count == 0 && leftCount > 0) {
-                bufferOut = new byte[(int) leftCount];
-                if ((bytes = file.read(bufferOut)) != -1) {
-                    sink.write(bufferOut, 0, bytes);
-                }
-            }
-        }
-
-        private void writeAll(BufferedSink sink) throws IOException {
-            logger.log(Level.INFO, "---writeAll----");
-            int readSize = 1024;
-            int bytes = 0;
-            byte[] bufferOut = new byte[readSize];
-
-            while ((bytes = file.read(bufferOut)) != -1) {
-                sink.write(bufferOut, 0, bytes);
-            }
-        }
-    }
-
+    
+    
     public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {
         Map<String, Object> errorMap = new HashMap<String, Object>();
         errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);

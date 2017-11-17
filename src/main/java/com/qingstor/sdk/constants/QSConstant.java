@@ -27,6 +27,7 @@ public class QSConstant {
     public static final String PARAM_TYPE_QUERY = "query";
     public static final String PARAM_TYPE_BODY = "body";
     public static final String PARAM_TYPE_HEADER = "header";
+    public static final String PARAM_TYPE_FORM_DATA = "formData";
 
     public static final String PARAM_TYPE_BODYINPUTSTREAM = "BodyInputStream";
     public static final String PARAM_TYPE_BODYINPUTSTRING = "BodyInput";

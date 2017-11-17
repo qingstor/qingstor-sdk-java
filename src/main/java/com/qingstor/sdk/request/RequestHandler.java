@@ -21,10 +21,12 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
+import com.qingstor.sdk.request.impl.ProgressRequestBody;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 import java.util.Map;
 import java.util.logging.Level;
@@ -44,6 +46,10 @@ public class RequestHandler {
     private ResponseCallBack asyncCallback;
 
     private QSBuilder builder;
+    
+    private BodyProgressListener progressListener;
+    
+    private QSRequestBody qsRequestBody;
 
     public RequestHandler(Map context, RequestInputModel paramBean, Class outputClass) throws QSException {
         this.contextParam = context;
@@ -68,7 +74,7 @@ public class RequestHandler {
             this.asyncCallback.onAPIResponse(out);
         } else {
             EvnContext evnContext = (EvnContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
-            Request request = this.builder.getRequest();
+            Request request = this.getRequest();
             QSOkHttpRequestClient.getInstance()
                     .requestActionAsync(request, evnContext.isSafeOkHttp(), this.asyncCallback);
         }
@@ -89,12 +95,23 @@ public class RequestHandler {
             }
         } else {
             EvnContext evnContext = (EvnContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
-            Request request = this.builder.getRequest();
+            
+            Request request = this.getRequest();
+            
             return QSOkHttpRequestClient.getInstance()
                     .requestAction(request, evnContext.isSafeOkHttp(), outputClass);
         }
     }
 
+    
+    private Request getRequest() throws QSException{
+    	RequestBody  body = this.builder.getRequestBody(this.getQsRequestBody());
+    	if(this.getProgressListener() != null){
+    		return this.builder.getRequest(new ProgressRequestBody(body,this.progressListener));
+    	}
+    	return this.builder.getRequest(body);
+    }
+    
 
     public String getStringToSignature() throws QSException {
         return this.builder.getStringToSignature();
@@ -124,6 +141,34 @@ public class RequestHandler {
     public QSBuilder getBuilder() {
         return this.builder;
     }
+
+	/**
+	 * @return the progressListener
+	 */
+	public BodyProgressListener getProgressListener() {
+		return progressListener;
+	}
+
+	/**
+	 * @param progressListener the progressListener to set
+	 */
+	public void setProgressListener(BodyProgressListener progressListener) {
+		this.progressListener = progressListener;
+	}
+
+	/**
+	 * @return the qsRequestBody
+	 */
+	public QSRequestBody getQsRequestBody() {
+		return qsRequestBody;
+	}
+
+	/**
+	 * @param qsRequestBody the qsRequestBody to set
+	 */
+	public void setQsRequestBody(QSRequestBody qsRequestBody) {
+		this.qsRequestBody = qsRequestBody;
+	}
 
 
 }
