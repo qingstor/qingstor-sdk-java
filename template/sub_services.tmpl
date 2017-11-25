@@ -83,7 +83,7 @@ public class Bucket {
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
         
-        RequestHandler requestHandler = this.GetObjectBySignatureUrlRequest(objectName, expires);
+        RequestHandler requestHandler = this.GetObjectBySignatureUrlRequest(objectName, null, expires);
         
         return requestHandler.getExpiresRequestUrl();
     }
@@ -96,7 +96,7 @@ public class Bucket {
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler GetObjectBySignatureUrlRequest(String objectName, long expires)
+    public RequestHandler GetObjectBySignatureUrlRequest(String objectName, GetObjectInput input, long expires)
             throws QSException {
 
         Map context = new HashMap();
@@ -118,7 +118,11 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequest(context, new RequestInputModel(), OutputModel.class);
+        if(input == null){
+            input = new GetObjectInput();
+        }
+
+        RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequest(context, input, OutputModel.class);
 
         return requestHandler;
     }

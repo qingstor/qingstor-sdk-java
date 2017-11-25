@@ -22,7 +22,6 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.qingstor.sdk.request.QSOkHttpRequestClient;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 
 import okhttp3.MediaType;
