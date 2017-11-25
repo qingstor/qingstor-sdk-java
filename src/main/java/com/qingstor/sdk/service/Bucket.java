@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class Bucket {
     private String zone;
     private String bucketName;
@@ -5742,7 +5741,8 @@ public class Bucket {
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
 
-        RequestHandler requestHandler = this.GetObjectBySignatureUrlRequest(objectName, expires);
+        RequestHandler requestHandler =
+                this.GetObjectBySignatureUrlRequest(objectName, null, expires);
 
         return requestHandler.getExpiresRequestUrl();
     }
@@ -5755,8 +5755,8 @@ public class Bucket {
      *     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler GetObjectBySignatureUrlRequest(String objectName, long expires)
-            throws QSException {
+    public RequestHandler GetObjectBySignatureUrlRequest(
+            String objectName, GetObjectInput input, long expires) throws QSException {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
@@ -5777,9 +5777,13 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
+        if (input == null) {
+            input = new GetObjectInput();
+        }
+
         RequestHandler requestHandler =
                 ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, new RequestInputModel(), OutputModel.class);
+                        .getRequest(context, input, OutputModel.class);
 
         return requestHandler;
     }

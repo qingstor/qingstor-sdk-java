@@ -302,11 +302,13 @@ public class QSBuilder {
 			String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
 			objectName = QSStringUtil.asciiCharactersEncoding(objectName);
 			if (objectName != null && objectName.indexOf("?") > 0) {
-				return String.format(storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s", bucketName,
+				String expiresUrl = String.format(storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s", bucketName,
 						objectName, evnContext.getAccessKey(), expiresTime + "", expireAuth);
+				return QSSignatureUtil.generateQSURL(this.paramsQuery,expiresUrl);
 			} else {
-				return String.format(storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s", bucketName,
+				String expiresUrl = String.format(storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s", bucketName,
 						objectName, evnContext.getAccessKey(), expiresTime + "", expireAuth);
+				return QSSignatureUtil.generateQSURL(this.paramsQuery,expiresUrl);
 			}
 		} else {
 			throw new QSException("ExpiresRequestUrl error:There is no expirs params");
