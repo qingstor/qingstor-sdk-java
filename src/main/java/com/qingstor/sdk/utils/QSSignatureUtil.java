@@ -333,11 +333,18 @@ public class QSSignatureUtil {
             long expiresTime = (new Date().getTime() / 1000 + expiresSecond);
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
             String serviceUrl = evnContext.getRequestUrl();
-            String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+            String storRequestUrl;
+            //resolve url style
+            if (QSInitUtil.getInstance().getRequestUrlStyle() == QSConstant.BUCKET_NAME_BEHIND_DOMAIN_NAME){
+                storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
+            }else {
+                storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+                storRequestUrl = String.format(storRequestUrl, bucketName);
+            }
+
             if (objectName != null && objectName.indexOf("?") > 0) {
                 return String.format(
                         storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
-                        bucketName,
                         objectName,
                         evnContext.getAccessKey(),
                         expiresTime + "",
@@ -345,7 +352,6 @@ public class QSSignatureUtil {
             } else {
                 return String.format(
                         storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
-                        bucketName,
                         objectName,
                         evnContext.getAccessKey(),
                         expiresTime + "",

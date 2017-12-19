@@ -25,12 +25,13 @@ import com.qingstor.sdk.request.impl.ProgressRequestBody;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 
 public class RequestHandler {
@@ -46,9 +47,9 @@ public class RequestHandler {
     private ResponseCallBack asyncCallback;
 
     private QSBuilder builder;
-    
+
     private BodyProgressListener progressListener;
-    
+
     private QSRequestBody qsRequestBody;
 
     public RequestHandler(Map context, RequestInputModel paramBean, Class outputClass) throws QSException {
@@ -95,15 +96,15 @@ public class RequestHandler {
             }
         } else {
             EvnContext evnContext = (EvnContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
-            
+
             Request request = this.getRequest();
-            
+
             return QSOkHttpRequestClient.getInstance()
                     .requestAction(request, evnContext.isSafeOkHttp(), outputClass);
         }
     }
 
-    
+
     private Request getRequest() throws QSException{
     	RequestBody  body = this.builder.getRequestBody(this.getQsRequestBody());
     	if(this.getProgressListener() != null){
@@ -111,7 +112,7 @@ public class RequestHandler {
     	}
     	return this.builder.getRequest(body);
     }
-    
+
 
     public String getStringToSignature() throws QSException {
         return this.builder.getStringToSignature();
