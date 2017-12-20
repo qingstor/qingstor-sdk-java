@@ -3541,6 +3541,17 @@ public class Bucket {
 
     public static class GetObjectOutput extends OutputModel {
 
+        // The response body
+        private java.io.InputStream bodyInputStream;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
+        public java.io.InputStream getBodyInputStream() {
+            return bodyInputStream;
+        }
+
+        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+            this.bodyInputStream = bodyInputStream;
+        }
         /**
          * deprecated, please use setCacheControl(String cacheControl)
          * @param responseCacheControl cacheControl
@@ -3648,19 +3659,7 @@ public class Bucket {
         public String getResponseExpires() {
             return expires;
         }
-
-        // The response body
-        private java.io.InputStream bodyInputStream;
-
-        @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
-        public java.io.InputStream getBodyInputStream() {
-            return bodyInputStream;
-        }
-
-        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
-            this.bodyInputStream = bodyInputStream;
-        }
-
+        
         // The Cache-Control general-header field is used to specify directives for caching mechanisms in both requests and responses.
 
         private String cacheControl;
