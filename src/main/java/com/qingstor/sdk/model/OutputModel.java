@@ -47,9 +47,7 @@ public class OutputModel {
         return code;
     }
 
-    /**
-     * @param response code to set
-     */
+
     public void setCode(String code) {
         this.code = code;
     }

@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Bucket {
     private String zone;
     private String bucketName;
@@ -3576,74 +3577,6 @@ public class Bucket {
             return this.contentRange;
         } // MD5sum of the object
 
-        // Specified the Cache-Control response header
-
-        private String responseCacheControl;
-
-        public void setResponseCacheControl(String responseCacheControl) {
-            this.responseCacheControl = responseCacheControl;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Cache-Control")
-        public String getResponseCacheControl() {
-            return this.responseCacheControl;
-        } // Specified the Content-Disposition response header
-
-        private String responseContentDisposition;
-
-        public void setResponseContentDisposition(String responseContentDisposition) {
-            this.responseContentDisposition = responseContentDisposition;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-Disposition")
-        public String getResponseContentDisposition() {
-            return this.responseContentDisposition;
-        } // Specified the Content-Encoding response header
-
-        private String responseContentEncoding;
-
-        public void setResponseContentEncoding(String responseContentEncoding) {
-            this.responseContentEncoding = responseContentEncoding;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-Encoding")
-        public String getResponseContentEncoding() {
-            return this.responseContentEncoding;
-        } // Specified the Content-Language response header
-
-        private String responseContentLanguage;
-
-        public void setResponseContentLanguage(String responseContentLanguage) {
-            this.responseContentLanguage = responseContentLanguage;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-Language")
-        public String getResponseContentLanguage() {
-            return this.responseContentLanguage;
-        } // Specified the Content-Type response header
-
-        private String responseContentType;
-
-        public void setResponseContentType(String responseContentType) {
-            this.responseContentType = responseContentType;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-Type")
-        public String getResponseContentType() {
-            return this.responseContentType;
-        } // Specified the Expires response header
-
-        private String responseExpires;
-
-        public void setResponseExpires(String responseExpires) {
-            this.responseExpires = responseExpires;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Expires")
-        public String getResponseExpires() {
-            return this.responseExpires;
-        }
-
         private String eTag;
 
         public void setETag(String eTag) {
@@ -5721,10 +5654,10 @@ public class Bucket {
     }
 
     /**
-     * @param objectName
+     * @param objectName name of the object
      * @param expiresSecond Relative current time，the second when this quert sign expires
-     * @return
-     * @throws QSException
+     * @return signature url
+     * @throws QSException exception
      */
     @Deprecated
     public String GetObjectSignatureUrl(String objectName, int expiresSecond) throws QSException {
@@ -5733,10 +5666,10 @@ public class Bucket {
     }
 
     /**
-     * @param objectName
-     * @param expires
-     * @return
-     * @throws QSException Documentation URL:
+     * @param objectName name of the object
+     * @param expires time to expire
+     * @return signature url
+     * @throws QSException exception Documentation URL:
      *     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
@@ -5748,10 +5681,10 @@ public class Bucket {
     }
 
     /**
-     * @param objectName
-     * @param expires
-     * @return
-     * @throws QSException Documentation URL:
+     * @param objectName name of the object
+     * @param expires Relative current time，the second when this quert sign expires
+     * @return request handle
+     * @throws QSException exception Documentation URL:
      *     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -5789,9 +5722,9 @@ public class Bucket {
     }
 
     /**
-     * @param signaturedRequest
-     * @return
-     * @throws QSException
+     * @param signaturedRequest Signature Url
+     * @return GetObjectOutput
+     * @throws QSException exception
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
@@ -5814,9 +5747,9 @@ public class Bucket {
     }
 
     /**
-     * @param signaturedRequest
-     * @param callback
-     * @throws QSException
+     * @param signaturedRequest Signature Url
+     * @param callback callback
+     * @throws QSException exception
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void GetObjectBySignatureUrlAsync(

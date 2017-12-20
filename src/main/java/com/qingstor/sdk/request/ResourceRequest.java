@@ -25,59 +25,60 @@ import java.util.Map;
 public interface ResourceRequest {
 
     /**
-     * @param context
-     * @param paramBean
-     * @param callback
-     * @throws QSException
+     * @param context EvnContext
+     * @param paramBean param
+     * @param callback callback
+     * @throws QSException exception
      */
     public void sendApiRequestAsync(
             Map context, RequestInputModel paramBean, ResponseCallBack callback) throws QSException;
 
     /**
-     * @param context
-     * @param paramBean
-     * @param outputClass
-     * @throws QSException
+     * @param context EvnContext
+     * @param paramBean param
+     * @param outputClass output class
+     * @throws QSException exception
      */
     public OutputModel sendApiRequest(
             Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
             throws QSException;
 
     /**
-     * @param requestUrl
-     * @param context
-     * @param callback
-     * @throws QSException
+     * @param requestUrl request url
+     * @param context EvnContext
+     * @param callback callback
+     * @throws QSException exception
      */
     public void sendApiRequestAsync(String requestUrl, Map context, ResponseCallBack callback)
             throws QSException;
 
     /**
-     * @param requestUrl
-     * @param context
-     * @param outputClass
-     * @return
-     * @throws QSException
+     * @param requestUrl request url
+     * @param context context
+     * @param outputClass output class
+     * @return output model
+     * @throws QSException exception
      */
     public OutputModel sendApiRequest(
             String requestUrl, Map context, Class<? extends OutputModel> outputClass)
             throws QSException;
 
     /**
-     * @param context
-     * @param paramBean
-     * @param callback
-     * @throws QSException
+     * @param context context
+     * @param paramBean param
+     * @param callback callback
+     * @return request handle
+     * @throws QSException exception
      */
     public RequestHandler getRequestAsync(
             Map context, RequestInputModel paramBean, ResponseCallBack callback) throws QSException;
 
     /**
-     * @param requestUrl
-     * @param context
-     * @param outputClass
-     * @return
-     * @throws QSException
+     * @param paramBean param
+     * @param context evnContext
+     * @param outputClass output class
+     * @return request handle
+     * @throws QSException exception
      */
     public RequestHandler getRequest(
             Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
