@@ -119,6 +119,21 @@ public class QSStringUtil {
                 : null;
     }
 
+    /**
+     * resolve the issue # twice encode when generate QSURL
+     * {@link com.qingstor.sdk.utils.QSSignatureUtil#generateQSURL(Map,String)}
+     * @param value needs be encoded
+     * @return encoded string
+     */
+    public static String percentEncodeToQuery(String value) {
+        return value != null
+                ? value
+                .replace("+", "%20")
+                .replace("*", "%2A")
+                .replace("%7E", "~")
+                : null;
+    }
+
     public static boolean isEmpty(String str) {
         if (str == null || "".equals(str.trim()) || "null".equalsIgnoreCase(str)) {
             return true;
@@ -164,8 +179,9 @@ public class QSStringUtil {
     /**
      * Chinese characters transform
      *
-     * @param str
-     * @return
+     * @param str Chinese characters
+     * @return transformed characters
+     * @throws QSException UnsupportedEncodingException
      */
     public static String asciiCharactersEncoding(String str) throws QSException {
         if (QSStringUtil.isEmpty(str)) {

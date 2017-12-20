@@ -21,16 +21,22 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 public class QSSignatureUtil {
     private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSSignatureUtil.class.getName());
@@ -41,10 +47,10 @@ public class QSSignatureUtil {
     private static Map keysMap;
 
     /**
-     * @param parameters
-     * @param requestUrl
-     * @return
-     * @throws QSException
+     * @param parameters parameters to sign
+     * @param requestUrl request url
+     * @return generated url
+     * @throws QSException UnsupportedEncodingException
      */
     public static String generateQSURL(Map<String, String> parameters, String requestUrl)
             throws QSException {
@@ -61,12 +67,23 @@ public class QSSignatureUtil {
                 if (count != 0) {
                     sbStringToSign.append("&");
                 }
-                sbStringToSign
-                        .append(QSStringUtil.percentEncode(key, QSConstant.ENCODING_UTF8))
-                        .append("=")
-                        .append(
-                                QSStringUtil.percentEncode(
-                                        parameters.get(key), QSConstant.ENCODING_UTF8));
+                //do not encode when key equals response-content-disposition
+                if ("response-content-disposition".equals(key)){
+                    sbStringToSign
+                            .append(QSStringUtil.percentEncodeToQuery(key))
+                            .append("=")
+                            .append(
+                                    QSStringUtil.percentEncodeToQuery(
+                                            parameters.get(key)));
+                }else {
+                    sbStringToSign
+                            .append(QSStringUtil.percentEncode(key, QSConstant.ENCODING_UTF8))
+                            .append("=")
+                            .append(
+                                    QSStringUtil.percentEncode(
+                                            parameters.get(key), QSConstant.ENCODING_UTF8));
+                }
+
                 count++;
             }
         } catch (UnsupportedEncodingException e) {
@@ -316,11 +333,18 @@ public class QSSignatureUtil {
             long expiresTime = (new Date().getTime() / 1000 + expiresSecond);
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
             String serviceUrl = evnContext.getRequestUrl();
-            String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+            String storRequestUrl;
+            //resolve url style
+            if (QSInitUtil.getInstance().getRequestUrlStyle() == QSConstant.BUCKET_NAME_BEHIND_DOMAIN_NAME){
+                storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
+            }else {
+                storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+                storRequestUrl = String.format(storRequestUrl, bucketName);
+            }
+
             if (objectName != null && objectName.indexOf("?") > 0) {
                 return String.format(
                         storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
-                        bucketName,
                         objectName,
                         evnContext.getAccessKey(),
                         expiresTime + "",
@@ -328,7 +352,6 @@ public class QSSignatureUtil {
             } else {
                 return String.format(
                         storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
-                        bucketName,
                         objectName,
                         evnContext.getAccessKey(),
                         expiresTime + "",
