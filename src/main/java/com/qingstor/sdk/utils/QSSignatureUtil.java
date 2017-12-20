@@ -47,10 +47,10 @@ public class QSSignatureUtil {
     private static Map keysMap;
 
     /**
-     * @param parameters
-     * @param requestUrl
-     * @return
-     * @throws QSException
+     * @param parameters parameters to sign
+     * @param requestUrl request url
+     * @return generated url
+     * @throws QSException UnsupportedEncodingException
      */
     public static String generateQSURL(Map<String, String> parameters, String requestUrl)
             throws QSException {

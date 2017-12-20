@@ -179,8 +179,9 @@ public class QSStringUtil {
     /**
      * Chinese characters transform
      *
-     * @param str
-     * @return
+     * @param str Chinese characters
+     * @return transformed characters
+     * @throws QSException UnsupportedEncodingException
      */
     public static String asciiCharactersEncoding(String str) throws QSException {
         if (QSStringUtil.isEmpty(str)) {

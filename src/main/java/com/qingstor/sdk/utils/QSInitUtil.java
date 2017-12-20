@@ -16,10 +16,10 @@
 package com.qingstor.sdk.utils;
 
 /**
- * util for init url style. <br/>
+ * util for init url style. <br>
  * to change the url style use this class get single instance <br>
- * and set style like the code below.<br/>
- * QSInitUtil.getInstance().setRequestUrlStyle(QSConstant.BUCKET_NAME_BEHIND_DOMAIN_NAME); <br/>
+ * and set style like the code below.<br>
+ * QSInitUtil.getInstance().setRequestUrlStyle(QSConstant.BUCKET_NAME_BEHIND_DOMAIN_NAME); <br>
  * now available style: <br>
  * one is the default, when requestUrlStyle != {@link
  * com.qingstor.sdk.constants.QSConstant#BUCKET_NAME_BEHIND_DOMAIN_NAME} <br>

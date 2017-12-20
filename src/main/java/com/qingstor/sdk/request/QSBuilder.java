@@ -67,12 +67,12 @@ public class QSBuilder {
     private String requestUrl;
 
     /**
-     * resolve url style. </br>
-     * see {@link com.qingstor.sdk.utils.QSInitUtil} </br>
+     * resolve url style. <br>
+     * see {@link com.qingstor.sdk.utils.QSInitUtil} <br>
      * to know more information
-     * @param context
-     * @param params
-     * @throws QSException
+     * @param context EvnContext
+     * @param params params include headers, params etc.
+     * @throws QSException exception
      */
     public QSBuilder(Map context, RequestInputModel params) throws QSException {
         this.context = context;
@@ -304,6 +304,7 @@ public class QSBuilder {
             throw new QSException("You need to 'getExpiresRequestUrl' do request!");
         }
 
+        //todo @chengww add a method to add headers
         return QSOkHttpRequestClient.getInstance().buildRequest(this.requestMethod, this.requestUrl, requestBody,
                 paramsHeaders);
     }

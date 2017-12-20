@@ -18,11 +18,5 @@ package com.qingstor.sdk.request;
 
 public interface BodyProgressListener {
 
-	/**
-	 * 
-	 * @param progress finish len  
-	 * @param total size 
-	 * 
-	 */
 	void onProgress(long len, long size);
 }
