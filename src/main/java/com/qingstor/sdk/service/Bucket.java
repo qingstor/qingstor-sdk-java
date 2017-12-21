@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Bucket {
     private String zone;
     private String bucketName;
@@ -3551,8 +3552,159 @@ public class Bucket {
         public void setBodyInputStream(java.io.InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
+        /**
+         * deprecated, please use setCacheControl(String cacheControl)
+         * @param responseCacheControl cacheControl
+         */
+        @Deprecated
+        public void setResponseCacheControl(String responseCacheControl) {
+            cacheControl = responseCacheControl;
+        }
 
-        // Object content length
+        /**
+         * deprecated, please use getCacheControl()
+         * @return cacheControl
+         */
+        @Deprecated
+        public String getResponseCacheControl() {
+            return cacheControl;
+        } // Specified the Content-Disposition response header
+
+        /**
+         * deprecated, please use setContentDisposition(String contentDisposition)
+         * @param responseContentDisposition contentDisposition
+         */
+        @Deprecated
+        public void setResponseContentDisposition(String responseContentDisposition) {
+            contentDisposition = responseContentDisposition;
+        }
+
+        /**
+         * deprecated, please use getContentDisposition()
+         * @return contentDisposition
+         */
+        @Deprecated
+        public String getResponseContentDisposition() {
+            return contentDisposition;
+        } // Specified the Content-Disposition header
+
+        /**
+         * deprecated, please use setContentEncoding(String contentEncoding)
+         * @param responseContentEncoding contentEncoding
+         */
+        @Deprecated
+        public void setResponseContentEncoding(String responseContentEncoding) {
+            contentEncoding = responseContentEncoding;
+        }
+
+        /**
+         * deprecated, please use getContentEncoding()
+         * @return contentEncoding
+         */
+        @Deprecated
+        public String getResponseContentEncoding() {
+            return contentEncoding;
+        } // Specified the Content-Language response header
+
+        /**
+         * deprecated, please use setContentLanguage(String contentLanguage)
+         * @param responseContentLanguage contentLanguage
+         */
+        @Deprecated
+        public void setResponseContentLanguage(String responseContentLanguage) {
+            contentLanguage = responseContentLanguage;
+        }
+
+        /**
+         * deprecated, please use getContentLanguage()
+         * @return contentLanguage
+         */
+        @Deprecated
+        public String getResponseContentLanguage() {
+            return contentLanguage;
+        } // Specified the Content-Type response header
+
+        /**
+         * deprecated, please use setContentType(String contentType)
+         * @param responseContentType contentType
+         */
+        @Deprecated
+        public void setResponseContentType(String responseContentType) {
+            contentType = responseContentType;
+        }
+
+        /**
+         * deprecated, please use getContentType()
+         * @return contentType
+         */
+        @Deprecated
+        public String getResponseContentType() {
+            return contentType;
+        } // Specified the Expires response header
+
+        /**
+         * deprecated, please use setExpires(String expires)
+         * @param responseExpires expires
+         */
+        @Deprecated
+        public void setResponseExpires(String responseExpires) {
+            expires = responseExpires;
+        }
+
+        /**
+         * deprecated, please use getExpires()
+         * @return expires
+         */
+        @Deprecated
+        public String getResponseExpires() {
+            return expires;
+        }
+        
+        // The Cache-Control general-header field is used to specify directives for caching mechanisms in both requests and responses.
+
+        private String cacheControl;
+
+        public void setCacheControl(String cacheControl) {
+            this.cacheControl = cacheControl;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Cache-Control")
+        public String getCacheControl() {
+            return this.cacheControl;
+        } // In a multipart/form-data body, the HTTP Content-Disposition general header is a header that can be used on the subpart of a multipart body to give information about the field it applies to.
+
+        private String contentDisposition;
+
+        public void setContentDisposition(String contentDisposition) {
+            this.contentDisposition = contentDisposition;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Disposition")
+        public String getContentDisposition() {
+            return this.contentDisposition;
+        } // The Content-Encoding entity header is used to compress the media-type.
+
+        private String contentEncoding;
+
+        public void setContentEncoding(String contentEncoding) {
+            this.contentEncoding = contentEncoding;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Encoding")
+        public String getContentEncoding() {
+            return this.contentEncoding;
+        } // The Content-Language entity header is used to describe the language(s) intended for the audience.
+
+        private String contentLanguage;
+
+        public void setContentLanguage(String contentLanguage) {
+            this.contentLanguage = contentLanguage;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Content-Language")
+        public String getContentLanguage() {
+            return this.contentLanguage;
+        } // Object content length
 
         private Long contentLength;
 
@@ -3574,75 +3726,18 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "Content-Range")
         public String getContentRange() {
             return this.contentRange;
-        } // MD5sum of the object
+        } // The Content-Type entity header is used to indicate the media type of the resource.
 
-        // Specified the Cache-Control response header
+        private String contentType;
 
-        private String responseCacheControl;
-
-        public void setResponseCacheControl(String responseCacheControl) {
-            this.responseCacheControl = responseCacheControl;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Cache-Control")
-        public String getResponseCacheControl() {
-            return this.responseCacheControl;
-        } // Specified the Content-Disposition response header
-
-        private String responseContentDisposition;
-
-        public void setResponseContentDisposition(String responseContentDisposition) {
-            this.responseContentDisposition = responseContentDisposition;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-Disposition")
-        public String getResponseContentDisposition() {
-            return this.responseContentDisposition;
-        } // Specified the Content-Encoding response header
-
-        private String responseContentEncoding;
-
-        public void setResponseContentEncoding(String responseContentEncoding) {
-            this.responseContentEncoding = responseContentEncoding;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-Encoding")
-        public String getResponseContentEncoding() {
-            return this.responseContentEncoding;
-        } // Specified the Content-Language response header
-
-        private String responseContentLanguage;
-
-        public void setResponseContentLanguage(String responseContentLanguage) {
-            this.responseContentLanguage = responseContentLanguage;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Content-Language")
-        public String getResponseContentLanguage() {
-            return this.responseContentLanguage;
-        } // Specified the Content-Type response header
-
-        private String responseContentType;
-
-        public void setResponseContentType(String responseContentType) {
-            this.responseContentType = responseContentType;
+        public void setContentType(String contentType) {
+            this.contentType = contentType;
         }
 
         @ParamAnnotation(paramType = "header", paramName = "Content-Type")
-        public String getResponseContentType() {
-            return this.responseContentType;
-        } // Specified the Expires response header
-
-        private String responseExpires;
-
-        public void setResponseExpires(String responseExpires) {
-            this.responseExpires = responseExpires;
-        }
-
-        @ParamAnnotation(paramType = "header", paramName = "Expires")
-        public String getResponseExpires() {
-            return this.responseExpires;
-        }
+        public String getContentType() {
+            return this.contentType;
+        } // MD5sum of the object
 
         private String eTag;
 
@@ -3653,6 +3748,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "ETag")
         public String getETag() {
             return this.eTag;
+        } // The Expires header contains the date/time after which the response is considered stale.
+
+        private String expires;
+
+        public void setExpires(String expires) {
+            this.expires = expires;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "Expires")
+        public String getExpires() {
+            return this.expires;
         }
 
         private String lastModified;
@@ -5721,10 +5827,10 @@ public class Bucket {
     }
 
     /**
-     * @param objectName
+     * @param objectName name of the object
      * @param expiresSecond Relative current time，the second when this quert sign expires
-     * @return
-     * @throws QSException
+     * @return signature url
+     * @throws QSException exception
      */
     @Deprecated
     public String GetObjectSignatureUrl(String objectName, int expiresSecond) throws QSException {
@@ -5733,10 +5839,10 @@ public class Bucket {
     }
 
     /**
-     * @param objectName
-     * @param expires
-     * @return
-     * @throws QSException Documentation URL:
+     * @param objectName name of the object
+     * @param expires time to expire
+     * @return signature url
+     * @throws QSException exception Documentation URL:
      *     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
@@ -5748,10 +5854,10 @@ public class Bucket {
     }
 
     /**
-     * @param objectName
-     * @param expires
-     * @return
-     * @throws QSException Documentation URL:
+     * @param objectName name of the object
+     * @param expires Relative current time，the second when this quert sign expires
+     * @return request handle
+     * @throws QSException exception Documentation URL:
      *     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -5789,9 +5895,9 @@ public class Bucket {
     }
 
     /**
-     * @param signaturedRequest
-     * @return
-     * @throws QSException
+     * @param signaturedRequest Signature Url
+     * @return GetObjectOutput
+     * @throws QSException exception
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
@@ -5814,9 +5920,9 @@ public class Bucket {
     }
 
     /**
-     * @param signaturedRequest
-     * @param callback
-     * @throws QSException
+     * @param signaturedRequest Signature Url
+     * @param callback callback
+     * @throws QSException exception
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void GetObjectBySignatureUrlAsync(

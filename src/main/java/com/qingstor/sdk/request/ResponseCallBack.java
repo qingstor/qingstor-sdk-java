@@ -21,9 +21,9 @@ import com.qingstor.sdk.model.OutputModel;
 
 public interface ResponseCallBack<O extends OutputModel> {
     /**
-     * *
      *
-     * @param output
+     * @param output output extends OutputModel
+     * @throws QSException exception
      */
     public void onAPIResponse(O output) throws QSException;
 }
