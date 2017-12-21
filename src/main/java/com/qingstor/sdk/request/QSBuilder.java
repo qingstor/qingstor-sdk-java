@@ -65,6 +65,8 @@ public class QSBuilder {
 
     private String requestUrl;
 
+    private String requestUrlStyle;
+
 	public QSBuilder(Map context, RequestInputModel params) throws QSException {
 		this.context = context;
 		this.paramsModel = params;
@@ -132,6 +134,9 @@ public class QSBuilder {
         String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
         String requestSuffixPath = getRequestSuffixPath((String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH),
                 bucketName, objectName);
+        //init request url style
+        this.requestUrlStyle = evnContext.getRequestUrlStyle();
+
         this.requestUrl = this.getSignedUrl(evnContext.getRequestUrl(), zone, bucketName, paramsQuery,
                 requestSuffixPath);
         logger.log(Level.INFO, "== requestUrl ==\n" + this.requestUrl + "\n");
@@ -190,9 +195,17 @@ public class QSBuilder {
 		if ("".equals(bucketName) || bucketName == null) {
 			return QSSignatureUtil.generateQSURL(paramsQuery, serviceUrl + requestSuffixPath);
 		} else {
-			String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+		    //handle url style
+		    String storRequestUrl;
+		    if (QSConstant.PATH_STYLE.equals(requestUrlStyle)){
+                storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
+            }else {
+                storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+                storRequestUrl = String.format(storRequestUrl, bucketName);
+		    }
+
 			return QSSignatureUtil.generateQSURL(paramsQuery,
-					String.format(storRequestUrl, bucketName) + requestSuffixPath);
+					storRequestUrl + requestSuffixPath);
 		}
 	}
 
@@ -304,16 +317,23 @@ public class QSBuilder {
 			String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
 			String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
 			String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
-			String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+            //handle url style
+			String storRequestUrl;
+            if (QSConstant.PATH_STYLE.equals(requestUrlStyle)){
+                storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
+            }else {
+                storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+                storRequestUrl = String.format(storRequestUrl, bucketName);
+            }
 			objectName = QSStringUtil.asciiCharactersEncoding(objectName);
 			if (objectName != null && objectName.indexOf("?") > 0) {
-				String expiresUrl = String.format(storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s", bucketName,
+				String expiresUrl = String.format(storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
 						objectName, evnContext.getAccessKey(), expiresTime + "", expireAuth);
-				return QSSignatureUtil.generateQSURL(this.paramsQuery,expiresUrl);
+				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
 			} else {
-				String expiresUrl = String.format(storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s", bucketName,
+				String expiresUrl = String.format(storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
 						objectName, evnContext.getAccessKey(), expiresTime + "", expireAuth);
-				return QSSignatureUtil.generateQSURL(this.paramsQuery,expiresUrl);
+				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
 			}
 		} else {
 			throw new QSException("ExpiresRequestUrl error:There is no expirs params");

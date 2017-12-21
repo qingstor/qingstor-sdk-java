@@ -44,6 +44,39 @@ public class EvnContext implements ParamValidate {
     private String log_level = QSConstant.LOGGER_ERROR;
     private String additionalUserAgent;
 
+    //default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
+    private String requestUrlStyle;
+
+    /**
+     * {@link
+     * com.qingstor.sdk.constants.QSConstant#VIRTUAL_HOST_STYLE}:<br>
+     * https://bucket-name.zone-id.qingstor.com/object-name <br>
+     * {@link
+     * com.qingstor.sdk.constants.QSConstant#PATH_STYLE}: <br>
+     * https://zone-id.qingstor.com/bucket-name/object-name <br>
+     * @return request url style
+     */
+    public String getRequestUrlStyle() {
+        return requestUrlStyle;
+    }
+
+    /**
+     * You can use this method to change the url style. <br>
+     * Now available style: <br>
+     * One is the default, when requestUrlStyle != {@link
+     * com.qingstor.sdk.constants.QSConstant#PATH_STYLE} <br>
+     * You may see the url like this({@link
+     * com.qingstor.sdk.constants.QSConstant#VIRTUAL_HOST_STYLE}): <br>
+     * https://bucket-name.zone-id.qingstor.com/object-name <br>
+     * Otherwise you may see the url like this({@link
+     * com.qingstor.sdk.constants.QSConstant#PATH_STYLE}): <br>
+     * https://zone-id.qingstor.com/bucket-name/object-name <br>
+     * @param requestUrlStyle set QSConstant.PATH_STYLE or QSConstant.VIRTUAL_HOST_STYLE
+     */
+    public void setRequestUrlStyle(String requestUrlStyle) {
+        this.requestUrlStyle = requestUrlStyle;
+    }
+
     private boolean safeOkHttp = true;
 
     public boolean isSafeOkHttp() {
@@ -54,7 +87,7 @@ public class EvnContext implements ParamValidate {
     /**
      * This method will be deleted in subsequent releases
      * 
-     * @param safeOkHttp
+     * @param safeOkHttp is safe okHttp or not
      */
     @Deprecated
     public void setSafeOkHttp(boolean safeOkHttp) {
@@ -159,9 +192,10 @@ public class EvnContext implements ParamValidate {
                 evn.setPort(getYamlConfig("port", confParams));
                 evn.setLog_level(getYamlConfig("log_level", confParams));
                 evn.setAdditionalUserAgent(getYamlConfig("additional_user_agent", confParams));
+                //load request url style form config
+                evn.setRequestUrlStyle(getYamlConfig("request_url_style", confParams));
 
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 throw new QSException("Yaml config error:", e);
             }
