@@ -64,10 +64,10 @@ public class Bucket {
     {{ if eq $subService.Name "Object"}}
         /**
          *
-         * @param objectName
+         * @param objectName name of the object
          * @param expiresSecond  Relative current time，the second when this quert sign expires
-         * @return
-         * @throws QSException
+         * @return signature url
+         * @throws QSException exception
          */
          @Deprecated
         public String GetObjectSignatureUrl(String objectName,int expiresSecond) throws QSException{
@@ -75,10 +75,10 @@ public class Bucket {
         }
 
      /**
-     * @param objectName
-     * @param expires
-     * @return
-     * @throws QSException
+     * @param objectName name of the object
+     * @param expires time to expire
+     * @return signature url
+     * @throws QSException exception
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
@@ -89,10 +89,10 @@ public class Bucket {
     }
         
     /**
-     * @param objectName
-     * @param expires
-     * @return
-     * @throws QSException
+     * @param objectName name of the object
+     * @param expires  Relative current time，the second when this quert sign expires
+     * @return request handle
+     * @throws QSException exception
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -128,9 +128,9 @@ public class Bucket {
     }
 
     /**
-     * @param signaturedRequest
-     * @return
-     * @throws QSException
+     * @param signaturedRequest Signature Url
+     * @return GetObjectOutput
+     * @throws QSException exception
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
@@ -155,9 +155,9 @@ public class Bucket {
     
 
     /**
-     * @param signaturedRequest
-     * @param callback
-     * @throws QSException
+     * @param signaturedRequest Signature Url
+     * @param callback callback
+     * @throws QSException exception
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void GetObjectBySignatureUrlAsync(
