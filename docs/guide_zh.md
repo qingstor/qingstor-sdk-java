@@ -1,6 +1,6 @@
 ## 快速指南
 
-[English](../readme.md) | 中文
+[English](../README.md) | 中文
 
 在开始使用 SDK 之前，请确认您已经了解 青云 QingStor对象存储基本概念 ，如 Zone，Service，Bucket，Object 等。
 
