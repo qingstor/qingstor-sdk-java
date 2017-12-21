@@ -1,6 +1,81 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.2] - 2017-12-21
+
+### Fixed
+
+- Fixed java docs errors in the template.
+
+- Fixed twice encode when set responseContentDisposition.
+
+    Now you can set responseContentDisposition like this:
+
+    ```java
+        Bucket.GetObjectInput inputs = new Bucket.GetObjectInput();
+        String fileName = "测试图片(测试).jpg";
+        String urlName = URLEncoder.encode(fileName, "utf-8");
+        //do not add blanks int the key "attachment;filename="
+        inputs.setResponseContentDisposition("attachment;filename=" + urlName);
+        RequestHandler handle = bucket.GetObjectBySignatureUrlRequest("测试图片(测试).jpg", inputs, System.currentTimeMillis() + 10000);
+        String tempUrl = handle.getExpiresRequestUrl();
+    ```
+
+### Added
+
+- Add config to change url style.
+
+    Available url style:
+    One is the default, when requestUrlStyle != QSConstant#PATH_STYLE}
+    You may see the url like this(QSConstant#VIRTUAL_HOST_STYLE):
+    https://bucket-name.zone-id.qingstor.com/object-name
+    Otherwise you may see the url like this(QSConstant#PATH_STYLE):
+    https://zone-id.qingstor.com/bucket-name/object-name
+
+    - Now you can add configs in EvnContext to change url style.
+    In java:
+
+    ```java
+        EvnContext evn = EvnContext.loadFromFile("config_stor.yaml");
+        Bucket bucket = new Bucket(evn, zoneId, bucketName);
+    ```
+
+    About file config_stor.yaml you can add configs below:
+
+    ```yaml
+    # QingStor services configuration
+
+    access_key_id: 'ACCESS_KEY_ID'
+    secret_access_key: 'SECRET_ACCESS_KEY'
+
+    host: 'qingstor.com'
+    port: '443'
+    protocol: 'https'
+    connection_retries: 3
+    # uri: '/iaas'
+
+    # Valid log levels are "debug", "info", "warn", "error", and "fatal".
+    log_level: 'warn'
+
+    # Valid request url styles are "virtual_host_style"(default) and "path_style"
+    request_url_style: 'path_style'
+    ```
+
+    Attention: if some of the configs you do not use, please add a "#" at the first of the line.
+    Like this: ``` # port: '443' ```
+
+    - Or set request url style with EvnContext.
+
+    ```java
+        EvnContext evn = new EvnContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
+        //Valid request url styles' params are QSConstant.PATH_STYLE and QSConstant.VIRTUAL_HOST_STYLE
+        evn.setRequestUrlStyle(QSConstant.PATH_STYLE);
+        String zoneName = "pek3a";
+        String bucketName = "testBucketName";
+        Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+    ```
+
+
 ## [v2.2.1] - 2017-11-07
 
 ### Changed
