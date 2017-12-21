@@ -21,16 +21,22 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 public class QSSignatureUtil {
     private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSSignatureUtil.class.getName());
@@ -61,12 +67,19 @@ public class QSSignatureUtil {
                 if (count != 0) {
                     sbStringToSign.append("&");
                 }
-                sbStringToSign
-                        .append(QSStringUtil.percentEncode(key, QSConstant.ENCODING_UTF8))
-                        .append("=")
-                        .append(
-                                QSStringUtil.percentEncode(
-                                        parameters.get(key), QSConstant.ENCODING_UTF8));
+                if ("response-content-disposition".equals(key)){
+                    sbStringToSign
+                            .append(key)
+                            .append("=")
+                            .append(parameters.get(key));
+                }else {
+                    sbStringToSign
+                            .append(QSStringUtil.percentEncode(key, QSConstant.ENCODING_UTF8))
+                            .append("=")
+                            .append(
+                                    QSStringUtil.percentEncode(
+                                            parameters.get(key), QSConstant.ENCODING_UTF8));
+                }
                 count++;
             }
         } catch (UnsupportedEncodingException e) {

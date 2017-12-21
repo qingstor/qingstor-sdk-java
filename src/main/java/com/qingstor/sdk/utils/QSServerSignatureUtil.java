@@ -40,11 +40,11 @@ public class QSServerSignatureUtil {
     /**
      * Generate signature for request against QingStor.
      *
-     * @param secretKey
-     * @param strToSign
+     * @param secretKey API secret access key ID
+     * @param strToSign string to sign
      * @return signature
-     * <p>
-     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     *
+     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details</p>
      */
     public static String generateSignature(String secretKey, String strToSign) {
         return QSSignatureUtil.generateSignature(secretKey, strToSign);

@@ -5,8 +5,11 @@
 [![API Reference](http://img.shields.io/badge/api-reference-green.svg)](http://docs.qingcloud.com)
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
 
+English | [中文](./docs/guide_zh.md)
 
 The official QingStor SDK for the Java programming language.
+
+You can see documents containing the complete package structure here: [github pages](https://yunify.github.io/qingstor-sdk-java/).
 
 ## Getting Started
 

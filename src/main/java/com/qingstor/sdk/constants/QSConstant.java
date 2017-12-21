@@ -86,4 +86,7 @@ public class QSConstant {
     public static int HTTPCLIENT_CONNECTION_TIME_OUT = 60; // Seconds
     public static int HTTPCLIENT_READ_TIME_OUT = 100; // Seconds
     public static int HTTPCLIENT_WRITE_TIME_OUT = 100; // Seconds
+
+    public static final String VIRTUAL_HOST_STYLE  = "virtual_host_style"; //default url style, like this: https://bucket-name.zone-id.qingstor.com/object-name
+    public static final String PATH_STYLE = "path_style"; //https://zone-id.qingstor.com/bucket-name/object-name
 }

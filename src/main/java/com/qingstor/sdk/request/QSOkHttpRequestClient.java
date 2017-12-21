@@ -16,6 +16,16 @@
 
 package com.qingstor.sdk.request;
 
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.OutputModel;
+import com.qingstor.sdk.utils.QSJSONUtil;
+import com.qingstor.sdk.utils.QSLoggerUtil;
+import com.qingstor.sdk.utils.QSParamInvokeUtil;
+import com.qingstor.sdk.utils.QSStringUtil;
+
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.util.HashMap;
@@ -30,16 +40,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
-import org.json.JSONObject;
-
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.OutputModel;
-import com.qingstor.sdk.utils.QSJSONUtil;
-import com.qingstor.sdk.utils.QSLoggerUtil;
-import com.qingstor.sdk.utils.QSParamInvokeUtil;
-import com.qingstor.sdk.utils.QSStringUtil;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -163,7 +163,7 @@ public class QSOkHttpRequestClient {
 
     /**
      * @param singedUrl with singed parameter url
-     * @return
+     * @return a build request
      */
     public Request buildUrlRequest(final String singedUrl) {
 
@@ -250,12 +250,11 @@ public class QSOkHttpRequestClient {
      * @param method     request method name
      * @param signedUrl  with signed param url
      * @param headParams http head params
-     * @return
-     * @throws BoxException
+     * @param requestBody request body params
+     * @return a build request
      */
     public Request buildRequest(
-            final String method, final String signedUrl, RequestBody requestBody, final Map headParams)
-            throws QSException {
+            final String method, final String signedUrl, RequestBody requestBody, final Map headParams) {
 
         Request.Builder builder = new Request.Builder();
         String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[]{});
