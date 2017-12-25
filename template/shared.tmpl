@@ -347,7 +347,7 @@
                     input = new {{$opID}}Input();
                 }
             {{end}}
-            
+
 			RequestHandler requestHandler = this.{{if eq $belongs "Bucket" -}}
                 {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
                 {{else -}}
@@ -362,7 +362,7 @@
                 {{- else -}}
                 ,
                 {{end}}
-                    input    
+                    input
                 {{end -}}
             );
 
@@ -408,12 +408,12 @@
                     input = new {{$opID}}Input();
                 }
             {{end}}
-            
+
             {{$uri := $operation.Request.Path}}
             {{$uri := replace $uri "{" "<" -1}}
             {{$uri := replace $uri "}" ">" -1}}
             {{$uri := dashConnected $uri}}
-     
+
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
             context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
@@ -440,7 +440,7 @@
                 throw new QSException("objectName can't be empty!");
             }
             {{- end}}
-            
+
             RequestHandler requestHandler =
                 ResourceRequestFactory.getResourceRequest().getRequest(context,
                 {{- if $hasInput}}
@@ -452,7 +452,7 @@
 
             return requestHandler;
         }
-/*
+    /*
      *{{- if $hasInput}}
      * @param input
           {{- end}}
@@ -485,7 +485,7 @@
                     input = new {{$opID}}Input();
                 }
             {{end}}
-            
+
             RequestHandler requestHandler = this.{{if eq $belongs "Bucket" -}}
                 {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
                 {{else -}}
@@ -500,14 +500,14 @@
                     {{- else -}}
                     ,
                     {{end}}
-                    input,callback    
+                    input,callback
                 {{- else -}}
                     {{if eq $operation.Request.Path $newURI}}
                     callback
                     {{- else -}}
                     ,callback
                     {{end}}
-                    
+
                 {{end -}}
             );
 
@@ -516,12 +516,12 @@
         }
 
 
-/*
+    /*
      *{{- if $hasInput}}
-     * @param input
+     * @param input the input stream
           {{- end}}
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: {{$operation.DocumentationURL}}
     */
@@ -548,12 +548,12 @@
                     input = new {{$opID}}Input();
                 }
             {{end}}
-            
+
             {{$uri := $operation.Request.Path}}
             {{$uri := replace $uri "{" "<" -1}}
             {{$uri := replace $uri "}" ">" -1}}
             {{$uri := dashConnected $uri}}
-            
+
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
             context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
@@ -594,7 +594,28 @@
         }
 
 
+    {{- $hasParams := gt (len $operation.Request.Query.Properties) 0}}
+    {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
+    {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
+    {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
+    {{- $hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
+
     {{- if $hasInput}}
+    /*
+     * {{$opID}}Input: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     {{- range $id, $property := $operation.Request.Headers.Properties}}
+     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Query.Properties}}
+     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Elements.Properties}}
+     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+     {{- end}}
+     *
+     */
     public static class {{$opID}}Input extends RequestInputModel{
             {{if $operation.Request.Query.Properties | len}}
             	{{- $data := $operation.Request.Query -}}
@@ -634,11 +655,19 @@
                 {{- end}}
                 private  String bodyInput;
 
+                /**
+                * Get the object json string.
+                * @return object json string
+                */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInput")
                 public String getBodyInput() {
                    return bodyInput;
                 }
-                //Object json string
+
+                /**
+                * Set the object json string.
+                * @param bodyInput object json string
+                */
                 public void setBodyInput(String bodyInput) {
                     this.bodyInput=bodyInput;
                 }
@@ -649,20 +678,37 @@
                 {{- end}}
                 private  File bodyInputFile;
 
+                /**
+                * Get the File will be updated.
+                * @return the File object will be updated
+                */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
                 public File getBodyInputFile() {
                    return bodyInputFile;
                 }
-                //
+
+                /**
+                * Set the File to update.
+                * @param bodyInputFile File to update
+                */
                 public void setBodyInputFile(File bodyInputFile) {
                     this.bodyInputFile=bodyInputFile;
                 }
                 private  java.io.InputStream bodyInputStream;
 
+                /**
+                * Get the body input stream.
+                * @return input stream
+                */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
                 public java.io.InputStream getBodyInputStream() {
                    return bodyInputStream;
                 }
+
+                /**
+                * Set the body input stream.
+                * @param bodyInputStream input stream to update
+                */
                 public void setBodyInputStream(java.io.InputStream bodyInputStream) {
                     this.bodyInputStream=bodyInputStream;
                 }
@@ -680,7 +726,21 @@
         }
     {{end}}
 
-
+        /*
+         * {{$opID}}Output: an output stream of the bucket.<br>
+         * The following is the desc of fields.<br>
+         * These fields are headers or bodies of the http request.<br>
+         {{- range $id, $property := $operation.Request.Headers.Properties}}
+         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         {{- end}}
+         {{- range $id, $property := $operation.Request.Query.Properties}}
+         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         {{- end}}
+         {{- range $id, $property := $operation.Request.Elements.Properties}}
+         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         {{- end}}
+         *
+        */
         public static class {{$opID}}Output extends OutputModel{
             {{range $_, $response := $operation.Responses}}
                 {{if eq $response.Body.Type "string"}}
@@ -689,11 +749,19 @@
                     {{- end}}
                     private  String bodyInput;
 
+                    /**
+                    * Get the object json string.
+                    * @return object json string
+                    */
                     @ParamAnnotation(paramType = "body",paramName = "BodyInput")
                     public String getBodyInput() {
                        return bodyInput;
                     }
-                    //Object json string
+
+                    /**
+                    * Set the object json string.
+                    * @param bodyInput object json string
+                    */
                     public void setBodyInput(String bodyInput) {
                         this.bodyInput=bodyInput;
                     }
@@ -701,12 +769,134 @@
                     {{if $response.Body.Description -}}
                         // {{$response.Body.Description}}
                     {{- end}}
+
+                    {{if eq $opID "GetObject"}}
+                        /**
+                        * deprecated, please use setCacheControl(String cacheControl)
+                        * @param responseCacheControl cacheControl
+                        */
+                        @Deprecated
+                        public void setResponseCacheControl(String responseCacheControl) {
+                            cacheControl = responseCacheControl;
+                        }
+
+                        /**
+                        * deprecated, please use getCacheControl()
+                        * @return cacheControl
+                        */
+                        @Deprecated
+                        public String getResponseCacheControl() {
+                            return cacheControl;
+                        } // Specified the Content-Disposition response header
+
+                        /**
+                        * deprecated, please use setContentDisposition(String contentDisposition)
+                        * @param responseContentDisposition contentDisposition
+                        */
+                        @Deprecated
+                        public void setResponseContentDisposition(String responseContentDisposition) {
+                            contentDisposition = responseContentDisposition;
+                        }
+
+                        /**
+                        * deprecated, please use getContentDisposition()
+                        * @return contentDisposition
+                        */
+                        @Deprecated
+                        public String getResponseContentDisposition() {
+                            return contentDisposition;
+                        } // Specified the Content-Disposition header
+
+                        /**
+                        * deprecated, please use setContentEncoding(String contentEncoding)
+                        * @param responseContentEncoding contentEncoding
+                        */
+                        @Deprecated
+                        public void setResponseContentEncoding(String responseContentEncoding) {
+                            contentEncoding = responseContentEncoding;
+                        }
+
+                        /**
+                        * deprecated, please use getContentEncoding()
+                        * @return contentEncoding
+                        */
+                        @Deprecated
+                        public String getResponseContentEncoding() {
+                            return contentEncoding;
+                        } // Specified the Content-Language response header
+
+                        /**
+                        * deprecated, please use setContentLanguage(String contentLanguage)
+                        * @param responseContentLanguage contentLanguage
+                        */
+                        @Deprecated
+                        public void setResponseContentLanguage(String responseContentLanguage) {
+                            contentLanguage = responseContentLanguage;
+                        }
+
+                        /**
+                        * deprecated, please use getContentLanguage()
+                        * @return contentLanguage
+                        */
+                        @Deprecated
+                        public String getResponseContentLanguage() {
+                            return contentLanguage;
+                        } // Specified the Content-Type response header
+
+                        /**
+                        * deprecated, please use setContentType(String contentType)
+                        * @param responseContentType contentType
+                        */
+                        @Deprecated
+                        public void setResponseContentType(String responseContentType) {
+                            contentType = responseContentType;
+                        }
+
+                        /**
+                        * deprecated, please use getContentType()
+                        * @return contentType
+                        */
+                        @Deprecated
+                        public String getResponseContentType() {
+                            return contentType;
+                        } // Specified the Expires response header
+
+                        /**
+                        * deprecated, please use setExpires(String expires)
+                        * @param responseExpires expires
+                        */
+                        @Deprecated
+                        public void setResponseExpires(String responseExpires) {
+                            expires = responseExpires;
+                        }
+
+                        /**
+                        * deprecated, please use getExpires()
+                        * @return expires
+                        */
+                        @Deprecated
+                        public String getResponseExpires() {
+                            return expires;
+                        }
+
+                    {{- end}}
+
+
                     private  java.io.InputStream bodyInputStream;
 
+                    /**
+                    * Get the stream will be downloaded.
+                    * @return the stream will be downloaded
+                    */
                     @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
                     public java.io.InputStream getBodyInputStream() {
                        return bodyInputStream;
                     }
+
+                    /**
+                    * Set the stream to download.
+                    * @param bodyInputStream stream to download
+                    */
                     public void setBodyInputStream(java.io.InputStream bodyInputStream) {
                         this.bodyInputStream=bodyInputStream;
                     }

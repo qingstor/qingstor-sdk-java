@@ -118,9 +118,9 @@ public class QingStor {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
      */
@@ -151,7 +151,13 @@ public class QingStor {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * ListBucketsInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Location Limits results to buckets that in the location <br>
+     *
+     */
     public static class ListBucketsInput extends RequestInputModel {
 
         // Limits results to buckets that in the location
@@ -174,6 +180,13 @@ public class QingStor {
         }
     }
 
+    /*
+     * ListBucketsOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Location Limits results to buckets that in the location <br>
+     *
+     */
     public static class ListBucketsOutput extends OutputModel {
 
         // Buckets information
