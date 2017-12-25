@@ -452,7 +452,7 @@
 
             return requestHandler;
         }
-/*
+    /*
      *{{- if $hasInput}}
      * @param input
           {{- end}}
@@ -516,12 +516,12 @@
         }
 
 
-/*
+    /*
      *{{- if $hasInput}}
-     * @param input
+     * @param input the input stream
           {{- end}}
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: {{$operation.DocumentationURL}}
     */
@@ -602,14 +602,17 @@
 
     {{- if $hasInput}}
     /*
+     * {{$opID}}Input: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
      {{- range $id, $property := $operation.Request.Headers.Properties}}
-     * @param {{$property.Name| camelCase}} {{$property.Description}}
+     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
      {{- end}}
      {{- range $id, $property := $operation.Request.Query.Properties}}
-     * @param {{$property.Name| camelCase}} {{$property.Description}}
+     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
-     * @param {{$property.Name| camelCase}} {{$property.Description}}
+     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
      {{- end}}
      *
      */
@@ -652,11 +655,19 @@
                 {{- end}}
                 private  String bodyInput;
 
+                /**
+                * Get the object json string.
+                * @return object json string
+                */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInput")
                 public String getBodyInput() {
                    return bodyInput;
                 }
-                //Object json string
+
+                /**
+                * Set the object json string.
+                * @param bodyInput object json string
+                */
                 public void setBodyInput(String bodyInput) {
                     this.bodyInput=bodyInput;
                 }
@@ -667,20 +678,37 @@
                 {{- end}}
                 private  File bodyInputFile;
 
+                /**
+                * Get the File will be updated.
+                * @return the File object will be updated
+                */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
                 public File getBodyInputFile() {
                    return bodyInputFile;
                 }
-                //
+
+                /**
+                * Set the File to update.
+                * @param bodyInputFile File to update
+                */
                 public void setBodyInputFile(File bodyInputFile) {
                     this.bodyInputFile=bodyInputFile;
                 }
                 private  java.io.InputStream bodyInputStream;
 
+                /**
+                * Get the body input stream.
+                * @return input stream
+                */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
                 public java.io.InputStream getBodyInputStream() {
                    return bodyInputStream;
                 }
+
+                /**
+                * Set the body input stream.
+                * @param bodyInputStream input stream to update
+                */
                 public void setBodyInputStream(java.io.InputStream bodyInputStream) {
                     this.bodyInputStream=bodyInputStream;
                 }
@@ -698,7 +726,21 @@
         }
     {{end}}
 
-
+        /*
+         * {{$opID}}Output: an output stream of the bucket.<br>
+         * The following is the desc of fields.<br>
+         * These fields are headers or bodies of the http request.<br>
+         {{- range $id, $property := $operation.Request.Headers.Properties}}
+         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         {{- end}}
+         {{- range $id, $property := $operation.Request.Query.Properties}}
+         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         {{- end}}
+         {{- range $id, $property := $operation.Request.Elements.Properties}}
+         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         {{- end}}
+         *
+        */
         public static class {{$opID}}Output extends OutputModel{
             {{range $_, $response := $operation.Responses}}
                 {{if eq $response.Body.Type "string"}}
@@ -707,11 +749,19 @@
                     {{- end}}
                     private  String bodyInput;
 
+                    /**
+                    * Get the object json string.
+                    * @return object json string
+                    */
                     @ParamAnnotation(paramType = "body",paramName = "BodyInput")
                     public String getBodyInput() {
                        return bodyInput;
                     }
-                    //Object json string
+
+                    /**
+                    * Set the object json string.
+                    * @param bodyInput object json string
+                    */
                     public void setBodyInput(String bodyInput) {
                         this.bodyInput=bodyInput;
                     }
@@ -721,10 +771,19 @@
                     {{- end}}
                     private  java.io.InputStream bodyInputStream;
 
+                    /**
+                    * Get the stream will be downloaded.
+                    * @return the stream will be downloaded
+                    */
                     @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
                     public java.io.InputStream getBodyInputStream() {
                        return bodyInputStream;
                     }
+
+                    /**
+                    * Set the stream to download.
+                    * @param bodyInputStream stream to download
+                    */
                     public void setBodyInputStream(java.io.InputStream bodyInputStream) {
                         this.bodyInputStream=bodyInputStream;
                     }
