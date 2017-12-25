@@ -37,6 +37,7 @@ public interface ResourceRequest {
      * @param context EvnContext
      * @param paramBean param
      * @param outputClass output class
+     * @return OutputModel
      * @throws QSException exception
      */
     public OutputModel sendApiRequest(

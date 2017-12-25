@@ -47,10 +47,10 @@ public class QSSignatureUtil {
     private static Map keysMap;
 
     /**
-     * @param parameters
-     * @param requestUrl
-     * @return
-     * @throws QSException
+     * @param parameters parameters to sign
+     * @param requestUrl base request url
+     * @return generated url
+     * @throws QSException UnsupportedEncodingException
      */
     public static String generateQSURL(Map<String, String> parameters, String requestUrl)
             throws QSException {
@@ -109,7 +109,7 @@ public class QSSignatureUtil {
      * @param headers:    HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
      * directly.
-     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     * <p>See <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a> for more details
      * about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
@@ -131,7 +131,7 @@ public class QSSignatureUtil {
      * @param strToSign: strToSign
      * @return a string which can be used as value of HTTP request header field "Authorization"
      * directly.
-     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     * <p>See <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a> for more details
      * about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
@@ -152,7 +152,7 @@ public class QSSignatureUtil {
      * @param headers:    HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
      * directly.
-     * <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     * <p>See <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a> for more details
      * about how to do signature of request against QingStor.
      */
     public static String generateSignature(

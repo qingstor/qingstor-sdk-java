@@ -45,11 +45,11 @@ public class Bucket {
         this.bucketName = bucketName;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
+    /**
+     * @throws QSException exception
+     * @return DeleteBucketOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/delete.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketOutput delete() throws QSException {
@@ -63,11 +63,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteRequest() throws QSException {
@@ -92,12 +91,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteAsync(ResponseCallBack<DeleteBucketOutput> callback) throws QSException {
@@ -107,12 +105,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteAsyncRequest(ResponseCallBack<DeleteBucketOutput> callback)
@@ -142,19 +139,18 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * DeleteBucketOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class DeleteBucketOutput extends OutputModel {}
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
+    /**
+     * @throws QSException exception
+     * @return DeleteBucketCORSOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketCORSOutput deleteCORS() throws QSException {
@@ -168,11 +164,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteCORSRequest() throws QSException {
@@ -197,12 +192,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteCORSAsync(ResponseCallBack<DeleteBucketCORSOutput> callback)
@@ -213,12 +207,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteCORSAsyncRequest(ResponseCallBack<DeleteBucketCORSOutput> callback)
@@ -248,19 +241,19 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * DeleteBucketCORSOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class DeleteBucketCORSOutput extends OutputModel {}
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+    /**
+     * @throws QSException exception
+     * @return DeleteBucketExternalMirrorOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+     *     </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketExternalMirrorOutput deleteExternalMirror() throws QSException {
@@ -274,11 +267,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteExternalMirrorRequest() throws QSException {
@@ -303,12 +295,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteExternalMirrorAsync(
@@ -319,12 +310,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteExternalMirrorAsyncRequest(
@@ -354,19 +344,18 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * DeleteBucketExternalMirrorOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class DeleteBucketExternalMirrorOutput extends OutputModel {}
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
+    /**
+     * @throws QSException exception
+     * @return DeleteBucketPolicyOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketPolicyOutput deletePolicy() throws QSException {
@@ -380,11 +369,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deletePolicyRequest() throws QSException {
@@ -409,12 +397,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deletePolicyAsync(ResponseCallBack<DeleteBucketPolicyOutput> callback)
@@ -425,12 +412,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deletePolicyAsyncRequest(
@@ -460,20 +446,19 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * DeleteBucketPolicyOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class DeleteBucketPolicyOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return DeleteMultipleObjectsOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteMultipleObjectsOutput deleteMultipleObjects(DeleteMultipleObjectsInput input)
@@ -492,12 +477,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteMultipleObjectsRequest(DeleteMultipleObjectsInput input)
@@ -527,13 +511,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteMultipleObjectsAsync(
@@ -550,13 +533,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteMultipleObjectsAsyncRequest(
@@ -590,14 +572,13 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * DeleteMultipleObjectsInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentMD5 Object MD5sum <br>
-     * @field Objects A list of keys to delete <br>
-     * @field Quiet Whether to return the list of deleted objects <br>
-     *
+     * field ContentMD5 Object MD5sum <br>
+     * field Objects A list of keys to delete <br>
+     * field Quiet Whether to return the list of deleted objects <br>
      */
     public static class DeleteMultipleObjectsInput extends RequestInputModel {
 
@@ -666,14 +647,13 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * DeleteMultipleObjectsOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentMD5 Object MD5sum <br>
-     * @field Objects A list of keys to delete <br>
-     * @field Quiet Whether to return the list of deleted objects <br>
-     *
+     * field ContentMD5 Object MD5sum <br>
+     * field Objects A list of keys to delete <br>
+     * field Quiet Whether to return the list of deleted objects <br>
      */
     public static class DeleteMultipleObjectsOutput extends OutputModel {
 
@@ -702,11 +682,11 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html
+    /**
+     * @throws QSException exception
+     * @return GetBucketACLOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketACLOutput getACL() throws QSException {
@@ -720,11 +700,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getACLRequest() throws QSException {
@@ -749,12 +728,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getACLAsync(ResponseCallBack<GetBucketACLOutput> callback) throws QSException {
@@ -764,12 +742,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getACLAsyncRequest(ResponseCallBack<GetBucketACLOutput> callback)
@@ -799,11 +776,10 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * GetBucketACLOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class GetBucketACLOutput extends OutputModel {
 
@@ -832,11 +808,11 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
+    /**
+     * @throws QSException exception
+     * @return GetBucketCORSOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketCORSOutput getCORS() throws QSException {
@@ -850,11 +826,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getCORSRequest() throws QSException {
@@ -879,12 +854,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getCORSAsync(ResponseCallBack<GetBucketCORSOutput> callback) throws QSException {
@@ -894,12 +868,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getCORSAsyncRequest(ResponseCallBack<GetBucketCORSOutput> callback)
@@ -929,11 +902,10 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * GetBucketCORSOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class GetBucketCORSOutput extends OutputModel {
 
@@ -951,11 +923,12 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+    /**
+     * @throws QSException exception
+     * @return GetBucketExternalMirrorOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+     *     </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketExternalMirrorOutput getExternalMirror() throws QSException {
@@ -969,11 +942,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getExternalMirrorRequest() throws QSException {
@@ -998,12 +970,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getExternalMirrorAsync(ResponseCallBack<GetBucketExternalMirrorOutput> callback)
@@ -1014,12 +985,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getExternalMirrorAsyncRequest(
@@ -1049,11 +1019,10 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * GetBucketExternalMirrorOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class GetBucketExternalMirrorOutput extends OutputModel {
 
@@ -1071,11 +1040,11 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
+    /**
+     * @throws QSException exception
+     * @return GetBucketPolicyOutput output stream Documentation URL: <a
+     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">
+     *     https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketPolicyOutput getPolicy() throws QSException {
@@ -1089,11 +1058,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getPolicyRequest() throws QSException {
@@ -1118,12 +1086,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getPolicyAsync(ResponseCallBack<GetBucketPolicyOutput> callback)
@@ -1134,12 +1101,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getPolicyAsyncRequest(ResponseCallBack<GetBucketPolicyOutput> callback)
@@ -1169,11 +1135,10 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * GetBucketPolicyOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class GetBucketPolicyOutput extends OutputModel {
 
@@ -1191,11 +1156,11 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
+    /**
+     * @throws QSException exception
+     * @return GetBucketStatisticsOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketStatisticsOutput getStatistics() throws QSException {
@@ -1209,11 +1174,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getStatisticsRequest() throws QSException {
@@ -1238,12 +1202,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getStatisticsAsync(ResponseCallBack<GetBucketStatisticsOutput> callback)
@@ -1254,12 +1217,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getStatisticsAsyncRequest(
@@ -1289,11 +1251,10 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * GetBucketStatisticsOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class GetBucketStatisticsOutput extends OutputModel {
 
@@ -1378,11 +1339,11 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/head.html
+    /**
+     * @throws QSException exception
+     * @return HeadBucketOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/head.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public HeadBucketOutput head() throws QSException {
@@ -1396,11 +1357,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/head.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler headRequest() throws QSException {
@@ -1425,12 +1385,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/head.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void headAsync(ResponseCallBack<HeadBucketOutput> callback) throws QSException {
@@ -1440,12 +1399,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/head.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler headAsyncRequest(ResponseCallBack<HeadBucketOutput> callback)
@@ -1475,20 +1433,19 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * HeadBucketOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class HeadBucketOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return ListMultipartUploadsOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListMultipartUploadsOutput listMultipartUploads(ListMultipartUploadsInput input)
@@ -1507,12 +1464,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listMultipartUploadsRequest(ListMultipartUploadsInput input)
@@ -1542,13 +1498,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listMultipartUploadsAsync(
@@ -1564,13 +1519,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listMultipartUploadsAsyncRequest(
@@ -1603,16 +1557,17 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * ListMultipartUploadsInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Delimiter Put all keys that share a common prefix into a list <br>
-     * @field KeyMarker Limit results returned from the first key after key_marker sorted by alphabetical order <br>
-     * @field Limit Results count limit <br>
-     * @field Prefix Limits results to keys that begin with the prefix <br>
-     * @field UploadIDMarker Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id <br>
-     *
+     * field Delimiter Put all keys that share a common prefix into a list <br>
+     * field KeyMarker Limit results returned from the first key after key_marker sorted by
+     * alphabetical order <br>
+     * field Limit Results count limit <br>
+     * field Prefix Limits results to keys that begin with the prefix <br>
+     * field UploadIDMarker Limit results returned from the first uploading segment after
+     * upload_id_marker sorted by the time of upload_id <br>
      */
     public static class ListMultipartUploadsInput extends RequestInputModel {
         // Put all keys that share a common prefix into a list
@@ -1679,16 +1634,17 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * ListMultipartUploadsOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Delimiter Put all keys that share a common prefix into a list <br>
-     * @field KeyMarker Limit results returned from the first key after key_marker sorted by alphabetical order <br>
-     * @field Limit Results count limit <br>
-     * @field Prefix Limits results to keys that begin with the prefix <br>
-     * @field UploadIDMarker Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id <br>
-     *
+     * field Delimiter Put all keys that share a common prefix into a list <br>
+     * field KeyMarker Limit results returned from the first key after key_marker sorted by
+     * alphabetical order <br>
+     * field Limit Results count limit <br>
+     * field Prefix Limits results to keys that begin with the prefix <br>
+     * field UploadIDMarker Limit results returned from the first uploading segment after
+     * upload_id_marker sorted by the time of upload_id <br>
      */
     public static class ListMultipartUploadsOutput extends OutputModel {
 
@@ -1794,12 +1750,12 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return ListObjectsOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/get.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListObjectsOutput listObjects(ListObjectsInput input) throws QSException {
@@ -1817,12 +1773,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listObjectsRequest(ListObjectsInput input) throws QSException {
@@ -1851,13 +1806,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listObjectsAsync(
@@ -1873,13 +1827,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listObjectsAsyncRequest(
@@ -1912,15 +1865,14 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * ListObjectsInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Delimiter Put all keys that share a common prefix into a list <br>
-     * @field Limit Results count limit <br>
-     * @field Marker Limit results to keys that start at this marker <br>
-     * @field Prefix Limits results to keys that begin with the prefix <br>
-     *
+     * field Delimiter Put all keys that share a common prefix into a list <br>
+     * field Limit Results count limit <br>
+     * field Marker Limit results to keys that start at this marker <br>
+     * field Prefix Limits results to keys that begin with the prefix <br>
      */
     public static class ListObjectsInput extends RequestInputModel {
         // Put all keys that share a common prefix into a list
@@ -1976,15 +1928,14 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * ListObjectsOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Delimiter Put all keys that share a common prefix into a list <br>
-     * @field Limit Results count limit <br>
-     * @field Marker Limit results to keys that start at this marker <br>
-     * @field Prefix Limits results to keys that begin with the prefix <br>
-     *
+     * field Delimiter Put all keys that share a common prefix into a list <br>
+     * field Limit Results count limit <br>
+     * field Marker Limit results to keys that start at this marker <br>
+     * field Prefix Limits results to keys that begin with the prefix <br>
      */
     public static class ListObjectsOutput extends OutputModel {
 
@@ -2090,11 +2041,11 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put.html
+    /**
+     * @throws QSException exception
+     * @return PutBucketOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/put.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketOutput put() throws QSException {
@@ -2108,11 +2059,10 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put.html
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putRequest() throws QSException {
@@ -2137,12 +2087,11 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put.html
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putAsync(ResponseCallBack<PutBucketOutput> callback) throws QSException {
@@ -2152,12 +2101,11 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putAsyncRequest(ResponseCallBack<PutBucketOutput> callback)
@@ -2187,20 +2135,19 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * PutBucketOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class PutBucketOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketACLOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketACLOutput putACL(PutBucketACLInput input) throws QSException {
@@ -2218,12 +2165,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putACLRequest(PutBucketACLInput input) throws QSException {
@@ -2252,13 +2198,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putACLAsync(PutBucketACLInput input, ResponseCallBack<PutBucketACLOutput> callback)
@@ -2273,13 +2218,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putACLAsyncRequest(
@@ -2312,12 +2256,11 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * PutBucketACLInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ACL Bucket ACL rules <br>
-     *
+     * field ACL Bucket ACL rules <br>
      */
     public static class PutBucketACLInput extends RequestInputModel {
 
@@ -2361,21 +2304,20 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * PutBucketACLOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ACL Bucket ACL rules <br>
-     *
+     * field ACL Bucket ACL rules <br>
      */
     public static class PutBucketACLOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketCORSOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketCORSOutput putCORS(PutBucketCORSInput input) throws QSException {
@@ -2393,12 +2335,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putCORSRequest(PutBucketCORSInput input) throws QSException {
@@ -2427,13 +2368,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putCORSAsync(
@@ -2449,13 +2389,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putCORSAsyncRequest(
@@ -2488,12 +2427,11 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * PutBucketCORSInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field CORSRules Bucket CORS rules <br>
-     *
+     * field CORSRules Bucket CORS rules <br>
      */
     public static class PutBucketCORSInput extends RequestInputModel {
 
@@ -2537,21 +2475,21 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * PutBucketCORSOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field CORSRules Bucket CORS rules <br>
-     *
+     * field CORSRules Bucket CORS rules <br>
      */
     public static class PutBucketCORSOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketExternalMirrorOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+     *     </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketExternalMirrorOutput putExternalMirror(PutBucketExternalMirrorInput input)
@@ -2570,12 +2508,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putExternalMirrorRequest(PutBucketExternalMirrorInput input)
@@ -2605,13 +2542,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putExternalMirrorAsync(
@@ -2628,13 +2564,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putExternalMirrorAsyncRequest(
@@ -2668,12 +2603,11 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * PutBucketExternalMirrorInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field SourceSite Source site url <br>
-     *
+     * field SourceSite Source site url <br>
      */
     public static class PutBucketExternalMirrorInput extends RequestInputModel {
 
@@ -2713,21 +2647,20 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * PutBucketExternalMirrorOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field SourceSite Source site url <br>
-     *
+     * field SourceSite Source site url <br>
      */
     public static class PutBucketExternalMirrorOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketPolicyOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketPolicyOutput putPolicy(PutBucketPolicyInput input) throws QSException {
@@ -2745,12 +2678,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putPolicyRequest(PutBucketPolicyInput input) throws QSException {
@@ -2779,13 +2711,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putPolicyAsync(
@@ -2801,13 +2732,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putPolicyAsyncRequest(
@@ -2840,12 +2770,11 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * PutBucketPolicyInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Statement Bucket policy statement <br>
-     *
+     * field Statement Bucket policy statement <br>
      */
     public static class PutBucketPolicyInput extends RequestInputModel {
 
@@ -2889,21 +2818,21 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * PutBucketPolicyOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Statement Bucket policy statement <br>
-     *
+     * field Statement Bucket policy statement <br>
      */
     public static class PutBucketPolicyOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return AbortMultipartUploadOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public AbortMultipartUploadOutput abortMultipartUpload(
@@ -2922,12 +2851,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler abortMultipartUploadRequest(
@@ -2961,13 +2890,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void abortMultipartUploadAsync(
@@ -2986,13 +2915,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler abortMultipartUploadAsyncRequest(
@@ -3031,12 +2960,11 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * AbortMultipartUploadInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field UploadID Object multipart upload ID <br>
-     *
+     * field UploadID Object multipart upload ID <br>
      */
     public static class AbortMultipartUploadInput extends RequestInputModel {
         // Object multipart upload ID
@@ -3063,21 +2991,21 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * AbortMultipartUploadOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field UploadID Object multipart upload ID <br>
-     *
+     * field UploadID Object multipart upload ID <br>
      */
     public static class AbortMultipartUploadOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return CompleteMultipartUploadOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public CompleteMultipartUploadOutput completeMultipartUpload(
@@ -3096,12 +3024,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler completeMultipartUploadRequest(
@@ -3135,13 +3063,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void completeMultipartUploadAsync(
@@ -3160,13 +3088,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler completeMultipartUploadAsyncRequest(
@@ -3205,17 +3133,16 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * CompleteMultipartUploadInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ETag MD5sum of the object part <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field UploadID Object multipart upload ID <br>
-     * @field ObjectParts Object parts <br>
-     *
+     * field ETag MD5sum of the object part <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field UploadID Object multipart upload ID <br>
+     * field ObjectParts Object parts <br>
      */
     public static class CompleteMultipartUploadInput extends RequestInputModel {
         // Object multipart upload ID
@@ -3320,17 +3247,16 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * CompleteMultipartUploadOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ETag MD5sum of the object part <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field UploadID Object multipart upload ID <br>
-     * @field ObjectParts Object parts <br>
-     *
+     * field ETag MD5sum of the object part <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field UploadID Object multipart upload ID <br>
+     * field ObjectParts Object parts <br>
      */
     public static class CompleteMultipartUploadOutput extends OutputModel {
 
@@ -3348,11 +3274,12 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/delete.html
+    /**
+     * @param objectName name of the object
+     * @throws QSException exception
+     * @return DeleteObjectOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/delete.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteObjectOutput deleteObject(String objectName) throws QSException {
@@ -3366,11 +3293,11 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/delete.html
+    /**
+     * @param objectName name of the object
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteObjectRequest(String objectName) throws QSException {
@@ -3399,12 +3326,12 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/delete.html
+    /**
+     * @param objectName name of the object
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteObjectAsync(String objectName, ResponseCallBack<DeleteObjectOutput> callback)
@@ -3415,12 +3342,12 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
+    /**
+     * @param objectName name of the object
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/delete.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteObjectAsyncRequest(
@@ -3454,20 +3381,20 @@ public class Bucket {
         return requestHandler;
     }
 
-    /*
+    /**
      * DeleteObjectOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     *
      */
     public static class DeleteObjectOutput extends OutputModel {}
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/get.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return GetObjectOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/get.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput getObject(String objectName, GetObjectInput input) throws QSException {
@@ -3485,12 +3412,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/get.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getObjectRequest(String objectName, GetObjectInput input)
@@ -3524,13 +3451,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/get.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getObjectAsync(
@@ -3546,13 +3473,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/get.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getObjectAsyncRequest(
@@ -3589,25 +3516,24 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * GetObjectInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field IfMatch Check whether the ETag matches <br>
-     * @field IfModifiedSince Check whether the object has been modified <br>
-     * @field IfNoneMatch Check whether the ETag does not match <br>
-     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
-     * @field Range Specified range of the object <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field ResponseCacheControl Specified the Cache-Control response header <br>
-     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
-     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
-     * @field ResponseContentLanguage Specified the Content-Language response header <br>
-     * @field ResponseContentType Specified the Content-Type response header <br>
-     * @field ResponseExpires Specified the Expires response header <br>
-     *
+     * field IfMatch Check whether the ETag matches <br>
+     * field IfModifiedSince Check whether the object has been modified <br>
+     * field IfNoneMatch Check whether the ETag does not match <br>
+     * field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * field Range Specified range of the object <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field ResponseCacheControl Specified the Cache-Control response header <br>
+     * field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * field ResponseContentLanguage Specified the Content-Language response header <br>
+     * field ResponseContentType Specified the Content-Type response header <br>
+     * field ResponseExpires Specified the Expires response header <br>
      */
     public static class GetObjectInput extends RequestInputModel {
         // Specified the Cache-Control response header
@@ -3775,25 +3701,24 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * GetObjectOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field IfMatch Check whether the ETag matches <br>
-     * @field IfModifiedSince Check whether the object has been modified <br>
-     * @field IfNoneMatch Check whether the ETag does not match <br>
-     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
-     * @field Range Specified range of the object <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field ResponseCacheControl Specified the Cache-Control response header <br>
-     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
-     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
-     * @field ResponseContentLanguage Specified the Content-Language response header <br>
-     * @field ResponseContentType Specified the Content-Type response header <br>
-     * @field ResponseExpires Specified the Expires response header <br>
-     *
+     * field IfMatch Check whether the ETag matches <br>
+     * field IfModifiedSince Check whether the object has been modified <br>
+     * field IfNoneMatch Check whether the ETag does not match <br>
+     * field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * field Range Specified range of the object <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field ResponseCacheControl Specified the Cache-Control response header <br>
+     * field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * field ResponseContentLanguage Specified the Content-Language response header <br>
+     * field ResponseContentType Specified the Content-Type response header <br>
+     * field ResponseExpires Specified the Expires response header <br>
      */
     public static class GetObjectOutput extends OutputModel {
 
@@ -4064,12 +3989,13 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/head.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return HeadObjectOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/head.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public HeadObjectOutput headObject(String objectName, HeadObjectInput input)
@@ -4088,12 +4014,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/head.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler headObjectRequest(String objectName, HeadObjectInput input)
@@ -4127,13 +4053,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/head.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void headObjectAsync(
@@ -4149,13 +4075,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/head.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler headObjectAsyncRequest(
@@ -4192,18 +4118,17 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * HeadObjectInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field IfMatch Check whether the ETag matches <br>
-     * @field IfModifiedSince Check whether the object has been modified <br>
-     * @field IfNoneMatch Check whether the ETag does not match <br>
-     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     *
+     * field IfMatch Check whether the ETag matches <br>
+     * field IfModifiedSince Check whether the object has been modified <br>
+     * field IfNoneMatch Check whether the ETag does not match <br>
+     * field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      */
     public static class HeadObjectInput extends RequestInputModel {
 
@@ -4293,18 +4218,17 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * HeadObjectOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field IfMatch Check whether the ETag matches <br>
-     * @field IfModifiedSince Check whether the object has been modified <br>
-     * @field IfNoneMatch Check whether the ETag does not match <br>
-     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     *
+     * field IfMatch Check whether the ETag matches <br>
+     * field IfModifiedSince Check whether the object has been modified <br>
+     * field IfNoneMatch Check whether the ETag does not match <br>
+     * field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      */
     public static class HeadObjectOutput extends OutputModel {
 
@@ -4366,12 +4290,13 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return ImageProcessOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">
+     *     https://docs.qingcloud.com/qingstor/data_process/image_process/index.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ImageProcessOutput imageProcess(String objectName, ImageProcessInput input)
@@ -4390,12 +4315,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler imageProcessRequest(String objectName, ImageProcessInput input)
@@ -4429,13 +4354,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void imageProcessAsync(
@@ -4453,13 +4378,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler imageProcessAsyncRequest(
@@ -4498,19 +4423,18 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * ImageProcessInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field IfModifiedSince Check whether the object has been modified <br>
-     * @field Action Image process action <br>
-     * @field ResponseCacheControl Specified the Cache-Control response header <br>
-     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
-     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
-     * @field ResponseContentLanguage Specified the Content-Language response header <br>
-     * @field ResponseContentType Specified the Content-Type response header <br>
-     * @field ResponseExpires Specified the Expires response header <br>
-     *
+     * field IfModifiedSince Check whether the object has been modified <br>
+     * field Action Image process action <br>
+     * field ResponseCacheControl Specified the Cache-Control response header <br>
+     * field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * field ResponseContentLanguage Specified the Content-Language response header <br>
+     * field ResponseContentType Specified the Content-Type response header <br>
+     * field ResponseExpires Specified the Expires response header <br>
      */
     public static class ImageProcessInput extends RequestInputModel {
         // Image process action
@@ -4616,19 +4540,18 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * ImageProcessOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field IfModifiedSince Check whether the object has been modified <br>
-     * @field Action Image process action <br>
-     * @field ResponseCacheControl Specified the Cache-Control response header <br>
-     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
-     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
-     * @field ResponseContentLanguage Specified the Content-Language response header <br>
-     * @field ResponseContentType Specified the Content-Type response header <br>
-     * @field ResponseExpires Specified the Expires response header <br>
-     *
+     * field IfModifiedSince Check whether the object has been modified <br>
+     * field Action Image process action <br>
+     * field ResponseCacheControl Specified the Cache-Control response header <br>
+     * field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * field ResponseContentLanguage Specified the Content-Language response header <br>
+     * field ResponseContentType Specified the Content-Type response header <br>
+     * field ResponseExpires Specified the Expires response header <br>
      */
     public static class ImageProcessOutput extends OutputModel {
 
@@ -4669,12 +4592,13 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return InitiateMultipartUploadOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public InitiateMultipartUploadOutput initiateMultipartUpload(
@@ -4693,12 +4617,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler initiateMultipartUploadRequest(
@@ -4732,13 +4656,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void initiateMultipartUploadAsync(
@@ -4757,13 +4681,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler initiateMultipartUploadAsyncRequest(
@@ -4802,15 +4726,14 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * InitiateMultipartUploadInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentType Object content type <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     *
+     * field ContentType Object content type <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      */
     public static class InitiateMultipartUploadInput extends RequestInputModel {
 
@@ -4867,15 +4790,14 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * InitiateMultipartUploadOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentType Object content type <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     *
+     * field ContentType Object content type <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      */
     public static class InitiateMultipartUploadOutput extends OutputModel {
 
@@ -4928,12 +4850,13 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return ListMultipartOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/list_multipart.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListMultipartOutput listMultipart(String objectName, ListMultipartInput input)
@@ -4952,12 +4875,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listMultipartRequest(String objectName, ListMultipartInput input)
@@ -4991,13 +4914,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listMultipartAsync(
@@ -5015,13 +4938,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listMultipartAsyncRequest(
@@ -5060,14 +4983,13 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * ListMultipartInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Limit Limit results count <br>
-     * @field PartNumberMarker Object multipart upload part number <br>
-     * @field UploadID Object multipart upload ID <br>
-     *
+     * field Limit Limit results count <br>
+     * field PartNumberMarker Object multipart upload part number <br>
+     * field UploadID Object multipart upload ID <br>
      */
     public static class ListMultipartInput extends RequestInputModel {
         // Limit results count
@@ -5116,14 +5038,13 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * ListMultipartOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Limit Limit results count <br>
-     * @field PartNumberMarker Object multipart upload part number <br>
-     * @field UploadID Object multipart upload ID <br>
-     *
+     * field Limit Limit results count <br>
+     * field PartNumberMarker Object multipart upload part number <br>
+     * field UploadID Object multipart upload ID <br>
      */
     public static class ListMultipartOutput extends OutputModel {
 
@@ -5152,12 +5073,13 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/options.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return OptionsObjectOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/options.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public OptionsObjectOutput optionsObject(String objectName, OptionsObjectInput input)
@@ -5176,12 +5098,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/options.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler optionsObjectRequest(String objectName, OptionsObjectInput input)
@@ -5215,13 +5137,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/options.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void optionsObjectAsync(
@@ -5239,13 +5161,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/options.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler optionsObjectAsyncRequest(
@@ -5284,14 +5206,13 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * OptionsObjectInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field AccessControlRequestHeaders Request headers <br>
-     * @field AccessControlRequestMethod Request method <br>
-     * @field Origin Request origin <br>
-     *
+     * field AccessControlRequestHeaders Request headers <br>
+     * field AccessControlRequestMethod Request method <br>
+     * field Origin Request origin <br>
      */
     public static class OptionsObjectInput extends RequestInputModel {
 
@@ -5347,14 +5268,13 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * OptionsObjectOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field AccessControlRequestHeaders Request headers <br>
-     * @field AccessControlRequestMethod Request method <br>
-     * @field Origin Request origin <br>
-     *
+     * field AccessControlRequestHeaders Request headers <br>
+     * field AccessControlRequestMethod Request method <br>
+     * field Origin Request origin <br>
      */
     public static class OptionsObjectOutput extends OutputModel {
 
@@ -5416,12 +5336,13 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/put.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return PutObjectOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/put.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutObjectOutput putObject(String objectName, PutObjectInput input) throws QSException {
@@ -5439,12 +5360,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/put.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putObjectRequest(String objectName, PutObjectInput input)
@@ -5478,13 +5399,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/put.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putObjectAsync(
@@ -5500,13 +5421,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/put.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putObjectAsyncRequest(
@@ -5543,29 +5464,29 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * PutObjectInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentLength Object content size <br>
-     * @field ContentMD5 Object MD5sum <br>
-     * @field ContentType Object content type <br>
-     * @field Expect Used to indicate that particular server behaviors are required by the client <br>
-     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
-     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field XQSCopySourceIfMatch Check whether the copy source matches <br>
-     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified <br>
-     * @field XQSCopySourceIfNoneMatch Check whether the copy source does not match <br>
-     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
-     * @field XQSFetchSource Fetch source, should be a valid url <br>
-     * @field XQSMoveSource Move source, format (/<bucket-name>/<object-key>) <br>
-     *
+     * field ContentLength Object content size <br>
+     * field ContentMD5 Object MD5sum <br>
+     * field ContentType Object content type <br>
+     * field Expect Used to indicate that particular server behaviors are required by the client
+     * <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSCopySourceIfMatch Check whether the copy source matches <br>
+     * field XQSCopySourceIfModifiedSince Check whether the copy source has been modified <br>
+     * field XQSCopySourceIfNoneMatch Check whether the copy source does not match <br>
+     * field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
+     * field XQSFetchSource Fetch source, should be a valid url <br>
+     * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
      */
     public static class PutObjectInput extends RequestInputModel {
 
@@ -5833,29 +5754,29 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * PutObjectOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentLength Object content size <br>
-     * @field ContentMD5 Object MD5sum <br>
-     * @field ContentType Object content type <br>
-     * @field Expect Used to indicate that particular server behaviors are required by the client <br>
-     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
-     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field XQSCopySourceIfMatch Check whether the copy source matches <br>
-     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified <br>
-     * @field XQSCopySourceIfNoneMatch Check whether the copy source does not match <br>
-     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
-     * @field XQSFetchSource Fetch source, should be a valid url <br>
-     * @field XQSMoveSource Move source, format (/<bucket-name>/<object-key>) <br>
-     *
+     * field ContentLength Object content size <br>
+     * field ContentMD5 Object MD5sum <br>
+     * field ContentType Object content type <br>
+     * field Expect Used to indicate that particular server behaviors are required by the client
+     * <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSCopySourceIfMatch Check whether the copy source matches <br>
+     * field XQSCopySourceIfModifiedSince Check whether the copy source has been modified <br>
+     * field XQSCopySourceIfNoneMatch Check whether the copy source does not match <br>
+     * field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
+     * field XQSFetchSource Fetch source, should be a valid url <br>
+     * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
      */
     public static class PutObjectOutput extends OutputModel {
 
@@ -5884,12 +5805,13 @@ public class Bucket {
         }
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return UploadMultipartOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public UploadMultipartOutput uploadMultipart(String objectName, UploadMultipartInput input)
@@ -5908,12 +5830,12 @@ public class Bucket {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler uploadMultipartRequest(String objectName, UploadMultipartInput input)
@@ -5947,13 +5869,13 @@ public class Bucket {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void uploadMultipartAsync(
@@ -5972,13 +5894,13 @@ public class Bucket {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler uploadMultipartAsyncRequest(
@@ -6017,27 +5939,30 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * UploadMultipartInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentLength Object multipart content length <br>
-     * @field ContentMD5 Object multipart content MD5sum <br>
-     * @field XQSCopyRange Specify range of the source object <br>
-     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
-     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value <br>
-     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the specified date <br>
-     * @field XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the specified value <br>
-     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified since the specified date <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field PartNumber Object multipart upload part number <br>
-     * @field UploadID Object multipart upload ID <br>
-     *
+     * field ContentLength Object multipart content length <br>
+     * field ContentMD5 Object multipart content MD5sum <br>
+     * field XQSCopyRange Specify range of the source object <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value
+     * <br>
+     * field XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the
+     * specified date <br>
+     * field XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the
+     * specified value <br>
+     * field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified
+     * since the specified date <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field PartNumber Object multipart upload part number <br>
+     * field UploadID Object multipart upload ID <br>
      */
     public static class UploadMultipartInput extends RequestInputModel {
         // Object multipart upload part number
@@ -6292,27 +6217,30 @@ public class Bucket {
         }
     }
 
-    /*
+    /**
      * UploadMultipartOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field ContentLength Object multipart content length <br>
-     * @field ContentMD5 Object multipart content MD5sum <br>
-     * @field XQSCopyRange Specify range of the source object <br>
-     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
-     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value <br>
-     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the specified date <br>
-     * @field XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the specified value <br>
-     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified since the specified date <br>
-     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
-     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
-     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
-     * @field PartNumber Object multipart upload part number <br>
-     * @field UploadID Object multipart upload ID <br>
-     *
+     * field ContentLength Object multipart content length <br>
+     * field ContentMD5 Object multipart content MD5sum <br>
+     * field XQSCopyRange Specify range of the source object <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value
+     * <br>
+     * field XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the
+     * specified date <br>
+     * field XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the
+     * specified value <br>
+     * field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified
+     * since the specified date <br>
+     * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field PartNumber Object multipart upload part number <br>
+     * field UploadID Object multipart upload ID <br>
      */
     public static class UploadMultipartOutput extends OutputModel {
 
@@ -6368,8 +6296,8 @@ public class Bucket {
      * @param objectName name of the object
      * @param expires time to expire
      * @return signature url
-     * @throws QSException exception Documentation URL:
-     *     https://docs.qingcloud.com/qingstor/api/common/signature.html
+     * @throws QSException exception Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
         RequestHandler requestHandler =
@@ -6379,10 +6307,11 @@ public class Bucket {
 
     /**
      * @param objectName name of the object
+     * @param input get object input
      * @param expires Relative current time，the second when this quert sign expires
      * @return request handle
-     * @throws QSException exception Documentation URL:
-     *     https://docs.qingcloud.com/qingstor/api/common/signature.html
+     * @throws QSException exception Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler GetObjectBySignatureUrlRequest(
