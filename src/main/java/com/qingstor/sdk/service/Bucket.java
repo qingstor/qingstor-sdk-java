@@ -34,6 +34,19 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * Most of operations in qingstore can be found in this class.<br>
+ * Usage:
+ *
+ * <pre>
+ * EvnContext evn = new EvnContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
+ * String zoneName = "pek3a";
+ * String bucketName = "testBucketName";
+ * Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+ * </pre>
+ *
+ * Now you can use the object bucket to do the operations.
+ */
 public class Bucket {
     private String zone;
     private String bucketName;
