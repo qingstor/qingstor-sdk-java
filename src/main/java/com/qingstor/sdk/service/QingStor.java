@@ -41,12 +41,12 @@ public class QingStor {
         this.zone = zone;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return ListBucketsOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">
+     *     https://docs.qingcloud.com/qingstor/api/service/get.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListBucketsOutput listBuckets(ListBucketsInput input) throws QSException {
@@ -64,12 +64,11 @@ public class QingStor {
         return null;
     }
 
-    /*
-     *
-     * @param input
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listBucketsRequest(ListBucketsInput input) throws QSException {
@@ -94,13 +93,12 @@ public class QingStor {
 
         return requestHandler;
     }
-    /*
-     *
-     * @param input
-     * @param callback
-     * @throws QSException
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listBucketsAsync(
@@ -116,13 +114,12 @@ public class QingStor {
         requestHandler.sendAsync();
     }
 
-    /*
-     *
-     * @param input the input stream
+    /**
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: https://docs.qingcloud.com/qingstor/api/service/get.html
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listBucketsAsyncRequest(
@@ -151,12 +148,11 @@ public class QingStor {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-    /*
+    /**
      * ListBucketsInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Location Limits results to buckets that in the location <br>
-     *
+     * field Location Limits results to buckets that in the location <br>
      */
     public static class ListBucketsInput extends RequestInputModel {
 
@@ -180,12 +176,11 @@ public class QingStor {
         }
     }
 
-    /*
+    /**
      * ListBucketsOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
-     * @field Location Limits results to buckets that in the location <br>
-     *
+     * field Location Limits results to buckets that in the location <br>
      */
     public static class ListBucketsOutput extends OutputModel {
 

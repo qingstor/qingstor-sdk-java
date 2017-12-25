@@ -40,6 +40,17 @@ import com.qingstor.sdk.request.RequestHandler;
 
 import okhttp3.Request;
 
+/**
+ * Most of operations in qingstore can be found in this class.<br>
+ * Usage:
+ * <pre>
+ * EvnContext evn = new EvnContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
+ * String zoneName = "pek3a";
+ * String bucketName = "testBucketName";
+ * Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+ * </pre>
+ * Now you can use the object bucket to do the operations.
+ */
 public class Bucket {
     private String zone;
     private String bucketName;
@@ -75,7 +86,7 @@ public class Bucket {
          * @param expires time to expire
          * @return signature url
          * @throws QSException exception
-         * Documentation URL: https://docs.qingcloud.com/qingstor/api/common/signature.html
+         * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
          */
         public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
             RequestHandler requestHandler = this.GetObjectBySignatureUrlRequest(objectName, null, expires);
@@ -84,10 +95,11 @@ public class Bucket {
 
         /**
          * @param objectName name of the object
+         * @param input get object input
          * @param expires  Relative current time，the second when this quert sign expires
          * @return request handle
          * @throws QSException exception
-         * Documentation URL: https://docs.qingcloud.com/qingstor/api/common/signature.html
+         * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
          */
         @SuppressWarnings({"rawtypes", "unchecked"})
         public RequestHandler GetObjectBySignatureUrlRequest(String objectName, GetObjectInput input, long expires)
