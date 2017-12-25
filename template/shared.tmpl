@@ -312,14 +312,17 @@
     {{$hasStringBody := eq $operation.Request.Body.Type "string"}}
     {{$hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
     {{$hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
-    /*
-     *
-     {{- if $hasInput}}
-     * @param input
+    /**
+     {{- if eq $operation.Request.Path $newURI}}
+     {{ else }}
+     * @param objectName name of the object
      {{- end}}
-     * @throws QSException
-     *
-     * Documentation URL: {{$operation.DocumentationURL}}
+     {{- if $hasInput}}
+     * @param input input
+     {{- end}}
+     * @throws QSException exception
+     * @return {{$opID}}Output output stream
+     * Documentation URL: <a href="{{$operation.DocumentationURL}}"> {{$operation.DocumentationURL}} </a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public {{$opID}}Output
@@ -373,14 +376,17 @@
             return null;
         }
 
-    /*
-     *
-     {{- if $hasInput}}
-     * @param input
+    /**
+     {{- if eq $operation.Request.Path $newURI}}
+     {{ else }}
+     * @param objectName name of the object
      {{- end}}
-     * @throws QSException
-     *
-     * Documentation URL: {{$operation.DocumentationURL}}
+     {{- if $hasInput}}
+     * @param input input
+     {{- end}}
+     * @throws QSException exception
+     * @return RequestHandler http request handler
+     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public RequestHandler
@@ -452,14 +458,18 @@
 
             return requestHandler;
         }
-    /*
+    /**
+     {{- if eq $operation.Request.Path $newURI}}
+     {{ else }}
+     * @param objectName name of the object
+     {{- end}}
      *{{- if $hasInput}}
-     * @param input
+     * @param input input
           {{- end}}
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
-     * Documentation URL: {{$operation.DocumentationURL}}
+     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void {{if eq $belongs "Bucket" -}}
@@ -516,14 +526,18 @@
         }
 
 
-    /*
+    /**
+     {{- if eq $operation.Request.Path $newURI}}
+     {{ else }}
+     * @param objectName name of the object
+     {{- end}}
      *{{- if $hasInput}}
-     * @param input the input stream
+     * @param input the input
           {{- end}}
      * @param callback response callback
      * @throws QSException exception
-     *
-     * Documentation URL: {{$operation.DocumentationURL}}
+     * @return RequestHandler http request handler
+     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public RequestHandler {{if eq $belongs "Bucket" -}}
@@ -601,18 +615,18 @@
     {{- $hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
 
     {{- if $hasInput}}
-    /*
+    /**
      * {{$opID}}Input: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      {{- range $id, $property := $operation.Request.Headers.Properties}}
-     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
      {{- end}}
      {{- range $id, $property := $operation.Request.Query.Properties}}
-     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
-     * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
      {{- end}}
      *
      */
@@ -726,18 +740,18 @@
         }
     {{end}}
 
-        /*
+        /**
          * {{$opID}}Output: an output stream of the bucket.<br>
          * The following is the desc of fields.<br>
          * These fields are headers or bodies of the http request.<br>
          {{- range $id, $property := $operation.Request.Headers.Properties}}
-         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
          {{- end}}
          {{- range $id, $property := $operation.Request.Query.Properties}}
-         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
          {{- end}}
          {{- range $id, $property := $operation.Request.Elements.Properties}}
-         * @field {{$property.Name| camelCase}} {{$property.Description}} <br>
+         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
          {{- end}}
          *
         */
@@ -771,113 +785,113 @@
                     {{- end}}
 
                     {{if eq $opID "GetObject"}}
-                        /**
-                        * deprecated, please use setCacheControl(String cacheControl)
-                        * @param responseCacheControl cacheControl
-                        */
-                        @Deprecated
-                        public void setResponseCacheControl(String responseCacheControl) {
-                            cacheControl = responseCacheControl;
-                        }
+                    /**
+                    * deprecated, please use setCacheControl(String cacheControl)
+                    * @param responseCacheControl cacheControl
+                    */
+                    @Deprecated
+                    public void setResponseCacheControl(String responseCacheControl) {
+                        cacheControl = responseCacheControl;
+                    }
 
-                        /**
-                        * deprecated, please use getCacheControl()
-                        * @return cacheControl
-                        */
-                        @Deprecated
-                        public String getResponseCacheControl() {
-                            return cacheControl;
-                        } // Specified the Content-Disposition response header
+                    /**
+                    * deprecated, please use getCacheControl()
+                    * @return cacheControl
+                    */
+                    @Deprecated
+                    public String getResponseCacheControl() {
+                        return cacheControl;
+                    } // Specified the Content-Disposition response header
 
-                        /**
-                        * deprecated, please use setContentDisposition(String contentDisposition)
-                        * @param responseContentDisposition contentDisposition
-                        */
-                        @Deprecated
-                        public void setResponseContentDisposition(String responseContentDisposition) {
-                            contentDisposition = responseContentDisposition;
-                        }
+                    /**
+                    * deprecated, please use setContentDisposition(String contentDisposition)
+                    * @param responseContentDisposition contentDisposition
+                    */
+                    @Deprecated
+                    public void setResponseContentDisposition(String responseContentDisposition) {
+                        contentDisposition = responseContentDisposition;
+                    }
 
-                        /**
-                        * deprecated, please use getContentDisposition()
-                        * @return contentDisposition
-                        */
-                        @Deprecated
-                        public String getResponseContentDisposition() {
-                            return contentDisposition;
-                        } // Specified the Content-Disposition header
+                    /**
+                    * deprecated, please use getContentDisposition()
+                    * @return contentDisposition
+                    */
+                    @Deprecated
+                    public String getResponseContentDisposition() {
+                        return contentDisposition;
+                    } // Specified the Content-Disposition header
 
-                        /**
-                        * deprecated, please use setContentEncoding(String contentEncoding)
-                        * @param responseContentEncoding contentEncoding
-                        */
-                        @Deprecated
-                        public void setResponseContentEncoding(String responseContentEncoding) {
-                            contentEncoding = responseContentEncoding;
-                        }
+                    /**
+                    * deprecated, please use setContentEncoding(String contentEncoding)
+                    * @param responseContentEncoding contentEncoding
+                    */
+                    @Deprecated
+                    public void setResponseContentEncoding(String responseContentEncoding) {
+                        contentEncoding = responseContentEncoding;
+                    }
 
-                        /**
-                        * deprecated, please use getContentEncoding()
-                        * @return contentEncoding
-                        */
-                        @Deprecated
-                        public String getResponseContentEncoding() {
-                            return contentEncoding;
-                        } // Specified the Content-Language response header
+                    /**
+                    * deprecated, please use getContentEncoding()
+                    * @return contentEncoding
+                    */
+                    @Deprecated
+                    public String getResponseContentEncoding() {
+                        return contentEncoding;
+                    } // Specified the Content-Language response header
 
-                        /**
-                        * deprecated, please use setContentLanguage(String contentLanguage)
-                        * @param responseContentLanguage contentLanguage
-                        */
-                        @Deprecated
-                        public void setResponseContentLanguage(String responseContentLanguage) {
-                            contentLanguage = responseContentLanguage;
-                        }
+                    /**
+                    * deprecated, please use setContentLanguage(String contentLanguage)
+                    * @param responseContentLanguage contentLanguage
+                    */
+                    @Deprecated
+                    public void setResponseContentLanguage(String responseContentLanguage) {
+                        contentLanguage = responseContentLanguage;
+                    }
 
-                        /**
-                        * deprecated, please use getContentLanguage()
-                        * @return contentLanguage
-                        */
-                        @Deprecated
-                        public String getResponseContentLanguage() {
-                            return contentLanguage;
-                        } // Specified the Content-Type response header
+                    /**
+                    * deprecated, please use getContentLanguage()
+                    * @return contentLanguage
+                    */
+                    @Deprecated
+                    public String getResponseContentLanguage() {
+                        return contentLanguage;
+                    } // Specified the Content-Type response header
 
-                        /**
-                        * deprecated, please use setContentType(String contentType)
-                        * @param responseContentType contentType
-                        */
-                        @Deprecated
-                        public void setResponseContentType(String responseContentType) {
-                            contentType = responseContentType;
-                        }
+                    /**
+                    * deprecated, please use setContentType(String contentType)
+                    * @param responseContentType contentType
+                    */
+                    @Deprecated
+                    public void setResponseContentType(String responseContentType) {
+                        contentType = responseContentType;
+                    }
 
-                        /**
-                        * deprecated, please use getContentType()
-                        * @return contentType
-                        */
-                        @Deprecated
-                        public String getResponseContentType() {
-                            return contentType;
-                        } // Specified the Expires response header
+                    /**
+                    * deprecated, please use getContentType()
+                    * @return contentType
+                    */
+                    @Deprecated
+                    public String getResponseContentType() {
+                        return contentType;
+                    } // Specified the Expires response header
 
-                        /**
-                        * deprecated, please use setExpires(String expires)
-                        * @param responseExpires expires
-                        */
-                        @Deprecated
-                        public void setResponseExpires(String responseExpires) {
-                            expires = responseExpires;
-                        }
+                    /**
+                    * deprecated, please use setExpires(String expires)
+                    * @param responseExpires expires
+                    */
+                    @Deprecated
+                    public void setResponseExpires(String responseExpires) {
+                        expires = responseExpires;
+                    }
 
-                        /**
-                        * deprecated, please use getExpires()
-                        * @return expires
-                        */
-                        @Deprecated
-                        public String getResponseExpires() {
-                            return expires;
-                        }
+                    /**
+                    * deprecated, please use getExpires()
+                    * @return expires
+                    */
+                    @Deprecated
+                    public String getResponseExpires() {
+                        return expires;
+                    }
 
                     {{- end}}
 
