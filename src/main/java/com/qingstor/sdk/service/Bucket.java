@@ -109,8 +109,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
      */
@@ -142,6 +142,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * DeleteBucketOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class DeleteBucketOutput extends OutputModel {}
 
     /*
@@ -209,8 +215,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
      */
@@ -242,6 +248,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * DeleteBucketCORSOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class DeleteBucketCORSOutput extends OutputModel {}
 
     /*
@@ -309,8 +321,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
      */
@@ -342,6 +354,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * DeleteBucketExternalMirrorOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class DeleteBucketExternalMirrorOutput extends OutputModel {}
 
     /*
@@ -409,8 +427,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
      */
@@ -442,6 +460,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * DeleteBucketPolicyOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class DeleteBucketPolicyOutput extends OutputModel {}
 
     /*
@@ -528,9 +552,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
      */
@@ -567,9 +591,12 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param ContentMD5 Object MD5sum
-     * @param Objects A list of keys to delete
-     * @param Quiet Whether to return the list of deleted objects
+     * DeleteMultipleObjectsInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentMD5 Object MD5sum <br>
+     * @field Objects A list of keys to delete <br>
+     * @field Quiet Whether to return the list of deleted objects <br>
      *
      */
     public static class DeleteMultipleObjectsInput extends RequestInputModel {
@@ -639,6 +666,15 @@ public class Bucket {
         }
     }
 
+    /*
+     * DeleteMultipleObjectsOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentMD5 Object MD5sum <br>
+     * @field Objects A list of keys to delete <br>
+     * @field Quiet Whether to return the list of deleted objects <br>
+     *
+     */
     public static class DeleteMultipleObjectsOutput extends OutputModel {
 
         // List of deleted objects
@@ -730,8 +766,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html
      */
@@ -763,6 +799,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * GetBucketACLOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class GetBucketACLOutput extends OutputModel {
 
         // Bucket ACL rules
@@ -854,8 +896,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
      */
@@ -887,6 +929,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * GetBucketCORSOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class GetBucketCORSOutput extends OutputModel {
 
         // Bucket CORS rules
@@ -968,8 +1016,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
      */
@@ -1001,6 +1049,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * GetBucketExternalMirrorOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class GetBucketExternalMirrorOutput extends OutputModel {
 
         // Source site url
@@ -1082,8 +1136,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
      */
@@ -1115,6 +1169,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * GetBucketPolicyOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class GetBucketPolicyOutput extends OutputModel {
 
         // Bucket policy statement
@@ -1196,8 +1256,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
      */
@@ -1229,6 +1289,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * GetBucketStatisticsOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class GetBucketStatisticsOutput extends OutputModel {
 
         // Objects count in the bucket
@@ -1376,8 +1442,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/head.html
      */
@@ -1409,6 +1475,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * HeadBucketOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class HeadBucketOutput extends OutputModel {}
 
     /*
@@ -1494,9 +1566,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
      */
@@ -1532,11 +1604,14 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param Delimiter Put all keys that share a common prefix into a list
-     * @param KeyMarker Limit results returned from the first key after key_marker sorted by alphabetical order
-     * @param Limit Results count limit
-     * @param Prefix Limits results to keys that begin with the prefix
-     * @param UploadIDMarker Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
+     * ListMultipartUploadsInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Delimiter Put all keys that share a common prefix into a list <br>
+     * @field KeyMarker Limit results returned from the first key after key_marker sorted by alphabetical order <br>
+     * @field Limit Results count limit <br>
+     * @field Prefix Limits results to keys that begin with the prefix <br>
+     * @field UploadIDMarker Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id <br>
      *
      */
     public static class ListMultipartUploadsInput extends RequestInputModel {
@@ -1604,6 +1679,17 @@ public class Bucket {
         }
     }
 
+    /*
+     * ListMultipartUploadsOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Delimiter Put all keys that share a common prefix into a list <br>
+     * @field KeyMarker Limit results returned from the first key after key_marker sorted by alphabetical order <br>
+     * @field Limit Results count limit <br>
+     * @field Prefix Limits results to keys that begin with the prefix <br>
+     * @field UploadIDMarker Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id <br>
+     *
+     */
     public static class ListMultipartUploadsOutput extends OutputModel {
 
         // Other object keys that share common prefixes
@@ -1789,9 +1875,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/get.html
      */
@@ -1827,10 +1913,13 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param Delimiter Put all keys that share a common prefix into a list
-     * @param Limit Results count limit
-     * @param Marker Limit results to keys that start at this marker
-     * @param Prefix Limits results to keys that begin with the prefix
+     * ListObjectsInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Delimiter Put all keys that share a common prefix into a list <br>
+     * @field Limit Results count limit <br>
+     * @field Marker Limit results to keys that start at this marker <br>
+     * @field Prefix Limits results to keys that begin with the prefix <br>
      *
      */
     public static class ListObjectsInput extends RequestInputModel {
@@ -1887,6 +1976,16 @@ public class Bucket {
         }
     }
 
+    /*
+     * ListObjectsOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Delimiter Put all keys that share a common prefix into a list <br>
+     * @field Limit Results count limit <br>
+     * @field Marker Limit results to keys that start at this marker <br>
+     * @field Prefix Limits results to keys that begin with the prefix <br>
+     *
+     */
     public static class ListObjectsOutput extends OutputModel {
 
         // Other object keys that share common prefixes
@@ -2055,8 +2154,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put.html
      */
@@ -2088,6 +2187,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * PutBucketOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class PutBucketOutput extends OutputModel {}
 
     /*
@@ -2170,9 +2275,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
      */
@@ -2208,7 +2313,10 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param ACL Bucket ACL rules
+     * PutBucketACLInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ACL Bucket ACL rules <br>
      *
      */
     public static class PutBucketACLInput extends RequestInputModel {
@@ -2253,6 +2361,13 @@ public class Bucket {
         }
     }
 
+    /*
+     * PutBucketACLOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ACL Bucket ACL rules <br>
+     *
+     */
     public static class PutBucketACLOutput extends OutputModel {}
 
     /*
@@ -2336,9 +2451,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
      */
@@ -2374,7 +2489,10 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param CORSRules Bucket CORS rules
+     * PutBucketCORSInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field CORSRules Bucket CORS rules <br>
      *
      */
     public static class PutBucketCORSInput extends RequestInputModel {
@@ -2419,6 +2537,13 @@ public class Bucket {
         }
     }
 
+    /*
+     * PutBucketCORSOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field CORSRules Bucket CORS rules <br>
+     *
+     */
     public static class PutBucketCORSOutput extends OutputModel {}
 
     /*
@@ -2505,9 +2630,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
      */
@@ -2544,7 +2669,10 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param SourceSite Source site url
+     * PutBucketExternalMirrorInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field SourceSite Source site url <br>
      *
      */
     public static class PutBucketExternalMirrorInput extends RequestInputModel {
@@ -2585,6 +2713,13 @@ public class Bucket {
         }
     }
 
+    /*
+     * PutBucketExternalMirrorOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field SourceSite Source site url <br>
+     *
+     */
     public static class PutBucketExternalMirrorOutput extends OutputModel {}
 
     /*
@@ -2668,9 +2803,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
      */
@@ -2706,7 +2841,10 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param Statement Bucket policy statement
+     * PutBucketPolicyInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Statement Bucket policy statement <br>
      *
      */
     public static class PutBucketPolicyInput extends RequestInputModel {
@@ -2751,6 +2889,13 @@ public class Bucket {
         }
     }
 
+    /*
+     * PutBucketPolicyOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Statement Bucket policy statement <br>
+     *
+     */
     public static class PutBucketPolicyOutput extends OutputModel {}
 
     /*
@@ -2843,9 +2988,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
      */
@@ -2887,7 +3032,10 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param UploadID Object multipart upload ID
+     * AbortMultipartUploadInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field UploadID Object multipart upload ID <br>
      *
      */
     public static class AbortMultipartUploadInput extends RequestInputModel {
@@ -2915,6 +3063,13 @@ public class Bucket {
         }
     }
 
+    /*
+     * AbortMultipartUploadOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field UploadID Object multipart upload ID <br>
+     *
+     */
     public static class AbortMultipartUploadOutput extends OutputModel {}
 
     /*
@@ -3007,9 +3162,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
      */
@@ -3051,12 +3206,15 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param ETag MD5sum of the object part
-     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSEncryptionCustomerKey Encryption key of the object
-     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
-     * @param UploadID Object multipart upload ID
-     * @param ObjectParts Object parts
+     * CompleteMultipartUploadInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ETag MD5sum of the object part <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field UploadID Object multipart upload ID <br>
+     * @field ObjectParts Object parts <br>
      *
      */
     public static class CompleteMultipartUploadInput extends RequestInputModel {
@@ -3162,6 +3320,18 @@ public class Bucket {
         }
     }
 
+    /*
+     * CompleteMultipartUploadOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ETag MD5sum of the object part <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field UploadID Object multipart upload ID <br>
+     * @field ObjectParts Object parts <br>
+     *
+     */
     public static class CompleteMultipartUploadOutput extends OutputModel {
 
         // Encryption algorithm of the object
@@ -3247,8 +3417,8 @@ public class Bucket {
 
     /*
      *
-     * @param callback
-     * @throws QSException
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/delete.html
      */
@@ -3284,6 +3454,12 @@ public class Bucket {
         return requestHandler;
     }
 
+    /*
+     * DeleteObjectOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     *
+     */
     public static class DeleteObjectOutput extends OutputModel {}
 
     /*
@@ -3372,9 +3548,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/get.html
      */
@@ -3414,20 +3590,23 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param IfMatch Check whether the ETag matches
-     * @param IfModifiedSince Check whether the object has been modified
-     * @param IfNoneMatch Check whether the ETag does not match
-     * @param IfUnmodifiedSince Check whether the object has not been modified
-     * @param Range Specified range of the object
-     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSEncryptionCustomerKey Encryption key of the object
-     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
-     * @param ResponseCacheControl Specified the Cache-Control response header
-     * @param ResponseContentDisposition Specified the Content-Disposition response header
-     * @param ResponseContentEncoding Specified the Content-Encoding response header
-     * @param ResponseContentLanguage Specified the Content-Language response header
-     * @param ResponseContentType Specified the Content-Type response header
-     * @param ResponseExpires Specified the Expires response header
+     * GetObjectInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field IfMatch Check whether the ETag matches <br>
+     * @field IfModifiedSince Check whether the object has been modified <br>
+     * @field IfNoneMatch Check whether the ETag does not match <br>
+     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * @field Range Specified range of the object <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field ResponseCacheControl Specified the Cache-Control response header <br>
+     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * @field ResponseContentLanguage Specified the Content-Language response header <br>
+     * @field ResponseContentType Specified the Content-Type response header <br>
+     * @field ResponseExpires Specified the Expires response header <br>
      *
      */
     public static class GetObjectInput extends RequestInputModel {
@@ -3596,16 +3775,167 @@ public class Bucket {
         }
     }
 
+    /*
+     * GetObjectOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field IfMatch Check whether the ETag matches <br>
+     * @field IfModifiedSince Check whether the object has been modified <br>
+     * @field IfNoneMatch Check whether the ETag does not match <br>
+     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * @field Range Specified range of the object <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field ResponseCacheControl Specified the Cache-Control response header <br>
+     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * @field ResponseContentLanguage Specified the Content-Language response header <br>
+     * @field ResponseContentType Specified the Content-Type response header <br>
+     * @field ResponseExpires Specified the Expires response header <br>
+     *
+     */
     public static class GetObjectOutput extends OutputModel {
 
         // The response body
+
+        /**
+         * deprecated, please use setCacheControl(String cacheControl)
+         *
+         * @param responseCacheControl cacheControl
+         */
+        @Deprecated
+        public void setResponseCacheControl(String responseCacheControl) {
+            cacheControl = responseCacheControl;
+        }
+
+        /**
+         * deprecated, please use getCacheControl()
+         *
+         * @return cacheControl
+         */
+        @Deprecated
+        public String getResponseCacheControl() {
+            return cacheControl;
+        } // Specified the Content-Disposition response header
+
+        /**
+         * deprecated, please use setContentDisposition(String contentDisposition)
+         *
+         * @param responseContentDisposition contentDisposition
+         */
+        @Deprecated
+        public void setResponseContentDisposition(String responseContentDisposition) {
+            contentDisposition = responseContentDisposition;
+        }
+
+        /**
+         * deprecated, please use getContentDisposition()
+         *
+         * @return contentDisposition
+         */
+        @Deprecated
+        public String getResponseContentDisposition() {
+            return contentDisposition;
+        } // Specified the Content-Disposition header
+
+        /**
+         * deprecated, please use setContentEncoding(String contentEncoding)
+         *
+         * @param responseContentEncoding contentEncoding
+         */
+        @Deprecated
+        public void setResponseContentEncoding(String responseContentEncoding) {
+            contentEncoding = responseContentEncoding;
+        }
+
+        /**
+         * deprecated, please use getContentEncoding()
+         *
+         * @return contentEncoding
+         */
+        @Deprecated
+        public String getResponseContentEncoding() {
+            return contentEncoding;
+        } // Specified the Content-Language response header
+
+        /**
+         * deprecated, please use setContentLanguage(String contentLanguage)
+         *
+         * @param responseContentLanguage contentLanguage
+         */
+        @Deprecated
+        public void setResponseContentLanguage(String responseContentLanguage) {
+            contentLanguage = responseContentLanguage;
+        }
+
+        /**
+         * deprecated, please use getContentLanguage()
+         *
+         * @return contentLanguage
+         */
+        @Deprecated
+        public String getResponseContentLanguage() {
+            return contentLanguage;
+        } // Specified the Content-Type response header
+
+        /**
+         * deprecated, please use setContentType(String contentType)
+         *
+         * @param responseContentType contentType
+         */
+        @Deprecated
+        public void setResponseContentType(String responseContentType) {
+            contentType = responseContentType;
+        }
+
+        /**
+         * deprecated, please use getContentType()
+         *
+         * @return contentType
+         */
+        @Deprecated
+        public String getResponseContentType() {
+            return contentType;
+        } // Specified the Expires response header
+
+        /**
+         * deprecated, please use setExpires(String expires)
+         *
+         * @param responseExpires expires
+         */
+        @Deprecated
+        public void setResponseExpires(String responseExpires) {
+            expires = responseExpires;
+        }
+
+        /**
+         * deprecated, please use getExpires()
+         *
+         * @return expires
+         */
+        @Deprecated
+        public String getResponseExpires() {
+            return expires;
+        }
+
         private java.io.InputStream bodyInputStream;
 
+        /**
+         * Get the stream will be downloaded.
+         *
+         * @return the stream will be downloaded
+         */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
         public java.io.InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
+        /**
+         * Set the stream to download.
+         *
+         * @param bodyInputStream stream to download
+         */
         public void setBodyInputStream(java.io.InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
@@ -3821,9 +4151,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/head.html
      */
@@ -3863,13 +4193,16 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param IfMatch Check whether the ETag matches
-     * @param IfModifiedSince Check whether the object has been modified
-     * @param IfNoneMatch Check whether the ETag does not match
-     * @param IfUnmodifiedSince Check whether the object has not been modified
-     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSEncryptionCustomerKey Encryption key of the object
-     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * HeadObjectInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field IfMatch Check whether the ETag matches <br>
+     * @field IfModifiedSince Check whether the object has been modified <br>
+     * @field IfNoneMatch Check whether the ETag does not match <br>
+     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      *
      */
     public static class HeadObjectInput extends RequestInputModel {
@@ -3960,6 +4293,19 @@ public class Bucket {
         }
     }
 
+    /*
+     * HeadObjectOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field IfMatch Check whether the ETag matches <br>
+     * @field IfModifiedSince Check whether the object has been modified <br>
+     * @field IfNoneMatch Check whether the ETag does not match <br>
+     * @field IfUnmodifiedSince Check whether the object has not been modified <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     *
+     */
     public static class HeadObjectOutput extends OutputModel {
 
         // Object content length
@@ -4109,9 +4455,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
      */
@@ -4153,14 +4499,17 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param IfModifiedSince Check whether the object has been modified
-     * @param Action Image process action
-     * @param ResponseCacheControl Specified the Cache-Control response header
-     * @param ResponseContentDisposition Specified the Content-Disposition response header
-     * @param ResponseContentEncoding Specified the Content-Encoding response header
-     * @param ResponseContentLanguage Specified the Content-Language response header
-     * @param ResponseContentType Specified the Content-Type response header
-     * @param ResponseExpires Specified the Expires response header
+     * ImageProcessInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field IfModifiedSince Check whether the object has been modified <br>
+     * @field Action Image process action <br>
+     * @field ResponseCacheControl Specified the Cache-Control response header <br>
+     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * @field ResponseContentLanguage Specified the Content-Language response header <br>
+     * @field ResponseContentType Specified the Content-Type response header <br>
+     * @field ResponseExpires Specified the Expires response header <br>
      *
      */
     public static class ImageProcessInput extends RequestInputModel {
@@ -4267,16 +4616,41 @@ public class Bucket {
         }
     }
 
+    /*
+     * ImageProcessOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field IfModifiedSince Check whether the object has been modified <br>
+     * @field Action Image process action <br>
+     * @field ResponseCacheControl Specified the Cache-Control response header <br>
+     * @field ResponseContentDisposition Specified the Content-Disposition response header <br>
+     * @field ResponseContentEncoding Specified the Content-Encoding response header <br>
+     * @field ResponseContentLanguage Specified the Content-Language response header <br>
+     * @field ResponseContentType Specified the Content-Type response header <br>
+     * @field ResponseExpires Specified the Expires response header <br>
+     *
+     */
     public static class ImageProcessOutput extends OutputModel {
 
         // The response body
+
         private java.io.InputStream bodyInputStream;
 
+        /**
+         * Get the stream will be downloaded.
+         *
+         * @return the stream will be downloaded
+         */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
         public java.io.InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
+        /**
+         * Set the stream to download.
+         *
+         * @param bodyInputStream stream to download
+         */
         public void setBodyInputStream(java.io.InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
@@ -4385,9 +4759,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
      */
@@ -4429,10 +4803,13 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param ContentType Object content type
-     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSEncryptionCustomerKey Encryption key of the object
-     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * InitiateMultipartUploadInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentType Object content type <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      *
      */
     public static class InitiateMultipartUploadInput extends RequestInputModel {
@@ -4490,6 +4867,16 @@ public class Bucket {
         }
     }
 
+    /*
+     * InitiateMultipartUploadOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentType Object content type <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     *
+     */
     public static class InitiateMultipartUploadOutput extends OutputModel {
 
         // Bucket name
@@ -4630,9 +5017,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
      */
@@ -4674,9 +5061,12 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param Limit Limit results count
-     * @param PartNumberMarker Object multipart upload part number
-     * @param UploadID Object multipart upload ID
+     * ListMultipartInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Limit Limit results count <br>
+     * @field PartNumberMarker Object multipart upload part number <br>
+     * @field UploadID Object multipart upload ID <br>
      *
      */
     public static class ListMultipartInput extends RequestInputModel {
@@ -4726,6 +5116,15 @@ public class Bucket {
         }
     }
 
+    /*
+     * ListMultipartOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field Limit Limit results count <br>
+     * @field PartNumberMarker Object multipart upload part number <br>
+     * @field UploadID Object multipart upload ID <br>
+     *
+     */
     public static class ListMultipartOutput extends OutputModel {
 
         // Object multipart count
@@ -4842,9 +5241,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/options.html
      */
@@ -4886,9 +5285,12 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param AccessControlRequestHeaders Request headers
-     * @param AccessControlRequestMethod Request method
-     * @param Origin Request origin
+     * OptionsObjectInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field AccessControlRequestHeaders Request headers <br>
+     * @field AccessControlRequestMethod Request method <br>
+     * @field Origin Request origin <br>
      *
      */
     public static class OptionsObjectInput extends RequestInputModel {
@@ -4945,6 +5347,15 @@ public class Bucket {
         }
     }
 
+    /*
+     * OptionsObjectOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field AccessControlRequestHeaders Request headers <br>
+     * @field AccessControlRequestMethod Request method <br>
+     * @field Origin Request origin <br>
+     *
+     */
     public static class OptionsObjectOutput extends OutputModel {
 
         // Allowed headers
@@ -5091,9 +5502,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/put.html
      */
@@ -5133,24 +5544,27 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param ContentLength Object content size
-     * @param ContentMD5 Object MD5sum
-     * @param ContentType Object content type
-     * @param Expect Used to indicate that particular server behaviors are required by the client
-     * @param XQSCopySource Copy source, format (/<bucket-name>/<object-key>)
-     * @param XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSCopySourceEncryptionCustomerKey Encryption key of the object
-     * @param XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key
-     * @param XQSCopySourceIfMatch Check whether the copy source matches
-     * @param XQSCopySourceIfModifiedSince Check whether the copy source has been modified
-     * @param XQSCopySourceIfNoneMatch Check whether the copy source does not match
-     * @param XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified
-     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSEncryptionCustomerKey Encryption key of the object
-     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
-     * @param XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified
-     * @param XQSFetchSource Fetch source, should be a valid url
-     * @param XQSMoveSource Move source, format (/<bucket-name>/<object-key>)
+     * PutObjectInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentLength Object content size <br>
+     * @field ContentMD5 Object MD5sum <br>
+     * @field ContentType Object content type <br>
+     * @field Expect Used to indicate that particular server behaviors are required by the client <br>
+     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
+     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field XQSCopySourceIfMatch Check whether the copy source matches <br>
+     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified <br>
+     * @field XQSCopySourceIfNoneMatch Check whether the copy source does not match <br>
+     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
+     * @field XQSFetchSource Fetch source, should be a valid url <br>
+     * @field XQSMoveSource Move source, format (/<bucket-name>/<object-key>) <br>
      *
      */
     public static class PutObjectInput extends RequestInputModel {
@@ -5372,22 +5786,42 @@ public class Bucket {
         // The request body
         private File bodyInputFile;
 
+        /**
+         * Get the File will be updated.
+         *
+         * @return the File object will be updated
+         */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputFile")
         public File getBodyInputFile() {
             return bodyInputFile;
         }
-        //
+
+        /**
+         * Set the File to update.
+         *
+         * @param bodyInputFile File to update
+         */
         public void setBodyInputFile(File bodyInputFile) {
             this.bodyInputFile = bodyInputFile;
         }
 
         private java.io.InputStream bodyInputStream;
 
+        /**
+         * Get the body input stream.
+         *
+         * @return input stream
+         */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
         public java.io.InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
+        /**
+         * Set the body input stream.
+         *
+         * @param bodyInputStream input stream to update
+         */
         public void setBodyInputStream(java.io.InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
@@ -5399,6 +5833,30 @@ public class Bucket {
         }
     }
 
+    /*
+     * PutObjectOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentLength Object content size <br>
+     * @field ContentMD5 Object MD5sum <br>
+     * @field ContentType Object content type <br>
+     * @field Expect Used to indicate that particular server behaviors are required by the client <br>
+     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
+     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field XQSCopySourceIfMatch Check whether the copy source matches <br>
+     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified <br>
+     * @field XQSCopySourceIfNoneMatch Check whether the copy source does not match <br>
+     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
+     * @field XQSFetchSource Fetch source, should be a valid url <br>
+     * @field XQSMoveSource Move source, format (/<bucket-name>/<object-key>) <br>
+     *
+     */
     public static class PutObjectOutput extends OutputModel {
 
         // MD5sum of the object
@@ -5516,9 +5974,9 @@ public class Bucket {
 
     /*
      *
-     * @param input
-     * @param callback
-     * @throws QSException
+     * @param input the input stream
+     * @param callback response callback
+     * @throws QSException exception
      *
      * Documentation URL: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
      */
@@ -5560,22 +6018,25 @@ public class Bucket {
         return requestHandler;
     }
     /*
-     * @param ContentLength Object multipart content length
-     * @param ContentMD5 Object multipart content MD5sum
-     * @param XQSCopyRange Specify range of the source object
-     * @param XQSCopySource Copy source, format (/<bucket-name>/<object-key>)
-     * @param XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSCopySourceEncryptionCustomerKey Encryption key of the object
-     * @param XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key
-     * @param XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value
-     * @param XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the specified date
-     * @param XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the specified value
-     * @param XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified since the specified date
-     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
-     * @param XQSEncryptionCustomerKey Encryption key of the object
-     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
-     * @param PartNumber Object multipart upload part number
-     * @param UploadID Object multipart upload ID
+     * UploadMultipartInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentLength Object multipart content length <br>
+     * @field ContentMD5 Object multipart content MD5sum <br>
+     * @field XQSCopyRange Specify range of the source object <br>
+     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
+     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value <br>
+     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the specified date <br>
+     * @field XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the specified value <br>
+     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified since the specified date <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field PartNumber Object multipart upload part number <br>
+     * @field UploadID Object multipart upload ID <br>
      *
      */
     public static class UploadMultipartInput extends RequestInputModel {
@@ -5777,22 +6238,42 @@ public class Bucket {
         // The request body
         private File bodyInputFile;
 
+        /**
+         * Get the File will be updated.
+         *
+         * @return the File object will be updated
+         */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputFile")
         public File getBodyInputFile() {
             return bodyInputFile;
         }
-        //
+
+        /**
+         * Set the File to update.
+         *
+         * @param bodyInputFile File to update
+         */
         public void setBodyInputFile(File bodyInputFile) {
             this.bodyInputFile = bodyInputFile;
         }
 
         private java.io.InputStream bodyInputStream;
 
+        /**
+         * Get the body input stream.
+         *
+         * @return input stream
+         */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
         public java.io.InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
+        /**
+         * Set the body input stream.
+         *
+         * @param bodyInputStream input stream to update
+         */
         public void setBodyInputStream(java.io.InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
@@ -5811,6 +6292,28 @@ public class Bucket {
         }
     }
 
+    /*
+     * UploadMultipartOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * @field ContentLength Object multipart content length <br>
+     * @field ContentMD5 Object multipart content MD5sum <br>
+     * @field XQSCopyRange Specify range of the source object <br>
+     * @field XQSCopySource Copy source, format (/<bucket-name>/<object-key>) <br>
+     * @field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value <br>
+     * @field XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the specified date <br>
+     * @field XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the specified value <br>
+     * @field XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified since the specified date <br>
+     * @field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
+     * @field XQSEncryptionCustomerKey Encryption key of the object <br>
+     * @field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * @field PartNumber Object multipart upload part number <br>
+     * @field UploadID Object multipart upload ID <br>
+     *
+     */
     public static class UploadMultipartOutput extends OutputModel {
 
         // MD5sum of the object
