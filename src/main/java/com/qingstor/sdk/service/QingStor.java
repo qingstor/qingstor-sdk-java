@@ -151,7 +151,10 @@ public class QingStor {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param Location Limits results to buckets that in the location
+     *
+     */
     public static class ListBucketsInput extends RequestInputModel {
 
         // Limits results to buckets that in the location

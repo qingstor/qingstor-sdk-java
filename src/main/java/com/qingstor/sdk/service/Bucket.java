@@ -566,7 +566,12 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param ContentMD5 Object MD5sum
+     * @param Objects A list of keys to delete
+     * @param Quiet Whether to return the list of deleted objects
+     *
+     */
     public static class DeleteMultipleObjectsInput extends RequestInputModel {
 
         // Object MD5sum
@@ -1526,7 +1531,14 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param Delimiter Put all keys that share a common prefix into a list
+     * @param KeyMarker Limit results returned from the first key after key_marker sorted by alphabetical order
+     * @param Limit Results count limit
+     * @param Prefix Limits results to keys that begin with the prefix
+     * @param UploadIDMarker Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
+     *
+     */
     public static class ListMultipartUploadsInput extends RequestInputModel {
         // Put all keys that share a common prefix into a list
 
@@ -1814,7 +1826,13 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param Delimiter Put all keys that share a common prefix into a list
+     * @param Limit Results count limit
+     * @param Marker Limit results to keys that start at this marker
+     * @param Prefix Limits results to keys that begin with the prefix
+     *
+     */
     public static class ListObjectsInput extends RequestInputModel {
         // Put all keys that share a common prefix into a list
 
@@ -2189,7 +2207,10 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param ACL Bucket ACL rules
+     *
+     */
     public static class PutBucketACLInput extends RequestInputModel {
 
         // The request body
@@ -2352,7 +2373,10 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param CORSRules Bucket CORS rules
+     *
+     */
     public static class PutBucketCORSInput extends RequestInputModel {
 
         // The request body
@@ -2519,7 +2543,10 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param SourceSite Source site url
+     *
+     */
     public static class PutBucketExternalMirrorInput extends RequestInputModel {
 
         // The request body
@@ -2678,7 +2705,10 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param Statement Bucket policy statement
+     *
+     */
     public static class PutBucketPolicyInput extends RequestInputModel {
 
         // The request body
@@ -2856,7 +2886,10 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param UploadID Object multipart upload ID
+     *
+     */
     public static class AbortMultipartUploadInput extends RequestInputModel {
         // Object multipart upload ID
         // Required
@@ -3017,7 +3050,15 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param ETag MD5sum of the object part
+     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSEncryptionCustomerKey Encryption key of the object
+     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * @param UploadID Object multipart upload ID
+     * @param ObjectParts Object parts
+     *
+     */
     public static class CompleteMultipartUploadInput extends RequestInputModel {
         // Object multipart upload ID
         // Required
@@ -3372,7 +3413,23 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param IfMatch Check whether the ETag matches
+     * @param IfModifiedSince Check whether the object has been modified
+     * @param IfNoneMatch Check whether the ETag does not match
+     * @param IfUnmodifiedSince Check whether the object has not been modified
+     * @param Range Specified range of the object
+     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSEncryptionCustomerKey Encryption key of the object
+     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * @param ResponseCacheControl Specified the Cache-Control response header
+     * @param ResponseContentDisposition Specified the Content-Disposition response header
+     * @param ResponseContentEncoding Specified the Content-Encoding response header
+     * @param ResponseContentLanguage Specified the Content-Language response header
+     * @param ResponseContentType Specified the Content-Type response header
+     * @param ResponseExpires Specified the Expires response header
+     *
+     */
     public static class GetObjectInput extends RequestInputModel {
         // Specified the Cache-Control response header
 
@@ -3805,7 +3862,16 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param IfMatch Check whether the ETag matches
+     * @param IfModifiedSince Check whether the object has been modified
+     * @param IfNoneMatch Check whether the ETag does not match
+     * @param IfUnmodifiedSince Check whether the object has not been modified
+     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSEncryptionCustomerKey Encryption key of the object
+     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     *
+     */
     public static class HeadObjectInput extends RequestInputModel {
 
         // Check whether the ETag matches
@@ -4086,7 +4152,17 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param IfModifiedSince Check whether the object has been modified
+     * @param Action Image process action
+     * @param ResponseCacheControl Specified the Cache-Control response header
+     * @param ResponseContentDisposition Specified the Content-Disposition response header
+     * @param ResponseContentEncoding Specified the Content-Encoding response header
+     * @param ResponseContentLanguage Specified the Content-Language response header
+     * @param ResponseContentType Specified the Content-Type response header
+     * @param ResponseExpires Specified the Expires response header
+     *
+     */
     public static class ImageProcessInput extends RequestInputModel {
         // Image process action
         // Required
@@ -4352,7 +4428,13 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param ContentType Object content type
+     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSEncryptionCustomerKey Encryption key of the object
+     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     *
+     */
     public static class InitiateMultipartUploadInput extends RequestInputModel {
 
         // Object content type
@@ -4591,7 +4673,12 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param Limit Limit results count
+     * @param PartNumberMarker Object multipart upload part number
+     * @param UploadID Object multipart upload ID
+     *
+     */
     public static class ListMultipartInput extends RequestInputModel {
         // Limit results count
 
@@ -4798,7 +4885,12 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param AccessControlRequestHeaders Request headers
+     * @param AccessControlRequestMethod Request method
+     * @param Origin Request origin
+     *
+     */
     public static class OptionsObjectInput extends RequestInputModel {
 
         // Request headers
@@ -5040,7 +5132,27 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param ContentLength Object content size
+     * @param ContentMD5 Object MD5sum
+     * @param ContentType Object content type
+     * @param Expect Used to indicate that particular server behaviors are required by the client
+     * @param XQSCopySource Copy source, format (/<bucket-name>/<object-key>)
+     * @param XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSCopySourceEncryptionCustomerKey Encryption key of the object
+     * @param XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * @param XQSCopySourceIfMatch Check whether the copy source matches
+     * @param XQSCopySourceIfModifiedSince Check whether the copy source has been modified
+     * @param XQSCopySourceIfNoneMatch Check whether the copy source does not match
+     * @param XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been modified
+     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSEncryptionCustomerKey Encryption key of the object
+     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * @param XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified
+     * @param XQSFetchSource Fetch source, should be a valid url
+     * @param XQSMoveSource Move source, format (/<bucket-name>/<object-key>)
+     *
+     */
     public static class PutObjectInput extends RequestInputModel {
 
         // Object content size
@@ -5447,7 +5559,25 @@ public class Bucket {
                         .getRequestAsync(context, input, callback);
         return requestHandler;
     }
-
+    /*
+     * @param ContentLength Object multipart content length
+     * @param ContentMD5 Object multipart content MD5sum
+     * @param XQSCopyRange Specify range of the source object
+     * @param XQSCopySource Copy source, format (/<bucket-name>/<object-key>)
+     * @param XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSCopySourceEncryptionCustomerKey Encryption key of the object
+     * @param XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * @param XQSCopySourceIfMatch Check whether the Etag of copy source matches the specified value
+     * @param XQSCopySourceIfModifiedSince Check whether the copy source has been modified since the specified date
+     * @param XQSCopySourceIfNoneMatch Check whether the Etag of copy source does not matches the specified value
+     * @param XQSCopySourceIfUnmodifiedSince Check whether the copy source has not been unmodified since the specified date
+     * @param XQSEncryptionCustomerAlgorithm Encryption algorithm of the object
+     * @param XQSEncryptionCustomerKey Encryption key of the object
+     * @param XQSEncryptionCustomerKeyMD5 MD5sum of encryption key
+     * @param PartNumber Object multipart upload part number
+     * @param UploadID Object multipart upload ID
+     *
+     */
     public static class UploadMultipartInput extends RequestInputModel {
         // Object multipart upload part number
         // Required
