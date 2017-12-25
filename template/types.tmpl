@@ -29,18 +29,13 @@ public class Types {
     {{range $_, $customizedType := $customizedTypes}}
     public static class {{$customizedType.ID | camelCase}}Model extends RequestInputModel {
 
+      {{template "RenderProperties" passThrough $customizedType "" "query"}}
 
-        {{template "RenderProperties" passThrough $customizedType "" "query"}}
-
-        @Override
-        public String validateParam() {
-            {{template "ValidateCustomizedType" $customizedType}}
-            return null;
-        }
+      @Override
+      public String validateParam() {
+          {{template "ValidateCustomizedType" $customizedType}}
+          return null;
+      }
     }
     {{end}}
-
-
 }
-
-
