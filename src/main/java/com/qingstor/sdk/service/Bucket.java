@@ -5739,10 +5739,8 @@ public class Bucket {
      *     https://docs.qingcloud.com/qingstor/api/common/signature.html
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
-
         RequestHandler requestHandler =
                 this.GetObjectBySignatureUrlRequest(objectName, null, expires);
-
         return requestHandler.getExpiresRequestUrl();
     }
 
