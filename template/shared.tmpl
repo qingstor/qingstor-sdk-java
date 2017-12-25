@@ -769,6 +769,119 @@
                     {{if $response.Body.Description -}}
                         // {{$response.Body.Description}}
                     {{- end}}
+
+                    {{if eq $opID "GetObject"}}
+                        /**
+                        * deprecated, please use setCacheControl(String cacheControl)
+                        * @param responseCacheControl cacheControl
+                        */
+                        @Deprecated
+                        public void setResponseCacheControl(String responseCacheControl) {
+                            cacheControl = responseCacheControl;
+                        }
+
+                        /**
+                        * deprecated, please use getCacheControl()
+                        * @return cacheControl
+                        */
+                        @Deprecated
+                        public String getResponseCacheControl() {
+                            return cacheControl;
+                        } // Specified the Content-Disposition response header
+
+                        /**
+                        * deprecated, please use setContentDisposition(String contentDisposition)
+                        * @param responseContentDisposition contentDisposition
+                        */
+                        @Deprecated
+                        public void setResponseContentDisposition(String responseContentDisposition) {
+                            contentDisposition = responseContentDisposition;
+                        }
+
+                        /**
+                        * deprecated, please use getContentDisposition()
+                        * @return contentDisposition
+                        */
+                        @Deprecated
+                        public String getResponseContentDisposition() {
+                            return contentDisposition;
+                        } // Specified the Content-Disposition header
+
+                        /**
+                        * deprecated, please use setContentEncoding(String contentEncoding)
+                        * @param responseContentEncoding contentEncoding
+                        */
+                        @Deprecated
+                        public void setResponseContentEncoding(String responseContentEncoding) {
+                            contentEncoding = responseContentEncoding;
+                        }
+
+                        /**
+                        * deprecated, please use getContentEncoding()
+                        * @return contentEncoding
+                        */
+                        @Deprecated
+                        public String getResponseContentEncoding() {
+                            return contentEncoding;
+                        } // Specified the Content-Language response header
+
+                        /**
+                        * deprecated, please use setContentLanguage(String contentLanguage)
+                        * @param responseContentLanguage contentLanguage
+                        */
+                        @Deprecated
+                        public void setResponseContentLanguage(String responseContentLanguage) {
+                            contentLanguage = responseContentLanguage;
+                        }
+
+                        /**
+                        * deprecated, please use getContentLanguage()
+                        * @return contentLanguage
+                        */
+                        @Deprecated
+                        public String getResponseContentLanguage() {
+                            return contentLanguage;
+                        } // Specified the Content-Type response header
+
+                        /**
+                        * deprecated, please use setContentType(String contentType)
+                        * @param responseContentType contentType
+                        */
+                        @Deprecated
+                        public void setResponseContentType(String responseContentType) {
+                            contentType = responseContentType;
+                        }
+
+                        /**
+                        * deprecated, please use getContentType()
+                        * @return contentType
+                        */
+                        @Deprecated
+                        public String getResponseContentType() {
+                            return contentType;
+                        } // Specified the Expires response header
+
+                        /**
+                        * deprecated, please use setExpires(String expires)
+                        * @param responseExpires expires
+                        */
+                        @Deprecated
+                        public void setResponseExpires(String responseExpires) {
+                            expires = responseExpires;
+                        }
+
+                        /**
+                        * deprecated, please use getExpires()
+                        * @return expires
+                        */
+                        @Deprecated
+                        public String getResponseExpires() {
+                            return expires;
+                        }
+
+                    {{- end}}
+
+
                     private  java.io.InputStream bodyInputStream;
 
                     /**
