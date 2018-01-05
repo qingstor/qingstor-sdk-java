@@ -13,7 +13,7 @@
 - [初始化服务](./example/service_zh.md)
 - [创建一个 Bucket](./example/create_bucket_zh.md)
 - [上传文件](./example/upload_zh.md)
-- [上传文件时配置文件默认下载名称](./example/upload_zh.md)
+- [上传文件时配置文件默认下载名称](./example/put_object_and_set_default_download_name_zh.md)
 - [下载文件](./example/download_zh.md)
 - [获取文件下载地址并重命名](./example/GetObjectUrl_zh.md)
 - [删除文件](./example/delete_object_zh.md)
