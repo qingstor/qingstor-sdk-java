@@ -5,7 +5,9 @@ All notable changes to QingStor SDK for JAVA will be documented in this file.
 
 ### Fixed
 
-- Fixed the encoding problem.
+- Fixed the encoding problem when set the http header with key "content-disposition".
+
+  (The java method corresponding to: ``` Bucket#GetObjectInput#setResponseContentDisposition(String); ``` ).
 
 ### Add
 
