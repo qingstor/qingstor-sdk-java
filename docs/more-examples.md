@@ -33,6 +33,7 @@ Each API function take a Input struct and return an Output struct. The Input str
     - [GET Object](./example/GetObject.md)
     - [GET Object Download Url](./example/GetObjectUrl.md)
     - [PUT Object](./example/PutObject.md)
+    - [PUT Object And Set Default Download Name](./example/put_object_and_set_default_download_name.md)
     - [PUT Object - Copy](./example/CopyObject.md)
     - [PUT Object - Move](./example/MoveObject.md)
     - PUT Object - Fetch

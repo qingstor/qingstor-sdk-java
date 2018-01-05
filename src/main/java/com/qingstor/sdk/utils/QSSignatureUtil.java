@@ -67,19 +67,19 @@ public class QSSignatureUtil {
                 if (count != 0) {
                     sbStringToSign.append("&");
                 }
-                if ("response-content-disposition".equals(key)){
-                    sbStringToSign
-                            .append(key)
-                            .append("=")
-                            .append(parameters.get(key));
-                }else {
+//                if ("response-content-disposition".equals(key)){
+//                    sbStringToSign
+//                            .append(key)
+//                            .append("=")
+//                            .append(parameters.get(key));
+//                }else {
                     sbStringToSign
                             .append(QSStringUtil.percentEncode(key, QSConstant.ENCODING_UTF8))
                             .append("=")
                             .append(
                                     QSStringUtil.percentEncode(
                                             parameters.get(key), QSConstant.ENCODING_UTF8));
-                }
+//                }
                 count++;
             }
         } catch (UnsupportedEncodingException e) {
