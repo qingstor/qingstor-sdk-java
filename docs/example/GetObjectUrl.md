@@ -41,10 +41,9 @@ To get a url for downloading only, use the method below.
 
 ```
 Bucket.GetObjectInput inputs = new Bucket.GetObjectInput();
-String fileName = "测试图片(测试).jpg";
-String urlName = URLEncoder.encode(fileName, "utf-8");
-inputs.setResponseContentDisposition("attachment;filename=" + urlName);
-RequestHandler handle = bucket.GetObjectBySignatureUrlRequest("测试图片(测试).jpg", inputs, System.currentTimeMillis() + 10000);
+String keyName = QSStringUtil.percentEncode("测试图片(测试).jpg", "utf-8");
+inputs.setResponseContentDisposition(String.format("attachment; filename=\"%s\"; filename*=utf-8''%s", keyName, keyName));
+RequestHandler handle = bucket.GetObjectBySignatureUrlRequest("测试图片(测试).jpg", inputs, System.currentTimeMillis()/1000 + 10000);
 String tempUrl = handle.getExpiresRequestUrl();
 
 ```
