@@ -70,7 +70,7 @@ public class QSMultiPartUploadRequestBody implements QSRequestBody {
 
                     requestBody =
                             new InputStreamUploadBody(
-                                    contentType, (InputStream) bodyObj, contentLength);
+                                    contentType, (InputStream) bodyObj, contentLength, offset);
 
                 } else {
                     String jsonStr = QSStringUtil.objectToJson(key, bodyObj);
