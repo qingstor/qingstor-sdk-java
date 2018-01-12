@@ -636,6 +636,46 @@
                 {{template "RenderProperties" passThrough $data `` "query"}}
             {{end}}
 
+        {{if eq $opID "UploadMultipart" -}}
+        private Long fileOffset = -1L;
+
+        /**
+         * You can set the offset of a file here. <br>
+         * Then use setContentLength() to get a part of a file.
+         */
+        public void setFileOffset(Long fileOffset){
+            this.fileOffset = fileOffset;
+        }
+
+        /**
+         * Get the offset of the File or stream(default = -1).
+         * @return the offset of the File or stream
+         */
+        @ParamAnnotation(paramType = "query",paramName = "file_offset")
+        public Long getFileOffset() {
+            return fileOffset;
+        }
+
+        /**
+         * Set the File parts to update.
+         * @param bodyInputFilePart File part to update
+         */
+        public void setBodyInputFilePart(File bodyInputFilePart) {
+            this.bodyInputFile = bodyInputFilePart;
+            fileOffset = 0L;
+        }
+
+        /**
+         * Get the File will be updated.
+         * @return the File part will be updated
+         */
+        @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
+        public File getBodyInputFilePart() {
+            return bodyInputFile;
+        }
+
+        {{- end}}
+
             {{if $operation.Request.Headers.Properties | len}}
                 {{- $data := $operation.Request.Headers -}}
                 {{template "RenderProperties" passThrough $data `` "header"}}
@@ -702,11 +742,18 @@
                 }
 
                 /**
-                * Set the File to update.
+                * Set the File to update. <br>
+                {{if eq $opID "UploadMultipart" -}}
+                * Deprecated, please use setBodyInputFilePart() to upload multi part. <br>
+                * Then setFileOffset() and setContentLength() to get a part of a file or stream.
+                {{- end}}
                 * @param bodyInputFile File to update
                 */
+                {{if eq $opID "UploadMultipart" -}}
+                @Deprecated
+                {{- end}}
                 public void setBodyInputFile(File bodyInputFile) {
-                    this.bodyInputFile=bodyInputFile;
+                    this.bodyInputFile = bodyInputFile;
                 }
                 private  java.io.InputStream bodyInputStream;
 
