@@ -5500,6 +5500,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
+     * field ContentDisposition <br>
      */
     public static class PutObjectInput extends RequestInputModel {
 
@@ -5717,6 +5718,17 @@ public class Bucket {
             return this.xQSMoveSource;
         }
 
+        private String contentDisposition;
+
+        public void setContentDisposition(String contentDisposition) {
+            this.contentDisposition = contentDisposition;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-disposition")
+        public String getContentDisposition() {
+            return this.contentDisposition;
+        }
+
         // The request body
         private File bodyInputFile;
 
@@ -5731,7 +5743,7 @@ public class Bucket {
         }
 
         /**
-         * Set the File to update.
+         * Set the File to update. <br>
          *
          * @param bodyInputFile File to update
          */
@@ -5790,6 +5802,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
+     * field ContentDisposition <br>
      */
     public static class PutObjectOutput extends OutputModel {
 
@@ -6004,6 +6017,46 @@ public class Bucket {
             return this.uploadID;
         }
 
+        private Long fileOffset = -1L;
+
+        /**
+         * You can set the offset of a file here. <br>
+         * Then use setContentLength() to get a part of a file.
+         */
+        public void setFileOffset(Long fileOffset) {
+            this.fileOffset = fileOffset;
+        }
+
+        /**
+         * Get the offset of the File or stream(default = -1).
+         *
+         * @return the offset of the File or stream
+         */
+        @ParamAnnotation(paramType = "query", paramName = "file_offset")
+        public Long getFileOffset() {
+            return fileOffset;
+        }
+
+        /**
+         * Set the File parts to update.
+         *
+         * @param bodyInputFilePart File part to update
+         */
+        public void setBodyInputFilePart(File bodyInputFilePart) {
+            this.bodyInputFile = bodyInputFilePart;
+            fileOffset = 0L;
+        }
+
+        /**
+         * Get the File will be updated.
+         *
+         * @return the File part will be updated
+         */
+        @ParamAnnotation(paramType = "body", paramName = "BodyInputFile")
+        public File getBodyInputFilePart() {
+            return bodyInputFile;
+        }
+
         // Object multipart content length
 
         private Long contentLength;
@@ -6187,10 +6240,13 @@ public class Bucket {
         }
 
         /**
-         * Set the File to update.
+         * Set the File to update. <br>
+         * Deprecated, please use setBodyInputFilePart() to upload multi part. <br>
+         * Then setFileOffset() and setContentLength() to get a part of a file or stream.
          *
          * @param bodyInputFile File to update
          */
+        @Deprecated
         public void setBodyInputFile(File bodyInputFile) {
             this.bodyInputFile = bodyInputFile;
         }

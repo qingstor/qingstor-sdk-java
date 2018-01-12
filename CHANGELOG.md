@@ -1,6 +1,25 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.4] - 2018-01-13
+
+### Fixed
+- Fixed the problem of multi uploading that can not set parts of file correctly.
+
+  Visit below to know more.
+
+  [English Version](docs/example/MultipartUpload.md)
+  [Chinese Version](docs/example/MultipartUpload_zh.md)
+
+### Add
+
+- Add some examples.
+
+    You can see the new examples here:
+
+    [English Version](docs/more-examples.md)
+    [Chinese Version](docs/guide_zh.md)
+
 ## [v2.2.3] - 2018-01-05
 
 ### Fixed
