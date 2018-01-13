@@ -32,6 +32,7 @@ Each API function take a Input struct and return an Output struct. The Input str
 
     - [GET Object](./example/GetObject.md)
     - [GET Object Download Url](./example/GetObjectUrl.md)
+    - [GET Object Multi](./example/GetDownObjectMulti.md)
     - [PUT Object](./example/PutObject.md)
     - [PUT Object And Set Default Download Name](./example/put_object_and_set_default_download_name.md)
     - [PUT Object - Copy](./example/CopyObject.md)
@@ -47,4 +48,6 @@ Each API function take a Input struct and return an Output struct. The Input str
        - List Multipart
        - Abort Multipart Upload
        - Complete Multipart Upload
+- [Encryption](./example/Encryption.md)
+- [Sign With Server](./example/sign_with_server.md)
 
