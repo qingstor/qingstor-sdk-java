@@ -48,6 +48,7 @@ public class QSConstant {
     public static final String PARAM_KEY_USER_AGENT = "User-Agent";
     public static final String PARAM_KEY_EXPIRES = "expires";
     public static final String PARAM_KEY_PART_NUMBER = "part_number";
+    public static final String PARAM_KEY_FILE_OFFSET = "file_offset";
 
     public static final String BUCKET_NAME_REPLACE = "<bucket-name>";
     public static final String OBJECT_NAME_REPLACE = "<object-key>";
