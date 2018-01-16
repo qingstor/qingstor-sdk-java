@@ -1,6 +1,25 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.4] - 2018-01-13
+
+### Fixed
+- Fix improper design of multipart upload interface. Now we allow to upload either using offsets to a file or using slices of large content that stored separately.
+
+  Visit below links to know more.
+
+  [English Version](docs/example/MultipartUpload.md)
+  [Chinese Version](docs/example/MultipartUpload_zh.md)
+
+### Add
+
+- Add some examples.
+
+    You can see the new examples here:
+
+    [English Version](docs/more-examples.md)
+    [Chinese Version](docs/guide_zh.md)
+
 ## [v2.2.3] - 2018-01-05
 
 ### Fixed
