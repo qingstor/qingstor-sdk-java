@@ -17,6 +17,12 @@
 *****/
 package com.qingstor.sdk.request.impl;
 
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.request.QSRequestBody;
+import com.qingstor.sdk.utils.QSLoggerUtil;
+import com.qingstor.sdk.utils.QSStringUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,17 +31,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.json.JSONObject;
-
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.request.QSRequestBody;
-import com.qingstor.sdk.utils.QSLoggerUtil;
-import com.qingstor.sdk.utils.QSStringUtil;
-
-import okhttp3.FormBody;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.internal.http.HttpMethod;
 
@@ -59,7 +55,7 @@ public class QSMultiPartUploadRequestBody implements QSRequestBody {
             
             int partNumber =
                     Integer.parseInt(queryParams.get(QSConstant.PARAM_KEY_PART_NUMBER) + "");
-
+            long offset = Long.parseLong(queryParams.get(QSConstant.PARAM_KEY_FILE_OFFSET) + "");
             while (iterator.hasNext()) {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 String key = (String) entry.getKey();
@@ -67,30 +63,14 @@ public class QSMultiPartUploadRequestBody implements QSRequestBody {
                 if (bodyObj instanceof String) {
                     requestBody = RequestBody.create(mediaType, bodyObj.toString());
                 } else if (bodyObj instanceof File) {
-
-                    RandomAccessFile rFile = null;
-                    try {
-                        rFile = new RandomAccessFile((File) bodyObj, "r");
-                        rFile.seek(contentLength * partNumber);
-                        long contentLeft =
-                                ((File) bodyObj).length() - contentLength * (partNumber + 1);
-                        long readContentLength = contentLength;
-                        if (contentLeft < 0) {
-                            readContentLength += contentLeft;
-                            readContentLength = readContentLength > 0 ? readContentLength : 0;
-                        }
-                        requestBody =
-                                new MultiFileuploadRequestBody(contentType, rFile, readContentLength);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        throw new QSException(e.getMessage());
-                    }
-
+                    if (contentLength == 0) contentLength = ((File) bodyObj).length();
+                    if (offset < 0) offset = contentLength * partNumber;
+                    requestBody = getSeekFileRequestBody(contentType, contentLength, offset, (File) bodyObj);
                 } else if (bodyObj instanceof InputStream) {
 
                     requestBody =
                             new InputStreamUploadBody(
-                                    contentType, (InputStream) bodyObj, contentLength);
+                                    contentType, (InputStream) bodyObj, contentLength, offset);
 
                 } else {
                     String jsonStr = QSStringUtil.objectToJson(key, bodyObj);
@@ -107,7 +87,29 @@ public class QSMultiPartUploadRequestBody implements QSRequestBody {
         return null;
 	}
 
-	public Object getBodyContent(Map bodyContent) throws QSException {
+    private RequestBody getSeekFileRequestBody(String contentType, long contentLength, long offset, File bodyObj) throws QSException {
+        RequestBody requestBody;
+        RandomAccessFile rFile = null;
+        try {
+            rFile = new RandomAccessFile(bodyObj, "r");
+            rFile.seek(offset);
+            long contentLeft =
+                    bodyObj.length() - offset;
+            long readContentLength = contentLength;
+            if (contentLeft < 0) {
+                readContentLength += contentLeft;
+                readContentLength = readContentLength > 0 ? readContentLength : 0;
+            }
+            requestBody =
+                    new MultiFileuploadRequestBody(contentType, rFile, readContentLength);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new QSException(e.getMessage());
+        }
+        return requestBody;
+    }
+
+    public Object getBodyContent(Map bodyContent) throws QSException {
         Iterator iterator = bodyContent.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();

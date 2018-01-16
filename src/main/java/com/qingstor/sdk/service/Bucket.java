@@ -3172,6 +3172,41 @@ public class Bucket {
             return this.uploadID;
         }
 
+        public CompleteMultipartUploadInput() {}
+
+        /**
+         * The constructor will auto set values of upload id and body input.
+         *
+         * @param multipart_upload_id upload id
+         * @param partsCount count of multi parts
+         * @param startIndex start of part number's index
+         */
+        public CompleteMultipartUploadInput(
+                String multipart_upload_id, int partsCount, int startIndex) {
+            this.setUploadID(multipart_upload_id);
+            this.setBodyInput(getCompleteMultipartUploadContent(partsCount, startIndex));
+        }
+
+        /**
+         * You can get the json content to complete multipart uploading. <br>
+         *
+         * @param partsCount count of all the uploaded parts
+         * @param startIndex start of part number's index
+         * @return content to complete multipart uploading
+         */
+        public String getCompleteMultipartUploadContent(int partsCount, int startIndex) {
+            if (partsCount < 1 || startIndex < 0) return null;
+
+            StringBuilder uploadJson = new StringBuilder("{\"object_parts\":[");
+            for (int i = 0; i < partsCount; i++) {
+                uploadJson.append("{\"part_number\":").append(startIndex++).append("}");
+                if (i < partsCount - 1) uploadJson.append(",");
+                else uploadJson.append("]}");
+            }
+
+            return uploadJson.toString();
+        }
+
         // MD5sum of the object part
 
         private String eTag;
@@ -5731,7 +5766,7 @@ public class Bucket {
         }
 
         /**
-         * Set the File to update.
+         * Set the File to update. <br>
          *
          * @param bodyInputFile File to update
          */
@@ -6004,6 +6039,46 @@ public class Bucket {
             return this.uploadID;
         }
 
+        private Long fileOffset = -1L;
+
+        /**
+         * You can set the offset of a file here. <br>
+         * Then use setContentLength() to get a part of a file.
+         */
+        public void setFileOffset(Long fileOffset) {
+            this.fileOffset = fileOffset;
+        }
+
+        /**
+         * Get the offset of the File or stream(default = -1).
+         *
+         * @return the offset of the File or stream
+         */
+        @ParamAnnotation(paramType = "query", paramName = "file_offset")
+        public Long getFileOffset() {
+            return fileOffset;
+        }
+
+        /**
+         * Set the File parts to update.
+         *
+         * @param bodyInputFilePart File part to update
+         */
+        public void setBodyInputFilePart(File bodyInputFilePart) {
+            this.bodyInputFile = bodyInputFilePart;
+            fileOffset = 0L;
+        }
+
+        /**
+         * Get the File will be updated.
+         *
+         * @return the File part will be updated
+         */
+        @ParamAnnotation(paramType = "body", paramName = "BodyInputFile")
+        public File getBodyInputFilePart() {
+            return bodyInputFile;
+        }
+
         // Object multipart content length
 
         private Long contentLength;
@@ -6187,10 +6262,13 @@ public class Bucket {
         }
 
         /**
-         * Set the File to update.
+         * Set the File to update. <br>
+         * Deprecated, please use setBodyInputFilePart() to upload multi part. <br>
+         * Then setFileOffset() and setContentLength() to get a part of a file or stream.
          *
          * @param bodyInputFile File to update
          */
+        @Deprecated
         public void setBodyInputFile(File bodyInputFile) {
             this.bodyInputFile = bodyInputFile;
         }
