@@ -11,9 +11,9 @@
  */
 package com.qingstor.sdk.request.impl;
 
-import java.io.IOException;
-
 import com.qingstor.sdk.request.BodyProgressListener;
+
+import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -27,7 +27,6 @@ public class ProgressRequestBody extends RequestBody {
 
 	private BodyProgressListener listener;
 
-	
 	public ProgressRequestBody(RequestBody requestBody, BodyProgressListener listener) {
 		
 		this.requestBody = requestBody;
@@ -55,6 +54,7 @@ public class ProgressRequestBody extends RequestBody {
 			long writeSize = 0;
 			while (writeSize + blockSize < size) {
 				buffer.copyTo(bufferedSink.buffer(), writeSize, blockSize);
+                bufferedSink.flush();
 				writeSize += blockSize;
 				listener.onProgress(writeSize, size);
 			}
