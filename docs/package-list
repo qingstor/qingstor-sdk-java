@@ -7,5 +7,7 @@ com.qingstor.sdk.model
 com.qingstor.sdk.request
 com.qingstor.sdk.request.impl
 com.qingstor.sdk.service
+com.qingstor.sdk.upload
+com.qingstor.sdk.upload.impl
 com.qingstor.sdk.utils
 com.test
