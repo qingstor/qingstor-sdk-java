@@ -39,7 +39,6 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
         long filePosition = 0;
         for (int i = 0; filePosition < contentLength; i++) {
             // Last part can be less than 4 MB. Adjust part size.
-            uploadJson.append("{\"part_number\":").append(i).append("}").append(",");
             partSize = Math.min(partSize, (contentLength - filePosition));
             Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
             input.setBodyInputFilePart(file);
