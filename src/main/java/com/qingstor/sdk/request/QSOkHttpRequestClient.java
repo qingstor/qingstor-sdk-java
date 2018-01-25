@@ -155,12 +155,12 @@ public class QSOkHttpRequestClient {
             fillResponseValue2Object(response, model);
             return model;
         } catch (Exception e) {
-            e.printStackTrace();
-            logger.log(Level.SEVERE, e.getMessage());
             if (e instanceof CancellationHandler.CancellationException) {
                 fillResponseCallbackModel(QSConstant.REQUEST_ERROR_CANCELLED, e.getMessage(), model);
                 return model;
             } else {
+                e.printStackTrace();
+                logger.log(Level.SEVERE, e.getMessage());
                 throw new QSException(e.getMessage());
             }
         }
