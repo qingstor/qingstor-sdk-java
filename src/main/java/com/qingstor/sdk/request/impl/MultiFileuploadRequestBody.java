@@ -17,16 +17,14 @@
 *****/
 package com.qingstor.sdk.request.impl;
 
+import com.qingstor.sdk.utils.QSLoggerUtil;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.logging.Logger;
 
-import com.qingstor.sdk.utils.QSLoggerUtil;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.internal.Util;
 import okio.BufferedSink;
 
 /**
@@ -79,6 +77,5 @@ public class MultiFileuploadRequestBody extends RequestBody {
 			}
 		}
 
-		Util.closeQuietly(file);
 	}
 }
