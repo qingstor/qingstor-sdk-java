@@ -1,6 +1,28 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.5] - 2018-01-25
+
+### Fixed
+
+- Fix the problem that call incorrect progress of multipart upload.
+
+### Add
+
+- Add a class 'CancellationHandler' to handle cancellation when upload.
+
+  Visit below links to get examples.
+
+  [English Version](docs/example/UploadProgressCancellation.md)
+  [Chinese Version](docs/example/UploadProgressCancellation_zh.md)
+
+- Add upload manager to auto upload which will keep the position last uploaded.
+
+    Visit below links to get examples.
+
+    [English Version](docs/example/AutoUpload.md)
+    [Chinese Version](docs/example/AutoUpload_zh.md)
+
 ## [v2.2.4] - 2018-01-13
 
 ### Fixed
