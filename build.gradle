@@ -97,7 +97,7 @@ dependencies {
     compile 'org.json:json:20140107'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'org.yaml:snakeyaml:1.17'
-
+    compile 'com.google.code.gson:gson:2.8.2'
     formatComile 'com.google.googlejavaformat:google-java-format:1.1:all-deps'
 
     providedCompile 'org.json:json:20140107'
