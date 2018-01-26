@@ -11,9 +11,10 @@
  */
 package com.qingstor.sdk.request.impl;
 
-import java.io.IOException;
-
 import com.qingstor.sdk.request.BodyProgressListener;
+import com.qingstor.sdk.request.CancellationHandler;
+
+import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -27,11 +28,15 @@ public class ProgressRequestBody extends RequestBody {
 
 	private BodyProgressListener listener;
 
-	
-	public ProgressRequestBody(RequestBody requestBody, BodyProgressListener listener) {
+	private CancellationHandler cancellationHandler;
+
+	public ProgressRequestBody(RequestBody requestBody,
+                               BodyProgressListener listener,
+                               CancellationHandler cancellationHandler) {
 		
 		this.requestBody = requestBody;
 		this.listener = listener;
+		this.cancellationHandler = cancellationHandler;
 	}
 
 	@Override
@@ -54,10 +59,16 @@ public class ProgressRequestBody extends RequestBody {
 			int blockSize = 2048;
 			long writeSize = 0;
 			while (writeSize + blockSize < size) {
+			    if (cancellationHandler != null && cancellationHandler.isCancelled())
+			        throw new CancellationHandler.CancellationException();
 				buffer.copyTo(bufferedSink.buffer(), writeSize, blockSize);
+                bufferedSink.flush();
 				writeSize += blockSize;
 				listener.onProgress(writeSize, size);
 			}
+
+            if (cancellationHandler != null && cancellationHandler.isCancelled())
+                throw new CancellationHandler.CancellationException();
 			buffer.copyTo(bufferedSink.buffer(), writeSize, size - writeSize);
 			bufferedSink.flush();
 			listener.onProgress(writeSize, size);

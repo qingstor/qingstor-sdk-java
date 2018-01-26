@@ -38,7 +38,7 @@ Now you are ready to code. You can read the detailed guides in the list below to
 - [Signature Server Guide](docs/qingstor_signature_server_example.md)
 - [More examples](docs/more-examples.md)
 
-Checkout our [releases](https://github.com/yunify/qingstor-sdk-java/releases) and [change logs](https://github.com/yunify/qingstor-sdk-java/blob/master/CHANGELOGS) for information about the latest features, bug fixes and new ideas.
+Checkout our [releases](https://github.com/yunify/qingstor-sdk-java/releases) and [change logs](./CHANGELOG.md) for information about the latest features, bug fixes and new ideas.
 
 ## Reference Documentations
 
