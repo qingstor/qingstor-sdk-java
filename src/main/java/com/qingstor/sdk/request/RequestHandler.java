@@ -50,6 +50,8 @@ public class RequestHandler {
 
     private BodyProgressListener progressListener;
 
+    private CancellationHandler cancellationHandler;
+
     private QSRequestBody qsRequestBody;
 
     public RequestHandler(Map context, RequestInputModel paramBean, Class outputClass) throws QSException {
@@ -108,7 +110,7 @@ public class RequestHandler {
     private Request getRequest() throws QSException{
     	RequestBody  body = this.builder.getRequestBody(this.getQsRequestBody());
     	if(this.getProgressListener() != null){
-    		return this.builder.getRequest(new ProgressRequestBody(body,this.progressListener));
+    		return this.builder.getRequest(new ProgressRequestBody(body,this.progressListener, getCancellationHandler()));
     	}
     	return this.builder.getRequest(body);
     }
@@ -171,5 +173,11 @@ public class RequestHandler {
 		this.qsRequestBody = qsRequestBody;
 	}
 
+    public CancellationHandler getCancellationHandler() {
+        return cancellationHandler;
+    }
 
+    public void setCancellationHandler(CancellationHandler cancellationHandler) {
+        this.cancellationHandler = cancellationHandler;
+    }
 }

@@ -149,15 +149,20 @@ public class QSOkHttpRequestClient {
             throws QSException {
         Call okhttpCall = getRequestCall(bSafe, request);
         okhttp3.Response response = null;
-        try {
             OutputModel model = (OutputModel) QSParamInvokeUtil.getOutputModel(outputClass);
+        try {
             response = okhttpCall.execute();
             fillResponseValue2Object(response, model);
             return model;
         } catch (Exception e) {
-            e.printStackTrace();
-            logger.log(Level.SEVERE, e.getMessage());
-            throw new QSException(e.getMessage());
+            if (e instanceof CancellationHandler.CancellationException) {
+                fillResponseCallbackModel(QSConstant.REQUEST_ERROR_CANCELLED, e.getMessage(), model);
+                return model;
+            } else {
+                e.printStackTrace();
+                logger.log(Level.SEVERE, e.getMessage());
+                throw new QSException(e.getMessage());
+            }
         }
     }
 
@@ -180,7 +185,7 @@ public class QSOkHttpRequestClient {
                 new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        onOkhttpFailure(e.getMessage(), callBack);
+                        onOkhttpFailure(e, callBack);
                     }
 
                     @Override
@@ -194,7 +199,7 @@ public class QSOkHttpRequestClient {
                             }
                         } catch (Exception e) {
                             logger.log(Level.SEVERE, e.getMessage());
-                            onOkhttpFailure(e.getMessage(), callBack);
+                            onOkhttpFailure(e, callBack);
                         } finally {
                             if (response != null) {
                                 Util.closeQuietly(response.body().source());
@@ -205,11 +210,15 @@ public class QSOkHttpRequestClient {
         return null;
     }
 
-    private void onOkhttpFailure(String message, ResponseCallBack callBack) {
+    private void onOkhttpFailure(Exception e, ResponseCallBack callBack) {
         try {
             if (callBack != null) {
+                //Check error code here.
+                int errorCode = QSConstant.REQUEST_ERROR_CODE;
+                if (e instanceof CancellationHandler.CancellationException)
+                    errorCode = QSConstant.REQUEST_ERROR_CANCELLED; // Cancelled by users.
                 OutputModel m = QSParamInvokeUtil.getOutputModel(callBack);
-                fillResponseCallbackModel(QSConstant.REQUEST_ERROR_CODE, message, m);
+                fillResponseCallbackModel(errorCode, e.getMessage(), m);
                 callBack.onAPIResponse(m);
             }
         } catch (Exception ee) {
@@ -233,6 +242,7 @@ public class QSOkHttpRequestClient {
                         QSJSONUtil.jsonFillValue2Object(responseInfo, target);
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             Headers responceHeaders = response.headers();
