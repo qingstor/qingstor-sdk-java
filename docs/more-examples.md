@@ -1,13 +1,12 @@
 ## SDK Example
 
-Each API function take a Input struct and return an Output struct. The Input struct consists of request params, request headers and request elements, and the Output holds the HTTP status code, response headers, response elements and error message (if error occurred).
+Each API function take an Input struct and return an Output struct. The Input struct consists of request params, request headers and request elements, and the Output holds the HTTP status code, response headers, response elements and error message (if error occurred).
 
 - [QingStor](./example/QingStor.md)
 - Bucket
     - [GET Bucket (List Objects)](./example/ListObjects.md)
     - PUT Bucket
     - DELETE Bucket
-    - [Delete Multiple Objects](./example/DeleteMulitpleObjects.md)
     - HEAD Bucket
     - GET Bucket Statistics
     - List Multipart Uploads
@@ -34,11 +33,14 @@ Each API function take a Input struct and return an Output struct. The Input str
     - [GET Object Download Url](./example/GetObjectUrl.md)
     - [GET Object Multi](./example/GetDownObjectMulti.md)
     - [PUT Object](./example/PutObject.md)
-    - [PUT Object And Set Default Download Name](./example/put_object_and_set_default_download_name.md)
+    - [PUT Object - Set Default Download Name](./example/put_object_and_set_default_download_name.md)
     - [PUT Object - Copy](./example/CopyObject.md)
     - [PUT Object - Move](./example/MoveObject.md)
+    - [PUT Object - Call Progress And Cancellation](./example/UploadProgressCancellation.md)
+    - [PUT Object - Auto Upload With Upload Manager](./example/AutoUpload.md)
     - PUT Object - Fetch
     - [DELETE Object](./example/DeleteObject.md)
+    - [Delete Multiple Objects](./example/DeleteMulitpleObjects.md)
     - HEAD Object
     - OPTIONS Object
     - [MultipartUpload](./example/MultipartUpload.md)

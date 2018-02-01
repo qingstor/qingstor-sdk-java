@@ -39,7 +39,6 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
         long filePosition = 0;
         for (int i = 0; filePosition < contentLength; i++) {
             // Last part can be less than 4 MB. Adjust part size.
-            uploadJson.append("{\"part_number\":").append(i).append("}").append(",");
             partSize = Math.min(partSize, (contentLength - filePosition));
             Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
             input.setBodyInputFilePart(file);
@@ -106,7 +105,7 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
 
 您也可设置 body input stream 来代替 File 对象。
 在每次分段上传后，我们SDK会关闭已读写的流。
-故同一个流只能使用一次。请勿请同一个流二次设置。
+故同一个流只能使用一次。请勿将同一个流二次设置。
 如下示例仅供您参考解决多个流分段上传的问题。
 
 ```
