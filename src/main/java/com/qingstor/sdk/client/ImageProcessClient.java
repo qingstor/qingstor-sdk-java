@@ -21,6 +21,7 @@ import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.service.Bucket.ImageProcessOutput;
+import com.qingstor.sdk.utils.Base64;
 
 public class ImageProcessClient {
     private static final String OPSep = "|";
@@ -39,9 +40,21 @@ public class ImageProcessClient {
         return this.bucket.imageProcess(this.objectName, this.input);
     }
 
+    public void imageProgressAsync(ResponseCallBack<ImageProcessOutput> callback) throws QSException {
+        bucket.imageProcessAsync(objectName, input, callback);
+    }
+
     public RequestHandler imageProcessAsyncRequest(ResponseCallBack<ImageProcessOutput> callback)
             throws QSException {
         return this.bucket.imageProcessAsyncRequest(this.objectName, this.input, callback);
+    }
+
+    public RequestHandler imageProgressRequest() throws QSException {
+        return bucket.imageProcessRequest(objectName, input);
+    }
+
+    public RequestHandler getImageProgressExpiredUrlRequest(long expires) throws QSException {
+        return bucket.imageProcessExpiredUrlRequest(this.objectName, this.input, expires);
     }
 
     public ImageProcessClient info() {
@@ -290,10 +303,11 @@ public class ImageProcessClient {
             sb.append(",p_");
             sb.append(this.opacity);
             sb.append(",t_");
-            sb.append(this.text);
-            sb.append(",c_");
+            sb.append(Base64.encode(text.getBytes()).replace("=", ""));
             if (this.color != null) {
-                sb.append(this.color);
+                sb.append(",c_");
+                String encode = Base64.encode(color.getBytes());
+                sb.append(encode.replace("=", ""));
             }
             return sb.toString();
         }
@@ -352,7 +366,7 @@ public class ImageProcessClient {
             sb.append(",p_");
             sb.append(this.opacity);
             sb.append(",u_");
-            sb.append(this.url);
+            sb.append(Base64.encode(url.getBytes()).replace("=", ""));
             return sb.toString();
         }
     }

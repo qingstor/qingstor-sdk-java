@@ -6488,4 +6488,47 @@ public class Bucket {
         ResourceRequestFactory.getResourceRequest()
                 .sendApiRequestAsync(signaturedRequest, context, callback);
     }
+
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler imageProcessExpiredUrlRequest(
+            String objectName, ImageProcessInput input, long expires) throws QSException {
+
+        if (input == null) {
+            input = new ImageProcessInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "ImageProcess");
+        context.put("APIName", "ImageProcess");
+        context.put("ServiceName", "Image Process");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>/<object-key>?image");
+        context.put("bucketNameInput", this.bucketName);
+        context.put("objectNameInput", objectName);
+
+        if (expires > System.currentTimeMillis() / 1000)
+            context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, ImageProcessOutput.class);
+
+        return requestHandler;
+    }
 }
