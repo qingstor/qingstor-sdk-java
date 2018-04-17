@@ -7,6 +7,7 @@
 以上传文件为例：
 ```
 try {
+    // 第一步: new EvnContext 并设置 zone 和 bucket
     EvnContext evn = new EvnContext("", "");
     Bucket bucket = new Bucket(evn, testZone, "sh-test");
 
@@ -17,25 +18,25 @@ try {
 
     // bucket.putObject(objectName, putObjectInput);
 
-    // 获取请求对象，正常 bucket.putObject(objectName, putObjectInput); 就完成操作
+    // 第二步：获取 RequestHandler，正常 bucket.putObject(objectName, putObjectInput); 就完成操作
     RequestHandler reqHandler = bucket.putObjectAsyncRequest(objectName, putObjectInput,
         output -> {
-            System.out.println("-testSingnature--getMessage---" + output.getMessage());
-            System.out.println("-testSingnature-getRequµestId--" + output.getRequestId());
-            System.out.println("-testSingnature-getCode----" + output.getCode());
-            System.out.println("-testSingnature-getStatueCode----" + output.getStatueCode());
+            System.out.println("getMessage = " + output.getMessage());
+            System.out.println("getRequµestId = " + output.getRequestId());
+            System.out.println("getCode = " + output.getCode());
+            System.out.println("getStatueCode = " + output.getStatueCode());
             });
 
-        // strToSignature 将这个发送到用户的server端
+        // 第三步：获取 strToSignature。将这个字符串发送到用户的 server 端。
         String strToSignature = reqHandler.getStringToSignature();
 
-        // serverAuthorization server端处理返回信息，这里本地模拟
+        // 第四步：serverAuthorization。server 端处理返回信息，这里本地模拟
         String serverAuthorization = QSSignatureUtil.generateSignature("secretKey",
             strToSignature);
 
-        // 将计算的签名设置到request中
+        // 第五步：将计算的签名设置到 request 中
         reqHandler.setSignature("accessKey", serverAuthorization);
-
+        // 第六步：发送请求。异步请求使用 sendAsync() 方法。同步请求使用 send() 方法。
         reqHandler.sendAsync();
 
         } catch (QSException e) {

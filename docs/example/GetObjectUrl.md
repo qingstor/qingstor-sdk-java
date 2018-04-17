@@ -19,23 +19,15 @@ Then you can get  object signature url.
 
 ```
 
-long expiresTime = new Date().getTime() / 1000 + 1000;
+long expiresTime = new Date().getTime() / 1000 + 1000; // Expired in 1000 seconds.
 String objectUrl = bucket.GetObjectSignatureUrl(objectName, expiresTime);
+// Get object by signature url
 
 Bucket.GetObjectOutput output = bucket.GetObjectBySignatureUrl(url);
 
 ```
-get object by signature url
 
-```
-
-Bucket.GetObjectOutput output = bucket.GetObjectBySignatureUrl(url);
-
-
-```
-
-
-If you open the url above in browser, you may see the file view instead of downloading.
+If you open the url above in the browser, you may see the file preview instead of downloading.
 
 To get a url for downloading only, use the method below.
 
