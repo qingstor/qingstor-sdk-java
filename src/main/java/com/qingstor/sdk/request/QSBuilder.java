@@ -314,9 +314,10 @@ public class QSBuilder {
 			EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
 			String expireAuth = this.getSignature();
 			String serviceUrl = evnContext.getRequestUrl();
-			String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
+			String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
 			String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
-			String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
+
+            String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
             //handle url style
 			String storRequestUrl;
             if (QSConstant.PATH_STYLE.equals(requestUrlStyle)){
@@ -326,13 +327,15 @@ public class QSBuilder {
                 storRequestUrl = String.format(storRequestUrl, bucketName);
             }
 			objectName = QSStringUtil.asciiCharactersEncoding(objectName);
-			if (objectName != null && objectName.indexOf("?") > 0) {
+            String requestPath = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
+            requestPath = requestPath.replace("/<bucket-name>", "").replace("/<object-key>", objectName);
+			if (requestPath != null && requestPath.indexOf("?") > 0) {
 				String expiresUrl = String.format(storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
-						objectName, evnContext.getAccessKey(), expiresTime + "", expireAuth);
+						requestPath, evnContext.getAccessKey(), expiresTime + "", expireAuth);
 				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
 			} else {
 				String expiresUrl = String.format(storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
-						objectName, evnContext.getAccessKey(), expiresTime + "", expireAuth);
+						requestPath, evnContext.getAccessKey(), expiresTime + "", expireAuth);
 				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
 			}
 		} else {

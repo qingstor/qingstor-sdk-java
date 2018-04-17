@@ -4,7 +4,7 @@ You can use class 'UploadManager' to auto upload.
 We will keep the position you last uploaded via interface 'Recorder'('FileRecorder' is an impl of it).
 Next time you upload this file, upload position will start at last kept.
 
-When a file's size is larger than 5 MB, it will be multi uploaded,
+When a file's size is larger than 4 MB(You can change default mulit upload size by the method uploadManager.setPartSize(long size)), it will be multi uploaded,
 else it will be uploaded with a form(will call progress but not save the uploaded position).
 
 UploadManagerCallback ：
