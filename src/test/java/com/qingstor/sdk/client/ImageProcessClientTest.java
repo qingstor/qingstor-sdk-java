@@ -16,6 +16,8 @@
 
 package com.qingstor.sdk.client;
 
+import com.qingstor.sdk.utils.Base64;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,58 +25,59 @@ public class ImageProcessClientTest {
 
     @Test
     public void testBuildOptParamStr() {
+        StringBuilder actionString = new StringBuilder();
         ImageProcessClient ipc = new ImageProcessClient(null, null);
-
+        // Rotate
         ImageProcessClient.RotateParam rotateParam = new ImageProcessClient.RotateParam(90);
         ipc.rotate(rotateParam);
-        Assert.assertEquals(ipc.getInput().getAction(), "rotate:a_90");
-
+        actionString.append("rotate:a_90");
+        Assert.assertEquals(ipc.getInput().getAction(), actionString.toString());
+        // Crop
         ImageProcessClient.CropParam.Builder cropBuilder =
                 new ImageProcessClient.CropParam.Builder();
         ImageProcessClient.CropParam cropParam = cropBuilder.width(300).height(400).build();
         ipc.crop(cropParam);
-        Assert.assertEquals(ipc.getInput().getAction(), "rotate:a_90|crop:w_300,h_400,g_0");
-
+        actionString.append("|crop:w_300,h_400,g_0");
+        Assert.assertEquals(ipc.getInput().getAction(), actionString.toString());
+        // Resize
         ImageProcessClient.ResizeParam.Builder resizeBuilder =
                 new ImageProcessClient.ResizeParam.Builder();
         ImageProcessClient.ResizeParam resizeParam =
                 resizeBuilder.width(500).height(500).mode(1).build();
         ipc.resize(resizeParam);
+        actionString.append("|resize:w_500,h_500,m_1");
         Assert.assertEquals(
-                ipc.getInput().getAction(),
-                "rotate:a_90|crop:w_300,h_400,g_0|resize:w_500,h_500,m_1");
-
+                ipc.getInput().getAction(), actionString.toString());
+        // Format
         ImageProcessClient.FormatParam formatParam = new ImageProcessClient.FormatParam("png");
         ipc.format(formatParam);
+        actionString.append("|format:t_png");
         Assert.assertEquals(
-                ipc.getInput().getAction(),
-                "rotate:a_90|crop:w_300,h_400,g_0|resize:w_500,h_500,m_1|format:t_png");
-
+                ipc.getInput().getAction(), actionString.toString());
+        // Text watermark
+        String markText = "5rC05Y2w5paH5a2X";
         ImageProcessClient.WaterMarkParam.Builder wrb =
-                new ImageProcessClient.WaterMarkParam.Builder("5rC05Y2w5paH5a2X");
+                new ImageProcessClient.WaterMarkParam.Builder(markText);
         ImageProcessClient.WaterMarkParam waterMarkParam = wrb.build();
         ipc.waterMark(waterMarkParam);
+        actionString.append("|watermark:d_150,p_0.25,t_").
+                append(Base64.encode(markText.getBytes()).replace("=", ""));// Do base64 encode to mark text in SDK
         Assert.assertEquals(
-                ipc.getInput().getAction(),
-                "rotate:a_90|crop:w_300,h_400,g_0|resize:w_500,h_500,m_1|format:t_png"
-                        + "|watermark:d_150,p_0.25,t_5rC05Y2w5paH5a2X,c_");
-
-        String encodedText = "aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc";
+                ipc.getInput().getAction(), actionString.toString());
+        // Image watermark
+        String markUrl = "aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc";
         ImageProcessClient.WaterMarkImageParam.Builder wmib =
-                new ImageProcessClient.WaterMarkImageParam.Builder(encodedText);
+                new ImageProcessClient.WaterMarkImageParam.Builder(markUrl);
         ImageProcessClient.WaterMarkImageParam waterMarkImageParam = wmib.build();
         ipc.waterMarkImage(waterMarkImageParam);
+        actionString.append("|watermark_image:l_0,t_0,p_0.25,u_").
+                append(Base64.encode(markUrl.getBytes()).replace("=", ""));// Do base64 encode to mark url in SDK
         Assert.assertEquals(
-                ipc.getInput().getAction(),
-                "rotate:a_90|crop:w_300,h_400,g_0|resize:w_500,h_500,m_1|format:t_png|watermark"
-                        + ":d_150,p_0.25,t_5rC05Y2w5paH5a2X,c_|watermark_image:l_0,t_0,p_0.25,u_aHR0cHM"
-                        + "6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc");
-
+                ipc.getInput().getAction(), actionString.toString());
+        // Get info
         ipc.info();
+        actionString.append("|info");
         Assert.assertEquals(
-                ipc.getInput().getAction(),
-                "rotate:a_90|crop:w_300,h_400,g_0|resize:w_500,h_500,m_1|format:t_png|watermark"
-                        + ":d_150,p_0.25,t_5rC05Y2w5paH5a2X,c_|watermark_image:l_0,t_0,p_0.25,u_aHR0cHM"
-                        + "6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc|info");
+                ipc.getInput().getAction(), actionString.toString());
     }
 }
