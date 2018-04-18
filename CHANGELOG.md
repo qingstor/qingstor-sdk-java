@@ -1,5 +1,19 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
+## [v2.2.6] - 2018-04-17
+
+### Fixed
+
+- Fix generate signed url may miss request uri
+- Add requestHandlers in ImageProgressClient
+- Modify examples
+
+    We fixed a lot of mistakes in examples.
+    And add an example about how to do a image progress.
+    Visit below links to get examples.
+
+    [English Version](docs/more-examples.md)
+    [Chinese Version](docs/guide_zh.md)
 
 ## [v2.2.5] - 2018-01-25
 
