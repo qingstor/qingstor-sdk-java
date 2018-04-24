@@ -1,5 +1,45 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
+
+## [v2.2.7] - 2018-04-18
+
+### Changed
+
+- Modify UploadManager and UploadManagerCallback
+
+    - We make **interface UploadManagerCallback** become a **abstract class**
+
+        Not all of users need sign with server.
+        We make methods "String onSignature(String strToSign)" and "String onAccessKey()" do not auto override.
+        To support java 1.6 as well, default method in interface does not work.
+
+        In summary, interface UploadManagerCallback is a abstract class now.
+
+    - A correct time method added in UploadManagerCallback.
+    - A method to correct time added in UploadManager when sign.
+
+- Modify examples
+
+    Modify examples about how to correct the time of your device.
+
+    If the local time of users' clients are not synchronized with the network time,
+    may occur a signture error.
+
+    Now you can correct the time of your device by below codes.
+
+    ```java
+    requestHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
+    requestHandler.send();
+    ```
+
+    See examples for more info.
+
+    [Sign With Server - English Version](docs/example/sign_with_server.md)
+    [Sign With Server - Chinese Version](docs/example/sign_with_server_zh.md)
+
+    [UploadManager - English Version](docs/example/AutoUpload.md)
+    [UploadManager - Chinese Version](docs/example/AutoUpload_zh.md)
+
 ## [v2.2.6] - 2018-04-17
 
 ### Fixed
