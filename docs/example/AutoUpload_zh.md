@@ -6,12 +6,14 @@
 
 文件大于 4 MB 时会分段进行上传（您可以通过方法 uploadManager.setPartSize(long size) 来设置默认分段上传的大小），否则只会通过表单上传(会回调进度但不能保存断点)。
 
-UploadManagerCallback 的说明：
-- onSignature() 方法：在您使用签名服务器进行签名时，该方法会在每次需要签名时调用。您需要将服务端返回的已签名字符串返回。如不需服务端签名，请返回 null 即可。
+UploadManagerCallback 的默认方法 (Default methods) 说明：
+- onSignature() 方法：在您使用签名服务器进行签名时，请重写该方法。然后将服务端返回的已签名字符串返回。
 
-- onAccessKey() 方法：在您使用签名服务器进行签名时，该方法会在每次需要 access key 时调用。您需要返回 access key 以创建请求。如不需服务端签名，请返回 null 即可。
+- onAccessKey() 方法：在您使用签名服务器进行签名时，请重写该方法。然后返回 access key。
 
-对于在上传客户端不保存 access key 的情况，可以配合 “移动 App 接入方案” https://docs.qingcloud.com/qingstor/solutions/app_integration.html 使用。
+- onCorrectTime() 方法：在您需要校准本地时间时，请重写该方法，并返回服务端时间。
+
+对于在上传客户端不保存 access key 的情况，还可以配合 “移动 App 接入方案” https://docs.qingcloud.com/qingstor/solutions/app_integration.html 使用。
 
 注意：使用 'put()' 方法上传文件时，会创建同步请求来上传。
 
@@ -45,17 +47,20 @@ BodyProgressListener listener = new BodyProgressListener() {
 };
 
 UploadManagerCallback callback = new UploadManagerCallback() {
-    final String TAG = "onAPIResponse";
+    final String TAG = "UploadManagerCallback";
 
     @Override
-    public String onSignature(String strToSign) {
-        // 用签名服务器进行签名时, 发送 'strToSign' 到服务端并返回已签名的字符串。
+    public String onSignature(String strToSign) { // 用服务端进行签名时重写该方法，发送 'strToSign' 到服务端并返回已签名的字符串
         return null;
     }
 
     @Override
-    public String onAccessKey() {
-        // 用服务端进行签名时, 返回 access key.
+    public String onAccessKey() { // 用服务端进行签名时重写该方法，并返回 access key
+        return null;
+    }
+
+    @Override
+    public String onCorrectTime() { // 需要校准本地时间时重写该方法，并返回服务端时间
         return null;
     }
 

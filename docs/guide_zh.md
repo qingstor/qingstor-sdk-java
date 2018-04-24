@@ -70,7 +70,7 @@ Input 对象由请求参数, 请求头和请求体构成, Output 对象包含 HT
 - [数据加密](./example/Encryption_zh.md)
 - [使用服务端签名](./example/sign_with_server_zh.md)
 - 数据处理
-    - [图片处理](./example/image_progress_zh.md)
+    - [图片处理](./example/image_process_zh.md)
     - [第三方数据处理](https://docs.qingcloud.com/qingstor/data_process/third_party/)
         - [图普科技鉴黄服务](https://docs.qingcloud.com/qingstor/data_process/third_party/tupu_porn.html)
 

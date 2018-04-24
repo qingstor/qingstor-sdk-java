@@ -43,7 +43,7 @@ EvnContext evn = EvnContext.loadFromFile("path to yaml");
 EvnContext  evn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 ```
 
-你也可以选择改变 API 的服务器
+你也可以选择更换 API 服务器
 
 ``` java
 EvnContext  moreEvn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
