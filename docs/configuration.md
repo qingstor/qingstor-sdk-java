@@ -22,6 +22,9 @@ connection_retries: 3
 # Valid log levels are "debug", "info", "warn", "error", and "fatal".
 log_level: 'warn'
 
+# Valid request url styles are "virtual_host_style"(default) and "path_style".
+request_url_style: 'path_style'
+
 ```
 
 ## Usage

@@ -1,8 +1,9 @@
-## 基本图片处理
+## Basic Image Process
 
-用于对用户存储于 QingStor 对象存储上的图片进行各种基本处理，例如格式转换，裁剪，翻转，水印等。
+Used for basic image process to images stored in QingStor storage service,
+such as format conversion, image crop, rotate, add a watermark and so on.
 
-目前支持的图片格式有:
+The image formats that are currently supported are these below:
 
 - png
 - tiff
@@ -12,24 +13,28 @@
 - gif
 - svg
 
-> 目前不支持对加密过后的图片进行处理，单张图片最大为 10M 。
+> The image after encryption is not supported to do image process.
 
-您可以参考以下示例使用 ImageProgressClient 对图片进行处理。具体文档说明参考 [API Docs](https://docs.qingcloud.com/qingstor/data_process/image_process/) 。
+> And the maximum size of a picture is 10M.
 
-## 代码片段
+See the demo below to do image process use ImageProgressClient.
+
+See [API Docs](https://docs.qingcloud.com/qingstor/data_process/image_process/) for more information.
+
+## Code Snippet
 
 ```java
-    private void imageProgressClient() throws QSException {
-        EvnContext evn = new EvnContext("key", "secret");
+    private void imageProcessClientDemo() throws QSException {
+        EvnContext evn = new EvnContext("yourAccessKey", "yourSecretKey"); // When you need sign with server, accessKey and secretKey can be empty
         Bucket bucket = new Bucket(
-                evn, sh1a, "bucketName");
+                evn, "zoneName", "bucketName");
         ImageProcessClient client = new ImageProcessClient("head.jpg", bucket);
 
-        // 获取图片信息
+        // Get image info
         Bucket.ImageProcessOutput imageProcessOutput = client.info().imageProcess();
         String result = inputStream2Json(imageProcessOutput.getBodyInputStream());
         if (imageProcessOutput.getStatueCode() >= 200 && imageProcessOutput.getStatueCode() < 300) {
-            // 成功
+            // Success
             ImageInfoBean imageInfo = new Gson().fromJson(result, ImageInfoBean.class);
 
             System.out.println("Width = " + imageInfo.getWidth() + " px");
@@ -38,7 +43,7 @@
             System.out.println("isAlpha = " + imageInfo.isAlpha());
             System.out.println("Type = " + imageInfo.getType());
             System.out.println("Space = " + imageInfo.getSpace());
-        } else { // 失败
+        } else { // Failed
             OutputModel outputModel = new Gson().fromJson(result, OutputModel.class);
             outputModel.setStatueCode(imageProcessOutput.getStatueCode());
 
@@ -50,100 +55,71 @@
             System.out.println("Url = " + outputModel.getUrl());
         }
 
-        // 对图片进行操作
+        // Do image process
         ImageProcessClient actionClient = new ImageProcessClient("head.jpg", bucket);
-        actionClient.crop(new ImageProcessClient.CropParam.Builder() // 裁剪
+        actionClient.crop(new ImageProcessClient.CropParam.Builder() // Image crop
                 .width(100)
                 .height(100)
                 .gravity(0) // 0 = center; 1 = north; 2 = east; 3 = south; 4 = west; 5 = north west;
                             // 6 = north east;7 = south west; 8 = south east;; 9 = auto; default = 0.
                 .build())
-                .rotate(new ImageProcessClient.RotateParam(90)) // 旋转
+                .rotate(new ImageProcessClient.RotateParam(90)) // Rotate
                 .resize(new ImageProcessClient.ResizeParam.Builder() // Resize
                         .width(200)
                         .height(200)
-                        .mode(0) // 0 表示固定宽高，缩略填充；1 表示根据宽高自动调节；
-                                 // 2 表示按照宽高比为 4:4 进行缩略，若 width 和 height 只设置了其中一个，则按照宽度或者高度等比缩放。默认为 0。
+                        .mode(0) // 0 means fixed width, abbreviated filling, 1 for automatic adjustment based on width and height;
+                                 // 2 is abbreviated according to the width to height ratio of 4:4. If only one of the width and height is set, it is scaling according to the width or height. The default is 0.
                         .build())
-                .waterMark(new ImageProcessClient.WaterMarkParam.Builder("text")
+                .waterMark(new ImageProcessClient.WaterMarkParam.Builder("text") // Text watermark
                         .color("#FFFFFF")
                         .dpi(400)
                         .opacity(0.8)
                         .build())
-                .waterMarkImage(new ImageProcessClient.WaterMarkImageParam.Builder("https://www.qingcloud.com/static/assets/images/icons/common/footer_logo.svg")
+                .waterMarkImage(new ImageProcessClient.WaterMarkImageParam.Builder("https://www.qingcloud.com/static/assets/images/icons/common/footer_logo.svg") // Image watermark
                         .left(400)
                         .top(400)
                         .opacity(1)
                     .build())
-                .format(new ImageProcessClient.FormatParam("png")); // 支持的格式: jpeg, png, webp, tiff
+                .format(new ImageProcessClient.FormatParam("png")); // Format. Available: jpeg, png, webp, tiff
 
-        // 获取带过期时间的链接下载图片
-        RequestHandler requestHandler = actionClient.getImageProgressExpiredUrlRequest(System.currentTimeMillis()/1000 + 1000); // 1000 秒后过期
+        // Download image with a expired request url
+        RequestHandler requestHandler = actionClient.getImageProgressExpiredUrlRequest(System.currentTimeMillis()/1000 + 1000);
         System.out.println("Image download url = " + requestHandler.getExpiresRequestUrl());
-        // 建立网络连接下载图片
+        // Download image with a network connection
         Bucket.ImageProcessOutput output = actionClient.imageProcess();
-        try {
-            InputStream bodyInputStream = output.getBodyInputStream();
-            if (output.getStatueCode() >= 200 && output.getStatueCode() < 300) {
-                // 成功，保存图片
-                File ff = new File("Your file kept path");
-                OutputStream out = null;
-
-                out = new FileOutputStream(ff);
-                int bytesRead = 0;
-                byte[] buffer = new byte[1024];
-                while ((bytesRead = bodyInputStream.read(buffer, 0, 1024)) != -1) {
-                    out.write(buffer, 0, bytesRead);
-                }
-                out.flush();
-                out.close();
-            } else {
-                // 处理失败
-                String jsonResult = inputStream2Json(bodyInputStream);
-                OutputModel outputModel = new Gson().fromJson(jsonResult, OutputModel.class);
-                outputModel.setStatueCode(imageProcessOutput.getStatueCode());
-
-                System.out.println("StatueCode = " + outputModel.getStatueCode());
-                System.out.println("Code = " + outputModel.getCode());
-                System.out.println("RequestId = " + outputModel.getRequestId());
-                System.out.println("Message = " + outputModel.getMessage());
-                System.out.println("Url = " + outputModel.getUrl());
-
-            }
-
-            if (bodyInputStream != null) {
-                bodyInputStream.close();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        handleImageProcessOutput(output, new File("/Users/userName/Desktop/fileName.png"));
     }
 ```
 
-## 使用服务端签名
-如您需要使用服务端进行签名操作，请使用 Client 获取对应的 RequestHandler ，然后签名即可。
+## Sign With Server
+If you need sign with server, please use Client to get the RequestHandler, then do signture.
 
-详细说明请参考[使用服务端签名](./sign_with_server_zh.md)。
+View [sign with server](./sign_with_server.md) for more information.
 
-下面以本示例中对图片进行旋转 90 度操作为例：
+Next, take the 90 degree operation of the picture rotation as an example.
 
 ```java
     RequestHandler requestHandler1 = new ImageProcessClient("head.jpg", bucket)
         .rotate(new ImageProcessClient.RotateParam(90))
-        .imageProgressRequest();// 旋转
+        .imageProgressRequest();// Rotate;
     String stringToSignature = requestHandler1.getStringToSignature();
-    // 向服务端请求签名，这里本地模拟。
-    String serverAuthorization = QSSignatureUtil.generateSignature("secretKey",
+    // ServerAuthorization. Get response from server. We just sign in local here.
+    String serverAuthorization = QSSignatureUtil.generateSignature("your_secret_key",
         stringToSignature);
     requestHandler1.setSignature("your_access_key", serverAuthorization);
-    requestHandler1.send();
+    /**
+     * There may be a time difference between the client and the server, and the result of the signature calculation is closely related to the time.
+     * So it is necessary to set the time used for the server's signature to the request.
+     * You can send strToSignature to the server to get the server's signature time.
+    **/
+    requestHandler1.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
+    Bucket.ImageProcessOutput send = (Bucket.ImageProcessOutput) requestHandler1.send();
+    handleImageProcessOutput(send, new File("/yourFileKeptPath/yourFileName.jpg"));
 ```
 
-## 附录
+## Appendix
 
-附上述代码引用的相关方法和类：
+The relevant methods and classes referenced of the above codes:
 
 ```java
     private String inputStream2Json(InputStream bodyInputStream) {
@@ -236,6 +212,47 @@
             this.space = space;
         }
 
+    }
+
+```
+
+```java
+    private void handleImageProcessOutput(Bucket.ImageProcessOutput output, @NotNull File keptFile) {
+        try {
+            InputStream bodyInputStream = output.getBodyInputStream();
+            if (output.getStatueCode() >= 200 && output.getStatueCode() < 300) {
+                // Success, save image
+                OutputStream out = null;
+
+                out = new FileOutputStream(keptFile);
+                int bytesRead = 0;
+                byte[] buffer = new byte[1024];
+                while ((bytesRead = bodyInputStream.read(buffer, 0, 1024)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+                out.flush();
+                out.close();
+            } else {
+                // Handle error
+                String jsonResult = inputStream2Json(bodyInputStream);
+                OutputModel outputModel = new Gson().fromJson(jsonResult, OutputModel.class);
+                outputModel.setStatueCode(output.getStatueCode());
+                System.out.println("Image process request error.");
+                System.out.println("StatueCode = " + outputModel.getStatueCode());
+                System.out.println("Code = " + outputModel.getCode());
+                System.out.println("RequestId = " + outputModel.getRequestId());
+                System.out.println("Message = " + outputModel.getMessage());
+                System.out.println("Url = " + outputModel.getUrl());
+
+            }
+
+            if (bodyInputStream != null) {
+                bodyInputStream.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 ```
