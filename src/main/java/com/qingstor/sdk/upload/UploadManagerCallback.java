@@ -21,21 +21,44 @@ import com.qingstor.sdk.request.ResponseCallBack;
  * Callback of the upload manager. <br>
  * Created by chengww on 2018/1/23.
  */
-public interface UploadManagerCallback extends ResponseCallBack {
+public abstract class UploadManagerCallback implements ResponseCallBack {
     /**
      * When upload manager needs sign a string with the server will call this method. <br>
-     * If you do not want to sign with server, just let it return null. <br>
+     * If you want to sign with server, override it and return the signed string. <br>
      *
      * @param strToSign string to sign
      * @return signed string.
      */
-    String onSignature(String strToSign);
+    String onSignature(String strToSign) {
+        return null;
+    }
 
     /**
      * When upload manager needs the access key will call this method. <br>
-     * If you do not want to sign with server, just let it return null. <br>
+     * If you want to sign with server, override it and return your access key. <br>
      *
      * @return access key
      */
-    String onAccessKey();
+    String onAccessKey() {
+        return null;
+    }
+
+    /**
+     * If the local time of user's clients are not synchronized with the network time.<br>
+     * You should get the network time when the server signed and return it.<br>
+     * This is an example of <strong>the server</strong> about how to return the right time to clients.
+     * <br>
+     * <code>
+     *     // Get the server time when sign
+     *     Calendar instance = Calendar.getInstance(TimeZone.getTimeZone("Asia/Beijing"));
+     *     String gmtTime = QSSignatureUtil.formatGmtDate(instance.getTime());
+     *     return gmtTime;
+     * </code>
+     * <br>
+     * If you needn't correct time, return null and ignore it.
+     * @return Gmt time string with time zone "Asia/Beijing"("GMT+8:00")
+     */
+    String onCorrectTime(String strToSign) {
+        return null;
+    }
 }

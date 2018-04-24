@@ -17,6 +17,7 @@ package com.qingstor.sdk.upload;
 
 import com.google.gson.Gson;
 import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.UploadModel;
@@ -29,7 +30,6 @@ import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 
-
 /**
  * A manager of uploading. <br>
  * Created by chengww on 2018/1/23.
@@ -37,7 +37,7 @@ import java.io.UnsupportedEncodingException;
 public class UploadManager {
 
     private long partSize = 4 * 1024 * 1024L;
-    private final int maxPartCounts = 10000; // Max part counts. Do not change it.
+    private static final int MAX_PART_COUNTS = 10000; // Max part counts.
     private int partCounts;
 
     private Recorder recorder;
@@ -96,9 +96,9 @@ public class UploadManager {
             putFile(file, objectKey, fileName, length);
         } else { // Do multi uploads.
             // Calculate part counts.
-            if (length / partSize > maxPartCounts) {
-                partSize = length / maxPartCounts;
-                partCounts = maxPartCounts;
+            if (length / partSize > MAX_PART_COUNTS) {
+                partSize = length / MAX_PART_COUNTS;
+                partCounts = MAX_PART_COUNTS;
                 // Check every part's size(max 5GB).
                 if (partSize > 5 * 1024 * 1024 * 1024L)
                     throw new QSException("The size of file is too large.");
@@ -128,6 +128,17 @@ public class UploadManager {
         if (recorder == null || recorder.get(objectKey) == null) {
             Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUploadInput();
             Bucket.InitiateMultipartUploadOutput initOutput = bucket.initiateMultipartUpload(objectKey, inputInit);
+            int code = initOutput.getStatueCode();
+            // Initiate occurs an error.
+            if (code < 200 || code >= 300) {
+                if (callBack != null) {
+                    OutputModel outputModel = new OutputModel();
+                    outputModel.setStatueCode(code);
+                    outputModel.setMessage(initOutput.getMessage());
+                    callBack.onAPIResponse(outputModel);
+                }
+                return;
+            }
             uploadModel = new UploadModel();
             uploadModel.setTotalSize(length);
             uploadModel.setUploadID(initOutput.getUploadID());
@@ -148,7 +159,6 @@ public class UploadManager {
         }
 
         uploadModel.setTotalSize(length);
-
 
         // Check if all parts have been completely uploaded.
         if (uploadModel.isFileComplete()) {
@@ -188,7 +198,6 @@ public class UploadManager {
                     });
                 }
 
-
                 // Cancellation handler.
                 requestHandler.setCancellationHandler(cancellationHandler);
 
@@ -221,8 +230,6 @@ public class UploadManager {
             }
         }
 
-
-
     }
 
     /**
@@ -235,6 +242,9 @@ public class UploadManager {
             String signed = callBack.onSignature(requestHandler.getStringToSignature());
             if (!QSStringUtil.isEmpty(signed))
                 requestHandler.setSignature(callBack.onAccessKey(), signed);
+            String correctTime = callBack.onCorrectTime(requestHandler.getStringToSignature());
+            if (correctTime != null && correctTime.trim().length() > 0)
+                requestHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, correctTime);
         }
     }
 
