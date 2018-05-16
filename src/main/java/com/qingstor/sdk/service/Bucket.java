@@ -3263,6 +3263,7 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Object parts
+        // Required
 
         private List<ObjectPartModel> objectParts;
 
@@ -4034,6 +4035,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
+        } // Storage class of the object
+
+        private String xQSStorageClass;
+
+        public void setXQSStorageClass(String xQSStorageClass) {
+            this.xQSStorageClass = xQSStorageClass;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        public String getXQSStorageClass() {
+            return this.xQSStorageClass;
         }
     }
 
@@ -4335,6 +4347,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
+        } // Storage class of the object
+
+        private String xQSStorageClass;
+
+        public void setXQSStorageClass(String xQSStorageClass) {
+            this.xQSStorageClass = xQSStorageClass;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        public String getXQSStorageClass() {
+            return this.xQSStorageClass;
         }
     }
 
@@ -4782,6 +4805,7 @@ public class Bucket {
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSEncryptionCustomerKey Encryption key of the object <br>
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class InitiateMultipartUploadInput extends RequestInputModel {
 
@@ -4829,10 +4853,38 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
+        } // Specify the storage class for object
+        // XQSStorageClass's available values: STANDARD, STANDARD_IA
+
+        private String xQSStorageClass;
+
+        public void setXQSStorageClass(String xQSStorageClass) {
+            this.xQSStorageClass = xQSStorageClass;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        public String getXQSStorageClass() {
+            return this.xQSStorageClass;
         }
 
         @Override
         public String validateParam() {
+
+            String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
+
+            boolean xQSStorageClassIsValid = false;
+            for (String v : xQSStorageClassValidValues) {
+                if (v.equals(this.getXQSStorageClass())) {
+                    xQSStorageClassIsValid = true;
+                }
+            }
+
+            if (!xQSStorageClassIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "XQSStorageClass",
+                        this.getXQSStorageClass() + "",
+                        xQSStorageClassValidValues);
+            }
 
             return null;
         }
@@ -4846,6 +4898,7 @@ public class Bucket {
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSEncryptionCustomerKey Encryption key of the object <br>
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class InitiateMultipartUploadOutput extends OutputModel {
 
@@ -5535,6 +5588,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
+     * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class PutObjectInput extends RequestInputModel {
 
@@ -5750,6 +5804,18 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "X-QS-Move-Source")
         public String getXQSMoveSource() {
             return this.xQSMoveSource;
+        } // Specify the storage class for object
+        // XQSStorageClass's available values: STANDARD, STANDARD_IA
+
+        private String xQSStorageClass;
+
+        public void setXQSStorageClass(String xQSStorageClass) {
+            this.xQSStorageClass = xQSStorageClass;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        public String getXQSStorageClass() {
+            return this.xQSStorageClass;
         }
 
         // The request body
@@ -5798,6 +5864,22 @@ public class Bucket {
         @Override
         public String validateParam() {
 
+            String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
+
+            boolean xQSStorageClassIsValid = false;
+            for (String v : xQSStorageClassValidValues) {
+                if (v.equals(this.getXQSStorageClass())) {
+                    xQSStorageClassIsValid = true;
+                }
+            }
+
+            if (!xQSStorageClassIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "XQSStorageClass",
+                        this.getXQSStorageClass() + "",
+                        xQSStorageClassValidValues);
+            }
+
             return null;
         }
     }
@@ -5825,6 +5907,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
+     * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class PutObjectOutput extends OutputModel {
 
