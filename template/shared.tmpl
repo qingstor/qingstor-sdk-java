@@ -35,9 +35,14 @@
             };
 
             boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
-            for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues){
-                if(v.equals(this.get{{$property.ID | camelCase}}())){
-                    {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+            String value = this.get{{$property.ID | camelCase}}();
+            if (null == value || "".equals(value)) {
+                {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+            } else {
+                for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues) {
+                    if(v.equals(value)){
+                        {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                    }
                 }
             }
 
@@ -63,9 +68,14 @@
                 {{- $property.Enum | commaConnectedWithQuote -}}
             };
             boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
-            for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues){
-                if(v.equals(this.get{{$property.ID | camelCase}}()+"")){
-                    {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+            String value = this.get{{$property.ID | camelCase}}() + "";
+            if(value == "") {
+                {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+            } else {
+                for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues){
+                    if(v.equals(value)) {
+                        {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                    }
                 }
             }
 

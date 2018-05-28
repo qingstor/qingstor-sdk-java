@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.8] - 2018-05-28
+
+### Fixed
+- Fix nullable check of type enum in request header
+
 ## [v2.2.7] - 2018-04-18
 
 ### Changed
