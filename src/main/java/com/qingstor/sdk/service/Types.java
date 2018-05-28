@@ -69,9 +69,14 @@ public class Types {
             String[] permissionValidValues = {"READ", "WRITE", "FULL_CONTROL"};
 
             boolean permissionIsValid = false;
-            for (String v : permissionValidValues) {
-                if (v.equals(this.getPermission())) {
-                    permissionIsValid = true;
+            String value = this.getPermission();
+            if (null == value || "".equals(value)) {
+                permissionIsValid = true;
+            } else {
+                for (String v : permissionValidValues) {
+                    if (v.equals(value)) {
+                        permissionIsValid = true;
+                    }
                 }
             }
 
@@ -354,9 +359,14 @@ public class Types {
             String[] typeValidValues = {"user", "group"};
 
             boolean typeIsValid = false;
-            for (String v : typeValidValues) {
-                if (v.equals(this.getType())) {
-                    typeIsValid = true;
+            String value = this.getType();
+            if (null == value || "".equals(value)) {
+                typeIsValid = true;
+            } else {
+                for (String v : typeValidValues) {
+                    if (v.equals(value)) {
+                        typeIsValid = true;
+                    }
                 }
             }
 
@@ -748,9 +758,14 @@ public class Types {
             String[] effectValidValues = {"allow", "deny"};
 
             boolean effectIsValid = false;
-            for (String v : effectValidValues) {
-                if (v.equals(this.getEffect())) {
-                    effectIsValid = true;
+            String value = this.getEffect();
+            if (null == value || "".equals(value)) {
+                effectIsValid = true;
+            } else {
+                for (String v : effectValidValues) {
+                    if (v.equals(value)) {
+                        effectIsValid = true;
+                    }
                 }
             }
 
