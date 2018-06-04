@@ -7,7 +7,8 @@
 下面是一个关于**服务端**如何返回正确时间到客户端的示例。
 
 ```java
-String gmtTime = QSSignatureUtil.formatGmtDate(new Date());
+Calendar instance = Calendar.getInstance(TimeZone.getTimeZone("Asia/Beijing"));
+String gmtTime = QSSignatureUtil.formatGmtDate(instance.getTime());
 return gmtTime;
 ```
 
@@ -48,23 +49,20 @@ try {
                 }
             });
 
-    /**
-     * 因客户端跟服务端通讯可能有时间差，而签名计算结果跟时间密切相关。
-     * 因此需要将服务端计算签名时所用的时间设置到 request 中。
-     * 您可以发送 strToSignature 到服务端以获取服务端签名的时间。具体服务端示例参考上述 "本地时间和网络时间不同步"。
-    **/
-    reqHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
-    
     // 第三步：获取 strToSignature。将这个字符串发送到用户的 server 端。
     String strToSignature = reqHandler.getStringToSignature();
 
     // 第四步：serverAuthorization。server 端处理返回信息，服务端参考如下代码：
     // String serverAuthorization = QSSignatureUtil.generateSignature("您的 secretKey", strToSignature);
     String serverAuthorization = "您从服务端获取到的签名字符串";
-    
     // 第五步：将计算的签名设置到 request 中
     reqHandler.setSignature("您的 accessKey", serverAuthorization);
-    
+    /**
+     * 因客户端跟服务端通讯可能有时间差，而签名计算结果跟时间密切相关。
+     * 因此需要将服务端计算签名时所用的时间设置到 request 中。
+     * 您可以发送 strToSignature 到服务端以获取服务端签名的时间。具体服务端示例参考上述 "本地时间和网络时间不同步"。
+    **/
+    reqHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
     // 第六步：发送请求。异步请求使用 sendAsync() 方法。同步请求使用 send() 方法。
     reqHandler.sendAsync();
 
