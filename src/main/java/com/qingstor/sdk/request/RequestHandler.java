@@ -124,6 +124,18 @@ public class RequestHandler {
         this.builder.setSignature(accessKey, signature);
     }
 
+    /**
+     * Set signature and server time.
+     * @param accessKey accessKey
+     * @param signature signature
+     * @param gmtTime time format with GMT
+     * @throws QSException exception
+     */
+    public void setSignature(String accessKey, String signature, String gmtTime) throws QSException {
+        builder.setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
+        setSignature(accessKey, signature);
+    }
+
     public String getExpiresRequestUrl() throws QSException {
         return this.builder.getExpiresRequestUrl();
     }
