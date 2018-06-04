@@ -9,7 +9,8 @@ You should get the network time form the server.
 This is an example of **the server** about how to return the right time to clients.
 
 ```java
-String gmtTime = QSSignatureUtil.formatGmtDate(new Date());
+Calendar instance = Calendar.getInstance(TimeZone.getTimeZone("Asia/Beijing"));
+String gmtTime = QSSignatureUtil.formatGmtDate(instance.getTime());
 return gmtTime;
 ```
 
@@ -49,14 +50,6 @@ try {
                 System.out.println("Url = " + output.getUrl());
                 }
             });
-            
-    /**
-     * There may be a time difference between the client and the server, and the result of the signature calculation is closely related to the time.
-     * So it is necessary to set the time used for the server's signature to the request.
-     * You can send strToSignature to the server to get the server's signature time.
-     * The concrete server example refers to the "The Local Time Is Incorrect".
-    **/
-    reqHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
 
     // Step 3: get the strToSignature. Send this string to the server.
     String strToSignature = reqHandler.getStringToSignature();
@@ -67,7 +60,13 @@ try {
 
     // Step 5: set the signature to the request.
     reqHandler.setSignature("accessKey", serverAuthorization);
-    
+    /**
+     * There may be a time difference between the client and the server, and the result of the signature calculation is closely related to the time.
+     * So it is necessary to set the time used for the server's signature to the request.
+     * You can send strToSignature to the server to get the server's signature time.
+     * The concrete server example refers to the "The Local Time Is Incorrect".
+    **/
+    reqHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
     // Step 6: send request. Async requests use the method sendAsync(), sync requests use the method send().
     reqHandler.sendAsync();
 
