@@ -61,7 +61,7 @@ try {
     // 因此需要将服务端计算签名时所用的时间设置到 request 中。
     // 您可以发送 strToSignature 到服务端以获取服务端签名的时间。具体服务端示例参考上述 "本地时间和网络时间不同步"。
     reqHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
-    
+   
     reqHandler.setSignature("您的 accessKey", serverAuthorization);
     
     // 第六步：发送请求。异步请求使用 sendAsync() 方法。同步请求使用 send() 方法。

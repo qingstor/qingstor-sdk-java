@@ -58,7 +58,7 @@ try {
         strToSignature);
 
     // Step 5: set the signature to the request.
-    
+
     // There may be a time difference between the client and the server, and the result of the signature calculation is closely related to the time.
     // So it is necessary to set the time used for the server's signature to the request.
     // You can send strToSignature to the server to get the server's signature time.
