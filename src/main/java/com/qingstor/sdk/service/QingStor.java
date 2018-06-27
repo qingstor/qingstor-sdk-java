@@ -14,21 +14,28 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
+
+
+
 package com.qingstor.sdk.service;
+
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.request.ResponseCallBack;
+import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
-import com.qingstor.sdk.request.RequestHandler;
-import com.qingstor.sdk.request.ResourceRequestFactory;
-import com.qingstor.sdk.request.ResponseCallBack;
+import com.qingstor.sdk.utils.QSStringUtil;
 import com.qingstor.sdk.service.Types.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.qingstor.sdk.request.RequestHandler;
 
 // QingStorService: QingStor provides low-cost and reliable online storage service with unlimited storage space, high read and write performance, high reliability and data safety, fine-grained access control, and easy to use API.
 public class QingStor {
@@ -36,180 +43,289 @@ public class QingStor {
     private EvnContext evnContext;
     private String bucketName;
 
-    public QingStor(EvnContext evnContext, String zone) {
-        this.evnContext = evnContext;
-        this.zone = zone;
+    public QingStor(EvnContext evnContext,String zone){
+       this.evnContext = evnContext;
+       this.zone = zone;
     }
 
+    
+        
+        
+	
+	
+
+	
+
+	
+    
+    
+    
+    
+    
+    
     /**
+     
      * @param input input
      * @throws QSException exception
-     * @return ListBucketsOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">
-     *     https://docs.qingcloud.com/qingstor/api/service/get.html </a>
-     */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public ListBucketsOutput listBuckets(ListBucketsInput input) throws QSException {
+     * @return ListBucketsOutput output stream
+     * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/service/get.html"> https://docs.qingcloud.com/qingstor/api/service/get.html </a>
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public ListBucketsOutput
+    listBuckets
+    
+    (
+    
 
-        if (input == null) {
-            input = new ListBucketsInput();
+         ListBucketsInput input
+        
+    ) throws QSException {
+
+                if (input == null ){
+                    input = new ListBucketsInput();
+                }
+            
+
+			RequestHandler requestHandler = this.listBucketsRequest(
+                
+                
+                    input
+                );
+
+            OutputModel backModel = requestHandler.send();
+            if(backModel != null){
+                return (ListBucketsOutput)backModel;
+            }
+            return null;
         }
-
-        RequestHandler requestHandler = this.listBucketsRequest(input);
-
-        OutputModel backModel = requestHandler.send();
-        if (backModel != null) {
-            return (ListBucketsOutput) backModel;
-        }
-        return null;
-    }
 
     /**
+     
      * @param input input
      * @throws QSException exception
-     * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
-     */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listBucketsRequest(ListBucketsInput input) throws QSException {
+     * @return RequestHandler http request handler
+     * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public RequestHandler
+    listBucketsRequest
+    (
+    ListBucketsInput input
+        
+    
+    ) throws QSException {
 
-        if (input == null) {
-            input = new ListBucketsInput();
+                if (input == null ){
+                    input = new ListBucketsInput();
+                }
+            
+
+            
+            
+            
+            
+
+            Map context = new HashMap();
+            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
+            context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
+            context.put("OperationName","ListBuckets");
+            context.put("APIName","ListBuckets");
+            context.put("ServiceName","Get Service");
+            context.put("RequestMethod","GET");
+            context.put("RequestURI","/");
+            context.put("bucketNameInput",this.bucketName);
+            
+
+            
+
+            RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest().getRequest(context,
+                    input
+                ,
+                ListBucketsOutput.class);
+
+            return requestHandler;
         }
-
-        Map context = new HashMap();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
-        context.put("OperationName", "ListBuckets");
-        context.put("APIName", "ListBuckets");
-        context.put("ServiceName", "Get Service");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/");
-        context.put("bucketNameInput", this.bucketName);
-
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, ListBucketsOutput.class);
-
-        return requestHandler;
-    }
     /**
+     
+     *
      * @param input input
      * @param callback response callback
      * @throws QSException exception
-     *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
-     */
-    @SuppressWarnings({"rawtypes", "unchecked"})
+     *
+     * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void listBucketsAsync(
-            ListBucketsInput input, ResponseCallBack<ListBucketsOutput> callback)
-            throws QSException {
+        
 
-        if (input == null) {
-            input = new ListBucketsInput();
+             ListBucketsInput input,
+            
+        ResponseCallBack<ListBucketsOutput> callback) throws QSException {
+
+                if (input == null ){
+                    input = new ListBucketsInput();
+                }
+            
+
+            RequestHandler requestHandler = this.listBucketsAsyncRequest(
+                
+                
+                    input,callback);
+
+            requestHandler.sendAsync();
+
         }
 
-        RequestHandler requestHandler = this.listBucketsAsyncRequest(input, callback);
-
-        requestHandler.sendAsync();
-    }
 
     /**
+     
+     *
      * @param input the input
      * @param callback response callback
      * @throws QSException exception
-     * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
-     */
-    @SuppressWarnings({"rawtypes", "unchecked"})
+     * @return RequestHandler http request handler
+     * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public RequestHandler listBucketsAsyncRequest(
-            ListBucketsInput input, ResponseCallBack<ListBucketsOutput> callback)
-            throws QSException {
-        if (input == null) {
-            input = new ListBucketsInput();
+        
+
+             ListBucketsInput input,
+            
+        ResponseCallBack<ListBucketsOutput> callback) throws QSException {
+                if (input == null ){
+                    input = new ListBucketsInput();
+                }
+            
+
+            
+            
+            
+            
+
+            Map context = new HashMap();
+            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
+            context.put(QSConstant.EVN_CONTEXT_KEY,this.evnContext);
+            context.put("OperationName","ListBuckets");
+            context.put("APIName","ListBuckets");
+            context.put("ServiceName","Get Service");
+            context.put("RequestMethod","GET");
+            context.put("RequestURI","/");
+            context.put("bucketNameInput",this.bucketName);
+            
+
+            
+
+            if(callback == null){
+                throw new QSException("callback can't be null");
+            }
+
+            RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequestAsync(context,
+                                                                                                    input
+                                                                                                ,callback);
+            return requestHandler;
         }
-
-        Map context = new HashMap();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
-        context.put("OperationName", "ListBuckets");
-        context.put("APIName", "ListBuckets");
-        context.put("ServiceName", "Get Service");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/");
-        context.put("bucketNameInput", this.bucketName);
-
-        if (callback == null) {
-            throw new QSException("callback can't be null");
-        }
-
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
-        return requestHandler;
-    }
     /**
      * ListBucketsInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Location Limits results to buckets that in the location <br>
+     *
      */
-    public static class ListBucketsInput extends RequestInputModel {
+    public static class ListBucketsInput extends RequestInputModel{
+            
 
-        // Limits results to buckets that in the location
 
-        private String location;
+        
 
-        public void setLocation(String location) {
-            this.location = location;
+        
+
+            // Limits results to buckets that in the location
+		
+
+        private  String  location; public void setLocation(String location){ this.location = location;}
+
+     @ParamAnnotation(paramType = "header", paramName = "Location")
+     public String getLocation(){ return this.location ;}
+
+            
+
+            
+
+            
+            @Override
+            public String validateParam() {
+                
+                
+                
+
+                return null;
+            }
+
+        }
+    
+
+        /**
+         * ListBucketsOutput: an output stream of the bucket.<br>
+         * The following is the desc of fields.<br>
+         * These fields are headers or bodies of the http request.<br>
+         * field Location Limits results to buckets that in the location <br>
+         *
+        */
+        public static class ListBucketsOutput extends OutputModel{
+            
+                
+
+                
+                    
+                    // Buckets information
+		
+
+        private  List<BucketModel>  buckets; public void setBuckets(List<BucketModel> buckets){ this.buckets = buckets;}
+
+     @ParamAnnotation(paramType = "query", paramName = "buckets")
+     public List<BucketModel> getBuckets(){ return this.buckets ;}// Bucket count
+		
+
+        private  Integer  count; public void setCount(Integer count){ this.count = count;}
+
+     @ParamAnnotation(paramType = "query", paramName = "count")
+     public Integer getCount(){ return this.count ;}
+
+                
+
+                
+            
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Location")
-        public String getLocation() {
-            return this.location;
-        }
 
-        @Override
-        public String validateParam() {
 
-            return null;
-        }
-    }
+    
 
-    /**
-     * ListBucketsOutput: an output stream of the bucket.<br>
-     * The following is the desc of fields.<br>
-     * These fields are headers or bodies of the http request.<br>
-     * field Location Limits results to buckets that in the location <br>
-     */
-    public static class ListBucketsOutput extends OutputModel {
-
-        // Buckets information
-
-        private List<BucketModel> buckets;
-
-        public void setBuckets(List<BucketModel> buckets) {
-            this.buckets = buckets;
-        }
-
-        @ParamAnnotation(paramType = "query", paramName = "buckets")
-        public List<BucketModel> getBuckets() {
-            return this.buckets;
-        } // Bucket count
-
-        private Integer count;
-
-        public void setCount(Integer count) {
-            this.count = count;
-        }
-
-        @ParamAnnotation(paramType = "query", paramName = "count")
-        public Integer getCount() {
-            return this.count;
-        }
-    }
-
-    public com.qingstor.sdk.service.Bucket getBucket(String bucketName, String zone) {
-        return new com.qingstor.sdk.service.Bucket(this.evnContext, zone, bucketName);
+    public com.qingstor.sdk.service.Bucket getBucket(String bucketName,String zone){
+        return new com.qingstor.sdk.service.Bucket(this.evnContext,zone,bucketName);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
