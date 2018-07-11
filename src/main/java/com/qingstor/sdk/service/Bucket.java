@@ -366,6 +366,210 @@ public class Bucket {
 
     /**
      * @throws QSException exception
+     * @return DeleteBucketLifecycleOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public DeleteBucketLifecycleOutput deleteLifecycle() throws QSException {
+
+        RequestHandler requestHandler = this.deleteLifecycleRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (DeleteBucketLifecycleOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteLifecycleRequest() throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "DeleteBucketLifecycle");
+        context.put("APIName", "DeleteBucketLifecycle");
+        context.put("ServiceName", "DELETE Bucket Lifecycle");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, null, DeleteBucketLifecycleOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void deleteLifecycleAsync(ResponseCallBack<DeleteBucketLifecycleOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.deleteLifecycleAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteLifecycleAsyncRequest(
+            ResponseCallBack<DeleteBucketLifecycleOutput> callback) throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "DeleteBucketLifecycle");
+        context.put("APIName", "DeleteBucketLifecycle");
+        context.put("ServiceName", "DELETE Bucket Lifecycle");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * DeleteBucketLifecycleOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class DeleteBucketLifecycleOutput extends OutputModel {}
+
+    /**
+     * @throws QSException exception
+     * @return DeleteBucketNotificationOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public DeleteBucketNotificationOutput deleteNotification() throws QSException {
+
+        RequestHandler requestHandler = this.deleteNotificationRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (DeleteBucketNotificationOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteNotificationRequest() throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "DeleteBucketNotification");
+        context.put("APIName", "DeleteBucketNotification");
+        context.put("ServiceName", "DELETE Bucket Notification");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?notification");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, null, DeleteBucketNotificationOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void deleteNotificationAsync(ResponseCallBack<DeleteBucketNotificationOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.deleteNotificationAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteNotificationAsyncRequest(
+            ResponseCallBack<DeleteBucketNotificationOutput> callback) throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "DeleteBucketNotification");
+        context.put("APIName", "DeleteBucketNotification");
+        context.put("ServiceName", "DELETE Bucket Notification");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?notification");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * DeleteBucketNotificationOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class DeleteBucketNotificationOutput extends OutputModel {}
+
+    /**
+     * @throws QSException exception
      * @return DeleteBucketPolicyOutput output stream Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">
      *     https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html </a>
@@ -1050,6 +1254,238 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "source_site")
         public String getSourceSite() {
             return this.sourceSite;
+        }
+    }
+
+    /**
+     * @throws QSException exception
+     * @return GetBucketLifecycleOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public GetBucketLifecycleOutput getLifecycle() throws QSException {
+
+        RequestHandler requestHandler = this.getLifecycleRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (GetBucketLifecycleOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getLifecycleRequest() throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "GetBucketLifecycle");
+        context.put("APIName", "GetBucketLifecycle");
+        context.put("ServiceName", "GET Bucket Lifecycle");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, null, GetBucketLifecycleOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getLifecycleAsync(ResponseCallBack<GetBucketLifecycleOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.getLifecycleAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getLifecycleAsyncRequest(
+            ResponseCallBack<GetBucketLifecycleOutput> callback) throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "GetBucketLifecycle");
+        context.put("APIName", "GetBucketLifecycle");
+        context.put("ServiceName", "GET Bucket Lifecycle");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * GetBucketLifecycleOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class GetBucketLifecycleOutput extends OutputModel {
+
+        // Bucket Lifecycle rule
+
+        private List<RuleModel> rule;
+
+        public void setRule(List<RuleModel> rule) {
+            this.rule = rule;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "rule")
+        public List<RuleModel> getRule() {
+            return this.rule;
+        }
+    }
+
+    /**
+     * @throws QSException exception
+     * @return GetBucketNotificationOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public GetBucketNotificationOutput getNotification() throws QSException {
+
+        RequestHandler requestHandler = this.getNotificationRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (GetBucketNotificationOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getNotificationRequest() throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "GetBucketNotification");
+        context.put("APIName", "GetBucketNotification");
+        context.put("ServiceName", "GET Bucket Notification");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?notification");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, null, GetBucketNotificationOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getNotificationAsync(ResponseCallBack<GetBucketNotificationOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.getNotificationAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getNotificationAsyncRequest(
+            ResponseCallBack<GetBucketNotificationOutput> callback) throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "GetBucketNotification");
+        context.put("APIName", "GetBucketNotification");
+        context.put("ServiceName", "GET Bucket Notification");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?notification");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * GetBucketNotificationOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class GetBucketNotificationOutput extends OutputModel {
+
+        // Bucket Notification
+
+        private List<NotificationModel> notifications;
+
+        public void setNotifications(List<NotificationModel> notifications) {
+            this.notifications = notifications;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "notifications")
+        public List<NotificationModel> getNotifications() {
+            return this.notifications;
         }
     }
 
@@ -2667,6 +3103,352 @@ public class Bucket {
      * field SourceSite Source site url <br>
      */
     public static class PutBucketExternalMirrorOutput extends OutputModel {}
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketLifecycleOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public PutBucketLifecycleOutput putLifecycle(PutBucketLifecycleInput input) throws QSException {
+
+        if (input == null) {
+            input = new PutBucketLifecycleInput();
+        }
+
+        RequestHandler requestHandler = this.putLifecycleRequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (PutBucketLifecycleOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putLifecycleRequest(PutBucketLifecycleInput input) throws QSException {
+
+        if (input == null) {
+            input = new PutBucketLifecycleInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "PutBucketLifecycle");
+        context.put("APIName", "PutBucketLifecycle");
+        context.put("ServiceName", "PUT Bucket Lifecycle");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, PutBucketLifecycleOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void putLifecycleAsync(
+            PutBucketLifecycleInput input, ResponseCallBack<PutBucketLifecycleOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new PutBucketLifecycleInput();
+        }
+
+        RequestHandler requestHandler = this.putLifecycleAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putLifecycleAsyncRequest(
+            PutBucketLifecycleInput input, ResponseCallBack<PutBucketLifecycleOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketLifecycleInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "PutBucketLifecycle");
+        context.put("APIName", "PutBucketLifecycle");
+        context.put("ServiceName", "PUT Bucket Lifecycle");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+    /**
+     * PutBucketLifecycleInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Rule Bucket Lifecycle rule <br>
+     */
+    public static class PutBucketLifecycleInput extends RequestInputModel {
+
+        // The request body
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        //Object json string
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        } // Bucket Lifecycle rule
+        // Required
+
+        private List<RuleModel> rule;
+
+        public void setRule(List<RuleModel> rule) {
+            this.rule = rule;
+        }
+
+        @ParamAnnotation(paramType = "body", paramName = "rule")
+        public List<RuleModel> getRule() {
+            return this.rule;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (this.getRule() != null && this.getRule().size() > 0) {
+                for (int i = 0; i < this.getRule().size(); i++) {
+                    String vValidate = this.getRule().get(i).validateParam();
+                    if (!QSStringUtil.isEmpty(vValidate)) {
+                        return vValidate;
+                    }
+                }
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * PutBucketLifecycleOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Rule Bucket Lifecycle rule <br>
+     */
+    public static class PutBucketLifecycleOutput extends OutputModel {}
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketNotificationOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public PutBucketNotificationOutput putNotification(PutBucketNotificationInput input)
+            throws QSException {
+
+        if (input == null) {
+            input = new PutBucketNotificationInput();
+        }
+
+        RequestHandler requestHandler = this.putNotificationRequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (PutBucketNotificationOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putNotificationRequest(PutBucketNotificationInput input)
+            throws QSException {
+
+        if (input == null) {
+            input = new PutBucketNotificationInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "PutBucketNotification");
+        context.put("APIName", "PutBucketNotification");
+        context.put("ServiceName", "PUT Bucket Notification");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?notification");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, PutBucketNotificationOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void putNotificationAsync(
+            PutBucketNotificationInput input,
+            ResponseCallBack<PutBucketNotificationOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new PutBucketNotificationInput();
+        }
+
+        RequestHandler requestHandler = this.putNotificationAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putNotificationAsyncRequest(
+            PutBucketNotificationInput input,
+            ResponseCallBack<PutBucketNotificationOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketNotificationInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put("OperationName", "PutBucketNotification");
+        context.put("APIName", "PutBucketNotification");
+        context.put("ServiceName", "PUT Bucket Notification");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?notification");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+    /**
+     * PutBucketNotificationInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Notifications Bucket Notification <br>
+     */
+    public static class PutBucketNotificationInput extends RequestInputModel {
+
+        // The request body
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        //Object json string
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        } // Bucket Notification
+        // Required
+
+        private List<NotificationModel> notifications;
+
+        public void setNotifications(List<NotificationModel> notifications) {
+            this.notifications = notifications;
+        }
+
+        @ParamAnnotation(paramType = "body", paramName = "notifications")
+        public List<NotificationModel> getNotifications() {
+            return this.notifications;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (this.getNotifications() != null && this.getNotifications().size() > 0) {
+                for (int i = 0; i < this.getNotifications().size(); i++) {
+                    String vValidate = this.getNotifications().get(i).validateParam();
+                    if (!QSStringUtil.isEmpty(vValidate)) {
+                        return vValidate;
+                    }
+                }
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * PutBucketNotificationOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Notifications Bucket Notification <br>
+     */
+    public static class PutBucketNotificationOutput extends OutputModel {}
 
     /**
      * @param input input

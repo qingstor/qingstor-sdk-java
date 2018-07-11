@@ -23,6 +23,33 @@ import java.util.List;
 
 public class Types {
 
+    public static class AbortIncompleteMultipartUploadModel extends RequestInputModel {
+
+        // days after initiation
+        // Required
+
+        private Integer daysAfterInitiation;
+
+        public void setDaysAfterInitiation(Integer daysAfterInitiation) {
+            this.daysAfterInitiation = daysAfterInitiation;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "days_after_initiation")
+        public Integer getDaysAfterInitiation() {
+            return this.daysAfterInitiation;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (this.getDaysAfterInitiation() < 0) {
+                return QSStringUtil.getParameterRequired(
+                        "DaysAfterInitiation", "AbortIncompleteMultipartUpload");
+            }
+            return null;
+        }
+    }
+
     public static class ACLModel extends RequestInputModel {
 
         // Required
@@ -139,6 +166,63 @@ public class Types {
         @Override
         public String validateParam() {
 
+            return null;
+        }
+    }
+
+    public static class CloudfuncArgsModel extends RequestInputModel {
+
+        // Required
+
+        private String action;
+
+        public void setAction(String action) {
+            this.action = action;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "action")
+        public String getAction() {
+            return this.action;
+        }
+
+        private String keyPrefix;
+
+        public void setKeyPrefix(String keyPrefix) {
+            this.keyPrefix = keyPrefix;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "key_prefix")
+        public String getKeyPrefix() {
+            return this.keyPrefix;
+        }
+
+        private String keySeprate;
+
+        public void setKeySeprate(String keySeprate) {
+            this.keySeprate = keySeprate;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "key_seprate")
+        public String getKeySeprate() {
+            return this.keySeprate;
+        }
+
+        private String saveBucket;
+
+        public void setSaveBucket(String saveBucket) {
+            this.saveBucket = saveBucket;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "save_bucket")
+        public String getSaveBucket() {
+            return this.saveBucket;
+        }
+
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getAction())) {
+                return QSStringUtil.getParameterRequired("Action", "CloudfuncArgs");
+            }
             return null;
         }
     }
@@ -307,6 +391,53 @@ public class Types {
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getAllowedOrigin())) {
                 return QSStringUtil.getParameterRequired("AllowedOrigin", "CORSRule");
+            }
+            return null;
+        }
+    }
+
+    public static class ExpirationModel extends RequestInputModel {
+
+        // days
+
+        private Integer days;
+
+        public void setDays(Integer days) {
+            this.days = days;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "days")
+        public Integer getDays() {
+            return this.days;
+        }
+
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
+    public static class FilterModel extends RequestInputModel {
+
+        // Prefix matching
+        // Required
+
+        private String prefix;
+
+        public void setPrefix(String prefix) {
+            this.prefix = prefix;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "prefix")
+        public String getPrefix() {
+            return this.prefix;
+        }
+
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getPrefix())) {
+                return QSStringUtil.getParameterRequired("Prefix", "Filter");
             }
             return null;
         }
@@ -576,6 +707,116 @@ public class Types {
         }
     }
 
+    public static class NotificationModel extends RequestInputModel {
+
+        // Event processing service
+        // Cloudfunc's available values: tupu-porn, notifier, image
+        // Required
+
+        private String cloudfunc;
+
+        public void setCloudfunc(String cloudfunc) {
+            this.cloudfunc = cloudfunc;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "cloudfunc")
+        public String getCloudfunc() {
+            return this.cloudfunc;
+        }
+
+        private CloudfuncArgsModel cloudfuncArgs;
+
+        public void setCloudfuncArgs(CloudfuncArgsModel cloudfuncArgs) {
+            this.cloudfuncArgs = cloudfuncArgs;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "cloudfunc_args")
+        public CloudfuncArgsModel getCloudfuncArgs() {
+            return this.cloudfuncArgs;
+        } // event types
+        // Required
+
+        private List<String> eventTypes;
+
+        public void setEventTypes(List<String> eventTypes) {
+            this.eventTypes = eventTypes;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "event_types")
+        public List<String> getEventTypes() {
+            return this.eventTypes;
+        } // notification id
+        // Required
+
+        private String iD;
+
+        public void setID(String iD) {
+            this.iD = iD;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "id")
+        public String getID() {
+            return this.iD;
+        } // notify url
+
+        private String notifyURL;
+
+        public void setNotifyURL(String notifyURL) {
+            this.notifyURL = notifyURL;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "notify_url")
+        public String getNotifyURL() {
+            return this.notifyURL;
+        } // Object name matching rule
+
+        private String objectFilters;
+
+        public void setObjectFilters(String objectFilters) {
+            this.objectFilters = objectFilters;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "object_filters")
+        public String getObjectFilters() {
+            return this.objectFilters;
+        }
+
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getCloudfunc())) {
+                return QSStringUtil.getParameterRequired("Cloudfunc", "Notification");
+            }
+            String[] cloudfuncValidValues = {"tupu-porn", "notifier", "image"};
+
+            boolean cloudfuncIsValid = false;
+            String value = this.getCloudfunc();
+            if (null == value || "".equals(value)) {
+                cloudfuncIsValid = true;
+            } else {
+                for (String v : cloudfuncValidValues) {
+                    if (v.equals(value)) {
+                        cloudfuncIsValid = true;
+                    }
+                }
+            }
+
+            if (!cloudfuncIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Cloudfunc", this.getCloudfunc() + "", cloudfuncValidValues);
+            }
+            if (this.getCloudfuncArgs() != null) {
+                String vValidate = this.getCloudfuncArgs().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+            if (QSStringUtil.isEmpty(this.getID())) {
+                return QSStringUtil.getParameterRequired("ID", "Notification");
+            }
+            return null;
+        }
+    }
+
     public static class ObjectPartModel extends RequestInputModel {
 
         // Object part created time
@@ -663,6 +904,139 @@ public class Types {
 
         @Override
         public String validateParam() {
+
+            return null;
+        }
+    }
+
+    public static class RuleModel extends RequestInputModel {
+
+        private AbortIncompleteMultipartUploadModel abortIncompleteMultipartUpload;
+
+        public void setAbortIncompleteMultipartUpload(
+                AbortIncompleteMultipartUploadModel abortIncompleteMultipartUpload) {
+            this.abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "abort_incomplete_multipart_upload")
+        public AbortIncompleteMultipartUploadModel getAbortIncompleteMultipartUpload() {
+            return this.abortIncompleteMultipartUpload;
+        }
+
+        private ExpirationModel expiration;
+
+        public void setExpiration(ExpirationModel expiration) {
+            this.expiration = expiration;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "expiration")
+        public ExpirationModel getExpiration() {
+            return this.expiration;
+        } // Required
+
+        private FilterModel filter;
+
+        public void setFilter(FilterModel filter) {
+            this.filter = filter;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "filter")
+        public FilterModel getFilter() {
+            return this.filter;
+        } // rule id
+        // Required
+
+        private String iD;
+
+        public void setID(String iD) {
+            this.iD = iD;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "id")
+        public String getID() {
+            return this.iD;
+        } // rule status
+        // Status's available values: enabled, disabled
+        // Required
+
+        private String status;
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "status")
+        public String getStatus() {
+            return this.status;
+        }
+
+        private TransitionModel transition;
+
+        public void setTransition(TransitionModel transition) {
+            this.transition = transition;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "transition")
+        public TransitionModel getTransition() {
+            return this.transition;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (this.getAbortIncompleteMultipartUpload() != null) {
+                String vValidate = this.getAbortIncompleteMultipartUpload().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+
+            if (this.getExpiration() != null) {
+                String vValidate = this.getExpiration().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+
+            if (this.getFilter() != null) {
+                String vValidate = this.getFilter().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+            if (this.getFilter() == null) {
+                return QSStringUtil.getParameterRequired("Filter", "Rule");
+            }
+            if (QSStringUtil.isEmpty(this.getID())) {
+                return QSStringUtil.getParameterRequired("ID", "Rule");
+            }
+            if (QSStringUtil.isEmpty(this.getStatus())) {
+                return QSStringUtil.getParameterRequired("Status", "Rule");
+            }
+            String[] statusValidValues = {"enabled", "disabled"};
+
+            boolean statusIsValid = false;
+            String value = this.getStatus();
+            if (null == value || "".equals(value)) {
+                statusIsValid = true;
+            } else {
+                for (String v : statusValidValues) {
+                    if (v.equals(value)) {
+                        statusIsValid = true;
+                    }
+                }
+            }
+
+            if (!statusIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Status", this.getStatus() + "", statusValidValues);
+            }
+            if (this.getTransition() != null) {
+                String vValidate = this.getTransition().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
 
             return null;
         }
@@ -820,6 +1194,43 @@ public class Types {
         @Override
         public String validateParam() {
 
+            return null;
+        }
+    }
+
+    public static class TransitionModel extends RequestInputModel {
+
+        // days
+
+        private Integer days;
+
+        public void setDays(Integer days) {
+            this.days = days;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "days")
+        public Integer getDays() {
+            return this.days;
+        } // storage class
+        // Required
+
+        private Integer storageClass;
+
+        public void setStorageClass(Integer storageClass) {
+            this.storageClass = storageClass;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "storage_class")
+        public Integer getStorageClass() {
+            return this.storageClass;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (this.getStorageClass() < 0) {
+                return QSStringUtil.getParameterRequired("StorageClass", "Transition");
+            }
             return null;
         }
     }
