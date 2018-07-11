@@ -9,7 +9,6 @@ language: java
 dist: precise
 jdk:
   - oraclejdk8
-  - openjdk7
 
 script:
   - gradle check
