@@ -21,13 +21,26 @@ Bucket bucket = new Bucket(evn, zoneKey, bucketName);
 对象创建完毕后，我们需要执行真正的创建 Bucket 操作：
 
 ``` java
-try {
-	PutBucketOutput output = bucket.put();
-	System.out.println(output.getMessage());
-} catch(QSException e) {
-	e.printStackTrace();	
-}
+    private void putBucket(Bucket bucket) {
+        try {
+            Bucket.PutBucketOutput output = bucket.put();
+            if (output.getStatueCode() == 201) {
+                // Created
+                System.out.println("Put Bucket: Created.");
+            } else {
+                // Failed
+                System.out.println("Failed to Put Bucket.");
+                System.out.println("StatueCode = " + output.getStatueCode());
+                System.out.println("Message = " + output.getMessage());
+                System.out.println("RequestId = " + output.getRequestId());
+                System.out.println("Code = " + output.getCode());
+                System.out.println("Url = " + output.getUrl());
+            }
 
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 上面代码中出现的函数：
@@ -35,5 +48,5 @@ try {
 
 上面代码中出现的对象：
 - output 对象是 bucket.put() 函数的返回体。
-- output.getMessage() 是 output 对象的一个方法，用于返回响应字符串。
+- output.getMessage() 是 output 对象的一个方法，用于返回错误信息。
 

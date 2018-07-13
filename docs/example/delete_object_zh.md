@@ -20,12 +20,35 @@ Bucket bucket = new Bucket(evn, zoneKey, bucketName);
 然后调用 deleteObject 方法
 
 ``` java
-try {
-	Bucket.DeleteObjectOutput output = bucket.deleteObject(objectName);
-	System.out.println(out.getMessage());	
-} catch(QSException e) {
-	e.printStackTrace();
-}
+    /**
+     * Delete Object
+     *
+     * @param bucket    bucket
+     * @param objectKey looks like this: "folder/fileName".<br/>
+     *                  If objectKey = "fileName", means the object is in the bucket's root folder.<br/>
+     *                  objectKey 形如这种形式: "folder/fileName".<br/>
+     *                  如果 objectKey = "fileName", 意味着该对象在当前 bucket 的根目录。
+     */
+    private void deleteObject(Bucket bucket, String objectKey) {
+        try {
+            Bucket.DeleteObjectOutput output = bucket.deleteObject(objectKey);
+            if (output.getStatueCode() == 204) {
+                // Deleted
+                System.out.println("Delete Object: Deleted. ");
+                System.out.println("Delete Object: Object key = " + objectKey);
+            } else {
+                // Failed
+                System.out.println("Failed to delete " + objectKey);
+                System.out.println("StatueCode = " + output.getStatueCode());
+                System.out.println("Message = " + output.getMessage());
+                System.out.println("RequestId = " + output.getRequestId());
+                System.out.println("Code = " + output.getCode());
+                System.out.println("Url = " + output.getUrl());
+            }
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 上面代码中出现的函数：

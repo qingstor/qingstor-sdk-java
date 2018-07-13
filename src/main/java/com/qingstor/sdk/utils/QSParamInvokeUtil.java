@@ -90,20 +90,9 @@ public class QSParamInvokeUtil {
             throws QSException {
         Object[] invokeParams = null;
         try {
-        	Object objValue = m.invoke(source, invokeParams);
+            Object objValue = m.invoke(source, invokeParams);
             if (objValue != null) {
-                Class cls = objValue.getClass();
-                if (cls.equals(Integer.class)
-                        || cls.equals(Double.class)
-                        || cls.equals(Boolean.class)
-                        || cls.equals(Long.class)
-                        || cls.equals(Float.class)
-                        || cls.equals(String.class)) {
-                	targetParametersMap.put(paramKey, String.valueOf(objValue));
-                } else {
-                	targetParametersMap.put(paramKey, objValue);
-                }
-            	
+                targetParametersMap.put(paramKey, objValue);
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -113,7 +102,7 @@ public class QSParamInvokeUtil {
             throw new QSException("InvocationTargetException", e);
         }
     }
-    
+
     @SuppressWarnings("PARAMETER")
     public static void invokeObject2Map(
             Class sourceClass, Object source, Map targetParametersMap) throws QSException {
