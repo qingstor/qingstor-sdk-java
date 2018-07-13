@@ -63,7 +63,7 @@ public class QSStringUtil {
                 || o instanceof Long
                 || o instanceof Float
                 || o instanceof String) {
-            return String.valueOf(o);
+            return o;
         } else if (o instanceof Map) {
             return getMapToJson((Map) o);
         } else {
