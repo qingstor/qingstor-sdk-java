@@ -4,45 +4,53 @@ Each API function take an Input struct and return an Output struct. The Input st
 
 - [QingStor](./example/QingStor.md)
 - Bucket
-    - [GET Bucket (List Objects)](./example/ListObjects.md)
-    - PUT Bucket
-    - DELETE Bucket
-    - HEAD Bucket
-    - GET Bucket Statistics
-    - List Multipart Uploads
+    - [Create Bucket(Put Bucket)](./example/create_bucket.md)
+    - [GET Bucket(List Objects)](./example/ListObjects.md)
+    - [DELETE Bucket](./example/delete_bucket.md)
+    - [HEAD Bucket](./example/head_bucket.md)
+    - [GET Bucket Statistics](./example/get_bucket_statistics.md)
+    - [List Multipart Uploads](./example/list_multipart_uploads.md)
     - Bucket ACL
         - [PUT Bucket ACL](./example/PutACL.md)
-        - GET Bucket ACL
-    - Bucket CORS
-        - PUT Bucket CORS
-        - GET Bucket CORS
-        - DELETE Bucket CORS
+        - [GET Bucket ACL](./example/get_bucket_acl.md)
     - Bucket Policy
-        - Bucket Policy Condition
-        - PUT Bucket Policy
-        - GET Bucket Policy
-        - DELETE Bucket Policy
+        - [Bucket Policy Condition](https://docs.qingcloud.com/qingstor/api/bucket/policy/policy_condition.html)
+        - [PUT Bucket Policy](./example/put_bucket_policy.md)
+        - [GET Bucket Policy](./example/get_bucket_policy.md)
+        - [DELETE Bucket Policy](./example/delete_bucket_policy.md)
+    - Bucket CORS
+        - [PUT Bucket CORS](./example/put_bucket_cors.md)
+        - [GET Bucket CORS](./example/get_bucket_cors.md)
+        - [DELETE Bucket CORS](./example/delete_bucket_cors.md)
     - Bucket External Mirror
-        - PUT Bucket External Mirror
-        - GET Bucket External Mirror
-        - DELETE Bucket External Mirror
+        - [PUT Bucket External Mirror](./example/put_bucket_external_mirror.md)
+        - [GET Bucket External Mirror](./example/get_bucket_external_mirror.md)
+        - [DELETE Bucket External Mirror](./example/delete_bucket_external_mirror.md)
+    - Bucket Notification
+        - [PUT Bucket Notification](./example/put_bucket_notification.md)
+        - [GET Bucket Notification](./example/get_bucket_notification.md)
+        - [DELETE Bucket Notification](./example/delete_bucket_notification.md)
+    - Bucket Lifecycle
+        - [PUT Bucket Lifecycle](./example/put_bucket_lifecycle.md)
+        - [GET Bucket Lifecycle](./example/get_bucket_lifecycle.md)
+        - [DELETE Bucket Lifecycle](./example/delete_bucket_lifecycle.md)
 
 - Object
 
+    - [PUT Object](./example/PutObject.md)
+    - [PUT Object - Set Default Download Name](./example/put_object_and_set_default_download_name.md)
+    - [PUT Object - Call Progress And Cancellation](./example/UploadProgressCancellation.md)
+    - [PUT Object - Auto Upload With Upload Manager](./example/AutoUpload.md)
+    - [PUT Object - Copy](./example/CopyObject.md)
+    - [PUT Object - Move](./example/MoveObject.md)
+    - [PUT Object - Fetch](./example/put_object_fetch.md)
     - [GET Object](./example/GetObject.md)
     - [GET Object Download Url](./example/GetObjectUrl.md)
     - [GET Object Multi](./example/GetDownObjectMulti.md)
-    - [PUT Object](./example/PutObject.md)
-    - [PUT Object - Set Default Download Name](./example/put_object_and_set_default_download_name.md)
-    - [PUT Object - Copy](./example/CopyObject.md)
-    - [PUT Object - Move](./example/MoveObject.md)
-    - [PUT Object - Call Progress And Cancellation](./example/UploadProgressCancellation.md)
-    - [PUT Object - Auto Upload With Upload Manager](./example/AutoUpload.md)
-    - PUT Object - Fetch
     - [DELETE Object](./example/DeleteObject.md)
-    - [Delete Multiple Objects](./example/DeleteMulitpleObjects.md)
-    - HEAD Object
-    - OPTIONS Object
+    - [DELETE Multiple Objects](./example/DeleteMulitpleObjects.md)
+    - [HEAD Object](./example/head_object.md)
+    - [OPTIONS Object](./example/options_object.md)
     - [MultipartUpload](./example/MultipartUpload.md)
        - Initiate Multipart Upload
        - Upload Multipart
@@ -50,9 +58,15 @@ Each API function take an Input struct and return an Output struct. The Input st
        - List Multipart
        - Abort Multipart Upload
        - Complete Multipart Upload
-- [Encryption](./example/Encryption.md)
-- [Sign With Server](./example/sign_with_server.md)
-- Data Process
-    - [Image Process](./example/image_process.md)
-    - [Third Party Data](https://docs.qingcloud.com/qingstor/data_process/third_party/)
-        - [Tupu Porn](https://docs.qingcloud.com/qingstor/data_process/third_party/tupu_porn.html)
+
+- Others
+    - [HTTP Headers/Parameters](./example/get_set_http_headers.md)
+        - Get HTTP Headers/Parameters
+        - Set HTTP Headers/Parameters
+        - Define metadata
+    - [Encryption](./example/Encryption.md)
+    - [Sign With Server](./example/sign_with_server.md)
+    - Data Process
+        - [Image Process](./example/image_process.md)
+        - [Third Party Data](https://docs.qingcloud.com/qingstor/data_process/third_party/)
+            - [Tupu Porn](https://docs.qingcloud.com/qingstor/data_process/third_party/tupu_porn.html)

@@ -1,7 +1,7 @@
 ## UploadMultipart Example
 
 
-
+#### Upload with a complete file
 ### Code Snippet
 
 Initialize the Bucket service with accesskeyid and secretaccesskey
@@ -68,7 +68,7 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
 
 ```
 
-If a large file has been stored as separate parts on disk, you can use the method below.
+#### If a large file has been stored as separate parts on disk, you can use the method below.
 
 ```
     private void multipartUpload(Bucket bucket, List<File> files, String objectKey) throws QSException {
@@ -105,7 +105,7 @@ If a large file has been stored as separate parts on disk, you can use the metho
     }
 ```
 
-Also, you can set body input stream here.
+#### Also, you can set body input stream here.
 When a stream have been read/wrote, we will close it.
 So a same stream can be used for once.
 Do not set a same stream twice please.
@@ -164,4 +164,48 @@ Attention: the example below is just to show you how to resolve some streams to 
                 e.printStackTrace();
             }
 
+```
+
+#### List all of the parts uploaded
+
+If upload failed, you can call this method to list all of the parts uploaded.
+
+```java
+    /**
+     * If upload failed, you can call
+     * this method to list all of the parts uploaded. <br>
+     *
+     * @param uploadID   multi upload ID
+     * @param objectName objectName
+     */
+    private void listParts(String uploadID, String objectName) {
+
+        Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
+        input.setUploadID(uploadID);
+
+        try {
+            bucket.listMultipartAsync(objectName, input, new ResponseCallBack<Bucket.ListMultipartOutput>() {
+                @Override
+                public void onAPIResponse(Bucket.ListMultipartOutput listMultipartOutput) throws QSException {
+                    if (listMultipartOutput != null) {
+                        List<Types.ObjectPartModel> objectParts =
+                                listMultipartOutput.getObjectParts();
+                        if (objectParts != null && objectParts.size() > 0) {
+                            for (Types.ObjectPartModel model : objectParts) {
+                                System.out.println("part num = " +
+                                        model.getPartNumber() + ", size = " +
+                                        model.getSize() + ", ETag = " + model.getEtag());
+                            }
+                        } else {
+                            System.out.println("There is 0 part uploaded.");
+                        }
+                    } else {
+                        System.out.println("ListMultipartOutput is empty.");
+                    }
+                }
+            });
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
+    }
 ```

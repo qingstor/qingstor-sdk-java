@@ -21,15 +21,44 @@ Bucket bucket = new Bucket(evn, zoneKey, bucketName);
 然后设置输入参数，调用 headObject 方法
 
 ``` java
-try {
-	Bucket.HeadObjectInput input = new Bucket.HeadObjectInput();
-	Bucket.HeadObjectOutput output = bucket.headObject(objectName, input);
-	System.out.println(output.getStatueCode());
-	
-} catch (QSException e) {
-	System.out.println("exception");
-	e.printStackTrace();	
-}
+    /**
+     * Head Object
+     *
+     * @param bucket    bucket
+     * @param objectKey looks like this: "folder/fileName".<br/>
+     *                  If objectKey = "fileName", means the object is in the bucket's root folder.<br/>
+     *                  objectKey 形如这种形式: "folder/fileName".<br/>
+     *                  如果 objectKey = "fileName", 意味着该对象在当前 bucket 的根目录。
+     */
+    private void headObject(Bucket bucket, String objectKey) {
+        try {
+            Bucket.HeadObjectInput input = new Bucket.HeadObjectInput();
+            Bucket.HeadObjectOutput output = bucket.headObject(objectKey, input);
+            if (output.getStatueCode() == 200) {
+                System.out.println("Head Object success.");
+                System.out.println("ObjectKey = " + objectKey);
+                System.out.println("ContentLength = " + output.getContentLength());
+                System.out.println("ContentType = " + output.getContentType());
+                System.out.println("ETag = " + output.getETag());
+                System.out.println("LastModified = " + output.getLastModified());
+                System.out.println("XQSEncryptionCustomerAlgorithm = " + output.getXQSEncryptionCustomerAlgorithm());
+                System.out.println("XQSStorageClass = " + output.getXQSStorageClass());
+            } else {
+                // Failed
+                System.out.println("Head Object failed.");
+                System.out.println("ObjectKey = " + objectKey);
+                System.out.println("StatueCode = " + output.getStatueCode());
+                System.out.println("Message = " + output.getMessage());
+                System.out.println("RequestId = " + output.getRequestId());
+                System.out.println("Code = " + output.getCode());
+                System.out.println("Url = " + output.getUrl());
+            }
+
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 ```
 

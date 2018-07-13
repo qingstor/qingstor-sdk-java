@@ -4,6 +4,8 @@
 
 ### 代码片段
 
+#### 本地已有完整文件使用分段上传
+
 用 accesskeyid 和 secretaccesskey 初始化 Bucket 服务。
 
 ```
@@ -25,20 +27,20 @@ Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUplo
 InitiateMultipartUploadOutput initOutput = bucket.initiateMultipartUpload(objectKey, inputInit);
 
 String multipart_upload_name = objectKey;
-// Step 1: init multipart_upload_id
+// 第1步：初始化 multipart_upload_id
 String multipart_upload_id = initOutput.getUploadID();
 
 System.out.println("-multipart_upload_id----" + initOutput.getUploadID());
 
 File file = new File(filePath);
 long contentLength = file.length();
-//Count of file parts
+// 文件分段计数
 int count = 0;
 long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
-        // Step 2: Upload parts.
+        // 第2步：上传分段
         long filePosition = 0;
         for (int i = 0; filePosition < contentLength; i++) {
-            // Last part can be less than 4 MB. Adjust part size.
+            // 最后一段可以小于 4 MB. 计算每一段的大小.
             partSize = Math.min(partSize, (contentLength - filePosition));
             Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
             input.setBodyInputFilePart(file);
@@ -47,18 +49,18 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
             input.setPartNumber(i);
             input.setUploadID(multipart_upload_id);
 
-            // Create request to upload a part.
+            // 创建请求上传一个分段.
             bucket.uploadMultipart(objectKey, input);
 
             filePosition += partSize;
             count++;
         }
 
-        // Step 3: Complete.
-        // The constructor will auto set values of upload id and body input.
+        // 第3步: 完成.
+        // 该构造方法将自动设置 upload id 和 body input.
         Bucket.CompleteMultipartUploadInput completeMultipartUploadInput =
                 new Bucket.CompleteMultipartUploadInput(multipart_upload_id, count, 0);
-        // You can set the Md5 info to the object.
+        // 您可以设置该对象的 MD5 信息.
         completeMultipartUploadInput.setETag("object-MD5");
         bucket.completeMultipartUpload(objectKey, completeMultipartUploadInput);
 
@@ -67,7 +69,7 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
 
 ```
 
-如果您本地已存在一个文件的多个分段，您可以参考如下方法:
+#### 如果您本地已存在一个文件的多个分段，您可以参考如下方法:
 ```
     private void multipartUpload(Bucket bucket, List<File> files, String objectKey) throws QSException {
         if (files == null || files.size() < 1)
@@ -93,17 +95,16 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
             System.out.println("-UploadMultipartOutput----" + bm.getMessage());
         }
 
-        // Write code here that turns the phrase above into concrete actions
-        // The constructor will auto set values of upload id and body input.
+        // 该构造方法将自动设置 upload id 和 body input.
         Bucket.CompleteMultipartUploadInput completeMultipartUploadInput =
                 new Bucket.CompleteMultipartUploadInput(multipart_upload_id, count, 0);
-        // You can set the Md5 info to the object.
+        // 您可以设置该对象的 MD5 信息.
         completeMultipartUploadInput.setETag("object-MD5");
         bucket.completeMultipartUpload(objectKey, completeMultipartUploadInput);
     }
 ```
 
-您也可设置 body input stream 来代替 File 对象。
+#### 您也可设置 body input stream 来代替 File 对象。
 在每次分段上传后，我们SDK会关闭已读写的流。
 故同一个流只能使用一次。请勿将同一个流二次设置。
 如下示例仅供您参考解决多个流分段上传的问题。
@@ -116,7 +117,7 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
     InitiateMultipartUploadOutput initOutput = bucket.initiateMultipartUpload(objectKey, inputInit);
 
     String multipart_upload_name = objectKey;
-    // Step 1: init multipart_upload_id
+    // 第1步：初始化 multipart_upload_id
     String multipart_upload_id = initOutput.getUploadID();
 
     System.out.println("-multipart_upload_id----" + initOutput.getUploadID());
@@ -133,32 +134,75 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
             int count = 0;
             try {
                 while ((len = fis.read(buf)) != -1) {
-                    // Step 2: Upload parts.
+                    // 第2步：上传分段
                     Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
                     input.setBodyInputStream(new ByteArrayInputStream(buf.clone(), 0, len));
-                    //If you haven't set the offset, we will upload the stream with offset 0.
+                    // 如果您没有设置 offset, 我们将以 offset = 0 上传该流.
                     input.setFileOffset(0L);
-                    //If you haven't set content length, we will upload the full stream.
+                    // 如果您没有设置 content length, 我们将上传整个流.
                     input.setContentLength((long) len);
                     input.setPartNumber(count);
                     input.setUploadID(multipart_upload_id);
 
-                    // Create request to upload a part.
+                    // 创建请求上传一个分段.
                     bucket.uploadMultipart(objectKey, input);
                     count++;
                 }
                 fis.close();
 
-                // Step 3: Complete.
-                // Write code here that turns the phrase above into concrete actions
-                // The constructor will auto set values of upload id and body input.
+                // 第3步: 完成.
+                // 该构造方法将自动设置 upload id 和 body input.
                 Bucket.CompleteMultipartUploadInput completeMultipartUploadInput =
                         new Bucket.CompleteMultipartUploadInput(multipart_upload_id, count, 0);
-                // You can set the Md5 info to the object.
+                // 您可以设置该对象的 MD5 信息.
                 completeMultipartUploadInput.setETag("object-MD5");
                 bucket.completeMultipartUpload(objectKey, completeMultipartUploadInput);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+```
+
+#### 查看已上传的分段
+
+分段上传失败之后可以尝试访问以下方法查看是否是所有的分段都已上传完成
+
+```java
+    /**
+     * If upload failed, you can call
+     * this method to list all of the parts uploaded. <br>
+     *
+     * @param uploadID   multi upload ID
+     * @param objectName objectName
+     */
+    private void listParts(String uploadID, String objectName) {
+
+        Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
+        input.setUploadID(uploadID);
+
+        try {
+            bucket.listMultipartAsync(objectName, input, new ResponseCallBack<Bucket.ListMultipartOutput>() {
+                @Override
+                public void onAPIResponse(Bucket.ListMultipartOutput listMultipartOutput) throws QSException {
+                    if (listMultipartOutput != null) {
+                        List<Types.ObjectPartModel> objectParts =
+                                listMultipartOutput.getObjectParts();
+                        if (objectParts != null && objectParts.size() > 0) {
+                            for (Types.ObjectPartModel model : objectParts) {
+                                System.out.println("part num = " +
+                                        model.getPartNumber() + ", size = " +
+                                        model.getSize() + ", ETag = " + model.getEtag());
+                            }
+                        } else {
+                            System.out.println("已上传分段为空");
+                        }
+                    } else {
+                        System.out.println("ListMultipartOutput 为空");
+                    }
+                }
+            });
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
+    }
 ```

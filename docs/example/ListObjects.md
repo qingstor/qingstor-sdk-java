@@ -41,10 +41,48 @@ You can set options below in ListObjectsInput. See controlled [API Docs](https:/
 Below codes show objects sort by name in the folder *test*.
 
 ```java
-    Bucket.ListObjectsInput input = new Bucket.ListObjectsInput();
-    String folderName = "test/";
-    // Only show objects name start with 'folderName', that is list objects in a folder named "test"
-    input.setPrefix(folderName);
-    input.setLimit(1000); // Default 200, max 1000
-    input.setMarker(folderName); // Sort by name after a object named folderName: "test/"
+listObjects(bucket, "test/");
+```
+
+```java
+    private void listObjects(Bucket bucket, String prefix) {
+        Bucket.ListObjectsInput input = new Bucket.ListObjectsInput();
+        if (null != prefix && !"".equals(prefix)) {
+            // Only show objects name start with 'prefix'
+            input.setPrefix(prefix);
+            input.setMarker(prefix); // Sort by name after a object named prefix
+        }
+        input.setLimit(1000); // Default 200, max 1000
+        try {
+            bucket.listObjectsAsync(input, new ResponseCallBack<Bucket.ListObjectsOutput>() {
+                @Override
+                public void onAPIResponse(Bucket.ListObjectsOutput output) throws QSException {
+                    if (output.getStatueCode() == 200) {
+                        // Success
+                        System.out.println("=======List Objects======");
+                        List<Types.KeyModel> keys = output.getKeys();
+                        if (keys != null && keys.size() > 0) {
+                            System.out.println("List Objects success.");
+                            System.out.println("keys = " + new Gson().toJson(keys));
+                        } else {
+                            System.out.println("List Objects: Successfully Connected. Maybe the bucket is empty.");
+                            System.out.println("Bucket owner = " + output.getOwner().getName());
+                        }
+                        System.out.println("=============");
+                    } else {
+                        // Failed
+                        System.out.println("List Objects failed.");
+                        System.out.println("getStatueCode = " + output.getStatueCode());
+                        System.out.println("getCode = " + output.getCode());
+                        System.out.println("getMessage = " + output.getMessage());
+                        System.out.println("getRequestId = " + output.getRequestId());
+                        System.out.println("getUrl = " + output.getUrl());
+                    }
+                }
+            });
+        } catch (QSException e) {
+            // NetWork exception
+            e.printStackTrace();
+        }
+    }
 ```
