@@ -770,14 +770,14 @@ public class Types {
             return this.notifyURL;
         } // Object name matching rule
 
-        private String objectFilters;
+        private List<String> objectFilters;
 
-        public void setObjectFilters(String objectFilters) {
+        public void setObjectFilters(List<String> objectFilters) {
             this.objectFilters = objectFilters;
         }
 
         @ParamAnnotation(paramType = "query", paramName = "object_filters")
-        public String getObjectFilters() {
+        public List<String> getObjectFilters() {
             return this.objectFilters;
         }
 
