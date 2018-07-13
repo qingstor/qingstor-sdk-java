@@ -1,6 +1,18 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.9] - 2018-07-13
+
+### Added
+- Add supports for lifecycle and notification
+
+### Fixed
+- Fix the char ':' in http headers has been encoded
+- Fix a json object's types error in json string
+
+### Changed
+- Modify examples and github pages doc.
+
 ## [v2.2.8] - 2018-05-28
 
 ### Fixed
