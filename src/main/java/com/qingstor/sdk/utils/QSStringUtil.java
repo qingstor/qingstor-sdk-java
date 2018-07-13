@@ -177,6 +177,7 @@ public class QSStringUtil {
             encoded = encoded.replace("%2F", "/");
             encoded = encoded.replace("%3D", "=");
             encoded = encoded.replace("+", "%20");
+            encoded = encoded.replace("%3A", ":");
             return encoded;
         } catch (UnsupportedEncodingException e) {
             throw new QSException("UnsupportedEncodingException:", e);
