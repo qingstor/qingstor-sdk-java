@@ -1,7 +1,9 @@
 ## HTTP Headers/Parameters
 
-在 SDK 中您不能直接获取/设置某个请求的 HTTP Headers/Parameters.
+在 SDK 中您不能直接获取某个请求的 HTTP Headers/Parameters.
 但是您可以通过以下方法自定义 HTTP Headers/Parameters.
+
+`* 如您仅想设置请求头(Request Headers)，您可以通过获取对应请求的 RequestHandler。然后通过  requestHandler.getBuilder().setHeader("key", "value");  进行设置。`
 
 ### 设置 Request Headers/Parameters
 

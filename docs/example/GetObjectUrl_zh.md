@@ -18,7 +18,7 @@ Bucket bucket = new Bucket(evn, zoneKey, bucketName);
 
 ```
 
-long expiresTime = new Date().getTime() / 1000 + 1000; // 1000秒后过期
+long expiresTime = new Date().getTime() / 1000 + 60 * 10; // 600秒（10分钟）后过期
 String objectUrl = bucket.GetObjectSignatureUrl(objectName, expiresTime);
 // 通过已签名的URL获取对象：
 Bucket.GetObjectOutput output = bucket.GetObjectBySignatureUrl(url);
