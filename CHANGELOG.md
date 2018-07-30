@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.10] - 2018-07-30
+
+### Fixed
+- Fix an issue that may not get the response header "Content-Length" when download.
+
 ## [v2.2.9] - 2018-07-13
 
 ### Added
