@@ -3,6 +3,8 @@
 You cannot get/set HTTP Headers/Parameters of a request in SDK directly.
 But you can define HTTP Headers/Parameters using below methods.
 
+`* If you want set Request Headers only, you can get the appropriate RequestHandler. Then use the method: requestHandler.getBuilder().setHeader("key", "value");`
+
 ### Set Request Headers/Parameters
 
 Take uploading a file with below HTTP Headers(Parameters is the same) as an example.

@@ -16,6 +16,7 @@
 
 package com.qingstor.sdk.request;
 
+import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
@@ -26,6 +27,8 @@ import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,11 +111,39 @@ public class RequestHandler {
 
 
     private Request getRequest() throws QSException{
-    	RequestBody  body = this.builder.getRequestBody(this.getQsRequestBody());
+        checkDownloadRequest();
+        RequestBody  body = this.builder.getRequestBody(this.getQsRequestBody());
     	if(this.getProgressListener() != null){
     		return this.builder.getRequest(new ProgressRequestBody(body,this.progressListener, getCancellationHandler()));
     	}
     	return this.builder.getRequest(body);
+    }
+
+    /**
+     *  <p> OkHttp will use "Accept-Encoding: gzip" as default header,
+     *  which may not get Content-Length form server when download. </p>
+     */
+    private void checkDownloadRequest() {
+        if (outputClass == null) return;
+        boolean isDownloadRequest = false;
+        Field[] declaredField = outputClass.getDeclaredFields();
+        for (Field field : declaredField) {
+            String methodName = "get" + QSParamInvokeUtil.capitalize(field.getName());
+            Method[] methods = outputClass.getDeclaredMethods();
+            for (Method m : methods) {
+                if (m.getName().equalsIgnoreCase(methodName)) {
+                    ParamAnnotation annotation = m.getAnnotation(ParamAnnotation.class);
+                    if (annotation == null) continue;
+                    if ("BodyInputStream".equals(annotation.paramName())) {
+                        isDownloadRequest = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (isDownloadRequest) {
+            getBuilder().setHeader("Accept-Encoding", "identity");
+        }
     }
 
 

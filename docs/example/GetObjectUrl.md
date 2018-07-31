@@ -19,7 +19,7 @@ Then you can get  object signature url.
 
 ```
 
-long expiresTime = new Date().getTime() / 1000 + 1000; // Expired in 1000 seconds.
+long expiresTime = new Date().getTime() / 1000 + 60 * 10; // Expired in 600 seconds(10 minutes).
 String objectUrl = bucket.GetObjectSignatureUrl(objectName, expiresTime);
 // Get object by signature url
 

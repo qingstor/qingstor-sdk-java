@@ -295,7 +295,6 @@ public class QSBuilder {
             throw new QSException("You need to 'getExpiresRequestUrl' do request!");
         }
 
-        //todo @chengww add a method to add headers
         return QSOkHttpRequestClient.getInstance().buildRequest(this.requestMethod, this.requestUrl, requestBody,
                 paramsHeaders);
     }

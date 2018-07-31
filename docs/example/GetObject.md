@@ -33,8 +33,8 @@ getObject(bucket, "folder/test.mp3", "/Users/chengww/Desktop/test.mp3");
         try {
             Bucket.GetObjectInput input = new Bucket.GetObjectInput();
             Bucket.GetObjectOutput output = bucket.getObject(objectKey, input);
+            InputStream inputStream = output.getBodyInputStream();
             if (output.getStatueCode() == 200) {
-                InputStream inputStream = output.getBodyInputStream();
                 if (inputStream != null) {
                     FileOutputStream fos = new FileOutputStream(localKeptPath);
                     int len;
@@ -42,7 +42,6 @@ getObject(bucket, "folder/test.mp3", "/Users/chengww/Desktop/test.mp3");
                     while ((len = inputStream.read(bytes)) != -1) {
                         fos.write(bytes, 0, len);
                     }
-                    inputStream.close();
                     fos.flush();
                     fos.close();
                     System.out.println("Get object success.");
@@ -60,7 +59,7 @@ getObject(bucket, "folder/test.mp3", "/Users/chengww/Desktop/test.mp3");
                 System.out.println("Code = " + output.getCode());
                 System.out.println("Url = " + output.getUrl());
             }
-
+            if (inputStream != null) inputStream.close();
         } catch (QSException | IOException e) {
             e.printStackTrace();
         }
