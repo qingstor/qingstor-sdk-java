@@ -19,14 +19,13 @@ package com.qingstor.sdk.utils;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.service.Bucket;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class QSParamInvokeUtilTest {
 
@@ -68,8 +67,8 @@ public class QSParamInvokeUtilTest {
         List<String> imgs =
                 new ArrayList<String>() {
                     {
-                        add("test-0001");
-                        add("test-0002");
+                        add("test_classes-0001");
+                        add("test_classes-0002");
                     }
                 };
         instancesInput.setImageID(imgs);
@@ -81,7 +80,7 @@ public class QSParamInvokeUtilTest {
                         instancesInput, QSConstant.PARAM_TYPE_BODYINPUTSTREAM);
 
         Assert.assertEquals(queryParam.get("action"), "serch_word_test");
-        Assert.assertEquals(((List) queryParam.get("image_id")).get(1), "test-0002");
+        Assert.assertEquals(((List) queryParam.get("image_id")).get(1), "test_classes-0002");
         Assert.assertEquals(queryParam.size(), 2);
         Assert.assertEquals(bodyParam.size(), 0);
     }

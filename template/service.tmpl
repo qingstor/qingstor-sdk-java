@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ResponseCallBack;
@@ -40,11 +40,11 @@ import com.qingstor.sdk.request.RequestHandler;
 {{if $service.Description}}// {{$service.Name | camelCase}}Service: {{$service.Description}}{{end}}
 public class QingStor {
     private String zone;
-    private EvnContext evnContext;
+    private EnvContext envContext;
     private String bucketName;
 
-    public QingStor(EvnContext evnContext,String zone){
-       this.evnContext = evnContext;
+    public QingStor(EnvContext envContext,String zone){
+       this.envContext = envContext;
        this.zone = zone;
     }
 
@@ -54,6 +54,6 @@ public class QingStor {
     {{end}}
 
     public com.qingstor.sdk.service.Bucket getBucket(String bucketName,String zone){
-        return new com.qingstor.sdk.service.Bucket(this.evnContext,zone,bucketName);
+        return new com.qingstor.sdk.service.Bucket(this.envContext, zone, bucketName);
     }
 }

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ResourceRequestFactory;
@@ -44,20 +44,20 @@ import okhttp3.Request;
  * Most of operations in qingstore can be found in this class.<br>
  * Usage:
  * <pre>
- * EvnContext evn = new EvnContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
+ * EnvContext env = new EnvContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
  * String zoneName = "pek3a";
  * String bucketName = "testBucketName";
- * Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+ * Bucket bucket = new Bucket(env, zoneKey, bucketName);
  * </pre>
  * Now you can use the object bucket to do the operations.
  */
 public class Bucket {
     private String zone;
     private String bucketName;
-    private EvnContext evnContext;
+    private EnvContext envContext;
 
-    public Bucket(EvnContext evnContext, String zone,String bucketName) {
-        this.evnContext = evnContext;
+    public Bucket(EnvContext envContext, String zone,String bucketName) {
+        this.envContext = envContext;
         this.zone = zone;
         this.bucketName = bucketName;
     }
@@ -78,7 +78,7 @@ public class Bucket {
          */
          @Deprecated
         public String GetObjectSignatureUrl(String objectName,int expiresSecond) throws QSException{
-            return QSSignatureUtil.getObjectAuthRequestUrl(this.evnContext,this.zone,bucketName,objectName,expiresSecond);
+            return QSSignatureUtil.getObjectAuthRequestUrl(this.envContext,this.zone,bucketName,objectName,expiresSecond);
         }
 
         /**
@@ -107,7 +107,7 @@ public class Bucket {
 
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+            context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
             context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
@@ -142,7 +142,7 @@ public class Bucket {
         public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+            context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
             context.put("ServiceName", "QingStor");
@@ -169,7 +169,7 @@ public class Bucket {
                 throws QSException {
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+            context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
             context.put("ServiceName", "QingStor");
@@ -203,7 +203,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
         context.put("APIName", "ImageProcess");
         context.put("ServiceName", "Image Process");

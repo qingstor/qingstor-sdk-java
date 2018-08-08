@@ -16,7 +16,7 @@
 
 package com.qingstor.sdk.request;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
@@ -109,15 +109,15 @@ public class QSBuilder {
     private String getParamSignature() throws QSException {
 
         String authSign = "";
-        EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
         try {
 
             if (this.checkExpiresParam()) {
-                authSign = QSSignatureUtil.generateSignature(evnContext.getAccessSecret(), this.getStringToSignature());
+                authSign = QSSignatureUtil.generateSignature(envContext.getAccessSecret(), this.getStringToSignature());
                 authSign = URLEncoder.encode(authSign, QSConstant.ENCODING_UTF8);
             } else {
-                authSign = QSSignatureUtil.generateAuthorization(evnContext.getAccessKey(),
-                        evnContext.getAccessSecret(), this.getStringToSignature());
+                authSign = QSSignatureUtil.generateAuthorization(envContext.getAccessKey(),
+                        envContext.getAccessSecret(), this.getStringToSignature());
 
             }
         } catch (Exception e) {
@@ -128,16 +128,16 @@ public class QSBuilder {
     }
 
     private void initRequestUrl() throws QSException {
-        EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
         String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
         String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
         String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
         String requestSuffixPath = getRequestSuffixPath((String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH),
                 bucketName, objectName);
         //init request url style
-        this.requestUrlStyle = evnContext.getRequestUrlStyle();
+        this.requestUrlStyle = envContext.getRequestUrlStyle();
 
-        this.requestUrl = this.getSignedUrl(evnContext.getRequestUrl(), zone, bucketName, paramsQuery,
+        this.requestUrl = this.getSignedUrl(envContext.getRequestUrl(), zone, bucketName, paramsQuery,
                 requestSuffixPath);
         logger.log(Level.INFO, "== requestUrl ==\n" + this.requestUrl + "\n");
     }
@@ -216,8 +216,8 @@ public class QSBuilder {
     public void setSignature(String accessKey, String signature) throws QSException {
 
         try {
-            EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
-            evnContext.setAccessKey(accessKey);
+            EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+            envContext.setAccessKey(accessKey);
             if (this.checkExpiresParam()) {
                 signature = URLEncoder.encode(signature, QSConstant.ENCODING_UTF8);
             } else {
@@ -310,9 +310,9 @@ public class QSBuilder {
 	public String getExpiresRequestUrl() throws QSException {
 		Object expiresTime = this.context.get(QSConstant.PARAM_KEY_EXPIRES);
 		if (expiresTime != null) {
-			EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+			EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
 			String expireAuth = this.getSignature();
-			String serviceUrl = evnContext.getRequestUrl();
+			String serviceUrl = envContext.getRequestUrl();
 			String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
 			String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
 
@@ -330,11 +330,11 @@ public class QSBuilder {
             requestPath = requestPath.replace("/<bucket-name>", "").replace("/<object-key>", objectName);
 			if (requestPath != null && requestPath.indexOf("?") > 0) {
 				String expiresUrl = String.format(storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
-						requestPath, evnContext.getAccessKey(), expiresTime + "", expireAuth);
+						requestPath, envContext.getAccessKey(), expiresTime + "", expireAuth);
 				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
 			} else {
 				String expiresUrl = String.format(storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
-						requestPath, evnContext.getAccessKey(), expiresTime + "", expireAuth);
+						requestPath, envContext.getAccessKey(), expiresTime + "", expireAuth);
 				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
 			}
 		} else {
