@@ -220,7 +220,7 @@ public class QSSignatureUtil {
 
                 try {
                     canonicalized_query += key;
-                    String value = params.get(key);
+                    String value = String.valueOf(params.get(key));
                     if (!value.isEmpty()) {
                         canonicalized_query += "=" + value;
                     }
