@@ -25,9 +25,9 @@ See [API Docs](https://docs.qingcloud.com/qingstor/data_process/image_process/) 
 
 ```java
     private void imageProcessClientDemo() throws QSException {
-        EvnContext evn = new EvnContext("yourAccessKey", "yourSecretKey"); // When you need sign with server, accessKey and secretKey can be empty
+        EnvContext env = new EnvContext("yourAccessKey", "yourSecretKey"); // When you need sign with server, accessKey and secretKey can be empty
         Bucket bucket = new Bucket(
-                evn, "zoneName", "bucketName");
+                env, "zoneName", "bucketName");
         ImageProcessClient client = new ImageProcessClient("head.jpg", bucket);
 
         // Get image info

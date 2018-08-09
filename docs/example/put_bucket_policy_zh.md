@@ -9,10 +9,10 @@
 用 accesskeyid 和 secretaccesskey 初始化 Bucket 服务。
 
 ```
-EvnContext evn = new EvnContext(accessKey,accessSecret);
+EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
-Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 ```
 

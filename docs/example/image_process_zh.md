@@ -20,9 +20,9 @@
 
 ```java
     private void imageProcessClientDemo() throws QSException {
-        EvnContext evn = new EvnContext("您的 accessKey", "您的 secretKey"); // 用服务端签名时，此处可以为空
+        EnvContext env = new EnvContext("您的 accessKey", "您的 secretKey"); // 用服务端签名时，此处可以为空
         Bucket bucket = new Bucket(
-                evn, "zone 名称", "bucket 名称");
+                env, "zone 名称", "bucket 名称");
         ImageProcessClient client = new ImageProcessClient("head.jpg", bucket);
 
         // 获取图片信息

@@ -3,10 +3,10 @@
 Initialize the Bucket service with accesskeyid and secretaccesskey
 
 ``` java
-EvnContext evn = new EvnContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
+EnvContext env = new EnvContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
 String zoneName = "pek3a";
 String bucketName = "testBucketName";
-Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 Objects in above codes：

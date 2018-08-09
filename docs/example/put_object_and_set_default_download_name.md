@@ -31,9 +31,9 @@ public class MyPutObjectInput extends Bucket.PutObjectInput{
 Use these codes when uploading:
 
 ```
-EvnContext evn = new EvnContext("key","secret");
-evn.setLog_level(QSConstant.LOGGER_INFO);
-Bucket bucket = new Bucket(evn, testZone, "chengww-test");
+EnvContext env = new EnvContext("key","secret");
+env.setLog_level(QSConstant.LOGGER_INFO);
+Bucket bucket = new Bucket(env, testZone, "chengww-test");
 try {
     MyPutObjectInput putObjectInput = new MyPutObjectInput();
     String keyName = QSStringUtil.percentEncode("测试文件名(1).test", "utf-8");

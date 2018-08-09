@@ -27,10 +27,10 @@ See [API Docs](https://docs.qingcloud.com/qingstor/api/object/options.html) for 
 Initialize the Bucket service with accesskeyid and secretaccesskey
 
 ```
-EvnContext evn = new EvnContext(accessKey,accessSecret);
+EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
-Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 ```
 

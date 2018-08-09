@@ -5,7 +5,7 @@ Import and initialize QingStor service with a context, and you are ready to use 
 Each API function take a Input struct and return an Output struct. The Input struct consists of request params, request headers and request elements, and the Output holds the HTTP status code, response headers, response elements and error message (if error occurred).
 
 ```
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.service.*;
 ```
 
@@ -15,7 +15,7 @@ Initialize the QingStor service with a configuration
 
 ```
 String zoneName = "pek3a";
-QingStor storService = new QingStor(evn, zoneName);
+QingStor storService = new QingStor(env, zoneName);
 
 ```
 
@@ -93,8 +93,8 @@ Bucket.UploadMultipartOutput uploadMultipartOutput3 = bucket.uploadMultipart(mul
 
 ```
 
-EvnContext evn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
-        QingStor storService = new QingStor(evn);
+EnvContext env = new EnvContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+        QingStor storService = new QingStor(env);
         try {
             Bucket bucket = storService.getBucket(bucketName, zoneId);
             

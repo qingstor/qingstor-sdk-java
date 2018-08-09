@@ -3,7 +3,7 @@
 ### 请求消息体
 
 |名称|类型|描述|
-|:--:|:--:|:--:|:--|
+|:--:|:--:|:--|
 |acl|List|支持设置 0 到多个被授权者|
 |grantee|Dict|支持 user, group 两种类型，当设置 user 类型时，需要给出 user id；当设置 group 类型时，目前只支持 QS_ALL_USERS，代表所有用户|
 |permission|String|支持三种权限为 READ, WRITE, FULL_CONTROL|
@@ -13,10 +13,10 @@
 用 accesskeyid 和 secretaccesskey 初始化 Bucket 服务。
 
 ```
-EvnContext evn = new EvnContext(accessKey,accessSecret);
+EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
-Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 ```
 

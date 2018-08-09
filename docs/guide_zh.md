@@ -12,6 +12,7 @@
 - [安装](./example/install_zh.md)
 - [配置](./example/config_zh.md)
 - [初始化服务](./example/service_zh.md)
+- [Demo 示例](./example/demo.md)
 
 ## 更多 SDK 示例
 

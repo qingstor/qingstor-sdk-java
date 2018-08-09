@@ -31,24 +31,24 @@ request_url_style: 'path_style'
 
 ### 代码片段
 
-创建一个默认的 EvnContext
+创建一个默认的 EnvContext
 
 ``` java
-EvnContext evn = EvnContext.loadFromFile("path to yaml");
+EnvContext env = EnvContext.loadFromFile("path to yaml");
 ```
 
-通过密钥来创建 EvnContext
+通过密钥来创建 EnvContext
 
 ``` java
-EvnContext  evn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+EnvContext  env = new EnvContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 ```
 
 你也可以选择更换 API 服务器
 
 ``` java
-EvnContext  moreEvn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+EnvContext moreEnv = new EnvContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 
-moreEvn.setProtocol("https");
-moreEvn.setHost("qingstor.com");
-moreEvn.setPort("443");
+moreEnv.setProtocol("https");
+moreEnv.setHost("qingstor.com");
+moreEnv.setPort("443");
 ```

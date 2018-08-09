@@ -5,7 +5,7 @@ Import and initialize QingStor service with a context, and you are ready to use 
 
 
 ```
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.service.*;
 ```
 
@@ -14,9 +14,9 @@ import com.qingstor.sdk.service.*;
 Initialize the QingStor service with access_key_id and secret_access_key
 
 ```
-EvnContext evn = new EvnContext(accessKey,accessSecret);
+EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
-QingStor storService = new QingStor(evn, zoneKey);
+QingStor storService = new QingStor(env, zoneKey);
 
 ```
 
