@@ -10,4 +10,3 @@ com.qingstor.sdk.service
 com.qingstor.sdk.upload
 com.qingstor.sdk.upload.impl
 com.qingstor.sdk.utils
-com.test_classes

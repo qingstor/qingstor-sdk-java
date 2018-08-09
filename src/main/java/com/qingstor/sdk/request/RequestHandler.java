@@ -17,7 +17,7 @@
 package com.qingstor.sdk.request;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
@@ -79,10 +79,10 @@ public class RequestHandler {
                     QSConstant.REQUEST_ERROR_CODE, validate, out);
             this.asyncCallback.onAPIResponse(out);
         } else {
-            EvnContext evnContext = (EvnContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
             Request request = this.getRequest();
             QSOkHttpRequestClient.getInstance()
-                    .requestActionAsync(request, evnContext.isSafeOkHttp(), this.asyncCallback);
+                    .requestActionAsync(request, envContext.isSafeOkHttp(), this.asyncCallback);
         }
     }
 
@@ -100,12 +100,12 @@ public class RequestHandler {
                 throw new QSException(e.getMessage());
             }
         } else {
-            EvnContext evnContext = (EvnContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
 
             Request request = this.getRequest();
 
             return QSOkHttpRequestClient.getInstance()
-                    .requestAction(request, evnContext.isSafeOkHttp(), outputClass);
+                    .requestAction(request, envContext.isSafeOkHttp(), outputClass);
         }
     }
 
@@ -173,11 +173,11 @@ public class RequestHandler {
 
     public String check() {
         String validate = this.paramBean != null ? paramBean.validateParam() : "";
-        EvnContext evnContext = (EvnContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
-        String evnValidate = evnContext.validateParam();
-        if (!QSStringUtil.isEmpty(validate) || !QSStringUtil.isEmpty(evnValidate)) {
+        EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
+        String envValidate = envContext.validateParam();
+        if (!QSStringUtil.isEmpty(validate) || !QSStringUtil.isEmpty(envValidate)) {
             if (QSStringUtil.isEmpty(validate)) {
-                validate = evnValidate;
+                validate = envValidate;
             }
             return validate;
         }

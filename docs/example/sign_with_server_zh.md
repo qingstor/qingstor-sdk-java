@@ -24,9 +24,9 @@ reqHandler.sendAsync();
 以上传文件为例：
 ```
 try {
-    // 第一步: 创建 EvnContext 并设置 zone 和 bucket
-    EvnContext evn = new EvnContext("", "");
-    Bucket bucket = new Bucket(evn, "zone 名称", "bucket 名称");
+    // 第一步: 创建 EnvContext 并设置 zone 和 bucket
+    EnvContext env = new EnvContext("", "");
+    Bucket bucket = new Bucket(env, "zone 名称", "bucket 名称");
 
     Bucket.PutObjectInput putObjectInput = new Bucket.PutObjectInput();
     File file = new File("/文件路径/文件名");

@@ -5,16 +5,16 @@
 ``` java
 import java.io.*;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.service.*;
 import com.qingstor.sdk.Bucket.GetObjectInput;
 import com.qingstor.sdk.Bucket.GetObjectOutput;
 
-EvnContext evn = new EvnContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
+EnvContext env = new EnvContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
-Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 上面代码中出现的对象：

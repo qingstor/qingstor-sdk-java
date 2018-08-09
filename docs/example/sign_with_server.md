@@ -26,9 +26,9 @@ reqHandler.sendAsync();
 Take uploading object for example:
 ```
 try {
-    // Step 1: new EvnContext and set zone and bucket
-    EvnContext evn = new EvnContext("", "");
-    Bucket bucket = new Bucket(evn, "zoneName", "bucketName");
+    // Step 1: new EnvContext and set zone and bucket
+    EnvContext env = new EnvContext("", "");
+    Bucket bucket = new Bucket(env, "zoneName", "bucketName");
 
     Bucket.PutObjectInput putObjectInput = new Bucket.PutObjectInput();
     File file = new File("/filePath/fileName");

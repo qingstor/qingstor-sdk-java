@@ -1,12 +1,12 @@
-# EvnContext Guide
+# EnvContext Guide
 
 ## Summary
 
-This SDK uses a structure called "EvnContext" to store and manage configuration.
+This SDK uses a structure called "EnvContext" to store and manage configuration.
 
 Except for AccessKeyID and SecretAccessKey, you can also configure the API servers for private cloud usage scenario. All available configureable items are list in default configuration file.
 
-___Default EvnContext File:___
+___Default EnvContext File:___
 
 ``` yaml
 # QingStor services configuration
@@ -33,24 +33,24 @@ Just create a config structure instance with your API AccessKey, and initialize 
 
 ### Code Snippet
 
-Create default EvnContext
+Create default EnvContext
 
 ```
-EvnContext evn = EvnContext.loadFromFile("path to yaml");
+EnvContext env = EnvContext.loadFromFile("path to yaml");
 ```
 
-Create EvnContext from AccessKey
+Create EnvContext from AccessKey
 
 ```
-EvnContext  evn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+EnvContext  env = new EnvContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 ```
 
 Change API server
 
 ```
-EvnContext  moreEvn = new EvnContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+EnvContext  moreEnv = new EnvContext("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 
-moreEvn.setProtocol("https");
-moreEvn.setHost("qingstor.com");
-moreEvn.setPort("443");
+moreEnv.setProtocol("https");
+moreEnv.setHost("qingstor.com");
+moreEnv.setPort("443");
 ```

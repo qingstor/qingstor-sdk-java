@@ -3,7 +3,7 @@
 ### Request Elements
 
 |Name|Type|Description|
-|:--:|:--:|:--:|:--|
+|:--:|:--:|:--|
 |acl|List|Supports to set 0 or more grantees|
 |grantee|Dict|Specifies the Type(user, group). When type is user, need user id; when type is group, only supports QS_ALL_USERS(all of the users)|
 |permission|String|Specifies the permission (READ, WRITE, FULL_CONTROL) given to the grantee.|
@@ -13,10 +13,10 @@
 Initialize the Bucket service with accesskeyid and secretaccesskey
 
 ```
-EvnContext evn = new EvnContext(accessKey,accessSecret);
+EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
-Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 ```
 

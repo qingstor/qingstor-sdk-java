@@ -17,7 +17,7 @@
 package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
@@ -33,11 +33,11 @@ import java.util.Map;
 // QingStorService: QingStor provides low-cost and reliable online storage service with unlimited storage space, high read and write performance, high reliability and data safety, fine-grained access control, and easy to use API.
 public class QingStor {
     private String zone;
-    private EvnContext evnContext;
+    private EnvContext envContext;
     private String bucketName;
 
-    public QingStor(EvnContext evnContext, String zone) {
-        this.evnContext = evnContext;
+    public QingStor(EnvContext envContext, String zone) {
+        this.envContext = envContext;
         this.zone = zone;
     }
 
@@ -79,7 +79,7 @@ public class QingStor {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListBuckets");
         context.put("APIName", "ListBuckets");
         context.put("ServiceName", "Get Service");
@@ -131,7 +131,7 @@ public class QingStor {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.evnContext);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListBuckets");
         context.put("APIName", "ListBuckets");
         context.put("ServiceName", "Get Service");
@@ -210,6 +210,6 @@ public class QingStor {
     }
 
     public com.qingstor.sdk.service.Bucket getBucket(String bucketName, String zone) {
-        return new com.qingstor.sdk.service.Bucket(this.evnContext, zone, bucketName);
+        return new com.qingstor.sdk.service.Bucket(this.envContext, zone, bucketName);
     }
 }

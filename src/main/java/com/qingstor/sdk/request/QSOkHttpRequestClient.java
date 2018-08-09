@@ -61,18 +61,14 @@ public class QSOkHttpRequestClient {
 
     private static volatile QSOkHttpRequestClient ins;
 
-    protected QSOkHttpRequestClient() {
-        intiOkHttpClient();
-    }
+    protected QSOkHttpRequestClient() {}
 
-    public void intiOkHttpClient() {
-        client =
-                new OkHttpClient.Builder()
+    public OkHttpClient getSafetyClient() {
+        return new OkHttpClient.Builder()
                         .connectTimeout(QSConstant.HTTPCLIENT_CONNECTION_TIME_OUT, TimeUnit.SECONDS)
                         .readTimeout(QSConstant.HTTPCLIENT_READ_TIME_OUT, TimeUnit.SECONDS)
                         .writeTimeout(QSConstant.HTTPCLIENT_WRITE_TIME_OUT, TimeUnit.SECONDS)
                         .build();
-        unsafeClient = getUnsafeOkHttpClient();
     }
 
     @Deprecated
@@ -139,8 +135,22 @@ public class QSOkHttpRequestClient {
 
     private Call getRequestCall(boolean bSafe, Request request) {
         if (bSafe) {
+            if (client == null) {
+                synchronized (QSOkHttpRequestClient.class) {
+                    if (client == null) {
+                        client = getSafetyClient();
+                    }
+                }
+            }
             return client.newCall(request);
         } else {
+            if (unsafeClient == null) {
+                synchronized (QSOkHttpRequestClient.class) {
+                    if (unsafeClient == null) {
+                        unsafeClient = getUnsafeOkHttpClient();
+                    }
+                }
+            }
             return this.unsafeClient.newCall(request);
         }
     }

@@ -16,14 +16,15 @@
 
 package com.qingstor.sdk.request;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
-import okhttp3.Request;
 
 import java.util.Map;
+
+import okhttp3.Request;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSRequest implements ResourceRequest {
@@ -40,20 +41,20 @@ public class QSRequest implements ResourceRequest {
     @Override
     public void sendApiRequestAsync(String requestUrl, Map context, ResponseCallBack callback)
             throws QSException {
-        EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
         Request request = QSOkHttpRequestClient.getInstance().buildUrlRequest(requestUrl);
         QSOkHttpRequestClient.getInstance()
-                .requestActionAsync(request, evnContext.isSafeOkHttp(), callback);
+                .requestActionAsync(request, envContext.isSafeOkHttp(), callback);
     }
 
     @Override
     public OutputModel sendApiRequest(
             String requestUrl, Map context, Class<? extends OutputModel> outputClass)
             throws QSException {
-        EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
         Request request = QSOkHttpRequestClient.getInstance().buildUrlRequest(requestUrl);
         return QSOkHttpRequestClient.getInstance()
-                .requestAction(request, evnContext.isSafeOkHttp(), outputClass);
+                .requestAction(request, envContext.isSafeOkHttp(), outputClass);
     }
 
     @Override

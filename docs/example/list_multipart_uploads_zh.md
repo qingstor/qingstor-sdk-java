@@ -23,10 +23,10 @@
 首先我们需要初始化一个 Bucket 对象来对 Bucket 进行操作：
 
 ```java
-EvnContext evn = new EvnContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
+EnvContext env = new EnvContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
 String zoneName = "pek3a";
 String bucketName = "testBucketName";
-Bucket bucket = new Bucket(evn, zoneKey, bucketName);
+Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 上面代码中出现的对象：

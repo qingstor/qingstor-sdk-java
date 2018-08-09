@@ -16,7 +16,7 @@
 
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
@@ -220,7 +220,7 @@ public class QSSignatureUtil {
 
                 try {
                     canonicalized_query += key;
-                    String value = params.get(key);
+                    String value = String.valueOf(params.get(key));
                     if (!value.isEmpty()) {
                         canonicalized_query += "=" + value;
                     }
@@ -301,7 +301,7 @@ public class QSSignatureUtil {
     }
 
     public static String getObjectAuthRequestUrl(
-            EvnContext evnContext,
+            EnvContext envContext,
             String zone,
             String bucketName,
             String objectName,
@@ -311,7 +311,7 @@ public class QSSignatureUtil {
         try {
             objectName = QSStringUtil.asciiCharactersEncoding(objectName);
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, evnContext);
+            context.put(QSConstant.EVN_CONTEXT_KEY, envContext);
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
             context.put("ServiceName", "QingStor");
@@ -321,14 +321,14 @@ public class QSSignatureUtil {
             context.put("objectNameInput", objectName);
             long expiresTime = (new Date().getTime() / 1000 + expiresSecond);
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
-            String serviceUrl = evnContext.getRequestUrl();
+            String serviceUrl = envContext.getRequestUrl();
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
             if (objectName != null && objectName.indexOf("?") > 0) {
                 return String.format(
                         storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
                         bucketName,
                         objectName,
-                        evnContext.getAccessKey(),
+                        envContext.getAccessKey(),
                         expiresTime + "",
                         expireAuth);
             } else {
@@ -336,7 +336,7 @@ public class QSSignatureUtil {
                         storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
                         bucketName,
                         objectName,
-                        evnContext.getAccessKey(),
+                        envContext.getAccessKey(),
                         expiresTime + "",
                         expireAuth);
             }
@@ -348,7 +348,7 @@ public class QSSignatureUtil {
     public static String getExpireAuth(Map context, long expiresSecond, RequestInputModel params)
             throws UnsupportedEncodingException {
 
-        EvnContext evnContext = (EvnContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
 
         Map paramsQuery = QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_QUERY);
         Map paramsHeaders =
@@ -369,7 +369,7 @@ public class QSSignatureUtil {
         }
         String authSign =
                 generateSignature(
-                        evnContext.getAccessSecret(),
+                        envContext.getAccessSecret(),
                         method,
                         requestPath,
                         paramsQuery,
