@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.11] - 2018-08-09
+
+### Changed
+- Modify the class EvnContext to EnvContext
+- Modify lazy load a single instance of okhttp client
+- Modify examples and java docs
+
+### Fixed
+- Fix ClassCastException when multiUpload
+
 ## [v2.2.10] - 2018-07-30
 
 ### Fixed
