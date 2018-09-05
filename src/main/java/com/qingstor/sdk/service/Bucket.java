@@ -2410,6 +2410,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
+        } // Indicate if these are more results in the next page
+
+        private Boolean hasMore;
+
+        public void setHasMore(Boolean hasMore) {
+            this.hasMore = hasMore;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "has_more")
+        public Boolean getHasMore() {
+            return this.hasMore;
         } // Object keys
 
         private List<KeyModel> keys;
