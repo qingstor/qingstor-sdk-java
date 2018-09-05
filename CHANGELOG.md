@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.12] - 2018-09-05
+
+### Added
+- Add has_more in response element
+
+    If you are a private cloud user, please ensure that the version number of your server is greater than 20180801 (inclusive).
+
 ## [v2.2.11] - 2018-08-09
 
 ### Changed
