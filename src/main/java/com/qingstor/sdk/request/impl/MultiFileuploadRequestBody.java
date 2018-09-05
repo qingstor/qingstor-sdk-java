@@ -49,7 +49,7 @@ public class MultiFileuploadRequestBody extends RequestBody {
 	}
 
 	@Override
-	public long contentLength() throws IOException {
+	public long contentLength() {
 		return this.contentLength;
 	}
 
@@ -76,6 +76,5 @@ public class MultiFileuploadRequestBody extends RequestBody {
 				sink.write(bufferOut, 0, bytes);
 			}
 		}
-
 	}
 }

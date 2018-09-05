@@ -71,7 +71,7 @@ public class InputStreamUploadBody extends RequestBody {
         } else {
             writeAll(sink);
         }
-
+        sink.flush();
         Util.closeQuietly(file);
     }
 
