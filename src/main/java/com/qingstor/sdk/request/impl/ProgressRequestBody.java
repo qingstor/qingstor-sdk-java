@@ -75,6 +75,7 @@ public class ProgressRequestBody extends RequestBody {
 			buffer.clear();
 		} else {
 			requestBody.writeTo(bufferedSink);
+			bufferedSink.flush();
 		}
 	}
 }

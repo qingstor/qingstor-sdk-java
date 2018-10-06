@@ -17,12 +17,8 @@
 *****/
 package com.qingstor.sdk.request.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.internal.Util;
 import okio.BufferedSink;
 
 /**
@@ -40,12 +36,12 @@ public class EmptyRequestBody extends RequestBody {
 	}
 
 	@Override
-	public long contentLength() throws IOException {
+	public long contentLength() {
 		return this.contentLength;
 	}
 
 	@Override
-	public void writeTo(BufferedSink sink) throws IOException {
+	public void writeTo(BufferedSink sink) {
 	}
 
 	@Override
