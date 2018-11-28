@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.13] - 2018-11-27
+
+### Changed
+- Modify the http response header key to lower case
+
+    Now some http response headers have become lowercase, were uppercase before("X-QS-Encryption-Customer-Algorithm" --> "x-qs-encryption-customer-algorithm"). To fix this issue, http headers in SDK are case insensitive.
+
 ## [v2.2.12] - 2018-09-05
 
 ### Added
