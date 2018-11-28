@@ -808,7 +808,7 @@ public class Bucket {
             this.contentMD5 = contentMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "content-md5")
         public String getContentMD5() {
             return this.contentMD5;
         }
@@ -4008,7 +4008,7 @@ public class Bucket {
             this.eTag = eTag;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
         } // Encryption algorithm of the object
@@ -4019,7 +4019,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -4030,7 +4030,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKey = xQSEncryptionCustomerKey;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -4041,7 +4041,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKeyMD5 = xQSEncryptionCustomerKeyMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
         }
@@ -4110,7 +4110,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         }
@@ -4454,7 +4454,7 @@ public class Bucket {
             this.ifMatch = ifMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-Match")
+        @ParamAnnotation(paramType = "header", paramName = "if-match")
         public String getIfMatch() {
             return this.ifMatch;
         } // Check whether the object has been modified
@@ -4465,7 +4465,7 @@ public class Bucket {
             this.ifModifiedSince = ifModifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-Modified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "if-modified-since")
         public String getIfModifiedSince() {
             return this.ifModifiedSince;
         } // Check whether the ETag does not match
@@ -4476,7 +4476,7 @@ public class Bucket {
             this.ifNoneMatch = ifNoneMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-None-Match")
+        @ParamAnnotation(paramType = "header", paramName = "if-none-match")
         public String getIfNoneMatch() {
             return this.ifNoneMatch;
         } // Check whether the object has not been modified
@@ -4487,7 +4487,7 @@ public class Bucket {
             this.ifUnmodifiedSince = ifUnmodifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-Unmodified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "if-unmodified-since")
         public String getIfUnmodifiedSince() {
             return this.ifUnmodifiedSince;
         } // Specified range of the object
@@ -4498,7 +4498,7 @@ public class Bucket {
             this.range = range;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Range")
+        @ParamAnnotation(paramType = "header", paramName = "range")
         public String getRange() {
             return this.range;
         } // Encryption algorithm of the object
@@ -4509,7 +4509,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -4520,7 +4520,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKey = xQSEncryptionCustomerKey;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -4531,7 +4531,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKeyMD5 = xQSEncryptionCustomerKeyMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
         }
@@ -4715,7 +4715,7 @@ public class Bucket {
             this.cacheControl = cacheControl;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Cache-Control")
+        @ParamAnnotation(paramType = "header", paramName = "cache-control")
         public String getCacheControl() {
             return this.cacheControl;
         } // In a multipart/form-data body, the HTTP Content-Disposition general header is a header that can be used on the subpart of a multipart body to give information about the field it applies to.
@@ -4726,7 +4726,7 @@ public class Bucket {
             this.contentDisposition = contentDisposition;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Disposition")
+        @ParamAnnotation(paramType = "header", paramName = "content-disposition")
         public String getContentDisposition() {
             return this.contentDisposition;
         } // The Content-Encoding entity header is used to compress the media-type.
@@ -4737,7 +4737,7 @@ public class Bucket {
             this.contentEncoding = contentEncoding;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Encoding")
+        @ParamAnnotation(paramType = "header", paramName = "content-encoding")
         public String getContentEncoding() {
             return this.contentEncoding;
         } // The Content-Language entity header is used to describe the language(s) intended for the audience.
@@ -4748,7 +4748,7 @@ public class Bucket {
             this.contentLanguage = contentLanguage;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Language")
+        @ParamAnnotation(paramType = "header", paramName = "content-language")
         public String getContentLanguage() {
             return this.contentLanguage;
         } // Object content length
@@ -4759,7 +4759,7 @@ public class Bucket {
             this.contentLength = contentLength;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Length")
+        @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
         } // Range of response data content
@@ -4770,7 +4770,7 @@ public class Bucket {
             this.contentRange = contentRange;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Range")
+        @ParamAnnotation(paramType = "header", paramName = "content-range")
         public String getContentRange() {
             return this.contentRange;
         } // The Content-Type entity header is used to indicate the media type of the resource.
@@ -4781,7 +4781,7 @@ public class Bucket {
             this.contentType = contentType;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Type")
+        @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
         } // MD5sum of the object
@@ -4792,7 +4792,7 @@ public class Bucket {
             this.eTag = eTag;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
         } // The Expires header contains the date/time after which the response is considered stale.
@@ -4803,7 +4803,7 @@ public class Bucket {
             this.expires = expires;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Expires")
+        @ParamAnnotation(paramType = "header", paramName = "expires")
         public String getExpires() {
             return this.expires;
         }
@@ -4814,7 +4814,7 @@ public class Bucket {
             this.lastModified = lastModified;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Last-Modified")
+        @ParamAnnotation(paramType = "header", paramName = "last-modified")
         public String getLastModified() {
             return this.lastModified;
         } // Encryption algorithm of the object
@@ -4825,7 +4825,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Storage class of the object
@@ -4836,7 +4836,7 @@ public class Bucket {
             this.xQSStorageClass = xQSStorageClass;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-storage-class")
         public String getXQSStorageClass() {
             return this.xQSStorageClass;
         }
@@ -4993,7 +4993,7 @@ public class Bucket {
             this.ifMatch = ifMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-Match")
+        @ParamAnnotation(paramType = "header", paramName = "if-match")
         public String getIfMatch() {
             return this.ifMatch;
         } // Check whether the object has been modified
@@ -5004,7 +5004,7 @@ public class Bucket {
             this.ifModifiedSince = ifModifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-Modified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "if-modified-since")
         public String getIfModifiedSince() {
             return this.ifModifiedSince;
         } // Check whether the ETag does not match
@@ -5015,7 +5015,7 @@ public class Bucket {
             this.ifNoneMatch = ifNoneMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-None-Match")
+        @ParamAnnotation(paramType = "header", paramName = "if-none-match")
         public String getIfNoneMatch() {
             return this.ifNoneMatch;
         } // Check whether the object has not been modified
@@ -5026,7 +5026,7 @@ public class Bucket {
             this.ifUnmodifiedSince = ifUnmodifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-Unmodified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "if-unmodified-since")
         public String getIfUnmodifiedSince() {
             return this.ifUnmodifiedSince;
         } // Encryption algorithm of the object
@@ -5037,7 +5037,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -5048,7 +5048,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKey = xQSEncryptionCustomerKey;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -5059,7 +5059,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKeyMD5 = xQSEncryptionCustomerKeyMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
         }
@@ -5093,7 +5093,7 @@ public class Bucket {
             this.contentLength = contentLength;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Length")
+        @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
         } // Object content type
@@ -5104,7 +5104,7 @@ public class Bucket {
             this.contentType = contentType;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Type")
+        @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
         } // MD5sum of the object
@@ -5115,7 +5115,7 @@ public class Bucket {
             this.eTag = eTag;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
         }
@@ -5126,7 +5126,7 @@ public class Bucket {
             this.lastModified = lastModified;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Last-Modified")
+        @ParamAnnotation(paramType = "header", paramName = "last-modified")
         public String getLastModified() {
             return this.lastModified;
         } // Encryption algorithm of the object
@@ -5137,7 +5137,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Storage class of the object
@@ -5148,7 +5148,7 @@ public class Bucket {
             this.xQSStorageClass = xQSStorageClass;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-storage-class")
         public String getXQSStorageClass() {
             return this.xQSStorageClass;
         }
@@ -5389,7 +5389,7 @@ public class Bucket {
             this.ifModifiedSince = ifModifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "If-Modified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "if-modified-since")
         public String getIfModifiedSince() {
             return this.ifModifiedSince;
         }
@@ -5450,7 +5450,7 @@ public class Bucket {
             this.contentLength = contentLength;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Length")
+        @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
         }
@@ -5610,7 +5610,7 @@ public class Bucket {
             this.contentType = contentType;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Type")
+        @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
         } // Encryption algorithm of the object
@@ -5621,7 +5621,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -5632,7 +5632,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKey = xQSEncryptionCustomerKey;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -5643,7 +5643,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKeyMD5 = xQSEncryptionCustomerKeyMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
         } // Specify the storage class for object
@@ -5655,7 +5655,7 @@ public class Bucket {
             this.xQSStorageClass = xQSStorageClass;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-storage-class")
         public String getXQSStorageClass() {
             return this.xQSStorageClass;
         }
@@ -5743,7 +5743,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         }
@@ -6123,7 +6123,7 @@ public class Bucket {
             this.accessControlRequestHeaders = accessControlRequestHeaders;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Access-Control-Request-Headers")
+        @ParamAnnotation(paramType = "header", paramName = "access-control-request-headers")
         public String getAccessControlRequestHeaders() {
             return this.accessControlRequestHeaders;
         } // Request method
@@ -6135,7 +6135,7 @@ public class Bucket {
             this.accessControlRequestMethod = accessControlRequestMethod;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Access-Control-Request-Method")
+        @ParamAnnotation(paramType = "header", paramName = "access-control-request-method")
         public String getAccessControlRequestMethod() {
             return this.accessControlRequestMethod;
         } // Request origin
@@ -6147,7 +6147,7 @@ public class Bucket {
             this.origin = origin;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Origin")
+        @ParamAnnotation(paramType = "header", paramName = "origin")
         public String getOrigin() {
             return this.origin;
         }
@@ -6185,7 +6185,7 @@ public class Bucket {
             this.accessControlAllowHeaders = accessControlAllowHeaders;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Access-Control-Allow-Headers")
+        @ParamAnnotation(paramType = "header", paramName = "access-control-allow-headers")
         public String getAccessControlAllowHeaders() {
             return this.accessControlAllowHeaders;
         } // Allowed methods
@@ -6196,7 +6196,7 @@ public class Bucket {
             this.accessControlAllowMethods = accessControlAllowMethods;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Access-Control-Allow-Methods")
+        @ParamAnnotation(paramType = "header", paramName = "access-control-allow-methods")
         public String getAccessControlAllowMethods() {
             return this.accessControlAllowMethods;
         } // Allowed origin
@@ -6207,7 +6207,7 @@ public class Bucket {
             this.accessControlAllowOrigin = accessControlAllowOrigin;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Access-Control-Allow-Origin")
+        @ParamAnnotation(paramType = "header", paramName = "access-control-allow-origin")
         public String getAccessControlAllowOrigin() {
             return this.accessControlAllowOrigin;
         } // Expose headers
@@ -6218,7 +6218,7 @@ public class Bucket {
             this.accessControlExposeHeaders = accessControlExposeHeaders;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Access-Control-Expose-Headers")
+        @ParamAnnotation(paramType = "header", paramName = "access-control-expose-headers")
         public String getAccessControlExposeHeaders() {
             return this.accessControlExposeHeaders;
         } // Max age
@@ -6229,7 +6229,7 @@ public class Bucket {
             this.accessControlMaxAge = accessControlMaxAge;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Access-Control-Max-Age")
+        @ParamAnnotation(paramType = "header", paramName = "access-control-max-age")
         public String getAccessControlMaxAge() {
             return this.accessControlMaxAge;
         }
@@ -6367,6 +6367,8 @@ public class Bucket {
      * PutObjectInput: an input stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
+     * field CacheControl Object cache control <br>
+     * field ContentEncoding Object content encoding <br>
      * field ContentLength Object content size <br>
      * field ContentMD5 Object MD5sum <br>
      * field ContentType Object content type <br>
@@ -6390,7 +6392,29 @@ public class Bucket {
      */
     public static class PutObjectInput extends RequestInputModel {
 
-        // Object content size
+        // Object cache control
+
+        private String cacheControl;
+
+        public void setCacheControl(String cacheControl) {
+            this.cacheControl = cacheControl;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "cache-control")
+        public String getCacheControl() {
+            return this.cacheControl;
+        } // Object content encoding
+
+        private String contentEncoding;
+
+        public void setContentEncoding(String contentEncoding) {
+            this.contentEncoding = contentEncoding;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-encoding")
+        public String getContentEncoding() {
+            return this.contentEncoding;
+        } // Object content size
         // Required
 
         private Long contentLength;
@@ -6399,7 +6423,7 @@ public class Bucket {
             this.contentLength = contentLength;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Length")
+        @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
         } // Object MD5sum
@@ -6410,7 +6434,7 @@ public class Bucket {
             this.contentMD5 = contentMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "content-md5")
         public String getContentMD5() {
             return this.contentMD5;
         } // Object content type
@@ -6421,7 +6445,7 @@ public class Bucket {
             this.contentType = contentType;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Type")
+        @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
         } // Used to indicate that particular server behaviors are required by the client
@@ -6432,7 +6456,7 @@ public class Bucket {
             this.expect = expect;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Expect")
+        @ParamAnnotation(paramType = "header", paramName = "expect")
         public String getExpect() {
             return this.expect;
         } // Copy source, format (/<bucket-name>/<object-key>)
@@ -6443,7 +6467,7 @@ public class Bucket {
             this.xQSCopySource = xQSCopySource;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source")
         public String getXQSCopySource() {
             return this.xQSCopySource;
         } // Encryption algorithm of the object
@@ -6458,7 +6482,7 @@ public class Bucket {
 
         @ParamAnnotation(
             paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Algorithm"
+            paramName = "x-qs-copy-source-encryption-customer-algorithm"
         )
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
@@ -6473,7 +6497,7 @@ public class Bucket {
 
         @ParamAnnotation(
             paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key"
+            paramName = "x-qs-copy-source-encryption-customer-key"
         )
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
@@ -6488,7 +6512,7 @@ public class Bucket {
 
         @ParamAnnotation(
             paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+            paramName = "x-qs-copy-source-encryption-customer-key-md5"
         )
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
@@ -6500,7 +6524,7 @@ public class Bucket {
             this.xQSCopySourceIfMatch = xQSCopySourceIfMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Match")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-match")
         public String getXQSCopySourceIfMatch() {
             return this.xQSCopySourceIfMatch;
         } // Check whether the copy source has been modified
@@ -6511,7 +6535,7 @@ public class Bucket {
             this.xQSCopySourceIfModifiedSince = xQSCopySourceIfModifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Modified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-modified-since")
         public String getXQSCopySourceIfModifiedSince() {
             return this.xQSCopySourceIfModifiedSince;
         } // Check whether the copy source does not match
@@ -6522,7 +6546,7 @@ public class Bucket {
             this.xQSCopySourceIfNoneMatch = xQSCopySourceIfNoneMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-None-Match")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-none-match")
         public String getXQSCopySourceIfNoneMatch() {
             return this.xQSCopySourceIfNoneMatch;
         } // Check whether the copy source has not been modified
@@ -6533,7 +6557,7 @@ public class Bucket {
             this.xQSCopySourceIfUnmodifiedSince = xQSCopySourceIfUnmodifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Unmodified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-unmodified-since")
         public String getXQSCopySourceIfUnmodifiedSince() {
             return this.xQSCopySourceIfUnmodifiedSince;
         } // Encryption algorithm of the object
@@ -6544,7 +6568,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -6555,7 +6579,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKey = xQSEncryptionCustomerKey;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -6566,7 +6590,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKeyMD5 = xQSEncryptionCustomerKeyMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
         } // Check whether fetch target object has not been modified
@@ -6577,7 +6601,7 @@ public class Bucket {
             this.xQSFetchIfUnmodifiedSince = xQSFetchIfUnmodifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Fetch-If-Unmodified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-fetch-if-unmodified-since")
         public String getXQSFetchIfUnmodifiedSince() {
             return this.xQSFetchIfUnmodifiedSince;
         } // Fetch source, should be a valid url
@@ -6588,7 +6612,7 @@ public class Bucket {
             this.xQSFetchSource = xQSFetchSource;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Fetch-Source")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-fetch-source")
         public String getXQSFetchSource() {
             return this.xQSFetchSource;
         } // Move source, format (/<bucket-name>/<object-key>)
@@ -6599,7 +6623,7 @@ public class Bucket {
             this.xQSMoveSource = xQSMoveSource;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Move-Source")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-move-source")
         public String getXQSMoveSource() {
             return this.xQSMoveSource;
         } // Specify the storage class for object
@@ -6611,7 +6635,7 @@ public class Bucket {
             this.xQSStorageClass = xQSStorageClass;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Storage-Class")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-storage-class")
         public String getXQSStorageClass() {
             return this.xQSStorageClass;
         }
@@ -6691,6 +6715,8 @@ public class Bucket {
      * PutObjectOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
+     * field CacheControl Object cache control <br>
+     * field ContentEncoding Object content encoding <br>
      * field ContentLength Object content size <br>
      * field ContentMD5 Object MD5sum <br>
      * field ContentType Object content type <br>
@@ -6722,7 +6748,7 @@ public class Bucket {
             this.eTag = eTag;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
         } // Encryption algorithm of the object
@@ -6733,7 +6759,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         }
@@ -6973,7 +6999,7 @@ public class Bucket {
             this.contentLength = contentLength;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-Length")
+        @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
         } // Object multipart content MD5sum
@@ -6984,7 +7010,7 @@ public class Bucket {
             this.contentMD5 = contentMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Content-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "content-md5")
         public String getContentMD5() {
             return this.contentMD5;
         } // Specify range of the source object
@@ -6995,7 +7021,7 @@ public class Bucket {
             this.xQSCopyRange = xQSCopyRange;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Range")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-range")
         public String getXQSCopyRange() {
             return this.xQSCopyRange;
         } // Copy source, format (/<bucket-name>/<object-key>)
@@ -7006,7 +7032,7 @@ public class Bucket {
             this.xQSCopySource = xQSCopySource;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source")
         public String getXQSCopySource() {
             return this.xQSCopySource;
         } // Encryption algorithm of the object
@@ -7021,7 +7047,7 @@ public class Bucket {
 
         @ParamAnnotation(
             paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Algorithm"
+            paramName = "x-qs-copy-source-encryption-customer-algorithm"
         )
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
@@ -7036,7 +7062,7 @@ public class Bucket {
 
         @ParamAnnotation(
             paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key"
+            paramName = "x-qs-copy-source-encryption-customer-key"
         )
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
@@ -7051,7 +7077,7 @@ public class Bucket {
 
         @ParamAnnotation(
             paramType = "header",
-            paramName = "X-QS-Copy-Source-Encryption-Customer-Key-MD5"
+            paramName = "x-qs-copy-source-encryption-customer-key-md5"
         )
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
@@ -7063,7 +7089,7 @@ public class Bucket {
             this.xQSCopySourceIfMatch = xQSCopySourceIfMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Match")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-match")
         public String getXQSCopySourceIfMatch() {
             return this.xQSCopySourceIfMatch;
         } // Check whether the copy source has been modified since the specified date
@@ -7074,7 +7100,7 @@ public class Bucket {
             this.xQSCopySourceIfModifiedSince = xQSCopySourceIfModifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Modified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-modified-since")
         public String getXQSCopySourceIfModifiedSince() {
             return this.xQSCopySourceIfModifiedSince;
         } // Check whether the Etag of copy source does not matches the specified value
@@ -7085,7 +7111,7 @@ public class Bucket {
             this.xQSCopySourceIfNoneMatch = xQSCopySourceIfNoneMatch;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-None-Match")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-none-match")
         public String getXQSCopySourceIfNoneMatch() {
             return this.xQSCopySourceIfNoneMatch;
         } // Check whether the copy source has not been unmodified since the specified date
@@ -7096,7 +7122,7 @@ public class Bucket {
             this.xQSCopySourceIfUnmodifiedSince = xQSCopySourceIfUnmodifiedSince;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Copy-Source-If-Unmodified-Since")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-unmodified-since")
         public String getXQSCopySourceIfUnmodifiedSince() {
             return this.xQSCopySourceIfUnmodifiedSince;
         } // Encryption algorithm of the object
@@ -7107,7 +7133,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -7118,7 +7144,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKey = xQSEncryptionCustomerKey;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -7129,7 +7155,7 @@ public class Bucket {
             this.xQSEncryptionCustomerKeyMD5 = xQSEncryptionCustomerKeyMD5;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Key-MD5")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
         }
@@ -7229,7 +7255,7 @@ public class Bucket {
             this.eTag = eTag;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "ETag")
+        @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
         } // Range of response data content
@@ -7240,7 +7266,7 @@ public class Bucket {
             this.xQSContentCopyRange = xQSContentCopyRange;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Content-Copy-Range")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-content-copy-range")
         public String getXQSContentCopyRange() {
             return this.xQSContentCopyRange;
         } // Encryption algorithm of the object
@@ -7251,7 +7277,7 @@ public class Bucket {
             this.xQSEncryptionCustomerAlgorithm = xQSEncryptionCustomerAlgorithm;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "X-QS-Encryption-Customer-Algorithm")
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         }
