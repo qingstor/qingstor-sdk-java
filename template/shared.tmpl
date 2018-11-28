@@ -291,7 +291,7 @@
     {{- printf ` this.%s =` ($property.Name | camelCase | lowerFirst) -}}
     {{- printf ` %s;}` ($property.ID | camelCase | lowerFirst) }}
 
-    {{ printf ` @ParamAnnotation(paramType = "header", paramName = "%s")` ($property.Name | normalized) }}
+    {{ printf ` @ParamAnnotation(paramType = "header", paramName = "%s")` ($property.Name | lower) }}
     {{ printf ` %s` "public " -}}
     {{template "PropertyType" $property}}
     {{- printf ` get%s(){` ($property.ID | camelCase) -}}

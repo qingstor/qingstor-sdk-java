@@ -260,7 +260,9 @@ public class QSOkHttpRequestClient {
             JSONObject headJson = QSJSONUtil.toJSONObject("{}");
             QSJSONUtil.putJsonData(headJson, QSConstant.QC_CODE_FIELD_NAME, code);
             for (int i = 0; i < iHeads; i++) {
-                QSJSONUtil.putJsonData(headJson, responceHeaders.name(i), responceHeaders.value(i));
+                String key = responceHeaders.name(i);
+                if (key != null) key = key.toLowerCase();
+                QSJSONUtil.putJsonData(headJson, key, responceHeaders.value(i));
             }
             QSJSONUtil.jsonObjFillValue2Object(headJson, target);
         }

@@ -164,7 +164,7 @@ public class QingStor {
             this.location = location;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "Location")
+        @ParamAnnotation(paramType = "header", paramName = "location")
         public String getLocation() {
             return this.location;
         }
