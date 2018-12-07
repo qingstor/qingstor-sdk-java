@@ -16,9 +16,13 @@
 
 package com.qingstor.sdk.utils;
 
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.request.RequestHandler;
+import com.qingstor.sdk.service.Bucket;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -78,5 +82,27 @@ public class QSSignatureUtilTest {
         Assert.assertEquals(
                 req1.indexOf("https://bucketName.testzone.qingstor.com/objectName/dd.txt?") == 0,
                 true);
+    }
+
+    @Test
+    public void testPutObjectSign() {
+        EnvContext context = new EnvContext("NPTEPEATTGXAKXFYSFXR", "VdVyOLO6oG7wzzilGbuuqiDrwR1K0NgD0DzFaNKX");
+        String zoneKey = "pek3b";
+        String bucketName = "test";
+        Bucket bucket = new Bucket(context, zoneKey, bucketName);
+        Bucket.PutObjectInput input = new Bucket.PutObjectInput();
+        input.setContentType("image/jpeg");
+        input.setContentMD5("Content-MD5");
+        input.setContentLength(10000l);
+        try {
+            RequestHandler requestHandler = bucket.putObjectRequest("test/test.jpg", input);
+            requestHandler.getBuilder().setHeader("Date", "Thu, 06 Dec 2018 06:47:43 GMT");
+            String stringToSign = requestHandler.getStringToSignature();
+            Assert.assertEquals(stringToSign, "PUT\nContent-MD5\nimage/jpeg\nThu, 06 Dec 2018 06:47:43 GMT\n/test/test/test.jpg");
+            String sign = QSSignatureUtil.generateSignature("VdVyOLO6oG7wzzilGbuuqiDrwR1K0NgD0DzFaNKX", stringToSign);
+            Assert.assertEquals(sign, "PiwbpsStHI4p3OF3Y68bX9TV72OEOFbgqJGkmu7mN8E=");
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
     }
 }
