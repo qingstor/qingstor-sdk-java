@@ -175,8 +175,8 @@ public class QSSignatureUtil {
         String contentMD5 = "";
         String contentType = "";
         if (headers != null) {
-            if (headers.containsKey("Content-MD5")) contentMD5 = headers.get("Content-MD5");
-            if (headers.containsKey("Content-Type")) contentType = headers.get("Content-Type");
+            if (headers.containsKey("content-md5")) contentMD5 = headers.get("content-md5");
+            if (headers.containsKey("content-type")) contentType = headers.get("content-type");
         }
         strToSign += contentMD5 + "\n";
         strToSign += contentType;

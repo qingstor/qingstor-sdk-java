@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.14] - 2018-12-07
+
+### Fixed
+- Fix signature not match error
+
 ## [v2.2.13] - 2018-11-27
 
 ### Changed
