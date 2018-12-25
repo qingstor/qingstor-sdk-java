@@ -42,13 +42,13 @@ public class UploadManager {
 
     private Recorder recorder;
     private Bucket bucket;
-    private BodyProgressListener progressListener;
+    private UploadProgressListener progressListener;
     private CancellationHandler cancellationHandler;
     private UploadModel uploadModel;
     private UploadManagerCallback callBack;
 
     public UploadManager(Bucket bucket, Recorder recorder,
-                         BodyProgressListener progressListener,
+                         UploadProgressListener progressListener,
                          CancellationHandler cancellationHandler,
                          UploadManagerCallback callBack) {
         this.recorder = recorder;
@@ -119,7 +119,7 @@ public class UploadManager {
      * @param length length of the file.
      * @throws QSException exception
      */
-    public void putFileMulti(File file, String objectKey, String fileName, String eTag, final long length) throws QSException {
+    public void putFileMulti(File file, final String objectKey, String fileName, String eTag, final long length) throws QSException {
 
         if (partSize < 4 * 1024 * 1024) {
             throw new QSException("Every part of the file can not smaller than 4 MB.");
@@ -135,7 +135,7 @@ public class UploadManager {
                     OutputModel outputModel = new OutputModel();
                     outputModel.setStatueCode(code);
                     outputModel.setMessage(initOutput.getMessage());
-                    callBack.onAPIResponse(outputModel);
+                    callBack.onAPIResponse(objectKey, outputModel);
                 }
                 return;
             }
@@ -152,7 +152,7 @@ public class UploadManager {
                     OutputModel outputModel = new OutputModel();
                     outputModel.setStatueCode(201);
                     outputModel.setMessage("This task has been uploaded.");
-                    callBack.onAPIResponse(outputModel);
+                    callBack.onAPIResponse(objectKey, outputModel);
                 }
                 return;
             }
@@ -193,7 +193,7 @@ public class UploadManager {
                         @Override
                         public void onProgress(long len, long size) {
                             long bytesWritten = uploadModel.getCurrentPart() * partSize + len;
-                            progressListener.onProgress(bytesWritten, length);
+                            progressListener.onProgress(objectKey, bytesWritten, length);
                         }
                     });
                 }
@@ -212,7 +212,7 @@ public class UploadManager {
                     setData(objectKey, recorder);
                     // On upload failed
                     if (callBack != null)
-                        callBack.onAPIResponse(send);
+                        callBack.onAPIResponse(objectKey, send);
 
                     // Once failed, break the circle.
                     break;
@@ -305,7 +305,7 @@ public class UploadManager {
 
         // Response callback.
         if (callBack != null)
-            callBack.onAPIResponse(send);
+            callBack.onAPIResponse(objectKey, send);
     }
 
     /**
@@ -317,7 +317,7 @@ public class UploadManager {
      * @param length length of the file
      * @throws QSException exception
      */
-    public void putFile(File file, String objectKey,
+    public void putFile(File file, final String objectKey,
                         String fileName, long length) throws QSException {
         PutObjectInput input = new PutObjectInput();
         input.setContentLength(length);
@@ -337,7 +337,12 @@ public class UploadManager {
 
         // Set progress listener.
         if (progressListener != null) {
-            requestHandler.setProgressListener(progressListener);
+            requestHandler.setProgressListener(new BodyProgressListener() {
+                @Override
+                public void onProgress(long len, long size) {
+                    progressListener.onProgress(objectKey, len, size);
+                }
+            });
         }
 
         // Cancellation handler.
@@ -346,8 +351,9 @@ public class UploadManager {
         // Sign if needed.
         sign(requestHandler);
 
+        OutputModel outputModel = requestHandler.send();
         if (callBack != null)
-            callBack.onAPIResponse(requestHandler.send());
+            callBack.onAPIResponse(objectKey, outputModel);
     }
 
     public static class CompleteMultipartUploadInput
@@ -419,11 +425,11 @@ public class UploadManager {
         this.bucket = bucket;
     }
 
-    public BodyProgressListener getProgressListener() {
+    public UploadProgressListener getProgressListener() {
         return progressListener;
     }
 
-    public void setProgressListener(BodyProgressListener progressListener) {
+    public void setProgressListener(UploadProgressListener progressListener) {
         this.progressListener = progressListener;
     }
 
