@@ -19,7 +19,7 @@
 每一个 API 方法都包含一个 Input 对象并返回一个 Output 对象.
 Input 对象由请求参数, 请求头和请求体构成, Output 对象包含 HTTP 状态码, 响应头, 响应体和错误代码 (如果有错误发生).
 
-- [QingStor](./example/service_zh.md)
+- [列取 Buckets(List Buckets)](./example/list_buckets_zh.md)
 - Bucket
     - [创建 Bucket(Put Bucket)](./example/create_bucket_zh.md)
     - [列取对象(List Objects)](./example/ListObjects_zh.md)
