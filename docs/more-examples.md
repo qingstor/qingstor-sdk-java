@@ -2,7 +2,7 @@
 
 Each API function take an Input struct and return an Output struct. The Input struct consists of request params, request headers and request elements, and the Output holds the HTTP status code, response headers, response elements and error message (if error occurred).
 
-- [QingStor](./example/QingStor.md)
+- [List Buckets](./example/list_buckets.md)
 - Bucket
     - [Create Bucket(Put Bucket)](./example/create_bucket.md)
     - [GET Bucket(List Objects)](./example/ListObjects.md)

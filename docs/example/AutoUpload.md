@@ -45,10 +45,11 @@ CancellationHandler cancellationHandler = new CancellationHandler() {
     }
 };
 
-BodyProgressListener listener = new BodyProgressListener() {
+UploadProgressListener listener = new UploadProgressListener() {
     @Override
-    public void onProgress(final long len, final long size) {
-        int progress = (int) ((len * 100) / size);
+    public void onProgress(String objectKey, long currentSize, long totalSize) {
+        float progress = (float) currentSize * 100 / totalSize;
+        System.out.println(objectKey + ": uploading = " + String.format("%.2f", progress) + " %");
     }
 };
 
@@ -71,8 +72,9 @@ UploadManagerCallback callback = new UploadManagerCallback() {
     }
 
     @Override
-    public void onAPIResponse(OutputModel output) throws QSException {
+    public void onAPIResponse(String objectKey, OutputModel output) {
         // The method will be called when a upload request is finished.
+        Log.d(TAG, "objectKey = " + objectKey);
         Log.d(TAG, "code = " + output.getCode());
         Log.d(TAG, "statueCode = " + output.getStatueCode());
         Log.d(TAG, "message = " + output.getMessage());

@@ -362,31 +362,31 @@ public class Examples {
     }
 
     public void putObjectAuto(Bucket bucket, String filePath) {
-        UploadManager uploadManager = new UploadManager(bucket, null, new BodyProgressListener() {
-            @Override
-            public void onProgress(long len, long size) {
-                float progress = (float) len * 100 / size;
-                System.out.println("Put Object auto: progress = " + String.format("%.2f", progress) + " %");
-            }
-        }, null, new UploadManagerCallback() {
-            @Override
-            public void onAPIResponse(OutputModel output) throws QSException {
-                if (output.getStatueCode() == 200 || output.getStatueCode() == 201) {
-                    System.out.println("Upload success.");
-                } else if (output.getStatueCode() == QSConstant.REQUEST_ERROR_CANCELLED) {
-                    System.out.println("Stopped.");
-                } else {
-                    handleError(output);
+            UploadManager uploadManager = new UploadManager(bucket, null, new UploadProgressListener() {
+                @Override
+                public void onProgress(String objectKey, long currentSize, long totalSize) {
+                    float progress = (float) currentSize * 100 / totalSize;
+                    System.out.println(objectKey + ": uploading = " + String.format("%.2f", progress) + " %");
                 }
-            }
-        });
+            }, null, new UploadManagerCallback() {
+                @Override
+                public void onAPIResponse(String objectKey, OutputModel output) {
+                    if (output.getStatueCode() == 200 || output.getStatueCode() == 201) {
+                        System.out.println("Upload success.");
+                    } else if (output.getStatueCode() == QSConstant.REQUEST_ERROR_CANCELLED) {
+                        System.out.println("Stopped.");
+                    } else {
+                        handleError(output);
+                    }
+                }
+            });
 
-        try {
-            uploadManager.put(new File(filePath));
-        } catch (QSException e) {
-            e.printStackTrace();
+            try {
+                uploadManager.put(new File(filePath));
+            } catch (QSException e) {
+                e.printStackTrace();
+            }
         }
-    }
 
 
     public void putBucketACL(Bucket bucket) {
@@ -973,6 +973,24 @@ public class Examples {
         System.out.println("RequestId = " + output.getRequestId());
         System.out.println("Code = " + output.getCode());
         System.out.println("Url = " + output.getUrl());
+    }
+
+    private void listBuckets(EnvContext context) {
+        QingStor stor = new QingStor(context);
+        try {
+            QingStor.ListBucketsOutput output = stor.listBuckets(null);
+            if (output.getStatueCode() == 200) {
+                System.out.println("Count = " + output.getCount());
+
+                List<Types.BucketModel> buckets = output.getBuckets();
+                System.out.println("buckets = " + new Gson().toJson(buckets));
+
+            } else {
+                handleError(output);
+            }
+        } catch (QSException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -15,13 +15,13 @@
 // +-------------------------------------------------------------------------
 package com.qingstor.sdk.upload;
 
-import com.qingstor.sdk.request.ResponseCallBack;
+import com.qingstor.sdk.model.OutputModel;
 
 /**
  * Callback of the upload manager. <br>
  * Created by chengww on 2018/1/23.
  */
-public abstract class UploadManagerCallback implements ResponseCallBack {
+public abstract class UploadManagerCallback<O extends OutputModel> {
     /**
      * When upload manager needs sign a string with the server will call this method. <br>
      * If you want to sign with server, override it and return the signed string. <br>
@@ -61,4 +61,6 @@ public abstract class UploadManagerCallback implements ResponseCallBack {
     String onCorrectTime(String strToSign) {
         return null;
     }
+
+    public abstract void onAPIResponse(String objectKey, O outputModel);
 }

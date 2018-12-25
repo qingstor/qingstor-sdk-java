@@ -51,16 +51,6 @@ try {
             throw new FileNotFoundException("File does not exist or it is a directory.");
 
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
-        // Using the JDK1.7 self-bringing method to get content type(Requires JDK 1.7+, linux requires GLib.)
-        try {
-            String contentType = Files.probeContentType(Paths.get(filePath));
-            input.setContentType(contentType);
-            System.out.println("Put Object: ContentType = " + contentType);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Put Object: Get file's content type error.");
-        }
-        input.setContentLength(file.length());
         input.setBodyInputFile(file);
         try {
             Bucket.PutObjectOutput output = bucket.putObject(objectKey, input);

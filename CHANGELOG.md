@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.15] - 2018-12-25
+### Changed
+To add the objectKey in the callbacks of UploadManager, there are some changes below:
+
+- UploadManagerCallback.onAPIResponse(OutputModel outputModel) => UploadManagerCallback.onAPIResponse(String objectKey, OutputModel outputModel)
+- BodyProgressListener in UploadManager => UploadProgressListener
+
+### Added
+Add a construction method of QingStor.java
+
 ## [v2.2.14] - 2018-12-07
 
 ### Fixed

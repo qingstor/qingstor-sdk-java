@@ -41,6 +41,10 @@ public class QingStor {
         this.zone = zone;
     }
 
+    public QingStor(EnvContext envContext) {
+        this.envContext = envContext;
+    }
+
     /**
      * @param input input
      * @throws QSException exception
