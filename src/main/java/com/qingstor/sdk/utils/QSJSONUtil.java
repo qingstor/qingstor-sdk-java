@@ -399,12 +399,12 @@ public class QSJSONUtil {
         boolean hasParam = false;
         for (Field field : declaredField) {
             String methodField = QSParamInvokeUtil.capitalize(field.getName());
-            String getMethodName =
-                    field.getType() == Boolean.class ? "is" + methodField : "get" + methodField;
+            String getMethodName = "get" + methodField;
+            String isMethodName = "is" + methodField;
             String setMethodName = "set" + methodField;
             Method[] methods = objClass.getDeclaredMethods();
             for (Method m : methods) {
-                if (m.getName().equals(getMethodName)) {
+                if (m.getName().equals(getMethodName) || field.getType() == Boolean.class && m.getName().equals(isMethodName)) {
                     ParamAnnotation annotation = m.getAnnotation(ParamAnnotation.class);
                     if (annotation == null) {
                         continue;
