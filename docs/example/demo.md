@@ -98,7 +98,7 @@ public class Examples {
                 headObject(bucket, "folder-copied/" + uploadFileName);
                 optionsObject(bucket, "folder-copied/" + uploadFileName);
 
-                listObjects(bucket, null);
+                listObjects(bucket, null, null);
                 listMultipartUploads(bucket);
                 getBucketStatistics(bucket);
 
@@ -414,30 +414,48 @@ public class Examples {
         }
     }
 
-    public void listObjects(Bucket bucket, String prefix) {
+    /**
+     * List objects start with prefix(folderName), after a object named marker. Limit up to 100 data.
+     * 列取所有前缀为 prefix(folderName) ，在 marker 之后的对象。每次最多 100 条数据。
+     * @param bucket bucket
+     * @param prefix prefix(folderName)
+     * @param marker View the data on the next page. The marker is the value of next_marker returned by the last Response
+     *               查看下一页的数据。marker 为上一次 Response 返回的 next_marker 的值
+     * @return next_marker
+     */
+    public String listObjects(Bucket bucket, String prefix, String marker) {
         Bucket.ListObjectsInput input = new Bucket.ListObjectsInput();
         if (null != prefix && !"".equals(prefix)) {
             // Only show objects name start with 'prefix'
             input.setPrefix(prefix);
-            input.setMarker(prefix); // Sort by name after a object named prefix
         }
-        input.setLimit(1000); // Default 200, max 1000
+
+        if (null != marker && !"".equals(marker)) {
+            // Sort by name after a object named marker
+            input.setMarker(marker);
+        }
+
+        input.setDelimiter("/");
+        input.setLimit(100); // Default 200, max 1000
         try {
             Bucket.ListObjectsOutput output = bucket.listObjects(input);
             if (output.getStatueCode() == 200) {
                 // Success
-                System.out.println("=======List Objects======");
+                System.out.println("List Objects success.");
+
+                System.out.println("=======List Objects:Folders======");
+                List<String> commonPrefixes = output.getCommonPrefixes();
+                for (String folderName : commonPrefixes) {
+                    System.out.println("folderName = " + folderName);
+                }
+                System.out.println("=======List Objects:Files======");
                 List<Types.KeyModel> keys = output.getKeys();
                 if (keys != null && keys.size() > 0) {
-                    System.out.println("List Objects success.");
                     System.out.println("keys = " + new Gson().toJson(keys));
-                    Types.KeyModel keyModel = keys.get(0);
-                    keyModel.getSize();
-                } else {
-                    System.out.println("List Objects: Successfully Connected. Maybe the bucket is empty.");
-                    System.out.println("Bucket owner = " + output.getOwner().getName());
                 }
                 System.out.println("=============");
+
+                return output.getNextMarker();
             } else {
                 // Failed
                 System.out.println("List Objects failed.");
@@ -447,7 +465,10 @@ public class Examples {
             // NetWork exception
             e.printStackTrace();
         }
+
+        return null;
     }
+
 
     public void getBucketACL(Bucket bucket) {
         try {
