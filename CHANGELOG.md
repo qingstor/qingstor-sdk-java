@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.2.15] - 2019-03-01
+### Fixed
+- Fix Boolean values in Model are always null
+- Update listObjects method
+
 ## [v2.2.15] - 2018-12-25
 ### Changed
 To add the objectKey in the callbacks of UploadManager, there are some changes below:
