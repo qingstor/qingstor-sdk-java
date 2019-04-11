@@ -72,7 +72,7 @@ public class UploadManager {
         if (!file.exists() || file.isDirectory())
             throw new QSException("File does not exist or it is a directory.");
 
-        put(file, file.getName(), file.getName(), "");
+        put(file, file.getName(), null, "");
     }
 
     /**

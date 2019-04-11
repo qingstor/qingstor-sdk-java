@@ -175,35 +175,36 @@ If upload failed, you can call this method to list all of the parts uploaded.
      * If upload failed, you can call
      * this method to list all of the parts uploaded. <br>
      *
+     * @param bucket bucket
      * @param uploadID   multi upload ID
      * @param objectName objectName
      */
-    private void listParts(String uploadID, String objectName) {
+    private void listParts(Bucket bucket, String uploadID, String objectName) {
 
         Bucket.ListMultipartInput input = new Bucket.ListMultipartInput();
         input.setUploadID(uploadID);
-
         try {
-            bucket.listMultipartAsync(objectName, input, new ResponseCallBack<Bucket.ListMultipartOutput>() {
-                @Override
-                public void onAPIResponse(Bucket.ListMultipartOutput listMultipartOutput) throws QSException {
-                    if (listMultipartOutput != null) {
-                        List<Types.ObjectPartModel> objectParts =
-                                listMultipartOutput.getObjectParts();
-                        if (objectParts != null && objectParts.size() > 0) {
-                            for (Types.ObjectPartModel model : objectParts) {
-                                System.out.println("part num = " +
-                                        model.getPartNumber() + ", size = " +
-                                        model.getSize() + ", ETag = " + model.getEtag());
-                            }
-                        } else {
-                            System.out.println("There is 0 part uploaded.");
-                        }
-                    } else {
-                        System.out.println("ListMultipartOutput is empty.");
+            Bucket.ListMultipartOutput output = bucket.listMultipart(objectName, input);
+            if (output.getStatueCode() >= 200 && output.getStatueCode() < 400) {
+                // Succeed
+                List<Types.ObjectPartModel> objectParts =
+                        output.getObjectParts();
+                if (objectParts != null && objectParts.size() > 0) {
+                    for (Types.ObjectPartModel model : objectParts) {
+                        System.out.println("part num = " +
+                                model.getPartNumber() + ", size = " +
+                                model.getSize() + ", ETag = " + model.getEtag());
                     }
+                } else {
+                    System.out.println("No upload part exists.");
                 }
-            });
+            } else {
+                System.out.println("StatusCode = " + output.getStatueCode());
+                System.out.println("Message = " + output.getMessage());
+                System.out.println("RequestId = " + output.getRequestId());
+                System.out.println("Code = " + output.getCode());
+                System.out.println("Url = " + output.getUrl());
+            }
         } catch (QSException e) {
             e.printStackTrace();
         }
