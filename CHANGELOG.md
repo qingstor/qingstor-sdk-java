@@ -1,7 +1,11 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
-## [v2.2.15] - 2019-03-01
+## [v2.2.17] - 2019-04-11
+### Fixed
+- Fix auto set content-disposition in upload manager
+
+## [v2.2.16] - 2019-03-01
 ### Fixed
 - Fix Boolean values in Model are always null
 - Update listObjects method
