@@ -55,7 +55,7 @@ public class OutputModel {
     /**
      * @return the requestId
      */
-    @ParamAnnotation(paramType = "query", paramName = "request_id")
+    @ParamAnnotation(paramType = "header", paramName = "x-qs-request-id")
     public String getRequestId() {
         return requestId;
     }
