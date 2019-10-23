@@ -6956,6 +6956,7 @@ public class Bucket {
         /**
          * You can set the offset of a file here. <br>
          * Then use setContentLength() to get a part of a file.
+         * @param fileOffset fileOffset
          */
         public void setFileOffset(Long fileOffset) {
             this.fileOffset = fileOffset;
@@ -7403,6 +7404,7 @@ public class Bucket {
 
     /**
      * @param objectName name of the object
+     * @param expires expires
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a

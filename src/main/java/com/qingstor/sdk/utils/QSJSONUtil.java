@@ -409,13 +409,16 @@ public class QSJSONUtil {
                     if (annotation == null) {
                         continue;
                     }
-                    String dataKey = annotation.paramName();
-
-                    if (o.has(dataKey)) {
-                        hasParam = true;
-                        Object data = toObject(o, dataKey);
-                        Method setM = objClass.getDeclaredMethod(setMethodName, field.getType());
-                        setParameterToMap(setM, targetObj, field, data);
+                    // cause req id may present in header(when success) or body(when failed).
+                    String[] keys = annotation.paramName().split(",");
+                    for (String dataKey : keys) {
+                        if (o.has(dataKey)) {
+                            hasParam = true;
+                            Object data = toObject(o, dataKey);
+                            Method setM = objClass.getDeclaredMethod(setMethodName, field.getType());
+                            setParameterToMap(setM, targetObj, field, data);
+                            break;
+                        }
                     }
                 }
             }

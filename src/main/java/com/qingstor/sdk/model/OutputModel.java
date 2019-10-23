@@ -53,9 +53,10 @@ public class OutputModel {
     }
 
     /**
+     * Notice: req id may present in header(when success) or body(when failed).
      * @return the requestId
      */
-    @ParamAnnotation(paramType = "header", paramName = "x-qs-request-id")
+    @ParamAnnotation(paramType = "header", paramName = "x-qs-request-id,request_id")
     public String getRequestId() {
         return requestId;
     }
