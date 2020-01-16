@@ -6,7 +6,7 @@
 
 #### 本地已有完整文件使用分段上传
 
-用 accesskeyid 和 secretaccesskey 初始化 Bucket 服务。
+用 access-key-id 和 secret-access-key 初始化 Bucket 服务。
 
 ```
 EnvContext env = new EnvContext(accessKey,accessSecret);

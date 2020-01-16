@@ -1,6 +1,6 @@
 ## HEAD Object
 
-Initialize the Bucket service with accesskeyid and secretaccesskey
+Initialize the Bucket service with access-key-id and secret-access-key
 
 ``` java
 import com.qingstor.sdk.config.EnvContext;

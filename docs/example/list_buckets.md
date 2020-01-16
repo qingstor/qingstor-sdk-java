@@ -2,7 +2,7 @@
 
 ### Code Snippet
 
-Initialize the EnvContext with accesskeyid and secretaccesskey
+Initialize the EnvContext with access-key-id and secret-access-key
 
 ```
 EnvContext env = new EnvContext(accessKey,accessSecret);

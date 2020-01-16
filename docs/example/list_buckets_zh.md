@@ -2,7 +2,7 @@
 
 ### 代码片段
 
-用 accesskeyid 和 secretaccesskey 初始化 EnvContext 对象。
+用 access-key-id 和 secret-access-key 初始化 EnvContext 对象。
 
 ```
 EnvContext env = new EnvContext(accessKey,accessSecret);
