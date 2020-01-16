@@ -15,7 +15,7 @@ See [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
 
 ### Code Snippet
 
-Initialize the Bucket service with accesskeyid and secretaccesskey
+Initialize the Bucket service with access-key-id and secret-access-key
 
 ```
 EnvContext env = new EnvContext(accessKey,accessSecret);

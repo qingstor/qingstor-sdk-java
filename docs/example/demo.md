@@ -149,7 +149,7 @@ public class Examples {
             System.out.println("Delete Multpie Objects: Keys = \n" + new Gson().toJson(keyList));
         } else {
             // Failed
-            System.out.println("Failed to delete multpie objects.");
+            System.out.println("Failed to delete multiple objects.");
             handleError(output);
         }
     }

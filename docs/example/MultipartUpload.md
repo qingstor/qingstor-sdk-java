@@ -4,7 +4,7 @@
 #### Upload with a complete file
 ### Code Snippet
 
-Initialize the Bucket service with accesskeyid and secretaccesskey
+Initialize the Bucket service with access-key-id and secret-access-key
 
 ```
 EnvContext env = new EnvContext(accessKey,accessSecret);

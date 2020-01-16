@@ -24,7 +24,7 @@ You can set options below in ListMultipartUploadsInput. See controlled [API Docs
 
 ### Code Snippet
 
-Initialize the Bucket service with accesskeyid and secretaccesskey
+Initialize the Bucket service with access-key-id and secret-access-key
 
 ```java
 EnvContext env = new EnvContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
