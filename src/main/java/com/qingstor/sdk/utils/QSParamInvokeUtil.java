@@ -86,8 +86,7 @@ public class QSParamInvokeUtil {
     }
 
     private static void setParameterToMap(
-            Method m, Object source, Map targetParametersMap, String paramKey)
-            throws QSException {
+            Method m, Object source, Map targetParametersMap, String paramKey) throws QSException {
         Object[] invokeParams = null;
         try {
             Object objValue = m.invoke(source, invokeParams);
@@ -104,8 +103,8 @@ public class QSParamInvokeUtil {
     }
 
     @SuppressWarnings("PARAMETER")
-    public static void invokeObject2Map(
-            Class sourceClass, Object source, Map targetParametersMap) throws QSException {
+    public static void invokeObject2Map(Class sourceClass, Object source, Map targetParametersMap)
+            throws QSException {
         Field[] declaredField = sourceClass.getDeclaredFields();
         for (Field field : declaredField) {
             String methodName = "get" + capitalize(field.getName());
@@ -186,5 +185,54 @@ public class QSParamInvokeUtil {
         } catch (IllegalAccessException e) {
             throw new QSException("IllegalAccessException", e);
         }
+    }
+
+    public static String metadataIsValid(Map<String, String> metadata) {
+        final String metaPrefix = "x-qs-meta-";
+        boolean valid = true;
+        String errK = "", errV = "";
+        int kLen = 0;
+        int vLen = 0;
+
+        for (Map.Entry<String, String> e : metadata.entrySet()) {
+            String k = e.getKey().toLowerCase();
+            String v = e.getValue();
+            if (!k.startsWith(metaPrefix)) {
+                errK = k;
+                errV = v;
+                valid = false;
+            }
+            kLen += k.length() - 9; // not include `metaPrefix`
+            vLen += v.length();
+            for (char ch : k.toCharArray()) { // check header field name
+                if (!(ch >= 65 && ch <= 90
+                        || ch >= 97 && ch <= 122
+                        || ch <= 57 && ch >= 48
+                        || ch == 45
+                        || ch == 46)) {
+                    errK = k;
+                    errV = v;
+                    valid = false;
+                }
+            }
+            // is Ascii Printable
+            for (char ch : v.toCharArray()) {
+                if (!(ch >= 32 && ch < 127)) {
+                    errK = k;
+                    errV = v;
+                    valid = false;
+                }
+            }
+            if (kLen > 512 || vLen > 2048) {
+                errK = k;
+                errV = v;
+                valid = false;
+            }
+        }
+        if (!valid) {
+            return QSStringUtil.getParameterValueNotAllowedError(
+                    errK, errV, new String[] {"x-qs-meta-*"});
+        }
+        return null;
     }
 }

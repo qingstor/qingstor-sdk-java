@@ -16,21 +16,27 @@
 
 package com.qingstor.sdk.service;
 
-import com.qingstor.sdk.annotation.ParamAnnotation;
-import com.qingstor.sdk.config.EnvContext;
-import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.model.OutputModel;
-import com.qingstor.sdk.model.RequestInputModel;
-import com.qingstor.sdk.request.RequestHandler;
-import com.qingstor.sdk.request.ResourceRequestFactory;
-import com.qingstor.sdk.request.ResponseCallBack;
-import com.qingstor.sdk.service.Types.*;
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// QingStorService: QingStor provides low-cost and reliable online storage service with unlimited storage space, high read and write performance, high reliability and data safety, fine-grained access control, and easy to use API.
+import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.config.EnvContext;
+import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.request.ResponseCallBack;
+import com.qingstor.sdk.request.ResourceRequestFactory;
+import com.qingstor.sdk.model.OutputModel;
+import com.qingstor.sdk.model.RequestInputModel;
+import com.qingstor.sdk.utils.QSStringUtil;
+import com.qingstor.sdk.service.Types.*;
+import com.qingstor.sdk.request.RequestHandler;
+
+// QingStorService: QingStor provides low-cost and reliable online storage service with unlimited
+// storage space, high read and write performance, high reliability and data safety, fine-grained
+// access control, and easy to use API.
 public class QingStor {
     private String zone;
     private EnvContext envContext;
@@ -157,8 +163,33 @@ public class QingStor {
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Location Limits results to buckets that in the location <br>
+     * field Limit Results count limit <br>
+     * field Offset Limit results to keys that start at this offset <br>
      */
     public static class ListBucketsInput extends RequestInputModel {
+        // Results count limit
+
+        private Integer limit;
+
+        public void setLimit(Integer limit) {
+            this.limit = limit;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "limit")
+        public Integer getLimit() {
+            return this.limit;
+        } // Limit results to keys that start at this offset
+
+        private Integer offset;
+
+        public void setOffset(Integer offset) {
+            this.offset = offset;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "offset")
+        public Integer getOffset() {
+            return this.offset;
+        }
 
         // Limits results to buckets that in the location
 
@@ -185,6 +216,8 @@ public class QingStor {
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Location Limits results to buckets that in the location <br>
+     * field Limit Results count limit <br>
+     * field Offset Limit results to keys that start at this offset <br>
      */
     public static class ListBucketsOutput extends OutputModel {
 

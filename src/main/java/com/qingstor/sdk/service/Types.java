@@ -16,10 +16,11 @@
 
 package com.qingstor.sdk.service;
 
+import java.util.List;
+
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.utils.QSStringUtil;
-import java.util.List;
 
 public class Types {
 
@@ -632,6 +633,17 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "size")
         public Long getSize() {
             return this.size;
+        } // Object storage class
+
+        private String storageClass;
+
+        public void setStorageClass(String storageClass) {
+            this.storageClass = storageClass;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "storage_class")
+        public String getStorageClass() {
+            return this.storageClass;
         }
 
         @Override

@@ -35,10 +35,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
@@ -65,37 +67,45 @@ public class QSBuilder {
 
     private String requestUrl;
 
+    private HttpUrl url;
+
     private String requestUrlStyle;
 
-	public QSBuilder(Map context, RequestInputModel params) throws QSException {
-		this.context = context;
-		this.paramsModel = params;
-		this.initParams();
-		this.initRequestUrl();
-	}
+    public QSBuilder(Map context, RequestInputModel params) throws QSException {
+        this.context = context;
+        this.paramsModel = params;
+        this.initParams();
+        this.initUrl();
+    }
 
     private void initParams() throws QSException {
 
-        this.paramsQuery = QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_QUERY);
-        this.paramsBody = QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_BODY);
-        this.paramsHeaders = QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_HEADER);
-        this.paramsFormData = QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_FORM_DATA);
+        this.paramsQuery =
+                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_QUERY);
+        this.paramsBody =
+                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_BODY);
+        this.paramsHeaders =
+                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_HEADER);
+        this.paramsFormData =
+                QSParamInvokeUtil.getRequestParams(
+                        this.paramsModel, QSConstant.PARAM_TYPE_FORM_DATA);
         paramsHeaders = this.headParamEncoding(paramsHeaders);
 
         if (context.get(QSConstant.PARAM_KEY_USER_AGENT) != null) {
-            paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, context.get(QSConstant.PARAM_KEY_USER_AGENT));
+            paramsHeaders.put(
+                    QSConstant.PARAM_KEY_USER_AGENT, context.get(QSConstant.PARAM_KEY_USER_AGENT));
         }
 
         if (this.checkExpiresParam()) {
             paramsHeaders.clear();
-            paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_EXPIRES, context.get(QSConstant.PARAM_KEY_EXPIRES));
+            paramsHeaders.put(
+                    QSConstant.HEADER_PARAM_KEY_EXPIRES, context.get(QSConstant.PARAM_KEY_EXPIRES));
         }
 
         String requestApi = (String) context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
         this.initHeadContentMd5(requestApi, paramsBody, paramsHeaders);
 
         this.requestMethod = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
-
     }
 
     private void doSignature() throws QSException {
@@ -113,12 +123,16 @@ public class QSBuilder {
         try {
 
             if (this.checkExpiresParam()) {
-                authSign = QSSignatureUtil.generateSignature(envContext.getAccessSecret(), this.getStringToSignature());
+                authSign =
+                        QSSignatureUtil.generateSignature(
+                                envContext.getAccessSecret(), this.getStringToSignature());
                 authSign = URLEncoder.encode(authSign, QSConstant.ENCODING_UTF8);
             } else {
-                authSign = QSSignatureUtil.generateAuthorization(envContext.getAccessKey(),
-                        envContext.getAccessSecret(), this.getStringToSignature());
-
+                authSign =
+                        QSSignatureUtil.generateAuthorization(
+                                envContext.getAccessKey(),
+                                envContext.getAccessSecret(),
+                                this.getStringToSignature());
             }
         } catch (Exception e) {
             throw new QSException("Auth signature error", e);
@@ -127,18 +141,41 @@ public class QSBuilder {
         return authSign;
     }
 
-    private void initRequestUrl() throws QSException {
+    private void initUrl() throws QSException {
         EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
         String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
         String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
-        String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
-        String requestSuffixPath = getRequestSuffixPath((String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH),
-                bucketName, objectName);
-        //init request url style
+        String requestPath = (String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
+
+        // first ensure objectInput exists
+        // remove bucket part may exists in string
+        // then replace object part may exists in string
+        String requestSuffixPath =
+                requestPath.replace(REQUEST_PREFIX + QSConstant.BUCKET_NAME_REPLACE, "");
+        if (this.context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
+            String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
+            requestSuffixPath =
+                    requestSuffixPath.replace(
+                            QSConstant.OBJECT_NAME_REPLACE,
+                            QSStringUtil.asciiCharactersEncoding(objectName));
+        }
         this.requestUrlStyle = envContext.getRequestUrlStyle();
 
-        this.requestUrl = this.getSignedUrl(envContext.getRequestUrl(), zone, bucketName, paramsQuery,
-                requestSuffixPath);
+        this.requestUrl =
+                this.getSignedUrl(
+                        envContext.getRequestUrl(),
+                        zone,
+                        bucketName,
+                        paramsQuery,
+                        requestSuffixPath);
+        // update paramsQuery.
+        this.url = HttpUrl.parse(this.requestUrl);
+        Map<String, String> queries = new HashMap<>();
+        for (String k : this.url.queryParameterNames()) {
+            List<String> values = this.url.queryParameterValues(k);
+            queries.put(k, values.get(0)); // it should always size > 0.
+        }
+        this.paramsQuery = queries;
         logger.log(Level.INFO, "== requestUrl ==\n" + this.requestUrl + "\n");
     }
 
@@ -159,7 +196,8 @@ public class QSBuilder {
         return head;
     }
 
-    private void initHeadContentMd5(String requestApi, Map paramsBody, Map paramsHead) throws QSException {
+    private void initHeadContentMd5(String requestApi, Map paramsBody, Map paramsHead)
+            throws QSException {
         if (QSConstant.PARAM_KEY_REQUEST_API_DELETE_MULTIPART.equals(requestApi)) {
             if (paramsBody.size() > 0) {
                 Object bodyContent = QSNormalRequestBody.getBodyContent(paramsBody);
@@ -169,18 +207,23 @@ public class QSBuilder {
                 } catch (NoSuchAlgorithmException e) {
                     throw new QSException("MessageDigest MD5 error", e);
                 }
-                String contentMD5 = new String(Base64.encode(instance.digest(bodyContent.toString().getBytes())));
+                String contentMD5 =
+                        new String(
+                                Base64.encode(instance.digest(bodyContent.toString().getBytes())));
                 paramsHead.put(QSConstant.PARAM_KEY_CONTENT_MD5, contentMD5);
             }
         }
     }
 
-    private String getRequestSuffixPath(String requestPath, String bucketName, String objectName) throws QSException {
+    private String getRequestSuffixPath(String requestPath, String bucketName, String objectName)
+            throws QSException {
         if (QSStringUtil.isEmpty(bucketName)) {
             return REQUEST_PREFIX;
         }
-        String suffixPath = requestPath.replace(REQUEST_PREFIX + QSConstant.BUCKET_NAME_REPLACE, "")
-                .replace(REQUEST_PREFIX + QSConstant.OBJECT_NAME_REPLACE, "");
+        String suffixPath =
+                requestPath
+                        .replace(REQUEST_PREFIX + QSConstant.BUCKET_NAME_REPLACE, "")
+                        .replace(REQUEST_PREFIX + QSConstant.OBJECT_NAME_REPLACE, "");
         if (QSStringUtil.isEmpty(objectName)) {
             objectName = "";
         } else {
@@ -190,24 +233,28 @@ public class QSBuilder {
         return String.format("%s%s%s", REQUEST_PREFIX, objectName, suffixPath);
     }
 
-	private String getSignedUrl(String serviceUrl, String zone, String bucketName, Map paramsQuery,
-			String requestSuffixPath) throws QSException {
-		if ("".equals(bucketName) || bucketName == null) {
-			return QSSignatureUtil.generateQSURL(paramsQuery, serviceUrl + requestSuffixPath);
-		} else {
-		    //handle url style
-		    String storRequestUrl;
-		    if (QSConstant.PATH_STYLE.equals(requestUrlStyle)){
+    private String getSignedUrl(
+            String serviceUrl,
+            String zone,
+            String bucketName,
+            Map paramsQuery,
+            String requestSuffixPath)
+            throws QSException {
+        if ("".equals(bucketName) || bucketName == null) {
+            return QSSignatureUtil.generateQSURL(paramsQuery, serviceUrl + requestSuffixPath);
+        } else {
+            // handle url style
+            String storRequestUrl;
+            if (QSConstant.PATH_STYLE.equals(requestUrlStyle)) {
                 storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
-            }else {
+            } else {
                 storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
                 storRequestUrl = String.format(storRequestUrl, bucketName);
-		    }
+            }
 
-			return QSSignatureUtil.generateQSURL(paramsQuery,
-					storRequestUrl + requestSuffixPath);
-		}
-	}
+            return QSSignatureUtil.generateQSURL(paramsQuery, storRequestUrl + requestSuffixPath);
+        }
+    }
 
     public void setHeader(String key, String authorization) {
         this.paramsHeaders.put(key, authorization);
@@ -227,36 +274,42 @@ public class QSBuilder {
         } catch (UnsupportedEncodingException e) {
             throw new QSException("Auth signature error", e);
         }
-
     }
 
     public String getStringToSignature() throws QSException {
 
         String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
-        String requestPath = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
-        String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
-        if (this.context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
-            requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName);
-            requestPath = requestPath.replace(QSConstant.OBJECT_NAME_REPLACE,
-                    QSStringUtil.asciiCharactersEncoding(objectName));
+
+        // String requestPath = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
+        String requestPath = "";
+        if (this.requestUrlStyle.equals(QSConstant.PATH_STYLE)) {
+            requestPath = this.url.encodedPath();
         } else {
-            requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName + "/");
+            requestPath = "/" + bucketName + this.url.encodedPath();
         }
-        return QSSignatureUtil.getStringToSignature(this.requestMethod, requestPath, this.paramsQuery,
-                this.paramsHeaders);
+
+        return QSSignatureUtil.getStringToSignature(
+                this.requestMethod, requestPath, this.paramsQuery, this.paramsHeaders);
     }
 
     public RequestBody getRequestBody(QSRequestBody qsRrequestBody) throws QSException {
         this.getSignature();
         RequestBody requestBody = null;
-        String contentType = String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
+        String contentType =
+                String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
         long contentLength = 0;
         if (paramsHeaders.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
-            contentLength = Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
+            contentLength =
+                    Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
         }
         if (qsRrequestBody != null) {
-            requestBody = qsRrequestBody.getRequestBody(contentType, contentLength, this.requestMethod, this.paramsBody,
-                    this.paramsQuery);
+            requestBody =
+                    qsRrequestBody.getRequestBody(
+                            contentType,
+                            contentLength,
+                            this.requestMethod,
+                            this.paramsBody,
+                            this.paramsQuery);
         } else {
             requestBody = getRequestBody();
         }
@@ -267,25 +320,44 @@ public class QSBuilder {
     public RequestBody getRequestBody() throws QSException {
         this.getSignature();
         RequestBody requestBody = null;
-        String contentType = String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
+        String contentType =
+                String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
         long contentLength = 0;
         if (paramsHeaders.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
-            contentLength = Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
+            contentLength =
+                    Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
         }
 
         if (this.paramsFormData != null && this.paramsFormData.size() > 0) {
-            requestBody = new QSFormRequestBody().getRequestBody(contentType, contentLength, this.requestMethod,
-                    this.paramsFormData, this.paramsQuery);
+            requestBody =
+                    new QSFormRequestBody()
+                            .getRequestBody(
+                                    contentType,
+                                    contentLength,
+                                    this.requestMethod,
+                                    this.paramsFormData,
+                                    this.paramsQuery);
         } else {
             String requestApi = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
             if (QSConstant.PARAM_KEY_REQUEST_API_MULTIPART.equals(requestApi)) {
-                requestBody = new QSMultiPartUploadRequestBody().getRequestBody(contentType, contentLength,
-                        this.requestMethod, this.paramsBody, this.paramsQuery);
+                requestBody =
+                        new QSMultiPartUploadRequestBody()
+                                .getRequestBody(
+                                        contentType,
+                                        contentLength,
+                                        this.requestMethod,
+                                        this.paramsBody,
+                                        this.paramsQuery);
             } else {
-                requestBody = new QSNormalRequestBody().getRequestBody(contentType, contentLength, this.requestMethod,
-                        this.paramsBody, this.paramsQuery);
+                requestBody =
+                        new QSNormalRequestBody()
+                                .getRequestBody(
+                                        contentType,
+                                        contentLength,
+                                        this.requestMethod,
+                                        this.paramsBody,
+                                        this.paramsQuery);
             }
-
         }
         return requestBody;
     }
@@ -295,8 +367,8 @@ public class QSBuilder {
             throw new QSException("You need to 'getExpiresRequestUrl' do request!");
         }
 
-        return QSOkHttpRequestClient.getInstance().buildRequest(this.requestMethod, this.requestUrl, requestBody,
-                paramsHeaders);
+        return QSOkHttpRequestClient.getInstance()
+                .buildRequest(this.requestMethod, this.requestUrl, requestBody, paramsHeaders);
     }
 
     private boolean checkExpiresParam() {
@@ -307,47 +379,59 @@ public class QSBuilder {
         return false;
     }
 
-	public String getExpiresRequestUrl() throws QSException {
-		Object expiresTime = this.context.get(QSConstant.PARAM_KEY_EXPIRES);
-		if (expiresTime != null) {
-			EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
-			String expireAuth = this.getSignature();
-			String serviceUrl = envContext.getRequestUrl();
-			String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
-			String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
+    public String getExpiresRequestUrl() throws QSException {
+        Object expiresTime = this.context.get(QSConstant.PARAM_KEY_EXPIRES);
+        if (expiresTime != null) {
+            EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+            String expireAuth = this.getSignature();
+            String serviceUrl = envContext.getRequestUrl();
+            String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
+            String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
 
             String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
-            //handle url style
-			String storRequestUrl;
-            if (QSConstant.PATH_STYLE.equals(requestUrlStyle)){
+            // handle url style
+            String storRequestUrl;
+            if (QSConstant.PATH_STYLE.equals(requestUrlStyle)) {
                 storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
-            }else {
+            } else {
                 storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
                 storRequestUrl = String.format(storRequestUrl, bucketName);
             }
-			objectName = QSStringUtil.asciiCharactersEncoding(objectName);
+            objectName = QSStringUtil.asciiCharactersEncoding(objectName);
             String requestPath = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
-            requestPath = requestPath.replace("/<bucket-name>", "").replace("/<object-key>", objectName);
-			if (requestPath != null && requestPath.indexOf("?") > 0) {
-				String expiresUrl = String.format(storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
-						requestPath, envContext.getAccessKey(), expiresTime + "", expireAuth);
-				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
-			} else {
-				String expiresUrl = String.format(storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
-						requestPath, envContext.getAccessKey(), expiresTime + "", expireAuth);
-				return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
-			}
-		} else {
-			throw new QSException("ExpiresRequestUrl error:There is no expirs params");
-		}
-
+            requestPath =
+                    requestPath.replace("/<bucket-name>", "").replace("/<object-key>", objectName);
+            if (requestPath != null && requestPath.indexOf("?") > 0) {
+                String expiresUrl =
+                        String.format(
+                                storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
+                                requestPath,
+                                envContext.getAccessKey(),
+                                expiresTime + "",
+                                expireAuth);
+                return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
+            } else {
+                String expiresUrl =
+                        String.format(
+                                storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
+                                requestPath,
+                                envContext.getAccessKey(),
+                                expiresTime + "",
+                                expireAuth);
+                return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
+            }
+        } else {
+            throw new QSException("ExpiresRequestUrl error:There is no expirs params");
+        }
     }
 
     private String getSignature() throws QSException {
-        String signature = String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
+        String signature =
+                String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
         if (QSStringUtil.isEmpty(signature)) {
             this.doSignature();
-            return String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
+            return String.valueOf(
+                    this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
         }
         return String.valueOf(signature);
     }
