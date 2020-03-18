@@ -44,16 +44,15 @@ public class EnvContext implements ParamValidate {
     private String log_level = QSConstant.LOGGER_ERROR;
     private String additionalUserAgent;
 
-    //default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
+    // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
     private String requestUrlStyle;
 
     /**
-     * {@link
-     * com.qingstor.sdk.constants.QSConstant#VIRTUAL_HOST_STYLE}:<br>
+     * {@link com.qingstor.sdk.constants.QSConstant#VIRTUAL_HOST_STYLE}:<br>
      * https://bucket-name.zone-id.qingstor.com/object-name <br>
-     * {@link
-     * com.qingstor.sdk.constants.QSConstant#PATH_STYLE}: <br>
+     * {@link com.qingstor.sdk.constants.QSConstant#PATH_STYLE}: <br>
      * https://zone-id.qingstor.com/bucket-name/object-name <br>
+     *
      * @return request url style
      */
     public String getRequestUrlStyle() {
@@ -71,6 +70,7 @@ public class EnvContext implements ParamValidate {
      * Otherwise you may see the url like this({@link
      * com.qingstor.sdk.constants.QSConstant#PATH_STYLE}): <br>
      * https://zone-id.qingstor.com/bucket-name/object-name <br>
+     *
      * @param requestUrlStyle set QSConstant.PATH_STYLE or QSConstant.VIRTUAL_HOST_STYLE
      */
     public void setRequestUrlStyle(String requestUrlStyle) {
@@ -82,7 +82,6 @@ public class EnvContext implements ParamValidate {
     public boolean isSafeOkHttp() {
         return safeOkHttp;
     }
-
 
     /**
      * This method will be deleted in subsequent releases
@@ -114,9 +113,7 @@ public class EnvContext implements ParamValidate {
         return host;
     }
 
-    /**
-     * @param host example: qingstor.com
-     */
+    /** @param host example: qingstor.com */
     public void setHost(String host) {
         this.host = host;
     }
@@ -125,9 +122,7 @@ public class EnvContext implements ParamValidate {
         return port;
     }
 
-    /**
-     * @param port example: 8080
-     */
+    /** @param port example: 8080 */
     public void setPort(String port) {
         this.port = port;
     }
@@ -136,9 +131,7 @@ public class EnvContext implements ParamValidate {
         return protocol;
     }
 
-    /**
-     * @param protocol example: https or http
-     */
+    /** @param protocol example: https or http */
     public void setProtocol(String protocol) {
         this.protocol = protocol;
     }
@@ -158,20 +151,18 @@ public class EnvContext implements ParamValidate {
         return joinUrl;
     }
 
-    /**
-     * @param uri example: /iaas
-     */
+    /** @param uri example: /iaas */
     public void setUri(String uri) {
         this.uri = uri;
     }
 
-    private EnvContext() {
-    }
+    private EnvContext() {}
 
     public EnvContext(String accessKey, String accessSecret) {
         this.setAccessKey(accessKey);
         this.setAccessSecret(accessSecret);
         this.setHost(qingcloudStorHost);
+        this.setRequestUrlStyle(QSConstant.PATH_STYLE);
         QSConstant.LOGGER_LEVEL = this.getLog_level();
     }
 
@@ -197,14 +188,13 @@ public class EnvContext implements ParamValidate {
                 env.setPort(getYamlConfig("port", confParams));
                 env.setLog_level(getYamlConfig("log_level", confParams));
                 env.setAdditionalUserAgent(getYamlConfig("additional_user_agent", confParams));
-                //load request url style form config
+                // load request url style form config
                 env.setRequestUrlStyle(getYamlConfig("request_url_style", confParams));
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 throw new QSException("Yaml config error:", e);
             }
-
         }
     }
 
@@ -226,17 +216,12 @@ public class EnvContext implements ParamValidate {
         this.log_level = log_level;
     }
 
-
-    /**
-     * @return the additionalUserAgent
-     */
+    /** @return the additionalUserAgent */
     public String getAdditionalUserAgent() {
         return additionalUserAgent;
     }
 
-    /**
-     * @param additionalUserAgent the additionalUserAgent to set
-     */
+    /** @param additionalUserAgent the additionalUserAgent to set */
     public void setAdditionalUserAgent(String additionalUserAgent) {
         this.additionalUserAgent = additionalUserAgent;
     }
@@ -263,5 +248,4 @@ public class EnvContext implements ParamValidate {
         }
         return null;
     }
-
 }
