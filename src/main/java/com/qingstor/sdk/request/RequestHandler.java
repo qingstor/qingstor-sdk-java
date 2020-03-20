@@ -128,7 +128,7 @@ public class RequestHandler {
         boolean isDownloadRequest = false;
         Field[] declaredField = outputClass.getDeclaredFields();
         for (Field field : declaredField) {
-            String methodName = "get" + QSParamInvokeUtil.capitalize(field.getName());
+            String methodName = "get" + QSStringUtil.capitalize(field.getName());
             Method[] methods = outputClass.getDeclaredMethods();
             for (Method m : methods) {
                 if (m.getName().equalsIgnoreCase(methodName)) {

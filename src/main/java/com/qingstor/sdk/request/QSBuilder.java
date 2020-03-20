@@ -89,6 +89,17 @@ public class QSBuilder {
         this.paramsFormData =
                 QSParamInvokeUtil.getRequestParams(
                         this.paramsModel, QSConstant.PARAM_TYPE_FORM_DATA);
+
+        if (this.paramsHeaders.containsKey(QSConstant.PARAM_KEY_METADATA)) {
+            Object o = this.paramsHeaders.get(QSConstant.PARAM_KEY_METADATA);
+            if (o != null) {
+                Map<String, String> map = (Map<String, String>) o;
+                for (Map.Entry<String, String> entry : map.entrySet()) {
+                    this.paramsHeaders.put(entry.getKey(), entry.getValue());
+                }
+            }
+            this.paramsHeaders.remove(QSConstant.PARAM_KEY_METADATA);
+        }
         paramsHeaders = this.headParamEncoding(paramsHeaders);
 
         if (context.get(QSConstant.PARAM_KEY_USER_AGENT) != null) {
@@ -151,12 +162,12 @@ public class QSBuilder {
         // remove bucket part may exists in string
         // then replace object part may exists in string
         String requestSuffixPath =
-                requestPath.replace(REQUEST_PREFIX + QSConstant.BUCKET_NAME_REPLACE, "");
+                requestPath.replace(REQUEST_PREFIX + QSConstant.BUCKET_PLACEHOLDER, "");
         if (this.context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
             String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
             requestSuffixPath =
                     requestSuffixPath.replace(
-                            QSConstant.OBJECT_NAME_REPLACE,
+                            QSConstant.OBJECT_PLACEHOLDER,
                             QSStringUtil.asciiCharactersEncoding(objectName));
         }
         this.requestUrlStyle = envContext.getRequestUrlStyle();
@@ -181,9 +192,8 @@ public class QSBuilder {
 
     private Map headParamEncoding(Map headParams) throws QSException {
         Map head = new HashMap();
-        Iterator iterator = headParams.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
+        for (Object o : headParams.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             String key = (String) entry.getKey();
             if (!key.startsWith("x-qs-") && !key.startsWith("X-QS-")) {
                 head.put(key, headParams.get(key));
@@ -222,8 +232,8 @@ public class QSBuilder {
         }
         String suffixPath =
                 requestPath
-                        .replace(REQUEST_PREFIX + QSConstant.BUCKET_NAME_REPLACE, "")
-                        .replace(REQUEST_PREFIX + QSConstant.OBJECT_NAME_REPLACE, "");
+                        .replace(REQUEST_PREFIX + QSConstant.BUCKET_PLACEHOLDER, "")
+                        .replace(REQUEST_PREFIX + QSConstant.OBJECT_PLACEHOLDER, "");
         if (QSStringUtil.isEmpty(objectName)) {
             objectName = "";
         } else {

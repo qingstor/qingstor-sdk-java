@@ -27,7 +27,7 @@ public class QSLoggerUtil {
         Logger logger = Logger.getLogger(loggerName);
         if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_ERROR)) {
             logger.setLevel(Level.SEVERE);
-        } else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_WARNNING)) {
+        } else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_WARNING)) {
             logger.setLevel(Level.WARNING);
         } else if (QSConstant.LOGGER_LEVEL.equals(QSConstant.LOGGER_INFO)) {
             logger.setLevel(Level.INFO);

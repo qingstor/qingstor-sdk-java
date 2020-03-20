@@ -31,7 +31,7 @@ public class QSParamInvokeUtilTest {
 
     @Test
     public void testParamInvokeCapitalize() {
-        String capitalize = QSParamInvokeUtil.capitalize("tttTtest");
+        String capitalize = QSStringUtil.capitalize("tttTtest");
         Assert.assertEquals(capitalize, "TttTtest");
     }
 

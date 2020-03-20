@@ -49,9 +49,10 @@ public class QSConstant {
     public static final String PARAM_KEY_EXPIRES = "expires";
     public static final String PARAM_KEY_PART_NUMBER = "part_number";
     public static final String PARAM_KEY_FILE_OFFSET = "file_offset";
+    public static final String PARAM_KEY_METADATA = "x-qs-metadata";
 
-    public static final String BUCKET_NAME_REPLACE = "<bucket-name>";
-    public static final String OBJECT_NAME_REPLACE = "<object-key>";
+    public static final String BUCKET_PLACEHOLDER = "<bucket-name>";
+    public static final String OBJECT_PLACEHOLDER = "<object-key>";
 
     public static final String CONTENT_TYPE_TEXT = "application/json";
 
@@ -79,7 +80,7 @@ public class QSConstant {
     public static String LOGGER_LEVEL = "error";
 
     public static String LOGGER_ERROR = "error";
-    public static String LOGGER_WARNNING = "warn";
+    public static String LOGGER_WARNING = "warn";
     public static String LOGGER_INFO = "info";
     public static String LOGGER_DEBUG = "debug";
     public static String LOGGER_FATAL = "fatal";

@@ -360,11 +360,11 @@ public class QSSignatureUtil {
         String method = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
         String bucketName = (String) context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
         String requestPath = (String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
-        requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName);
+        requestPath = requestPath.replace(QSConstant.BUCKET_PLACEHOLDER, bucketName);
         if (context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
             requestPath =
                     requestPath.replace(
-                            QSConstant.OBJECT_NAME_REPLACE,
+                            QSConstant.OBJECT_PLACEHOLDER,
                             (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME));
         }
         String authSign =

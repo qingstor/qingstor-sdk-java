@@ -231,8 +231,39 @@ public class QSOkHttpRequestClient {
                 fillResponseCallbackModel(errorCode, e.getMessage(), m);
                 callBack.onAPIResponse(m);
             }
-        } catch (Exception ee) {
-            logger.log(Level.SEVERE, ee.getMessage());
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage());
+        }
+    }
+
+    private void fill(okhttp3.Response response, OutputModel target) throws IOException {
+        int code = response.code();
+        ResponseBody body = response.body();
+        JSONObject o = QSJSONUtil.toJSONObject("{}");
+        QSJSONUtil.putJsonData(
+                o, QSConstant.PARAM_TYPE_BODYINPUTSTREAM, body.source().inputStream());
+        if (target != null) {
+            if (!QSJSONUtil.jsonObjFillValue2Object(o, target)) {
+                try {
+                    String responseInfo = body.string();
+                    // Deserialize HTTP response to concrete type.
+                    if (!QSStringUtil.isEmpty(responseInfo)) {
+                        QSJSONUtil.jsonFillValue2Object(responseInfo, target);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            Headers responceHeaders = response.headers();
+            int iHeads = responceHeaders.size();
+            JSONObject headJson = QSJSONUtil.toJSONObject("{}");
+            QSJSONUtil.putJsonData(headJson, QSConstant.QC_CODE_FIELD_NAME, code);
+            for (int i = 0; i < iHeads; i++) {
+                String key = responceHeaders.name(i);
+                if (key != null) key = key.toLowerCase();
+                QSJSONUtil.putJsonData(headJson, key, responceHeaders.value(i));
+            }
+            QSJSONUtil.jsonObjFillValue2Object(headJson, target);
         }
     }
 

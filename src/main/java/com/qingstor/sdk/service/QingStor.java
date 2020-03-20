@@ -16,23 +16,19 @@
 
 package com.qingstor.sdk.service;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
-import com.qingstor.sdk.request.ResponseCallBack;
-import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
-import com.qingstor.sdk.utils.QSStringUtil;
-import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.request.RequestHandler;
+import com.qingstor.sdk.request.ResourceRequestFactory;
+import com.qingstor.sdk.request.ResponseCallBack;
+import com.qingstor.sdk.service.Types.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // QingStorService: QingStor provides low-cost and reliable online storage service with unlimited
 // storage space, high read and write performance, high reliability and data safety, fine-grained

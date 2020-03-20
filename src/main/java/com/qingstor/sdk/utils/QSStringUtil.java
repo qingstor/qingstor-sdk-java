@@ -36,16 +36,13 @@ import java.util.Map;
 public class QSStringUtil {
 
     public static String objectToJson(String key, Object o) throws QSException {
-        StringBuffer buffer = new StringBuffer("{ \"" + key + "\":");
-        buffer.append(objectJSONKeyValue(key, o));
-        buffer.append("}");
-        return buffer.toString();
+        String buffer = "{ \"" + key + "\":" + objectJSONKeyValue(key, o) +
+                "}";
+        return buffer;
     }
 
     private static String objectJSONKeyValue(String key, Object o) throws QSException {
-        StringBuffer buffer = new StringBuffer(" \"" + key + "\":");
-        buffer.append(objectJSONValue(o));
-        return buffer.toString();
+        return " \"" + key + "\":" + objectJSONValue(o);
     }
 
     public static Object objectJSONValue(Object o) throws QSException {
@@ -76,9 +73,8 @@ public class QSStringUtil {
     public static JSONObject getMapToJson(Map o) throws QSException {
         JSONObject json = new JSONObject();
         try {
-            Iterator iterator = o.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
+            for (Object value : o.entrySet()) {
+                Map.Entry entry = (Map.Entry) value;
                 String key = (String) entry.getKey();
                 Object bodyObj = o.get(key);
                 json.put(key, objectJSONValue(bodyObj));
@@ -95,9 +91,8 @@ public class QSStringUtil {
         JSONObject json = null;
         if (o instanceof Map) {
             json = new JSONObject();
-            Iterator iterator = ((Map) o).entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
+            for (Object value : ((Map) o).entrySet()) {
+                Map.Entry entry = (Map.Entry) value;
                 String key = (String) entry.getKey();
                 Object bodyObj = ((Map) o).get(key);
                 json.put(key, bodyObj);
@@ -120,25 +115,20 @@ public class QSStringUtil {
     }
 
     public static boolean isEmpty(String str) {
-        if (str == null || "".equals(str.trim()) || "null".equalsIgnoreCase(str)) {
-            return true;
-        }
-        return false;
+        return str == null || "".equals(str.trim()) || "null".equalsIgnoreCase(str);
     }
 
     public static String getUserAgent() {
         String osName = System.getProperty("os.name"); //操作系统名称
         String langVersion = System.getProperty("java.version"); //java.version系统版本
-        String userAgent =
-                QSConstant.SDK_NAME
-                        + "/"
-                        + QSConstant.SDK_VERSION
-                        + " ( java v"
-                        + langVersion
-                        + ";"
-                        + osName
-                        + ")";
-        return userAgent;
+        return QSConstant.SDK_NAME
+                + "/"
+                + QSConstant.SDK_VERSION
+                + " ( java v"
+                + langVersion
+                + ";"
+                + osName
+                + ")";
     }
 
     public static String getParameterRequired(String paraName, String value) {
@@ -148,7 +138,7 @@ public class QSStringUtil {
     public static String getParameterValueNotAllowedError(
             String paraName, String value, String[] values) {
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for (Object o : values) {
             buf.append(o.toString()).append(",");
         }
@@ -184,4 +174,7 @@ public class QSStringUtil {
         }
     }
 
+    public static String capitalize(String word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
 }

@@ -167,15 +167,12 @@ task formatGenerateCode(type: JavaExec) {
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
-    implementation 'org.json:json:20140107'
+    implementation 'org.json:json:20190722'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'org.yaml:snakeyaml:1.17'
-    implementation 'com.google.code.gson:gson:2.8.2'
-    formatComile 'com.google.googlejavaformat:google-java-format:1.1:all-deps'
+    implementation 'org.yaml:snakeyaml:1.26'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    formatComile 'com.google.googlejavaformat:google-java-format:1.7:all-deps'
 
-    providedCompile 'org.json:json:20140107'
-    providedCompile 'com.squareup.okhttp3:okhttp:3.11.0'
-    providedCompile 'org.yaml:snakeyaml:1.17'
     providedCompile 'info.cukes:cucumber-java:' + cucumberVersion
     providedCompile 'info.cukes:cucumber-junit:' + cucumberVersion
 
@@ -186,10 +183,7 @@ dependencies {
     // TestNG is also supported by the Gradle Test task. Just change the
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
-    testImplementation 'junit:junit:4.12'
     testImplementation 'info.cukes:cucumber-java:' + cucumberVersion
     testImplementation 'info.cukes:cucumber-junit:' + cucumberVersion
-    testImplementation 'org.json:json:20140107'
-    testImplementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    testImplementation 'org.yaml:snakeyaml:1.17'
+    testImplementation 'junit:junit:4.12'
 }

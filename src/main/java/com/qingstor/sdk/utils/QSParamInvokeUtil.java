@@ -59,7 +59,7 @@ public class QSParamInvokeUtil {
             throws InvocationTargetException, IllegalAccessException, QSException {
         Field[] declaredField = objClass.getDeclaredFields();
         for (Field field : declaredField) {
-            String methodName = "get" + capitalize(field.getName());
+            String methodName = "get" + QSStringUtil.capitalize(field.getName());
             String fieldName = field.getName();
             Method[] methods = objClass.getDeclaredMethods();
             for (Method m : methods) {
@@ -107,7 +107,7 @@ public class QSParamInvokeUtil {
             throws QSException {
         Field[] declaredField = sourceClass.getDeclaredFields();
         for (Field field : declaredField) {
-            String methodName = "get" + capitalize(field.getName());
+            String methodName = "get" + QSStringUtil.capitalize(field.getName());
             String fieldName = field.getName();
             Method[] methods = sourceClass.getDeclaredMethods();
             for (Method m : methods) {
@@ -120,10 +120,6 @@ public class QSParamInvokeUtil {
                 }
             }
         }
-    }
-
-    public static String capitalize(String word) {
-        return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
     public static Object getOutputModel(Class className) throws QSException {

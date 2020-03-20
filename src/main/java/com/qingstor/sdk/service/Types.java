@@ -16,11 +16,10 @@
 
 package com.qingstor.sdk.service;
 
-import java.util.List;
-
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.utils.QSStringUtil;
+import java.util.List;
 
 public class Types {
 
