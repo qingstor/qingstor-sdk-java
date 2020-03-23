@@ -7,9 +7,8 @@ help:
 	@echo "  unit              to run all sort of unit tests except runtime"
 	@echo "  update            to update git submodules"
 	@echo "  generate          to generate service code"
-	@echo "  generate-docs      to geterate  service and bucket APIs docs"
 
-all: update generate unit
+all: update generate unit build
 
 test:
 	@echo "run service test"
@@ -36,17 +35,8 @@ generate:
 	snips \
 		-f=./specs/qingstor/2016-01-06/swagger/api_v2.0.json -t=./template -o=./src/main/java/com/qingstor/sdk/service
 	rm ./src/main/java/com/qingstor/sdk/service/Object.java
-	./gradlew formatGenerateCode
+	./gradlew spotlessApply
 	@echo "ok"
-
-generate-docs:
-	@if [[ ! -f "$$(which snips)" ]]; then \
-		echo "ERROR: Command \"snips\" not found.";\
-	fi
-	snips \
-		-f=./specs -t=./docs/template -o=./docs/source/api
-	rm ./docs/source/api/object.md
-	@echo
 
 update:
 	git submodule update --init
@@ -57,8 +47,7 @@ unit:
 	./gradlew test
 	@echo "ok"
 	
-buildJar:
-	@echo "run build jar"
-	./gradlew buildJar
-	./gradlew buildIncludeDependentJar
+build:
+	@echo "run build jar(jar, source, javadoc)"
+	./gradlew build
 	@echo "ok"

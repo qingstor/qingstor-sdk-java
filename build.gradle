@@ -1,11 +1,13 @@
 plugins {
+    id 'java'
     id 'java-library'
     id 'maven-publish'
     id 'signing'
+    id "com.diffplug.gradle.spotless" version "3.27.2"
 }
 
 group = 'com.yunify'
-version = '2.2.18'
+version = '2.2.19'
 
 repositories {
     mavenCentral()
@@ -28,18 +30,15 @@ java {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        maven(MavenPublication) {
             artifactId = 'qingstor.sdk.java'  // this should be replaced near future.
 
             from components.java
 
             pom {
-                name = 'qingstor-sdk-java'
+                name = project.name
                 description = 'The official QingStor SDK for the Java programming language.'
                 url = 'http://www.qingcloud.com'
-                properties = [
-                        "project.build.sourceEncoding": "UTF-8"
-                ]
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -62,69 +61,48 @@ publishing {
         }
     }
     repositories {
-        maven {
-            name = 'deploy'
-            def stagingRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-            url = project.hasProperty('release') ? stagingRepoUrl : snapshotsRepoUrl
-            credentials {
-                username = deployRepoUsername
-                password = deployRepoPassword
-            }
-        }
         // local repo. For test usage.
         // maven {
         //     name = 'myRepo'
         //     url = "file://${buildDir}/repo"
         // }
+        maven {
+            name = 'mavencentral'
+            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username System.getenv('SONATYPE_NEXUS_USERNAME')
+                password System.getenv('SONATYPE_NEXUS_PASSWORD')
+            }
+        }
     }
 }
 
 signing {
-    sign publishing.publications.mavenJava
+    sign publishing.publications.maven
 }
-
-//task sourcesJar(type: Jar) {
-//    archiveClassifier = 'sources'
-//    from sourceSets.main.allSource
-//}
-//
-//task javadocJar(type: Jar) {
-//    archiveClassifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
 
 project.ext {
     cucumberVersion = '1.2.5'
 }
 
 configurations {
-    formatComile
-    providedCompile
-    testProvidedCompile
-    compile.extendsFrom providedCompile
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
 }
 
-def Version = "-2.2.17"
-
-//create a single Jar with all dependencies
-task buildIncludeDependentJar(type: Jar) {
-    manifest {
-        attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version)
-    }
-    archiveBaseName = project.name + Version + '-all-deps'
-    from {
-        (configurations.runtime - configurations.testProvidedCompile).collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    } {
-        exclude "META-INF/*.SF"
-        exclude "META-INF/*.DSA"
-        exclude "META-INF/*.RSA"
-    }
-    with jar
-}
+// task cucumber() {
+//     dependsOn assemble, compileTestJava
+//     doLast {
+//         javaexec {
+//             main = "io.cucumber.core.cli.Main"
+//             // main = "cucumber.api.cli.Main"
+//             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+//             args = ['--plugin', 'pretty', '--glue', 'gradle.cucumber', 'src/test/resources']
+//             // args = ['--plugin', 'pretty', '--glue', '.', 'tests/features']
+//         }
+//     }
+// }
 
 //create a single Jar with all dependencies
 task buildTestJar(type: Jar) {
@@ -132,58 +110,36 @@ task buildTestJar(type: Jar) {
         attributes('Implementation-Title': project.name,
                 'Implementation-Version': project.version)
     }
-    archiveBaseName = project.name + '-test' + Version
-    from { configurations.testCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    archiveBaseName = project.name + '-test'
+    from { configurations.cucumberRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
-}
-
-//create a single Jar with no dependencies
-task buildJar(type: Jar) {
-    manifest {
-        attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version)
-    }
-    archiveBaseName = project.name + Version
-    from {
-        (configurations.runtime - configurations.providedCompile).collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    } {
-        exclude "META-INF/*.SF"
-        exclude "META-INF/*.DSA"
-        exclude "META-INF/*.RSA"
-    }
-    with jar
-}
-
-task formatGenerateCode(type: JavaExec) {
-    main 'com.google.googlejavaformat.java.Main'
-    classpath configurations.formatComile
-    args '-a', '-r', 'src/main/java/com/qingstor/sdk/service/Bucket.java',
-            'src/main/java/com/qingstor/sdk/service/QingStor.java',
-            'src/main/java/com/qingstor/sdk/service/Types.java'
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
-    implementation 'org.json:json:20190722'
+    implementation 'org.json:json:20140107'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'org.yaml:snakeyaml:1.26'
     implementation 'com.google.code.gson:gson:2.8.6'
-    formatComile 'com.google.googlejavaformat:google-java-format:1.7:all-deps'
-
-    providedCompile 'info.cukes:cucumber-java:' + cucumberVersion
-    providedCompile 'info.cukes:cucumber-junit:' + cucumberVersion
-
-    testProvidedCompile 'info.cukes:cucumber-java:' + cucumberVersion
-    testProvidedCompile 'info.cukes:cucumber-junit:' + cucumberVersion
 
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.json:json:20140107'
+    testImplementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    testImplementation 'org.yaml:snakeyaml:1.26'
     testImplementation 'info.cukes:cucumber-java:' + cucumberVersion
     testImplementation 'info.cukes:cucumber-junit:' + cucumberVersion
-    testImplementation 'junit:junit:4.12'
+}
+
+spotless {
+    java {
+        // switch to AOSP style
+        googleJavaFormat('1.7').aosp()
+        // Add license to every java file.
+        licenseHeaderFile rootProject.file('spotless.license.java')
+    }
 }

@@ -1,24 +1,23 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.constants;
 
 public class QSConstant {
 
-    public static String SDK_VERSION = "2.2.17";
+    public static String SDK_VERSION = "2.2.19";
     public static String SDK_NAME = "qingstor-sdk-java";
 
     public static String QC_CODE_FIELD_NAME = "statue_code";
@@ -85,11 +84,13 @@ public class QSConstant {
     public static String LOGGER_DEBUG = "debug";
     public static String LOGGER_FATAL = "fatal";
 
-
     public static int HTTPCLIENT_CONNECTION_TIME_OUT = 60; // Seconds
     public static int HTTPCLIENT_READ_TIME_OUT = 100; // Seconds
     public static int HTTPCLIENT_WRITE_TIME_OUT = 100; // Seconds
 
-    public static final String VIRTUAL_HOST_STYLE  = "virtual_host_style"; //default url style, like this: https://bucket-name.zone-id.qingstor.com/object-name
-    public static final String PATH_STYLE = "path_style"; //https://zone-id.qingstor.com/bucket-name/object-name
+    /** default url style, like this: https://bucket-name.zone-id.qingstor.com/object-name */
+    public static final String VIRTUAL_HOST_STYLE = "virtual_host_style";
+
+    /** https://zone-id.qingstor.com/bucket-name/object-name */
+    public static final String PATH_STYLE = "path_style";
 }

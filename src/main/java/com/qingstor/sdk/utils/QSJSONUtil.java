@@ -1,33 +1,31 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.utils;
 
 import com.google.gson.Gson;
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.constants.QSConstant;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class QSJSONUtil {
 
@@ -397,7 +395,8 @@ public class QSJSONUtil {
             JSONObject o, Field[] fields, Class targetClass, Object targetObj)
             throws NoSuchMethodException {
         boolean hasParam = false;
-        NextField: for (Field field : fields) {
+        NextField:
+        for (Field field : fields) {
             String methodField = QSStringUtil.capitalize(field.getName());
             String getMethodName = "get" + methodField;
             String isMethodName = "is" + methodField;
@@ -423,7 +422,8 @@ public class QSJSONUtil {
                             }
                         }
                         if (metadatas.size() > 0) {
-                            Method setter = targetClass.getDeclaredMethod(setMethodName, field.getType());
+                            Method setter =
+                                    targetClass.getDeclaredMethod(setMethodName, field.getType());
                             try {
                                 setter.invoke(targetObj, metadatas);
                             } catch (IllegalAccessException | InvocationTargetException e) {
@@ -436,7 +436,8 @@ public class QSJSONUtil {
                     if (o.has(dataKey)) {
                         hasParam = true;
                         Object data = toObject(o, dataKey);
-                        Method setter = targetClass.getDeclaredMethod(setMethodName, field.getType());
+                        Method setter =
+                                targetClass.getDeclaredMethod(setMethodName, field.getType());
                         setParameterToMap(setter, targetObj, field, data);
                     }
                 }

@@ -1,19 +1,18 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
@@ -2064,7 +2063,7 @@ public class Bucket {
         public String getPrefix() {
             return this.prefix;
         } // Limit results returned from the first uploading segment after upload_id_marker sorted
-          // by the time of upload_id
+        // by the time of upload_id
 
         private String uploadIDMarker;
 
@@ -5035,8 +5034,8 @@ public class Bucket {
         public String getCacheControl() {
             return this.cacheControl;
         } // In a multipart/form-data body, the HTTP Content-Disposition general header is a header
-          // that can be used on the subpart of a multipart body to give information about the field
-          // it applies to.
+        // that can be used on the subpart of a multipart body to give information about the field
+        // it applies to.
 
         private String contentDisposition;
 
@@ -5059,7 +5058,7 @@ public class Bucket {
         public String getContentEncoding() {
             return this.contentEncoding;
         } // The Content-Language entity header is used to describe the language(s) intended for the
-          // audience.
+        // audience.
 
         private String contentLanguage;
 
@@ -5482,7 +5481,7 @@ public class Bucket {
         public Map<String, String> getXQSMetaData() {
             return this.xQSMetaData;
         } // Next position when append data to this object, only returns when object type is
-          // appendable
+        // appendable
 
         private Long xQSNextAppendPosition;
 
@@ -7359,6 +7358,8 @@ public class Bucket {
         /**
          * You can set the offset of a file here. <br>
          * Then use setContentLength() to get a part of a file.
+         *
+         * @param fileOffset fileOffset
          */
         public void setFileOffset(Long fileOffset) {
             this.fileOffset = fileOffset;
@@ -7804,6 +7805,7 @@ public class Bucket {
     /**
      * @param objectName name of the object
      * @param input input
+     * @param expires expires
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>

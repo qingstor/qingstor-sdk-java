@@ -1,19 +1,18 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.request;
 
 import com.qingstor.sdk.constants.QSConstant;
@@ -23,9 +22,6 @@ import com.qingstor.sdk.utils.QSJSONUtil;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
-
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.util.HashMap;
@@ -33,14 +29,12 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -49,6 +43,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.internal.Util;
+import org.json.JSONObject;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSOkHttpRequestClient {
@@ -65,10 +60,10 @@ public class QSOkHttpRequestClient {
 
     public OkHttpClient getSafetyClient() {
         return new OkHttpClient.Builder()
-                        .connectTimeout(QSConstant.HTTPCLIENT_CONNECTION_TIME_OUT, TimeUnit.SECONDS)
-                        .readTimeout(QSConstant.HTTPCLIENT_READ_TIME_OUT, TimeUnit.SECONDS)
-                        .writeTimeout(QSConstant.HTTPCLIENT_WRITE_TIME_OUT, TimeUnit.SECONDS)
-                        .build();
+                .connectTimeout(QSConstant.HTTPCLIENT_CONNECTION_TIME_OUT, TimeUnit.SECONDS)
+                .readTimeout(QSConstant.HTTPCLIENT_READ_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(QSConstant.HTTPCLIENT_WRITE_TIME_OUT, TimeUnit.SECONDS)
+                .build();
     }
 
     @Deprecated
@@ -159,14 +154,15 @@ public class QSOkHttpRequestClient {
             throws QSException {
         Call okhttpCall = getRequestCall(bSafe, request);
         okhttp3.Response response = null;
-            OutputModel model = (OutputModel) QSParamInvokeUtil.getOutputModel(outputClass);
+        OutputModel model = (OutputModel) QSParamInvokeUtil.getOutputModel(outputClass);
         try {
             response = okhttpCall.execute();
             fillResponseValue2Object(response, model);
             return model;
         } catch (Exception e) {
             if (e instanceof CancellationHandler.CancellationException) {
-                fillResponseCallbackModel(QSConstant.REQUEST_ERROR_CANCELLED, e.getMessage(), model);
+                fillResponseCallbackModel(
+                        QSConstant.REQUEST_ERROR_CANCELLED, e.getMessage(), model);
                 return model;
             } else {
                 e.printStackTrace();
@@ -223,7 +219,7 @@ public class QSOkHttpRequestClient {
     private void onOkhttpFailure(Exception e, ResponseCallBack callBack) {
         try {
             if (callBack != null) {
-                //Check error code here.
+                // Check error code here.
                 int errorCode = QSConstant.REQUEST_ERROR_CODE;
                 if (e instanceof CancellationHandler.CancellationException)
                     errorCode = QSConstant.REQUEST_ERROR_CANCELLED; // Cancelled by users.
@@ -300,17 +296,20 @@ public class QSOkHttpRequestClient {
     }
 
     /**
-     * @param method     request method name
-     * @param signedUrl  with signed param url
+     * @param method request method name
+     * @param signedUrl with signed param url
      * @param headParams http head params
      * @param requestBody request body params
      * @return a build request
      */
     public Request buildRequest(
-            final String method, final String signedUrl, RequestBody requestBody, final Map headParams) {
+            final String method,
+            final String signedUrl,
+            RequestBody requestBody,
+            final Map headParams) {
 
         Request.Builder builder = new Request.Builder();
-        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[]{});
+        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[] {});
         for (String key : sortedHeadersKeys) {
             builder.addHeader(key, String.valueOf(headParams.get(key)));
         }
@@ -319,8 +318,7 @@ public class QSOkHttpRequestClient {
         }
         return builder.url(signedUrl).method(method, requestBody).build();
     }
-    
-    
+
     public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {
         Map<String, Object> errorMap = new HashMap<String, Object>();
         errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);

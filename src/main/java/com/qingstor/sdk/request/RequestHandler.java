@@ -1,19 +1,18 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.request;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
@@ -26,16 +25,13 @@ import com.qingstor.sdk.request.impl.ProgressRequestBody;
 import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
 
 public class RequestHandler {
 
@@ -57,14 +53,16 @@ public class RequestHandler {
 
     private QSRequestBody qsRequestBody;
 
-    public RequestHandler(Map context, RequestInputModel paramBean, Class outputClass) throws QSException {
+    public RequestHandler(Map context, RequestInputModel paramBean, Class outputClass)
+            throws QSException {
         this.contextParam = context;
         this.paramBean = paramBean;
         this.outputClass = outputClass;
         this.builder = new QSBuilder(context, paramBean);
     }
 
-    public RequestHandler(Map context, RequestInputModel paramBean, ResponseCallBack asyncCallback) throws QSException {
+    public RequestHandler(Map context, RequestInputModel paramBean, ResponseCallBack asyncCallback)
+            throws QSException {
         this.contextParam = context;
         this.paramBean = paramBean;
         this.asyncCallback = asyncCallback;
@@ -109,19 +107,19 @@ public class RequestHandler {
         }
     }
 
-
-    private Request getRequest() throws QSException{
+    private Request getRequest() throws QSException {
         checkDownloadRequest();
-        RequestBody  body = this.builder.getRequestBody(this.getQsRequestBody());
-    	if(this.getProgressListener() != null){
-    		return this.builder.getRequest(new ProgressRequestBody(body,this.progressListener, getCancellationHandler()));
-    	}
-    	return this.builder.getRequest(body);
+        RequestBody body = this.builder.getRequestBody(this.getQsRequestBody());
+        if (this.getProgressListener() != null) {
+            return this.builder.getRequest(
+                    new ProgressRequestBody(body, this.progressListener, getCancellationHandler()));
+        }
+        return this.builder.getRequest(body);
     }
 
     /**
-     *  <p> OkHttp will use "Accept-Encoding: gzip" as default header,
-     *  which may not get Content-Length form server when download. </p>
+     * OkHttp will use "Accept-Encoding: gzip" as default header, which may not get Content-Length
+     * form server when download.
      */
     private void checkDownloadRequest() {
         if (outputClass == null) return;
@@ -146,7 +144,6 @@ public class RequestHandler {
         }
     }
 
-
     public String getStringToSignature() throws QSException {
         return this.builder.getStringToSignature();
     }
@@ -157,12 +154,14 @@ public class RequestHandler {
 
     /**
      * Set signature and server time.
+     *
      * @param accessKey accessKey
      * @param signature signature
      * @param gmtTime time format with GMT
      * @throws QSException exception
      */
-    public void setSignature(String accessKey, String signature, String gmtTime) throws QSException {
+    public void setSignature(String accessKey, String signature, String gmtTime)
+            throws QSException {
         builder.setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
         setSignature(accessKey, signature);
     }
@@ -188,33 +187,25 @@ public class RequestHandler {
         return this.builder;
     }
 
-	/**
-	 * @return the progressListener
-	 */
-	public BodyProgressListener getProgressListener() {
-		return progressListener;
-	}
+    /** @return the progressListener */
+    public BodyProgressListener getProgressListener() {
+        return progressListener;
+    }
 
-	/**
-	 * @param progressListener the progressListener to set
-	 */
-	public void setProgressListener(BodyProgressListener progressListener) {
-		this.progressListener = progressListener;
-	}
+    /** @param progressListener the progressListener to set */
+    public void setProgressListener(BodyProgressListener progressListener) {
+        this.progressListener = progressListener;
+    }
 
-	/**
-	 * @return the qsRequestBody
-	 */
-	public QSRequestBody getQsRequestBody() {
-		return qsRequestBody;
-	}
+    /** @return the qsRequestBody */
+    public QSRequestBody getQsRequestBody() {
+        return qsRequestBody;
+    }
 
-	/**
-	 * @param qsRequestBody the qsRequestBody to set
-	 */
-	public void setQsRequestBody(QSRequestBody qsRequestBody) {
-		this.qsRequestBody = qsRequestBody;
-	}
+    /** @param qsRequestBody the qsRequestBody to set */
+    public void setQsRequestBody(QSRequestBody qsRequestBody) {
+        this.qsRequestBody = qsRequestBody;
+    }
 
     public CancellationHandler getCancellationHandler() {
         return cancellationHandler;
