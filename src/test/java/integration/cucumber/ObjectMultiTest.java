@@ -1,31 +1,28 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
-package scenario_impl;
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package integration.cucumber;
 
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.service.Bucket.InitiateMultipartUploadOutput;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
 import java.io.*;
 
 public class ObjectMultiTest {
-
 
     private static String bucketName = TestUtil.getBucketName();
     private static String zone = TestUtil.getZone();
@@ -41,7 +38,7 @@ public class ObjectMultiTest {
     private static Bucket.AbortMultipartUploadOutput abortMultipartUploadOutput;
     private static Bucket.DeleteObjectOutput deleteObjectOutput;
 
-    private static Bucket.InitiateMultipartUploadOutput initOutput;
+    private static InitiateMultipartUploadOutput initOutput;
 
     private static String multipart_upload_name = "";
     private static String multipart_upload_id = "";
@@ -67,11 +64,9 @@ public class ObjectMultiTest {
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
-            while ((lineStr = inBr.readLine()) != null)
-                System.out.println(lineStr);
+            while ((lineStr = inBr.readLine()) != null) System.out.println(lineStr);
             if (p.waitFor() != 0) {
-                if (p.exitValue() == 1)
-                    System.err.println("命令执行失败!");
+                if (p.exitValue() == 1) System.err.println("命令执行失败!");
             }
             inBr.close();
             in.close();
@@ -88,12 +83,12 @@ public class ObjectMultiTest {
         input.setPartNumber(part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput1 = testBucket.uploadMultipart(multipart_upload_name, input);
-
     }
 
     @Then("^upload the first part status code is (\\d+)$")
     public void upload_the_first_part_status_code_is(int statusCode) throws Throwable {
-        System.out.println("upload_the_first_part_status_code_msg" + uploadMultipartOutput1.getMessage());
+        System.out.println(
+                "upload_the_first_part_status_code_msg" + uploadMultipartOutput1.getMessage());
         TestUtil.assertEqual(this.uploadMultipartOutput1.getStatueCode(), statusCode);
     }
 
@@ -105,11 +100,9 @@ public class ObjectMultiTest {
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
-            while ((lineStr = inBr.readLine()) != null)
-                System.out.println(lineStr);
+            while ((lineStr = inBr.readLine()) != null) System.out.println(lineStr);
             if (p.waitFor() != 0) {
-                if (p.exitValue() == 1)
-                    System.err.println("命令执行失败!");
+                if (p.exitValue() == 1) System.err.println("命令执行失败!");
             }
             inBr.close();
             in.close();
@@ -123,14 +116,15 @@ public class ObjectMultiTest {
         input.setXQSEncryptionCustomerKey(objectKey);
         input.setContentLength(f.length());
         input.setBodyInputStream(new FileInputStream(f));
-        input.setPartNumber( part_number);
+        input.setPartNumber(part_number);
         input.setUploadID(multipart_upload_id);
         uploadMultipartOutput2 = testBucket.uploadMultipart(multipart_upload_name, input);
     }
 
     @Then("^upload the second part status code is (\\d+)$")
     public void upload_the_second_part_status_code_is(int statusCode) throws Throwable {
-        System.out.println("upload_the_first_part_status_code_is2" + uploadMultipartOutput2.getMessage());
+        System.out.println(
+                "upload_the_first_part_status_code_is2" + uploadMultipartOutput2.getMessage());
         TestUtil.assertEqual(this.uploadMultipartOutput2.getStatueCode(), statusCode);
     }
 
@@ -142,11 +136,9 @@ public class ObjectMultiTest {
             BufferedInputStream in = new BufferedInputStream(p.getInputStream());
             BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
             String lineStr;
-            while ((lineStr = inBr.readLine()) != null)
-                System.out.println(lineStr);
+            while ((lineStr = inBr.readLine()) != null) System.out.println(lineStr);
             if (p.waitFor() != 0) {
-                if (p.exitValue() == 1)
-                    System.err.println("命令执行失败!");
+                if (p.exitValue() == 1) System.err.println("命令执行失败!");
             }
             inBr.close();
             in.close();
@@ -186,20 +178,22 @@ public class ObjectMultiTest {
 
     @Then("^list multipart object parts count is (\\d+)$")
     public void list_multipart_object_parts_count_is(int statusCode) throws Throwable {
-        System.out.println("list_multipart_object_parts_count_is:" + this.listMultipartOutput.getCount());
+        System.out.println(
+                "list_multipart_object_parts_count_is:" + this.listMultipartOutput.getCount());
     }
 
     @When("^complete multipart upload with key \"([^\"]*)\"$")
     public void complete_multipart_upload(String objectKey) throws Throwable {
         Bucket.CompleteMultipartUploadInput input = new Bucket.CompleteMultipartUploadInput();
         input.setUploadID(initOutput.getUploadID());
-        String content = "{\n" +
-                "    \"object_parts\": [\n" +
-                "        {\"part_number\": 0},\n" +
-                "        {\"part_number\": 1},\n" +
-                "        {\"part_number\": 2}\n" +
-                "    ]\n" +
-                "}";
+        String content =
+                "{\n"
+                        + "    \"object_parts\": [\n"
+                        + "        {\"part_number\": 0},\n"
+                        + "        {\"part_number\": 1},\n"
+                        + "        {\"part_number\": 2}\n"
+                        + "    ]\n"
+                        + "}";
         input.setBodyInput(content);
 
         completeMultipartUploadOutput = testBucket.completeMultipartUpload(objectKey, input);
@@ -207,7 +201,9 @@ public class ObjectMultiTest {
 
     @Then("^complete multipart upload status code is (\\d+)$")
     public void complete_multipart_upload_status_code_is(int statusCode) throws Throwable {
-        System.out.println("complete_multipart_upload_status_code_msg" + completeMultipartUploadOutput.getMessage());
+        System.out.println(
+                "complete_multipart_upload_status_code_msg"
+                        + completeMultipartUploadOutput.getMessage());
         TestUtil.assertEqual(completeMultipartUploadOutput.getStatueCode(), statusCode);
     }
 
@@ -216,7 +212,6 @@ public class ObjectMultiTest {
         Bucket.AbortMultipartUploadInput input = new Bucket.AbortMultipartUploadInput();
         input.setUploadID(initOutput.getUploadID());
         abortMultipartUploadOutput = testBucket.abortMultipartUpload(objectKey, input);
-
     }
 
     @Then("^abort multipart upload status code is (\\d+)$")
@@ -233,7 +228,4 @@ public class ObjectMultiTest {
     public void delete_the_multipart_object_status_code_is(int statusCode) throws Throwable {
         TestUtil.assertEqual(deleteObjectOutput.getStatueCode(), statusCode);
     }
-
-
 }
-

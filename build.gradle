@@ -103,18 +103,6 @@ task cucumber() {
     }
 }
 
-//create a single Jar with all dependencies
-task buildTestJar(type: Jar) {
-    manifest {
-        attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version)
-    }
-
-    archiveClassifier = 'test'
-    from { configurations.cucumberRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
@@ -123,16 +111,10 @@ dependencies {
     implementation 'org.yaml:snakeyaml:1.26'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    // Declare the dependency for your favourite test framework you want to use in your tests.
-    // TestNG is also supported by the Gradle Test task. Just change the
-    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
-    // 'test.useTestNG()' to your build script.
-    // testImplementation 'junit:junit:4.12'
-    // testImplementation 'org.json:json:20140107'
-    // testImplementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    // testImplementation 'org.yaml:snakeyaml:1.26'
     testImplementation 'info.cukes:cucumber-java:' + cucumberVersion
     testImplementation 'info.cukes:cucumber-junit:' + cucumberVersion
+    // testImplementation 'io.cucumber:cucumber-java:5.5.0'
+    // testImplementation 'io.cucumber:cucumber-junit:5.5.0'
 }
 
 spotless {
