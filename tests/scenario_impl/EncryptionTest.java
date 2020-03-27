@@ -16,11 +16,8 @@
 
 package scenario_impl;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.file.Files;
 
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
@@ -63,7 +60,9 @@ public class EncryptionTest {
 		// Write code here that turns the phrase above into concrete actions
 		testBucket = new Bucket(evnContext, zone, bucketName);
 		Bucket.PutObjectInput input = new Bucket.PutObjectInput();
-		File f = new File("config.yaml");
+		File f = new File("/tmp/encryption_test_object");
+		RandomAccessFile raf = new RandomAccessFile(f, "rw");
+		raf.setLength(1048576);
 		input.setBodyInputFile(f);
 		input.setContentType("video/mp4; charset=utf8");
 		input.setContentLength(f.length());
@@ -71,6 +70,7 @@ public class EncryptionTest {
 		input.setXQSEncryptionCustomerKey(encryption_key);
 		input.setXQSEncryptionCustomerKeyMD5(encryption_key_md5);
 		putObjectOutput = testBucket.putObject(objectName, input);
+		Files.delete(f.toPath());
 	}
 
 	@Then("^put encryption object status code is (\\d+)$")

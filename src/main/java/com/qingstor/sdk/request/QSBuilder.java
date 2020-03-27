@@ -189,16 +189,23 @@ public class QSBuilder {
     }
 
     private Map headParamEncoding(Map headParams) throws QSException {
-        Map head = new HashMap();
+        final int maxAscii = 127;
+        Map<String, String> head = new HashMap<>();
         for (Object o : headParams.entrySet()) {
             Map.Entry entry = (Map.Entry) o;
             String key = (String) entry.getKey();
-            if (!key.startsWith("x-qs-") && !key.startsWith("X-QS-")) {
-                head.put(key, headParams.get(key));
-            } else {
-                String keyValue = QSStringUtil.asciiCharactersEncoding(headParams.get(key) + "");
-                head.put(key, keyValue);
+            String value = entry.getValue().toString();
+
+            for (int charIndex = 0, nChars = value.length(), codePoint;
+                    charIndex < nChars;
+                    charIndex += Character.charCount(codePoint)) {
+                codePoint = value.codePointAt(charIndex);
+                if (codePoint > 127) {
+                    value = QSStringUtil.asciiCharactersEncoding(value);
+                    break;
+                }
             }
+            head.put(key, value);
         }
 
         return head;
