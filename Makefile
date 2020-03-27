@@ -12,20 +12,7 @@ all: update generate unit build
 
 test:
 	@echo "run service test"
-	@if [[ ! -f "$$(which javac)" ]]; then \
-		echo "ERROR: Command \"javac\" not found."; \
-	fi
-	rm -f build/libs/qingstor*test*.jar
-	./gradlew buildTestJar
-	rm -fr tests/jars
-	mkdir tests/jars
-	cp build/libs/qingstor*test*.jar tests/jars/
-	pushd "tests";\
-	javac -cp "./jars/*:." scenario_impl/*.java;\
-	java -cp "./jars/*:." cucumber.api.cli.Main -g scenario_impl features;\
-	popd
-	rm -fr tests/jars
-	rm -f tests/scenario_impl/*.class
+	./gradlew cucumber
 	@echo "ok"
 
 generate:
