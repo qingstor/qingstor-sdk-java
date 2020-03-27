@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id "com.diffplug.gradle.spotless" version "3.27.2"
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 group = 'com.yunify'
@@ -14,6 +15,12 @@ repositories {
 }
 
 java {
+    jar {
+        manifest {
+            attributes('Implementation-Title': project.name,
+                    'Implementation-Version': project.version)
+        }
+    }
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -21,11 +28,8 @@ java {
     withSourcesJar()
 }
 
-jar {
-    manifest {
-        attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version)
-    }
+shadowJar {
+    archiveClassifier = 'all-deps'
 }
 
 publishing {
@@ -34,6 +38,8 @@ publishing {
             artifactId = 'qingstor.sdk.java'  // this should be replaced near future.
 
             from components.java
+
+            artifact shadowJar
 
             pom {
                 name = project.name
@@ -87,17 +93,6 @@ configurations {
     }
 }
 
-task cucumber() {
-    dependsOn assemble, compileTestJava
-    doLast {
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--glue', 'integration.cucumber', 'tests/features']
-        }
-    }
-}
-
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
@@ -108,6 +103,17 @@ dependencies {
 
     testImplementation 'io.cucumber:cucumber-java:5.5.0'
     testImplementation 'io.cucumber:cucumber-junit:5.5.0'
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'integration.cucumber', 'tests/features']
+        }
+    }
 }
 
 spotless {
