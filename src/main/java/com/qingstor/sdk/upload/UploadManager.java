@@ -1,18 +1,18 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.upload;
 
 import com.google.gson.Gson;
@@ -26,7 +26,6 @@ import com.qingstor.sdk.request.CancellationHandler;
 import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.utils.QSStringUtil;
-
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 
@@ -47,10 +46,12 @@ public class UploadManager {
     private UploadModel uploadModel;
     private UploadManagerCallback callBack;
 
-    public UploadManager(Bucket bucket, Recorder recorder,
-                         UploadProgressListener progressListener,
-                         CancellationHandler cancellationHandler,
-                         UploadManagerCallback callBack) {
+    public UploadManager(
+            Bucket bucket,
+            Recorder recorder,
+            UploadProgressListener progressListener,
+            CancellationHandler cancellationHandler,
+            UploadManagerCallback callBack) {
         this.recorder = recorder;
         this.bucket = bucket;
         this.progressListener = progressListener;
@@ -64,6 +65,7 @@ public class UploadManager {
 
     /**
      * Upload a file with a sync request.
+     *
      * @param file file
      * @throws QSException exception
      */
@@ -77,6 +79,7 @@ public class UploadManager {
 
     /**
      * Upload a file with a sync request.
+     *
      * @param file file
      * @param objectKey key of the object in the bucket
      * @param fileName file name of response(content-disposition) when downloaded
@@ -112,6 +115,7 @@ public class UploadManager {
 
     /**
      * Upload a file with a multi upload as a sync request.
+     *
      * @param file file
      * @param objectKey key of the object in the bucket
      * @param fileName file name of response(content-disposition) when downloaded
@@ -119,15 +123,19 @@ public class UploadManager {
      * @param length length of the file.
      * @throws QSException exception
      */
-    public void putFileMulti(File file, final String objectKey, String fileName, String eTag, final long length) throws QSException {
+    public void putFileMulti(
+            File file, final String objectKey, String fileName, String eTag, final long length)
+            throws QSException {
 
         if (partSize < 4 * 1024 * 1024) {
             throw new QSException("Every part of the file can not smaller than 4 MB.");
         }
 
         if (recorder == null || recorder.get(objectKey) == null) {
-            Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUploadInput();
-            Bucket.InitiateMultipartUploadOutput initOutput = bucket.initiateMultipartUpload(objectKey, inputInit);
+            Bucket.InitiateMultipartUploadInput inputInit =
+                    new Bucket.InitiateMultipartUploadInput();
+            Bucket.InitiateMultipartUploadOutput initOutput =
+                    bucket.initiateMultipartUpload(objectKey, inputInit);
             int code = initOutput.getStatueCode();
             // Initiate occurs an error.
             if (code < 200 || code >= 300) {
@@ -176,7 +184,10 @@ public class UploadManager {
                     break;
                 }
 
-                long contentLength = Math.min(partSize, (file.length() - uploadModel.getCurrentPart() * partSize));
+                long contentLength =
+                        Math.min(
+                                partSize,
+                                (file.length() - uploadModel.getCurrentPart() * partSize));
                 Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
                 input.setBodyInputFilePart(file);
                 input.setFileOffset(i * partSize);
@@ -189,13 +200,15 @@ public class UploadManager {
 
                 // Progress listener
                 if (progressListener != null) {
-                    requestHandler.setProgressListener(new BodyProgressListener() {
-                        @Override
-                        public void onProgress(long len, long size) {
-                            long bytesWritten = uploadModel.getCurrentPart() * partSize + len;
-                            progressListener.onProgress(objectKey, bytesWritten, length);
-                        }
-                    });
+                    requestHandler.setProgressListener(
+                            new BodyProgressListener() {
+                                @Override
+                                public void onProgress(long len, long size) {
+                                    long bytesWritten =
+                                            uploadModel.getCurrentPart() * partSize + len;
+                                    progressListener.onProgress(objectKey, bytesWritten, length);
+                                }
+                            });
                 }
 
                 // Cancellation handler.
@@ -211,8 +224,7 @@ public class UploadManager {
                 if (send.getStatueCode() != 200 && send.getStatueCode() != 201) { // Failed.
                     setData(objectKey, recorder);
                     // On upload failed
-                    if (callBack != null)
-                        callBack.onAPIResponse(objectKey, send);
+                    if (callBack != null) callBack.onAPIResponse(objectKey, send);
 
                     // Once failed, break the circle.
                     break;
@@ -229,11 +241,11 @@ public class UploadManager {
                 completeMultiUpload(objectKey, fileName, eTag, uploadModel.getUploadID(), length);
             }
         }
-
     }
 
     /**
      * When sending a request will call this method to sign with server.
+     *
      * @param requestHandler handler of the request.
      * @throws QSException exception
      */
@@ -244,12 +256,15 @@ public class UploadManager {
                 requestHandler.setSignature(callBack.onAccessKey(), signed);
             String correctTime = callBack.onCorrectTime(requestHandler.getStringToSignature());
             if (correctTime != null && correctTime.trim().length() > 0)
-                requestHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, correctTime);
+                requestHandler
+                        .getBuilder()
+                        .setHeader(QSConstant.HEADER_PARAM_KEY_DATE, correctTime);
         }
     }
 
     /**
      * Set data in the upload with a recorder.
+     *
      * @param objectKey key
      * @param recorder recorder
      */
@@ -261,6 +276,7 @@ public class UploadManager {
 
     /**
      * Complete the multi upload.
+     *
      * @param objectKey key of the object in the bucket
      * @param fileName file name of response(content-disposition) when downloaded
      * @param eTag MD5 info
@@ -268,7 +284,9 @@ public class UploadManager {
      * @param length length of the file
      * @throws QSException exception
      */
-    private void completeMultiUpload(String objectKey, String fileName, String eTag, String uploadID, long length) throws QSException {
+    private void completeMultiUpload(
+            String objectKey, String fileName, String eTag, String uploadID, long length)
+            throws QSException {
         CompleteMultipartUploadInput completeMultipartUploadInput =
                 new CompleteMultipartUploadInput(uploadID, partCounts, 0);
 
@@ -278,8 +296,10 @@ public class UploadManager {
         if (!QSStringUtil.isEmpty(fileName)) {
             try {
                 String keyName = QSStringUtil.percentEncode(fileName, "UTF-8");
-                completeMultipartUploadInput.setContentDisposition(String.format(
-                        "attachment; filename=\"%s\"; filename*=utf-8''%s", keyName, keyName));
+                completeMultipartUploadInput.setContentDisposition(
+                        String.format(
+                                "attachment; filename=\"%s\"; filename*=utf-8''%s",
+                                keyName, keyName));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -304,21 +324,21 @@ public class UploadManager {
         }
 
         // Response callback.
-        if (callBack != null)
-            callBack.onAPIResponse(objectKey, send);
+        if (callBack != null) callBack.onAPIResponse(objectKey, send);
     }
 
     /**
      * Upload a file with a simple put object upload as a sync request. <br>
      * If a file's size is less than {@link UploadManager#partSize}, there will call this method.
+     *
      * @param file file
      * @param objectKey key of the object in the bucket
      * @param fileName file name of response(content-disposition) when downloaded
      * @param length length of the file
      * @throws QSException exception
      */
-    public void putFile(File file, final String objectKey,
-                        String fileName, long length) throws QSException {
+    public void putFile(File file, final String objectKey, String fileName, long length)
+            throws QSException {
         PutObjectInput input = new PutObjectInput();
         input.setContentLength(length);
         input.setBodyInputFile(file);
@@ -326,8 +346,10 @@ public class UploadManager {
         if (!QSStringUtil.isEmpty(fileName)) {
             try {
                 String keyName = QSStringUtil.percentEncode(fileName, "UTF-8");
-                input.setContentDisposition(String.format(
-                        "attachment; filename=\"%s\"; filename*=utf-8''%s", keyName, keyName));
+                input.setContentDisposition(
+                        String.format(
+                                "attachment; filename=\"%s\"; filename*=utf-8''%s",
+                                keyName, keyName));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -337,12 +359,13 @@ public class UploadManager {
 
         // Set progress listener.
         if (progressListener != null) {
-            requestHandler.setProgressListener(new BodyProgressListener() {
-                @Override
-                public void onProgress(long len, long size) {
-                    progressListener.onProgress(objectKey, len, size);
-                }
-            });
+            requestHandler.setProgressListener(
+                    new BodyProgressListener() {
+                        @Override
+                        public void onProgress(long len, long size) {
+                            progressListener.onProgress(objectKey, len, size);
+                        }
+                    });
         }
 
         // Cancellation handler.
@@ -352,12 +375,10 @@ public class UploadManager {
         sign(requestHandler);
 
         OutputModel outputModel = requestHandler.send();
-        if (callBack != null)
-            callBack.onAPIResponse(objectKey, outputModel);
+        if (callBack != null) callBack.onAPIResponse(objectKey, outputModel);
     }
 
-    public static class CompleteMultipartUploadInput
-            extends Bucket.CompleteMultipartUploadInput {
+    public static class CompleteMultipartUploadInput extends Bucket.CompleteMultipartUploadInput {
         private String contentDisposition;
 
         private Long contentLength;
@@ -380,7 +401,8 @@ public class UploadManager {
             return this.contentDisposition;
         }
 
-        public CompleteMultipartUploadInput(String multipart_upload_id, int partsCount, int startIndex) {
+        public CompleteMultipartUploadInput(
+                String multipart_upload_id, int partsCount, int startIndex) {
             super(multipart_upload_id, partsCount, startIndex);
         }
     }
@@ -396,7 +418,6 @@ public class UploadManager {
         public String getContentDisposition() {
             return this.contentDisposition;
         }
-
     }
 
     // Getter and setter methods.

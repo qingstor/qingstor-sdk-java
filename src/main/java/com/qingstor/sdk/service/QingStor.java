@@ -1,19 +1,18 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
@@ -30,7 +29,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// QingStorService: QingStor provides low-cost and reliable online storage service with unlimited storage space, high read and write performance, high reliability and data safety, fine-grained access control, and easy to use API.
+// QingStorService: QingStor provides low-cost and reliable online storage service with unlimited
+// storage space, high read and write performance, high reliability and data safety, fine-grained
+// access control, and easy to use API.
 public class QingStor {
     private String zone;
     private EnvContext envContext;
@@ -157,8 +158,33 @@ public class QingStor {
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Location Limits results to buckets that in the location <br>
+     * field Limit Results count limit <br>
+     * field Offset Limit results to keys that start at this offset <br>
      */
     public static class ListBucketsInput extends RequestInputModel {
+        // Results count limit
+
+        private Integer limit;
+
+        public void setLimit(Integer limit) {
+            this.limit = limit;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "limit")
+        public Integer getLimit() {
+            return this.limit;
+        } // Limit results to keys that start at this offset
+
+        private Integer offset;
+
+        public void setOffset(Integer offset) {
+            this.offset = offset;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "offset")
+        public Integer getOffset() {
+            return this.offset;
+        }
 
         // Limits results to buckets that in the location
 
@@ -185,6 +211,8 @@ public class QingStor {
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Location Limits results to buckets that in the location <br>
+     * field Limit Results count limit <br>
+     * field Offset Limit results to keys that start at this offset <br>
      */
     public static class ListBucketsOutput extends OutputModel {
 

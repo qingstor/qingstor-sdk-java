@@ -1,19 +1,18 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
@@ -21,7 +20,6 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.request.ResponseCallBack;
-
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -59,7 +57,7 @@ public class QSParamInvokeUtil {
             throws InvocationTargetException, IllegalAccessException, QSException {
         Field[] declaredField = objClass.getDeclaredFields();
         for (Field field : declaredField) {
-            String methodName = "get" + capitalize(field.getName());
+            String methodName = "get" + QSStringUtil.capitalize(field.getName());
             String fieldName = field.getName();
             Method[] methods = objClass.getDeclaredMethods();
             for (Method m : methods) {
@@ -86,8 +84,7 @@ public class QSParamInvokeUtil {
     }
 
     private static void setParameterToMap(
-            Method m, Object source, Map targetParametersMap, String paramKey)
-            throws QSException {
+            Method m, Object source, Map targetParametersMap, String paramKey) throws QSException {
         Object[] invokeParams = null;
         try {
             Object objValue = m.invoke(source, invokeParams);
@@ -104,11 +101,11 @@ public class QSParamInvokeUtil {
     }
 
     @SuppressWarnings("PARAMETER")
-    public static void invokeObject2Map(
-            Class sourceClass, Object source, Map targetParametersMap) throws QSException {
+    public static void invokeObject2Map(Class sourceClass, Object source, Map targetParametersMap)
+            throws QSException {
         Field[] declaredField = sourceClass.getDeclaredFields();
         for (Field field : declaredField) {
-            String methodName = "get" + capitalize(field.getName());
+            String methodName = "get" + QSStringUtil.capitalize(field.getName());
             String fieldName = field.getName();
             Method[] methods = sourceClass.getDeclaredMethods();
             for (Method m : methods) {
@@ -121,10 +118,6 @@ public class QSParamInvokeUtil {
                 }
             }
         }
-    }
-
-    public static String capitalize(String word) {
-        return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
     public static Object getOutputModel(Class className) throws QSException {
@@ -186,5 +179,54 @@ public class QSParamInvokeUtil {
         } catch (IllegalAccessException e) {
             throw new QSException("IllegalAccessException", e);
         }
+    }
+
+    public static String metadataIsValid(Map<String, String> metadata) {
+        final String metaPrefix = "x-qs-meta-";
+        boolean valid = true;
+        String errK = "", errV = "";
+        int kLen = 0;
+        int vLen = 0;
+
+        for (Map.Entry<String, String> e : metadata.entrySet()) {
+            String k = e.getKey().toLowerCase();
+            String v = e.getValue();
+            if (!k.startsWith(metaPrefix)) {
+                errK = k;
+                errV = v;
+                valid = false;
+            }
+            kLen += k.length() - 9; // not include `metaPrefix`
+            vLen += v.length();
+            for (char ch : k.toCharArray()) { // check header field name
+                if (!(ch >= 65 && ch <= 90
+                        || ch >= 97 && ch <= 122
+                        || ch <= 57 && ch >= 48
+                        || ch == 45
+                        || ch == 46)) {
+                    errK = k;
+                    errV = v;
+                    valid = false;
+                }
+            }
+            // is Ascii Printable
+            for (char ch : v.toCharArray()) {
+                if (!(ch >= 32 && ch < 127)) {
+                    errK = k;
+                    errV = v;
+                    valid = false;
+                }
+            }
+            if (kLen > 512 || vLen > 2048) {
+                errK = k;
+                errV = v;
+                valid = false;
+            }
+        }
+        if (!valid) {
+            return QSStringUtil.getParameterValueNotAllowedError(
+                    errK, errV, new String[] {"x-qs-meta-*"});
+        }
+        return null;
     }
 }

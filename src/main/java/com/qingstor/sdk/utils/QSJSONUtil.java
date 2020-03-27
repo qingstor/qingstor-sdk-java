@@ -1,30 +1,31 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.utils;
 
+import com.google.gson.Gson;
 import com.qingstor.sdk.annotation.ParamAnnotation;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.qingstor.sdk.constants.QSConstant;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class QSJSONUtil {
 
@@ -366,9 +367,6 @@ public class QSJSONUtil {
         return obj;
     }
 
-    public static void responceFillValue2Object(okhttp3.Response response, Object targetObj) {
-    }
-
     public static boolean jsonFillValue2Object(String jsonStr, Object targetObj) {
         JSONObject o = toJSONObject(jsonStr);
         return jsonObjFillValue2Object(o, targetObj);
@@ -394,28 +392,53 @@ public class QSJSONUtil {
     }
 
     private static boolean initParameter(
-            JSONObject o, Field[] declaredField, Class objClass, Object targetObj)
+            JSONObject o, Field[] fields, Class targetClass, Object targetObj)
             throws NoSuchMethodException {
         boolean hasParam = false;
-        for (Field field : declaredField) {
-            String methodField = QSParamInvokeUtil.capitalize(field.getName());
+        NextField:
+        for (Field field : fields) {
+            String methodField = QSStringUtil.capitalize(field.getName());
             String getMethodName = "get" + methodField;
             String isMethodName = "is" + methodField;
             String setMethodName = "set" + methodField;
-            Method[] methods = objClass.getDeclaredMethods();
+            Method[] methods = targetClass.getDeclaredMethods();
             for (Method m : methods) {
-                if (m.getName().equals(getMethodName) || field.getType() == Boolean.class && m.getName().equals(isMethodName)) {
+                if (m.getName().equals(getMethodName)
+                        || (field.getType() == Boolean.class && m.getName().equals(isMethodName))) {
                     ParamAnnotation annotation = m.getAnnotation(ParamAnnotation.class);
                     if (annotation == null) {
                         continue;
                     }
                     String dataKey = annotation.paramName();
 
+                    if (dataKey.equalsIgnoreCase(QSConstant.PARAM_KEY_METADATA)) {
+                        Map<String, Object> map = new Gson().fromJson(o.toString(), HashMap.class);
+                        Map<String, String> metadatas = new HashMap<>();
+
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            String k = entry.getKey().toLowerCase();
+                            if (k.startsWith("x-qs-meta-")) {
+                                metadatas.put(k, entry.getValue().toString());
+                            }
+                        }
+                        if (metadatas.size() > 0) {
+                            Method setter =
+                                    targetClass.getDeclaredMethod(setMethodName, field.getType());
+                            try {
+                                setter.invoke(targetObj, metadatas);
+                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        continue NextField;
+                    }
+
                     if (o.has(dataKey)) {
                         hasParam = true;
                         Object data = toObject(o, dataKey);
-                        Method setM = objClass.getDeclaredMethod(setMethodName, field.getType());
-                        setParameterToMap(setM, targetObj, field, data);
+                        Method setter =
+                                targetClass.getDeclaredMethod(setMethodName, field.getType());
+                        setParameterToMap(setter, targetObj, field, data);
                     }
                 }
             }
@@ -423,7 +446,7 @@ public class QSJSONUtil {
         return hasParam;
     }
 
-    private static void setParameterToMap(Method m, Object source, Field f, Object data) {
+    private static void setParameterToMap(Method setter, Object source, Field f, Object data) {
         if (data != null) {
             try {
                 if (data instanceof JSONArray || data instanceof JSONObject) {
@@ -463,7 +486,7 @@ public class QSJSONUtil {
                             }
                         }
 
-                        m.invoke(source, invokeData);
+                        setter.invoke(source, invokeData);
 
                     } else if (fClass.equals(Map.class)) {
                         Map invokeData = new HashMap();
@@ -475,7 +498,7 @@ public class QSJSONUtil {
                                 invokeData.put(key, value);
                             }
                         }
-                        m.invoke(source, invokeData);
+                        setter.invoke(source, invokeData);
                     } else {
 
                         Object invokeData = f.getType().newInstance();
@@ -485,14 +508,14 @@ public class QSJSONUtil {
                             initParameter((JSONObject) data, fields, tmpClass, invokeData);
                             tmpClass = tmpClass.getSuperclass();
                         }
-                        m.invoke(source, invokeData);
+                        setter.invoke(source, invokeData);
                     }
 
                 } else {
                     if (f.getType().equals(data.getClass())) {
-                        m.invoke(source, data);
+                        setter.invoke(source, data);
                     } else {
-                        m.invoke(source, getParseValue(f.getType(), data));
+                        setter.invoke(source, getParseValue(f.getType(), data));
                     }
                 }
             } catch (Exception e) {

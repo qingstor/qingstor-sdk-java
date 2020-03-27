@@ -1,15 +1,20 @@
-before_install:
-  - cat /etc/hosts # optionally check the content *before*
-  - sudo hostname "$(hostname | cut -c1-63)"
-  - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts > /tmp/hosts
-  - sudo mv /tmp/hosts /etc/hosts
-  - cat /etc/hosts # optionally check the content *after*
-
 language: java
-dist: precise
-jdk:
-  - oraclejdk8
 
+os: linux
+dist: bionic
+
+jdk:
+  - openjdk8
+
+# check is a default phase which don't need to invoke explicitly.
 script:
-  - gradle check
-  - gradle test
+  - ./gradlew test
+  - ./gradlew build
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/

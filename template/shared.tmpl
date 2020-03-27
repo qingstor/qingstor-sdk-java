@@ -16,23 +16,23 @@
 
 {{define "ValidateCustomizedType"}}
     {{- $customizedType := . -}}
-{{- range $_, $property := $customizedType.Properties -}}
-{{- $isNormalType :=  (eq $property.Type "string") -}}
-{{- $isContentLength := eq $property.ID "Content-Length" -}}
-{{- if and $isNormalType (not $isContentLength) -}}
-    {{- if $property.IsRequired }}
-        {{- if eq ($property.ID | camelCase) "ContentMD5" }}
-        {{- else -}}
-            if (QSStringUtil.isEmpty(this.get{{$property.ID | camelCase}}())) {
-                return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
-            }
-        {{- end -}}
-    {{- end -}}
-    {{- if gt ($property.Enum | len) 0 }}
-            String[] {{$property.ID | camelCase | lowerFirst -}}
-            ValidValues = {
-                {{- $property.Enum | commaConnectedWithQuote -}}
-            };
+    {{- range $_, $property := $customizedType.Properties -}}
+        {{- $isNormalType :=  (eq $property.Type "string") -}}
+        {{- $isContentLength := eq $property.ID "Content-Length" -}}
+        {{- if and $isNormalType (not $isContentLength) -}}
+            {{- if $property.IsRequired }}
+                {{- if eq ($property.ID | camelCase) "ContentMD5" }}
+            {{- else -}}
+                if (QSStringUtil.isEmpty(this.get{{$property.ID | camelCase}}())) {
+                    return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
+                }
+                {{- end -}}
+            {{- end -}}
+            {{- if gt ($property.Enum | len) 0 }}
+                String[] {{$property.ID | camelCase | lowerFirst -}}
+                ValidValues = {
+                    {{- $property.Enum | commaConnectedWithQuote -}}
+                };
 
             boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
             String value = this.get{{$property.ID | camelCase}}();
@@ -51,39 +51,51 @@
                         this.get{{$property.ID | camelCase}}()+"",
                         {{$property.ID | camelCase | lowerFirst}}ValidValues);
             }
-    {{- end -}}
-{{- end -}}
-
-{{- $isNormalType :=  (eq $property.Type "integer") -}}
-    {{- $isContentLength := eq $property.ID "Content-Length" -}}
-    {{- if and $isNormalType (not $isContentLength) -}}
-        {{- if $property.IsRequired }}
-            if (this.get{{$property.ID | camelCase}}() < 0 ) {
-                return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
-            }
             {{- end -}}
-            {{- if gt ($property.Enum | len) 0}}
-            String[] {{$property.ID | camelCase | lowerFirst -}}
-            ValidValues = {
-                {{- $property.Enum | commaConnectedWithQuote -}}
-            };
-            boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
-            String value = this.get{{$property.ID | camelCase}}() + "";
-            if(value == "") {
-                {{$property.ID | camelCase | lowerFirst}}IsValid = true;
-            } else {
-                for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues){
-                    if(v.equals(value)) {
-                        {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+        {{- end -}}
+
+        {{- $isNormalType :=  (eq $property.Type "integer") -}}
+        {{- $isContentLength := eq $property.ID "Content-Length" -}}
+        {{- if and $isNormalType (not $isContentLength) -}}
+            {{- if $property.IsRequired }}
+                if (this.get{{$property.ID | camelCase}}() < 0 ) {
+                    return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
+                }
+                {{- end -}}
+                {{- if gt ($property.Enum | len) 0}}
+                String[] {{$property.ID | camelCase | lowerFirst -}}
+                ValidValues = {
+                    {{- $property.Enum | commaConnectedWithQuote -}}
+                };
+                boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
+                String value = this.get{{$property.ID | camelCase}}() + "";
+                if(value == "") {
+                    {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                } else {
+                    for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues){
+                        if(v.equals(value)) {
+                            {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                        }
                     }
                 }
-            }
 
             if (!{{$property.ID | camelCase | lowerFirst}}IsValid) {
                 return QSStringUtil.getParameterValueNotAllowedError("{{$property.ID | camelCase}}",
                         this.get{{$property.ID | camelCase}}()+"",
                         {{$property.ID | camelCase | lowerFirst}}ValidValues);
             }
+                {{end -}}
+            {{- end -}}
+
+            {{if eq $property.Type "map"}}
+                {{if eq $property.ID "X-QS-MetaData" }}
+                    Map<String, String> metadata = this.get{{$property.ID | camelCase}}();
+                    if (metadata != null) {
+                        String vValidate = QSParamInvokeUtil.metadataIsValid(metadata);
+                        if (!QSStringUtil.isEmpty(vValidate)) {
+                            return vValidate;
+                        }
+                    }
                 {{end -}}
             {{- end -}}
 
@@ -194,7 +206,7 @@
 	{{- else if eq $property.Type "array" -}}
 		List<{{template "Type" $property.ExtraType}}>
 	{{- else if eq $property.Type "map" -}}
-		map[string]{{template "Type" $property.ExtraType}}
+		Map<String, String>
 	{{- else if eq $property.Type "any" -}}
 		{{template "Type" $property.Type}}
 	{{- else -}}
@@ -688,6 +700,7 @@
         /**
          * You can set the offset of a file here. <br>
          * Then use setContentLength() to get a part of a file.
+         * @param fileOffset fileOffset
          */
         public void setFileOffset(Long fileOffset){
             this.fileOffset = fileOffset;

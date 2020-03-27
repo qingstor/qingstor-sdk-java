@@ -1,19 +1,18 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
@@ -26,13 +25,13 @@ import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Types.*;
+import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  * Most of operations in qingstore can be found in this class.<br>
@@ -820,7 +819,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // A list of keys to delete
@@ -2063,7 +2062,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "prefix")
         public String getPrefix() {
             return this.prefix;
-        } // Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
+        } // Limit results returned from the first uploading segment after upload_id_marker sorted
+        // by the time of upload_id
 
         private String uploadIDMarker;
 
@@ -2119,6 +2119,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
+        } // Indicate if these are more results in the next page
+
+        private Boolean hasMore;
+
+        public void setHasMore(Boolean hasMore) {
+            this.hasMore = hasMore;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "has_more")
+        public Boolean getHasMore() {
+            return this.hasMore;
         } // Limit that specified in request parameters
 
         private Integer limit;
@@ -2731,7 +2742,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Bucket ACL rules
@@ -2902,7 +2913,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Bucket CORS rules
@@ -3078,7 +3089,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Source site url
@@ -3245,7 +3256,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Bucket Lifecycle rule
@@ -3420,7 +3431,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Bucket Notification
@@ -3591,7 +3602,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Bucket policy statement
@@ -3804,6 +3815,309 @@ public class Bucket {
      * field UploadID Object multipart upload ID <br>
      */
     public static class AbortMultipartUploadOutput extends OutputModel {}
+
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return AppendObjectOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">
+     *     https://docs.qingcloud.com/qingstor/api/object/append.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public AppendObjectOutput appendObject(String objectName, AppendObjectInput input)
+            throws QSException {
+
+        if (input == null) {
+            input = new AppendObjectInput();
+        }
+
+        RequestHandler requestHandler = this.appendObjectRequest(objectName, input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (AppendObjectOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler appendObjectRequest(String objectName, AppendObjectInput input)
+            throws QSException {
+
+        if (input == null) {
+            input = new AppendObjectInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "AppendObject");
+        context.put("APIName", "AppendObject");
+        context.put("ServiceName", "Append Object");
+        context.put("RequestMethod", "POST");
+        context.put("RequestURI", "/<bucket-name>/<object-key>?append");
+        context.put("bucketNameInput", this.bucketName);
+        context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, AppendObjectOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param objectName name of the object
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void appendObjectAsync(
+            String objectName,
+            AppendObjectInput input,
+            ResponseCallBack<AppendObjectOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new AppendObjectInput();
+        }
+
+        RequestHandler requestHandler = this.appendObjectAsyncRequest(objectName, input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param objectName name of the object
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler appendObjectAsyncRequest(
+            String objectName,
+            AppendObjectInput input,
+            ResponseCallBack<AppendObjectOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new AppendObjectInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "AppendObject");
+        context.put("APIName", "AppendObject");
+        context.put("ServiceName", "Append Object");
+        context.put("RequestMethod", "POST");
+        context.put("RequestURI", "/<bucket-name>/<object-key>?append");
+        context.put("bucketNameInput", this.bucketName);
+        context.put("objectNameInput", objectName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+        if (QSStringUtil.isEmpty(objectName)) {
+            throw new QSException("objectName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+    /**
+     * AppendObjectInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field ContentLength Object content size <br>
+     * field ContentMD5 Object MD5sum <br>
+     * field ContentType Object content type <br>
+     * field XQSStorageClass Specify the storage class for object <br>
+     * field Position Object append position <br>
+     */
+    public static class AppendObjectInput extends RequestInputModel {
+        // Object append position
+        // Required
+
+        private Long position;
+
+        public void setPosition(Long position) {
+            this.position = position;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "position")
+        public Long getPosition() {
+            return this.position;
+        }
+
+        // Object content size
+        // Required
+
+        private Long contentLength;
+
+        public void setContentLength(Long contentLength) {
+            this.contentLength = contentLength;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-length")
+        public Long getContentLength() {
+            return this.contentLength;
+        } // Object MD5sum
+
+        private String contentMD5;
+
+        public void setContentMD5(String contentMD5) {
+            this.contentMD5 = contentMD5;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-md5")
+        public String getContentMD5() {
+            return this.contentMD5;
+        } // Object content type
+
+        private String contentType;
+
+        public void setContentType(String contentType) {
+            this.contentType = contentType;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-type")
+        public String getContentType() {
+            return this.contentType;
+        } // Specify the storage class for object
+        // XQSStorageClass's available values: STANDARD, STANDARD_IA
+
+        private String xQSStorageClass;
+
+        public void setXQSStorageClass(String xQSStorageClass) {
+            this.xQSStorageClass = xQSStorageClass;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-storage-class")
+        public String getXQSStorageClass() {
+            return this.xQSStorageClass;
+        }
+
+        // The request body
+        private File bodyInputFile;
+
+        /**
+         * Get the File will be updated.
+         *
+         * @return the File object will be updated
+         */
+        @ParamAnnotation(paramType = "body", paramName = "BodyInputFile")
+        public File getBodyInputFile() {
+            return bodyInputFile;
+        }
+
+        /**
+         * Set the File to update. <br>
+         *
+         * @param bodyInputFile File to update
+         */
+        public void setBodyInputFile(File bodyInputFile) {
+            this.bodyInputFile = bodyInputFile;
+        }
+
+        private java.io.InputStream bodyInputStream;
+
+        /**
+         * Get the body input stream.
+         *
+         * @return input stream
+         */
+        @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
+        public java.io.InputStream getBodyInputStream() {
+            return bodyInputStream;
+        }
+
+        /**
+         * Set the body input stream.
+         *
+         * @param bodyInputStream input stream to update
+         */
+        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+            this.bodyInputStream = bodyInputStream;
+        }
+
+        @Override
+        public String validateParam() {
+
+            String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
+
+            boolean xQSStorageClassIsValid = false;
+            String value = this.getXQSStorageClass();
+            if (null == value || "".equals(value)) {
+                xQSStorageClassIsValid = true;
+            } else {
+                for (String v : xQSStorageClassValidValues) {
+                    if (v.equals(value)) {
+                        xQSStorageClassIsValid = true;
+                    }
+                }
+            }
+
+            if (!xQSStorageClassIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "XQSStorageClass",
+                        this.getXQSStorageClass() + "",
+                        xQSStorageClassValidValues);
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * AppendObjectOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field ContentLength Object content size <br>
+     * field ContentMD5 Object MD5sum <br>
+     * field ContentType Object content type <br>
+     * field XQSStorageClass Specify the storage class for object <br>
+     * field Position Object append position <br>
+     */
+    public static class AppendObjectOutput extends OutputModel {
+
+        // next position when append data to this object
+
+        private Long xQSNextAppendPosition;
+
+        public void setXQSNextAppendPosition(Long xQSNextAppendPosition) {
+            this.xQSNextAppendPosition = xQSNextAppendPosition;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-next-append-position")
+        public Long getXQSNextAppendPosition() {
+            return this.xQSNextAppendPosition;
+        }
+    }
 
     /**
      * @param objectName name of the object
@@ -4052,7 +4366,7 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        //Object json string
+        // Object json string
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         } // Object parts
@@ -4707,7 +5021,8 @@ public class Bucket {
             this.bodyInputStream = bodyInputStream;
         }
 
-        // The Cache-Control general-header field is used to specify directives for caching mechanisms in both requests and responses.
+        // The Cache-Control general-header field is used to specify directives for caching
+        // mechanisms in both requests and responses.
 
         private String cacheControl;
 
@@ -4718,7 +5033,9 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "cache-control")
         public String getCacheControl() {
             return this.cacheControl;
-        } // In a multipart/form-data body, the HTTP Content-Disposition general header is a header that can be used on the subpart of a multipart body to give information about the field it applies to.
+        } // In a multipart/form-data body, the HTTP Content-Disposition general header is a header
+        // that can be used on the subpart of a multipart body to give information about the field
+        // it applies to.
 
         private String contentDisposition;
 
@@ -4740,7 +5057,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-encoding")
         public String getContentEncoding() {
             return this.contentEncoding;
-        } // The Content-Language entity header is used to describe the language(s) intended for the audience.
+        } // The Content-Language entity header is used to describe the language(s) intended for the
+        // audience.
 
         private String contentLanguage;
 
@@ -4828,6 +5146,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
+        } // User-defined metadata
+
+        private Map<String, String> xQSMetaData;
+
+        public void setXQSMetaData(Map<String, String> xQSMetaData) {
+            this.xQSMetaData = xQSMetaData;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
+        public Map<String, String> getXQSMetaData() {
+            return this.xQSMetaData;
         } // Storage class of the object
 
         private String xQSStorageClass;
@@ -5140,6 +5469,40 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
+        } // User-defined metadata
+
+        private Map<String, String> xQSMetaData;
+
+        public void setXQSMetaData(Map<String, String> xQSMetaData) {
+            this.xQSMetaData = xQSMetaData;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
+        public Map<String, String> getXQSMetaData() {
+            return this.xQSMetaData;
+        } // Next position when append data to this object, only returns when object type is
+        // appendable
+
+        private Long xQSNextAppendPosition;
+
+        public void setXQSNextAppendPosition(Long xQSNextAppendPosition) {
+            this.xQSNextAppendPosition = xQSNextAppendPosition;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-next-append-position")
+        public Long getXQSNextAppendPosition() {
+            return this.xQSNextAppendPosition;
+        } // Object type of this object, only returns when object type is appendable
+
+        private String xQSObjectType;
+
+        public void setXQSObjectType(String xQSObjectType) {
+            this.xQSObjectType = xQSObjectType;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-object-type")
+        public String getXQSObjectType() {
+            return this.xQSObjectType;
         } // Storage class of the object
 
         private String xQSStorageClass;
@@ -5598,6 +5961,7 @@ public class Bucket {
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSEncryptionCustomerKey Encryption key of the object <br>
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSMetaData User-defined metadata <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class InitiateMultipartUploadInput extends RequestInputModel {
@@ -5646,6 +6010,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
+        } // User-defined metadata
+
+        private Map<String, String> xQSMetaData;
+
+        public void setXQSMetaData(Map<String, String> xQSMetaData) {
+            this.xQSMetaData = xQSMetaData;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
+        public Map<String, String> getXQSMetaData() {
+            return this.xQSMetaData;
         } // Specify the storage class for object
         // XQSStorageClass's available values: STANDARD, STANDARD_IA
 
@@ -5662,6 +6037,14 @@ public class Bucket {
 
         @Override
         public String validateParam() {
+
+            Map<String, String> metadata = this.getXQSMetaData();
+            if (metadata != null) {
+                String vValidate = QSParamInvokeUtil.metadataIsValid(metadata);
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
 
             String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
 
@@ -5696,6 +6079,7 @@ public class Bucket {
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSEncryptionCustomerKey Encryption key of the object <br>
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field XQSMetaData User-defined metadata <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class InitiateMultipartUploadOutput extends OutputModel {
@@ -6387,6 +6771,7 @@ public class Bucket {
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
+     * field XQSMetaData User-defined metadata <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */
@@ -6481,9 +6866,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "x-qs-copy-source-encryption-customer-algorithm"
-        )
+                paramType = "header",
+                paramName = "x-qs-copy-source-encryption-customer-algorithm")
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -6496,9 +6880,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "x-qs-copy-source-encryption-customer-key"
-        )
+                paramType = "header",
+                paramName = "x-qs-copy-source-encryption-customer-key")
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -6511,9 +6894,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "x-qs-copy-source-encryption-customer-key-md5"
-        )
+                paramType = "header",
+                paramName = "x-qs-copy-source-encryption-customer-key-md5")
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
         } // Check whether the copy source matches
@@ -6615,6 +6997,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-fetch-source")
         public String getXQSFetchSource() {
             return this.xQSFetchSource;
+        } // User-defined metadata
+
+        private Map<String, String> xQSMetaData;
+
+        public void setXQSMetaData(Map<String, String> xQSMetaData) {
+            this.xQSMetaData = xQSMetaData;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
+        public Map<String, String> getXQSMetaData() {
+            return this.xQSMetaData;
         } // Move source, format (/<bucket-name>/<object-key>)
 
         private String xQSMoveSource;
@@ -6686,6 +7079,14 @@ public class Bucket {
         @Override
         public String validateParam() {
 
+            Map<String, String> metadata = this.getXQSMetaData();
+            if (metadata != null) {
+                String vValidate = QSParamInvokeUtil.metadataIsValid(metadata);
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+
             String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
 
             boolean xQSStorageClassIsValid = false;
@@ -6735,6 +7136,7 @@ public class Bucket {
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
+     * field XQSMetaData User-defined metadata <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */
@@ -6956,6 +7358,8 @@ public class Bucket {
         /**
          * You can set the offset of a file here. <br>
          * Then use setContentLength() to get a part of a file.
+         *
+         * @param fileOffset fileOffset
          */
         public void setFileOffset(Long fileOffset) {
             this.fileOffset = fileOffset;
@@ -7046,9 +7450,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "x-qs-copy-source-encryption-customer-algorithm"
-        )
+                paramType = "header",
+                paramName = "x-qs-copy-source-encryption-customer-algorithm")
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
         } // Encryption key of the object
@@ -7061,9 +7464,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "x-qs-copy-source-encryption-customer-key"
-        )
+                paramType = "header",
+                paramName = "x-qs-copy-source-encryption-customer-key")
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
         } // MD5sum of encryption key
@@ -7076,9 +7478,8 @@ public class Bucket {
         }
 
         @ParamAnnotation(
-            paramType = "header",
-            paramName = "x-qs-copy-source-encryption-customer-key-md5"
-        )
+                paramType = "header",
+                paramName = "x-qs-copy-source-encryption-customer-key-md5")
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
         } // Check whether the Etag of copy source matches the specified value
@@ -7404,6 +7805,7 @@ public class Bucket {
     /**
      * @param objectName name of the object
      * @param input input
+     * @param expires expires
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>

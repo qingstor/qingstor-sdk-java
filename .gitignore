@@ -6,11 +6,11 @@ build
 target
 bin
 AUTHORS
+# integration test
 config.yaml
-google-java-format-1.1-all-deps.jar
 test_config.yaml
 .classpath
 .project
 .idea/
-qingstor.sdk.java.iml
+*.iml
 dependency-reduced-pom.xml

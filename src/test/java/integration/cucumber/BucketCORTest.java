@@ -1,26 +1,24 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
-package scenario_impl;
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package integration.cucumber;
 
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +44,8 @@ public class BucketCORTest {
 
     @Then("^put bucket CORS status code is (\\d+)$")
     public void put_bucket_CORS_status_code_is(int arg1) throws Throwable {
-        System.out.println("put_bucket_CORS_status_code_msg:" + this.putBucketCORSOutput.getMessage());
+        System.out.println(
+                "put_bucket_CORS_status_code_msg:" + this.putBucketCORSOutput.getMessage());
         TestUtil.assertEqual(this.putBucketCORSOutput.getStatueCode(), arg1);
     }
 
@@ -62,7 +61,9 @@ public class BucketCORTest {
 
     @Then("^get bucket CORS should have allowed origin \"([^\"]*)\"$")
     public void get_bucket_CORS_should_have_allowed_origin(String arg1) throws Throwable {
-        System.out.println("get_bucket_CORS_should_have_allowed_origin_msg:" + this.getBucketCORSOutput.getMessage());
+        System.out.println(
+                "get_bucket_CORS_should_have_allowed_origin_msg:"
+                        + this.getBucketCORSOutput.getMessage());
     }
 
     @When("^delete bucket CORS$")
@@ -70,12 +71,8 @@ public class BucketCORTest {
         deleteBucketCORSOutput = testBucket.deleteCORS();
     }
 
-
     @Then("^delete bucket CORS status code is (\\d+)$")
     public void delete_bucket_CORS_status_code_is(int arg1) throws Throwable {
         TestUtil.assertEqual(deleteBucketCORSOutput.getStatueCode(), arg1);
     }
-
-
 }
-

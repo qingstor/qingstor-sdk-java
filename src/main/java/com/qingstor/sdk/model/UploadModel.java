@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.model;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
@@ -6,7 +21,7 @@ import com.qingstor.sdk.annotation.ParamAnnotation;
  * A model kept in the upload of {@link com.qingstor.sdk.upload.impl.FileRecorder} <br>
  * Created by chengww on 2018/1/23.
  */
-public class UploadModel extends OutputModel{
+public class UploadModel extends OutputModel {
     private int currentPart;
     private String uploadID;
     // All parts of file has been completely uploaded or not.
@@ -17,9 +32,13 @@ public class UploadModel extends OutputModel{
 
     public UploadModel() {}
 
-    public UploadModel(int currentPart, String uploadID,
-                       boolean isFileComplete, long bytesWritten,
-                       long totalSize, boolean isUploadComplete) {
+    public UploadModel(
+            int currentPart,
+            String uploadID,
+            boolean isFileComplete,
+            long bytesWritten,
+            long totalSize,
+            boolean isUploadComplete) {
         this.currentPart = currentPart;
         this.uploadID = uploadID;
         this.isFileComplete = isFileComplete;

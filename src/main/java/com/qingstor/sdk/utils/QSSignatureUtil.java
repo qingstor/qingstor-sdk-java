@@ -1,40 +1,32 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -44,7 +36,7 @@ public class QSSignatureUtil {
     private static final String ENCODING = "UTF-8";
     private static final String ALGORITHM = "HmacSHA256";
     private static final String GMT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
-    private static Map keysMap;
+    private static Set<String> subSources;
 
     /**
      * @param parameters parameters to sign
@@ -58,7 +50,7 @@ public class QSSignatureUtil {
         parameters = QSParamInvokeUtil.serializeParams(parameters);
         StringBuilder sbStringToSign = new StringBuilder();
 
-        String[] sortedKeys = parameters.keySet().toArray(new String[]{});
+        String[] sortedKeys = parameters.keySet().toArray(new String[] {});
         Arrays.sort(sortedKeys);
         int count = 0;
 
@@ -68,11 +60,11 @@ public class QSSignatureUtil {
                     sbStringToSign.append("&");
                 }
                 sbStringToSign
-                        .append(QSStringUtil.percentEncode(
-                                key, QSConstant.ENCODING_UTF8))
+                        .append(QSStringUtil.percentEncode(key, QSConstant.ENCODING_UTF8))
                         .append("=")
-                        .append(QSStringUtil.percentEncode(
-                                parameters.get(key), QSConstant.ENCODING_UTF8));
+                        .append(
+                                QSStringUtil.percentEncode(
+                                        parameters.get(key), QSConstant.ENCODING_UTF8));
                 count++;
             }
         } catch (UnsupportedEncodingException e) {
@@ -94,16 +86,17 @@ public class QSSignatureUtil {
     /**
      * Generate signature for request against QingStor.
      *
-     * @param accessKey:  API access key ID
-     * @param secretKey:  API secret access key ID
-     * @param method:     HTTP method
+     * @param accessKey: API access key ID
+     * @param secretKey: API secret access key ID
+     * @param method: HTTP method
      * @param requestURI:
-     * @param params:     HTTP request parameters
-     * @param headers:    HTTP request headers
+     * @param params: HTTP request parameters
+     * @param headers: HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
-     * directly.
-     * <p>See <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a> for more details
-     * about how to do signature of request against QingStor.
+     *     directly.
+     *     <p>See <a
+     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     for more details about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
             String accessKey,
@@ -123,14 +116,13 @@ public class QSSignatureUtil {
      * @param secretKey: API secret access key ID
      * @param strToSign: strToSign
      * @return a string which can be used as value of HTTP request header field "Authorization"
-     * directly.
-     * <p>See <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a> for more details
-     * about how to do signature of request against QingStor.
+     *     directly.
+     *     <p>See <a
+     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     for more details about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
-            String accessKey,
-            String secretKey,
-            String strToSign) {
+            String accessKey, String secretKey, String strToSign) {
         String signature = generateSignature(secretKey, strToSign);
         return String.format("QS %s:%s", accessKey, signature);
     }
@@ -138,15 +130,16 @@ public class QSSignatureUtil {
     /**
      * Generate signature for request against QingStor.
      *
-     * @param secretKey:  API secret access key ID
-     * @param method:     HTTP method
+     * @param secretKey: API secret access key ID
+     * @param method: HTTP method
      * @param requestURI:
-     * @param params:     HTTP request parameters
-     * @param headers:    HTTP request headers
+     * @param params: HTTP request parameters
+     * @param headers: HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
-     * directly.
-     * <p>See <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a> for more details
-     * about how to do signature of request against QingStor.
+     *     directly.
+     *     <p>See <a
+     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     for more details about how to do signature of request against QingStor.
      */
     public static String generateSignature(
             String secretKey,
@@ -160,7 +153,6 @@ public class QSSignatureUtil {
         signature = generateSignature(secretKey, strToSign);
         return signature;
     }
-
 
     public static String getStringToSignature(
             String method,
@@ -195,7 +187,7 @@ public class QSSignatureUtil {
 
         // Generate signed headers.
         if (headers != null) {
-            String[] sortedHeadersKeys = headers.keySet().toArray(new String[]{});
+            String[] sortedHeadersKeys = headers.keySet().toArray(new String[] {});
             Arrays.sort(sortedHeadersKeys);
             for (String key : sortedHeadersKeys) {
                 if (!key.startsWith("x-qs-") && !key.startsWith("X-QS-")) continue;
@@ -206,11 +198,11 @@ public class QSSignatureUtil {
         // Generate canonicalized query string.
         String canonicalized_query = "";
         if (params != null) {
-            String[] sortedParamsKeys = params.keySet().toArray(new String[]{});
+            String[] sortedParamsKeys = params.keySet().toArray(new String[] {});
             Arrays.sort(sortedParamsKeys);
             for (String key : sortedParamsKeys) {
 
-                if (!isSubKey(key)) {
+                if (!isSubSource(key)) {
                     continue;
                 }
 
@@ -221,7 +213,7 @@ public class QSSignatureUtil {
                 try {
                     canonicalized_query += key;
                     String value = String.valueOf(params.get(key));
-                    if (!value.isEmpty()) {
+                    if (!value.isEmpty() && !value.equals("null")) {
                         canonicalized_query += "=" + value;
                     }
                 } catch (Exception e) {
@@ -263,32 +255,37 @@ public class QSSignatureUtil {
         return new String(Base64.encode(signData));
     }
 
-    public static boolean isSubKey(String key) {
-        if (keysMap == null) {
-            keysMap =
-                    new HashMap() {
-                        {
-                            put("acl", "acl");
-                            put("cors", "cors");
-                            put("delete", "delete");
-                            put("mirror", "mirror");
-                            put("part_number", "part_number");
-                            put("policy", "policy");
-                            put("stats", "stats");
-                            put("upload_id", "upload_id");
-
-                            put("response-expires", "response-expires");
-                            put("response-cache-control", "response-cache-control");
-                            put("response-content-type", "response-content-type");
-                            put("response-content-language", "response-content-language");
-                            put("response-content-encoding", "response-content-encoding");
-                            put("response-content-disposition", "response-content-disposition");
-                        }
-                    };
+    public static boolean isSubSource(String key) {
+        if (subSources == null) {
+            subSources = new HashSet<>();
+            subSources.addAll(
+                    Arrays.asList(
+                            new String[] {
+                                "acl",
+                                "cors",
+                                "delete",
+                                "mirror",
+                                "part_number",
+                                "policy",
+                                "stats",
+                                "upload_id",
+                                "uploads",
+                                "append",
+                                "position",
+                                "image",
+                                "notification",
+                                "lifecycle",
+                                "logging",
+                                "response-expires",
+                                "response-cache-control",
+                                "response-content-type",
+                                "response-content-language",
+                                "response-content-encoding",
+                                "response-content-disposition",
+                            }));
         }
-        return keysMap.containsKey(key);
+        return subSources.contains(key);
     }
-
 
     public static String formatGmtDate(Date date) {
         SimpleDateFormat df = new SimpleDateFormat(GMT_DATE_FORMAT, Locale.US);
@@ -360,11 +357,11 @@ public class QSSignatureUtil {
         String method = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
         String bucketName = (String) context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
         String requestPath = (String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
-        requestPath = requestPath.replace(QSConstant.BUCKET_NAME_REPLACE, bucketName);
+        requestPath = requestPath.replace(QSConstant.BUCKET_PLACEHOLDER, bucketName);
         if (context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
             requestPath =
                     requestPath.replace(
-                            QSConstant.OBJECT_NAME_REPLACE,
+                            QSConstant.OBJECT_PLACEHOLDER,
                             (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME));
         }
         String authSign =

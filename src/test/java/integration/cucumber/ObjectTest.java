@@ -1,26 +1,24 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
-package scenario_impl;
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package integration.cucumber;
 
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -69,7 +67,7 @@ public class ObjectTest {
 
     @Then("^copy object status code is (\\d+)$")
     public void copy_object_status_code_is(int statueCode) throws Throwable {
-    	
+
         System.out.println("put_the_copy_object_status_code_message:" + copyOutput.getMessage());
         TestUtil.assertEqual(copyOutput.getStatueCode(), statueCode);
     }
@@ -115,17 +113,16 @@ public class ObjectTest {
         }
     }
 
-
     @When("^get object \"(.*)\" with query signature$")
     public void get_object_with_query_signature(String statueCode) throws Throwable {
         String reqUrl = testBucket.GetObjectSignatureUrl(statueCode, 1000);
         getObjectOutput = testBucket.GetObjectBySignatureUrl(reqUrl);
-
     }
 
     @Then("^get object with query signature content length is (\\d+)$")
     public void get_object_with_query_signature_content_length_is(int statueCode) throws Throwable {
-        System.out.println("get_object_with_query_signature_statue:" + getObjectOutput.getStatueCode());
+        System.out.println(
+                "get_object_with_query_signature_statue:" + getObjectOutput.getStatueCode());
         int iLength = 0;
         if (getObjectOutput != null && getObjectOutput.getBodyInputStream() != null) {
             File ff = new File("/tmp/get_sign_object.txt");
@@ -143,7 +140,8 @@ public class ObjectTest {
     }
 
     @When("^get object \"(.*)\" with content type \"(.*)\"$")
-    public void get_object_with_content_type(String objectKey, String contentType) throws Throwable {
+    public void get_object_with_content_type(String objectKey, String contentType)
+            throws Throwable {
         Bucket.GetObjectInput input = new Bucket.GetObjectInput();
         input.setResponseContentType(contentType);
         getContentTypeOutput = testBucket.getObject(objectKey, input);
@@ -151,12 +149,11 @@ public class ObjectTest {
 
     @Then("^get object content type is \"(.*)\"$")
     public void get_object_content_type_is(String statueCode) throws Throwable {
-    	if(getContentTypeOutput.getBodyInputStream() != null){
-    		getContentTypeOutput.getBodyInputStream().close();
-    	}
+        if (getContentTypeOutput.getBodyInputStream() != null) {
+            getContentTypeOutput.getBodyInputStream().close();
+        }
         TestUtil.assertEqual(statueCode, getContentTypeOutput.getResponseContentType());
     }
-
 
     @When("^head object with key \"(.*)\"$")
     public void head_object(String objectKey) throws Throwable {
@@ -171,7 +168,8 @@ public class ObjectTest {
     }
 
     @When("^options object \"(.*)\" with method \"(.*)\" and origin \"(.*)\"$")
-    public void options_object_with_method_and_origin(String objectKey, String method, String origin) throws Throwable {
+    public void options_object_with_method_and_origin(
+            String objectKey, String method, String origin) throws Throwable {
         Bucket.OptionsObjectInput input = new Bucket.OptionsObjectInput();
         input.setAccessControlRequestMethod(method);
         input.setOrigin(origin);
@@ -196,13 +194,11 @@ public class ObjectTest {
 
     @When("^delete the move object with key \"(.*)\"$")
     public void delete_the_move_object(String objectKey) throws Throwable {
-        deleteObjectOutput2 = testBucket.deleteObject(objectKey+ "move");
+        deleteObjectOutput2 = testBucket.deleteObject(objectKey + "move");
     }
 
     @Then("^delete the move object status code is (\\d+)$")
     public void delete_the_move_object_status_code_is(int statueCode) throws Throwable {
         TestUtil.assertEqual(deleteObjectOutput2.getStatueCode(), statueCode);
     }
-
 }
-

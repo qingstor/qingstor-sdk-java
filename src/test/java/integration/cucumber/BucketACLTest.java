@@ -1,28 +1,26 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
-package scenario_impl;
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package integration.cucumber;
 
 import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.service.Types.ACLModel;
 import com.qingstor.sdk.service.Types.GranteeModel;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +51,8 @@ public class BucketACLTest {
 
     @Then("^put bucket ACL status code is (\\d+)$")
     public void put_bucket_ACL_status_code_is(int arg1) throws Throwable {
-        System.out.println("put_bucket_ACL_status_code_msg:" + this.putBucketACLOutput.getMessage());
+        System.out.println(
+                "put_bucket_ACL_status_code_msg:" + this.putBucketACLOutput.getMessage());
         TestUtil.assertEqual(this.putBucketACLOutput.getStatueCode(), arg1);
     }
 
@@ -64,15 +63,14 @@ public class BucketACLTest {
 
     @Then("^get bucket ACL status code is (\\d+)$")
     public void get_bucket_ACL_status_code_is(int arg1) throws Throwable {
-        System.out.println("get_bucket_ACL_status_code_msg:" + this.getBucketACLOutput.getMessage());
+        System.out.println(
+                "get_bucket_ACL_status_code_msg:" + this.getBucketACLOutput.getMessage());
         TestUtil.assertEqual(this.getBucketACLOutput.getStatueCode(), arg1);
     }
 
     @Then("^get bucket ACL should have grantee name \"([^\"]*)\"$")
     public void get_bucket_ACL_shoud_have_grantee_name(String arg1) throws Throwable {
-        System.out.println("get_bucket_ACL_shoud_have_grantee_name:" + this.getBucketACLOutput.getACL());
+        System.out.println(
+                "get_bucket_ACL_shoud_have_grantee_name:" + this.getBucketACLOutput.getACL());
     }
-
-
 }
-

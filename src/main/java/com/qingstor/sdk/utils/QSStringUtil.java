@@ -1,51 +1,41 @@
-// +-------------------------------------------------------------------------
-// | Copyright (C) 2016 Yunify, Inc.
-// +-------------------------------------------------------------------------
-// | Licensed under the Apache License, Version 2.0 (the "License");
-// | you may not use this work except in compliance with the License.
-// | You may obtain a copy of the License in the LICENSE file, or at:
-// |
-// | http://www.apache.org/licenses/LICENSE-2.0
-// |
-// | Unless required by applicable law or agreed to in writing, software
-// | distributed under the License is distributed on an "AS IS" BASIS,
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// | See the License for the specific language governing permissions and
-// | limitations under the License.
-// +-------------------------------------------------------------------------
-
+/*
+ * Copyright (C) 2020 Yunify, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this work except in compliance with the License.
+ * You may obtain a copy of the License in the LICENSE file, or at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-/**
- * Created by on 11/4/15.
- */
+/** Created by on 11/4/15. */
 public class QSStringUtil {
 
     public static String objectToJson(String key, Object o) throws QSException {
-        StringBuffer buffer = new StringBuffer("{ \"" + key + "\":");
-        buffer.append(objectJSONKeyValue(key, o));
-        buffer.append("}");
-        return buffer.toString();
+        String buffer = "{ \"" + key + "\":" + objectJSONKeyValue(key, o) + "}";
+        return buffer;
     }
 
     private static String objectJSONKeyValue(String key, Object o) throws QSException {
-        StringBuffer buffer = new StringBuffer(" \"" + key + "\":");
-        buffer.append(objectJSONValue(o));
-        return buffer.toString();
+        return " \"" + key + "\":" + objectJSONValue(o);
     }
 
     public static Object objectJSONValue(Object o) throws QSException {
@@ -72,13 +62,12 @@ public class QSStringUtil {
             return getMapToJson(params);
         }
     }
-    
+
     public static JSONObject getMapToJson(Map o) throws QSException {
         JSONObject json = new JSONObject();
         try {
-            Iterator iterator = o.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
+            for (Object value : o.entrySet()) {
+                Map.Entry entry = (Map.Entry) value;
                 String key = (String) entry.getKey();
                 Object bodyObj = o.get(key);
                 json.put(key, objectJSONValue(bodyObj));
@@ -95,9 +84,8 @@ public class QSStringUtil {
         JSONObject json = null;
         if (o instanceof Map) {
             json = new JSONObject();
-            Iterator iterator = ((Map) o).entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
+            for (Object value : ((Map) o).entrySet()) {
+                Map.Entry entry = (Map.Entry) value;
                 String key = (String) entry.getKey();
                 Object bodyObj = ((Map) o).get(key);
                 json.put(key, bodyObj);
@@ -113,32 +101,27 @@ public class QSStringUtil {
             throws UnsupportedEncodingException {
         return value != null
                 ? URLEncoder.encode(value, encoding)
-                .replace("+", "%20")
-                .replace("*", "%2A")
-                .replace("%7E", "~")
+                        .replace("+", "%20")
+                        .replace("*", "%2A")
+                        .replace("%7E", "~")
                 : null;
     }
 
     public static boolean isEmpty(String str) {
-        if (str == null || "".equals(str.trim()) || "null".equalsIgnoreCase(str)) {
-            return true;
-        }
-        return false;
+        return str == null || "".equals(str.trim()) || "null".equalsIgnoreCase(str);
     }
 
     public static String getUserAgent() {
-        String osName = System.getProperty("os.name"); //操作系统名称
-        String langVersion = System.getProperty("java.version"); //java.version系统版本
-        String userAgent =
-                QSConstant.SDK_NAME
-                        + "/"
-                        + QSConstant.SDK_VERSION
-                        + " ( java v"
-                        + langVersion
-                        + ";"
-                        + osName
-                        + ")";
-        return userAgent;
+        String osName = System.getProperty("os.name"); // 操作系统名称
+        String langVersion = System.getProperty("java.version"); // java.version系统版本
+        return QSConstant.SDK_NAME
+                + "/"
+                + QSConstant.SDK_VERSION
+                + " ( java v"
+                + langVersion
+                + ";"
+                + osName
+                + ")";
     }
 
     public static String getParameterRequired(String paraName, String value) {
@@ -148,7 +131,7 @@ public class QSStringUtil {
     public static String getParameterValueNotAllowedError(
             String paraName, String value, String[] values) {
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for (Object o : values) {
             buf.append(o.toString()).append(",");
         }
@@ -184,4 +167,7 @@ public class QSStringUtil {
         }
     }
 
+    public static String capitalize(String word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
 }
