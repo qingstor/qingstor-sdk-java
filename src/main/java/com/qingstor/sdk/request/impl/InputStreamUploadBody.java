@@ -15,21 +15,17 @@
  */
 package com.qingstor.sdk.request.impl;
 
-import com.qingstor.sdk.utils.QSLoggerUtil;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.Util;
 import okio.BufferedSink;
 
 /** @author karooli */
+@Slf4j
 public class InputStreamUploadBody extends RequestBody {
-
-    private static Logger logger =
-            QSLoggerUtil.setLoggerHanlder(InputStreamUploadBody.class.getName());
 
     private String contentType;
 
@@ -45,7 +41,7 @@ public class InputStreamUploadBody extends RequestBody {
 
     public InputStreamUploadBody(
             String contentType, InputStream rFile, long contentLength, long offset) {
-        logger.info("----InputStreamUploadBody----");
+        log.info("----InputStreamUploadBody----");
         this.contentLength = contentLength;
         this.contentType = contentType;
         this.file = rFile;
@@ -70,7 +66,7 @@ public class InputStreamUploadBody extends RequestBody {
     }
 
     private void writeWithContentLength(BufferedSink sink, long offset) throws IOException {
-        logger.log(Level.INFO, "---writeWithContentLength----");
+        log.info("---writeWithContentLength----");
         int readSize = 1024;
         int bytes = 0;
         byte[] bufferOut = new byte[readSize];
@@ -96,7 +92,7 @@ public class InputStreamUploadBody extends RequestBody {
     }
 
     private void writeAll(BufferedSink sink) throws IOException {
-        logger.log(Level.INFO, "---writeAll----");
+        log.info("---writeAll----");
         int readSize = 1024;
         int bytes = 0;
         byte[] bufferOut = new byte[readSize];

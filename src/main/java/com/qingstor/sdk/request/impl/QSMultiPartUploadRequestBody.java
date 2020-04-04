@@ -18,7 +18,6 @@ package com.qingstor.sdk.request.impl;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.QSRequestBody;
-import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.io.IOException;
@@ -26,16 +25,14 @@ import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.http.HttpMethod;
 
 /** @author karooli */
+@Slf4j
 public class QSMultiPartUploadRequestBody implements QSRequestBody {
-
-    private static Logger logger =
-            QSLoggerUtil.setLoggerHanlder(QSMultiPartUploadRequestBody.class.getName());
 
     @Override
     public RequestBody getRequestBody(
@@ -45,7 +42,7 @@ public class QSMultiPartUploadRequestBody implements QSRequestBody {
             Map<String, Object> bodyParams,
             Map<String, Object> queryParams)
             throws QSException {
-        logger.info("----QSMultiPartUploadRequestBody---");
+        log.info("----QSMultiPartUploadRequestBody---");
         MediaType mediaType = MediaType.parse(contentType);
         if (bodyParams != null && bodyParams.size() > 0) {
             RequestBody requestBody = null;

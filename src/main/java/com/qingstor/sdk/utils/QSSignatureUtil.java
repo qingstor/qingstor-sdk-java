@@ -25,13 +25,12 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class QSSignatureUtil {
-    private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSSignatureUtil.class.getName());
 
     private static final String ENCODING = "UTF-8";
     private static final String ALGORITHM = "HmacSHA256";
@@ -68,7 +67,7 @@ public class QSSignatureUtil {
                 count++;
             }
         } catch (UnsupportedEncodingException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            log.error(e.getMessage());
             throw new QSException("generateQSURL error", e);
         }
 
@@ -149,7 +148,7 @@ public class QSSignatureUtil {
             Map<String, String> headers) {
         String signature = "";
         String strToSign = getStringToSignature(method, requestURI, params, headers);
-        logger.log(Level.INFO, "== String to sign ==\n" + strToSign + "\n");
+        log.info("== String to sign ==\n" + strToSign + "\n");
         signature = generateSignature(secretKey, strToSign);
         return signature;
     }
@@ -229,7 +228,7 @@ public class QSSignatureUtil {
         }
         strToSign += String.format("\n%s", canonicalized_resource);
 
-        logger.log(Level.INFO, "== String to sign ==\n" + strToSign + "\n");
+        log.info("== String to sign ==\n" + strToSign + "\n");
 
         return strToSign;
     }

@@ -14,3 +14,4 @@ test_config.yaml
 .idea/
 *.iml
 dependency-reduced-pom.xml
+lombok.config
