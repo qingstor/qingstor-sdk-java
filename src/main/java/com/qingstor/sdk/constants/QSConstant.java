@@ -76,14 +76,6 @@ public class QSConstant {
     public static final int REQUEST_ERROR_CODE = 10000;
     public static final int REQUEST_ERROR_CANCELLED = 20000;
 
-    public static String LOGGER_LEVEL = "error";
-
-    public static String LOGGER_ERROR = "error";
-    public static String LOGGER_WARNING = "warn";
-    public static String LOGGER_INFO = "info";
-    public static String LOGGER_DEBUG = "debug";
-    public static String LOGGER_FATAL = "fatal";
-
     public static int HTTPCLIENT_CONNECTION_TIME_OUT = 60; // Seconds
     public static int HTTPCLIENT_READ_TIME_OUT = 100; // Seconds
     public static int HTTPCLIENT_WRITE_TIME_OUT = 100; // Seconds

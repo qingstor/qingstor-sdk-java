@@ -39,7 +39,6 @@ public class EnvContext implements ParamValidate {
     private String port;
     private String protocol = default_protocal;
     private String uri;
-    private String log_level = QSConstant.LOGGER_ERROR;
     private String additionalUserAgent;
 
     // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
@@ -161,7 +160,6 @@ public class EnvContext implements ParamValidate {
         this.setAccessSecret(accessSecret);
         this.setHost(qingcloudStorHost);
         this.setRequestUrlStyle(QSConstant.PATH_STYLE);
-        QSConstant.LOGGER_LEVEL = this.getLog_level();
     }
 
     public static EnvContext loadFromFile(String filePathName) throws QSException {
@@ -184,7 +182,6 @@ public class EnvContext implements ParamValidate {
                 env.setHost(getYamlConfig("host", confParams));
                 env.setUri(getYamlConfig("uri", confParams));
                 env.setPort(getYamlConfig("port", confParams));
-                env.setLog_level(getYamlConfig("log_level", confParams));
                 env.setAdditionalUserAgent(getYamlConfig("additional_user_agent", confParams));
                 // load request url style form config
                 env.setRequestUrlStyle(getYamlConfig("request_url_style", confParams));
@@ -201,17 +198,6 @@ public class EnvContext implements ParamValidate {
             return String.valueOf(config.get(key));
         }
         return null;
-    }
-
-    public String getLog_level() {
-        return log_level;
-    }
-
-    public void setLog_level(String log_level) {
-        if (!QSStringUtil.isEmpty(log_level)) {
-            QSConstant.LOGGER_LEVEL = log_level;
-        }
-        this.log_level = log_level;
     }
 
     /** @return the additionalUserAgent */

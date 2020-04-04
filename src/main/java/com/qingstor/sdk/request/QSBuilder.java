@@ -23,7 +23,6 @@ import com.qingstor.sdk.request.impl.QSFormRequestBody;
 import com.qingstor.sdk.request.impl.QSMultiPartUploadRequestBody;
 import com.qingstor.sdk.request.impl.QSNormalRequestBody;
 import com.qingstor.sdk.utils.Base64;
-import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
@@ -34,18 +33,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+@Slf4j
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSBuilder {
 
     private static final String REQUEST_PREFIX = "/";
-
-    private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSBuilder.class.getName());
 
     private Map context;
 
@@ -118,7 +115,7 @@ public class QSBuilder {
     private void doSignature() throws QSException {
 
         String authSign = this.getParamSignature();
-        logger.log(Level.INFO, "== authSign ==\n" + authSign + "\n");
+        log.info("== authSign ==\n" + authSign + "\n");
 
         paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
     }
@@ -185,7 +182,7 @@ public class QSBuilder {
             queries.put(k, values.get(0)); // it should always size > 0.
         }
         this.paramsQuery = queries;
-        logger.log(Level.INFO, "== requestUrl ==\n" + this.requestUrl + "\n");
+        log.info("== requestUrl ==\n" + this.requestUrl + "\n");
     }
 
     private Map headParamEncoding(Map headParams) throws QSException {

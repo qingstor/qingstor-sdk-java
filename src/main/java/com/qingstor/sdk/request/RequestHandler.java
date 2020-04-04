@@ -22,20 +22,17 @@ import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.request.impl.ProgressRequestBody;
-import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+@Slf4j
 public class RequestHandler {
-
-    private static Logger logger = QSLoggerUtil.setLoggerHanlder(RequestHandler.class.getName());
 
     private Map contextParam;
 
@@ -94,7 +91,7 @@ public class RequestHandler {
                         QSConstant.REQUEST_ERROR_CODE, validate, model);
                 return model;
             } catch (Exception e) {
-                logger.log(Level.SEVERE, e.getMessage());
+                log.error(e.getMessage());
                 throw new QSException(e.getMessage());
             }
         } else {

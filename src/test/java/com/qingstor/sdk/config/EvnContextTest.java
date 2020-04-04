@@ -15,7 +15,6 @@
  */
 package com.qingstor.sdk.config;
 
-import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import java.io.*;
 import org.junit.Assert;
@@ -30,7 +29,6 @@ public class EvnContextTest {
         Assert.assertEquals(evnContext.getAccessKey(), "testkey");
         Assert.assertEquals(evnContext.getAccessSecret(), "test_asss");
         Assert.assertEquals(evnContext.getRequestUrl(), "https://qingstor.com");
-        Assert.assertEquals(evnContext.getLog_level(), QSConstant.LOGGER_ERROR);
         String validate = evnContext.validateParam();
         Assert.assertNotNull(validate);
     }

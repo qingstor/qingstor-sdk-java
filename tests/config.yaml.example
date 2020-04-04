@@ -9,6 +9,3 @@ protocol: https
 
 # Additional User-Agent
 additional_user_agent: "test/integration"
-
-# Valid log levels are "debug", "info", "warn", "error", and "fatal".
-log_level: 'debug'

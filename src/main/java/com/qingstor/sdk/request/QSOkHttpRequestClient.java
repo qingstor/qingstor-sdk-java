@@ -19,7 +19,6 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.utils.QSJSONUtil;
-import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.IOException;
@@ -27,14 +26,13 @@ import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -45,11 +43,9 @@ import okhttp3.ResponseBody;
 import okhttp3.internal.Util;
 import org.json.JSONObject;
 
+@Slf4j
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSOkHttpRequestClient {
-
-    private static Logger logger =
-            QSLoggerUtil.setLoggerHanlder(QSOkHttpRequestClient.class.getName());
 
     private OkHttpClient client = null;
     private OkHttpClient unsafeClient = null;
@@ -114,7 +110,7 @@ public class QSOkHttpRequestClient {
             OkHttpClient okHttpClient = builder.build();
             return okHttpClient;
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -166,7 +162,7 @@ public class QSOkHttpRequestClient {
                 return model;
             } else {
                 e.printStackTrace();
-                logger.log(Level.SEVERE, e.getMessage());
+                log.error(e.getMessage());
                 throw new QSException(e.getMessage());
             }
         }
@@ -204,7 +200,7 @@ public class QSOkHttpRequestClient {
                                 callBack.onAPIResponse(m);
                             }
                         } catch (Exception e) {
-                            logger.log(Level.SEVERE, e.getMessage());
+                            log.error(e.getMessage());
                             onOkhttpFailure(e, callBack);
                         } finally {
                             if (response != null) {
@@ -228,38 +224,7 @@ public class QSOkHttpRequestClient {
                 callBack.onAPIResponse(m);
             }
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage());
-        }
-    }
-
-    private void fill(okhttp3.Response response, OutputModel target) throws IOException {
-        int code = response.code();
-        ResponseBody body = response.body();
-        JSONObject o = QSJSONUtil.toJSONObject("{}");
-        QSJSONUtil.putJsonData(
-                o, QSConstant.PARAM_TYPE_BODYINPUTSTREAM, body.source().inputStream());
-        if (target != null) {
-            if (!QSJSONUtil.jsonObjFillValue2Object(o, target)) {
-                try {
-                    String responseInfo = body.string();
-                    // Deserialize HTTP response to concrete type.
-                    if (!QSStringUtil.isEmpty(responseInfo)) {
-                        QSJSONUtil.jsonFillValue2Object(responseInfo, target);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            Headers responceHeaders = response.headers();
-            int iHeads = responceHeaders.size();
-            JSONObject headJson = QSJSONUtil.toJSONObject("{}");
-            QSJSONUtil.putJsonData(headJson, QSConstant.QC_CODE_FIELD_NAME, code);
-            for (int i = 0; i < iHeads; i++) {
-                String key = responceHeaders.name(i);
-                if (key != null) key = key.toLowerCase();
-                QSJSONUtil.putJsonData(headJson, key, responceHeaders.value(i));
-            }
-            QSJSONUtil.jsonObjFillValue2Object(headJson, target);
+            log.error(ex.getMessage());
         }
     }
 
@@ -282,14 +247,14 @@ public class QSOkHttpRequestClient {
                     e.printStackTrace();
                 }
             }
-            Headers responceHeaders = response.headers();
-            int iHeads = responceHeaders.size();
+            Headers responseHeaders = response.headers();
+            int iHeads = responseHeaders.size();
             JSONObject headJson = QSJSONUtil.toJSONObject("{}");
             QSJSONUtil.putJsonData(headJson, QSConstant.QC_CODE_FIELD_NAME, code);
             for (int i = 0; i < iHeads; i++) {
-                String key = responceHeaders.name(i);
+                String key = responseHeaders.name(i);
                 if (key != null) key = key.toLowerCase();
-                QSJSONUtil.putJsonData(headJson, key, responceHeaders.value(i));
+                QSJSONUtil.putJsonData(headJson, key, responseHeaders.value(i));
             }
             QSJSONUtil.jsonObjFillValue2Object(headJson, target);
         }

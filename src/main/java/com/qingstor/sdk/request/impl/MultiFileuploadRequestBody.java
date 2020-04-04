@@ -15,19 +15,16 @@
  */
 package com.qingstor.sdk.request.impl;
 
-import com.qingstor.sdk.utils.QSLoggerUtil;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.BufferedSink;
 
 /** @author karooli */
+@Slf4j
 public class MultiFileuploadRequestBody extends RequestBody {
-
-    private static Logger logger =
-            QSLoggerUtil.setLoggerHanlder(MultiFileuploadRequestBody.class.getName());
 
     private String contentType;
 
@@ -37,7 +34,7 @@ public class MultiFileuploadRequestBody extends RequestBody {
 
     public MultiFileuploadRequestBody(
             String contentType, RandomAccessFile rFile, long contentLength) {
-        logger.info("----InputStreamUploadBody----");
+        log.info("----InputStreamUploadBody----");
         this.contentLength = contentLength;
         this.contentType = contentType;
         this.file = rFile;

@@ -17,13 +17,12 @@ package com.qingstor.sdk.request.impl;
 
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.QSRequestBody;
-import com.qingstor.sdk.utils.QSLoggerUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -31,9 +30,8 @@ import okhttp3.RequestBody;
 import okhttp3.internal.http.HttpMethod;
 
 /** @author karooli */
+@Slf4j
 public class QSFormRequestBody implements QSRequestBody {
-
-    private static Logger logger = QSLoggerUtil.setLoggerHanlder(QSFormRequestBody.class.getName());
 
     @Override
     public RequestBody getRequestBody(
@@ -43,7 +41,7 @@ public class QSFormRequestBody implements QSRequestBody {
             Map<String, Object> bodyParams,
             Map<String, Object> queryParams)
             throws QSException {
-        logger.info("----QSFormRequestBody----");
+        log.info("----QSFormRequestBody----");
         MediaType mediaType = MediaType.parse(contentType);
 
         if (bodyParams != null && bodyParams.size() > 0) {
