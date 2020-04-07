@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'com.yunify'
-version = '2.2.19'
+version = '2.3.0'
 
 repositories {
     mavenCentral()
@@ -30,17 +30,21 @@ java {
 }
 
 shadowJar {
-    archiveClassifier = 'all-deps'
+    archiveClassifier = ''
+    archiveVersion = this.project.version + '-all-deps'
 }
 
 publishing {
     publications {
+        // shadow(MavenPublication) { publication ->
+        //     project.shadow.component(publication)
+        //     artifactId = 'qingstor.sdk.java'
+        //     version = this.project.version + '-all-deps'
+        // }
         maven(MavenPublication) {
             artifactId = 'qingstor.sdk.java'  // this should be replaced near future.
 
             from components.java
-
-            artifact shadowJar
 
             pom {
                 name = project.name
@@ -86,6 +90,7 @@ publishing {
 
 signing {
     sign publishing.publications.maven
+    // sign publishing.publications.shadow
 }
 
 configurations {
