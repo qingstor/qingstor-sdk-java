@@ -1,6 +1,10 @@
-.settings
 build
 .gradle
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+.settings
+.classpath
+.project
 .recommenders
 .metadata
 target
@@ -9,8 +13,7 @@ AUTHORS
 # integration test
 config.yaml
 test_config.yaml
-.classpath
-.project
+
 .idea/
 *.iml
 dependency-reduced-pom.xml

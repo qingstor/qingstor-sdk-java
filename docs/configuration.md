@@ -17,10 +17,9 @@ secret_access_key: 'SECRET_ACCESS_KEY'
 host: 'qingstor.com'
 port: '443'
 protocol: 'https'
-connection_retries: 3
 
-# Valid log levels are "debug", "info", "warn", "error", and "fatal".
-log_level: 'warn'
+# No need to define a log level in a library. We only provide slf4j: an common abstract layer of logging, 
+# it's user's responsbility to provide a log framework implementation in their application.
 
 # Valid request url styles are "virtual_host_style"(default) and "path_style".
 request_url_style: 'path_style'
