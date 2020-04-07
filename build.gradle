@@ -98,7 +98,7 @@ configurations {
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.12'
     implementation 'org.json:json:20140107'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.10'
     implementation 'org.yaml:snakeyaml:1.26'
     implementation 'com.google.code.gson:gson:2.8.6'
     // it's library's consumer's responsibility to choose a log implementation and set debug_level.

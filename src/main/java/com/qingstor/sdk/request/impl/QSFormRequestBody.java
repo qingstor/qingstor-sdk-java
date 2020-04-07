@@ -99,10 +99,9 @@ public class QSFormRequestBody implements QSRequestBody {
     }
 
     private boolean checkHasFileBody(Map formParams) {
-        Iterator iterator = formParams.entrySet().iterator();
         boolean hasFile = false;
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
+        for (Object o : formParams.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             String key = (String) entry.getKey();
             Object bodyObj = formParams.get(key);
             if (bodyObj instanceof File) {
@@ -111,7 +110,6 @@ public class QSFormRequestBody implements QSRequestBody {
                 hasFile = true;
             }
         }
-
         return hasFile;
     }
 }
