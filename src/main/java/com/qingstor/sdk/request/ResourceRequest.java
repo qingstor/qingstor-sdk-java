@@ -23,7 +23,7 @@ import java.util.Map;
 public interface ResourceRequest {
 
     /**
-     * @param context EvnContext
+     * @param context EnvContext
      * @param paramBean param
      * @param callback callback
      * @throws QSException exception
@@ -32,7 +32,7 @@ public interface ResourceRequest {
             Map context, RequestInputModel paramBean, ResponseCallBack callback) throws QSException;
 
     /**
-     * @param context EvnContext
+     * @param context EnvContext
      * @param paramBean param
      * @param outputClass output class
      * @return OutputModel
@@ -44,7 +44,7 @@ public interface ResourceRequest {
 
     /**
      * @param requestUrl request url
-     * @param context EvnContext
+     * @param context EnvContext
      * @param callback callback
      * @throws QSException exception
      */
@@ -74,7 +74,7 @@ public interface ResourceRequest {
 
     /**
      * @param paramBean param
-     * @param context evnContext
+     * @param context envContext
      * @param outputClass output class
      * @return request handle
      * @throws QSException exception

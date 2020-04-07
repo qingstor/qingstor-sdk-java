@@ -15,7 +15,8 @@
  */
 package com.qingstor.sdk.utils;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.constants.QSConstant;
 import java.lang.reflect.Field;
@@ -28,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class QSJSONUtil {
+
+    private static ObjectMapper om = new ObjectMapper();
 
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
         Map<String, Object> retMap = new HashMap<String, Object>();
@@ -412,15 +415,20 @@ public class QSJSONUtil {
                     String dataKey = annotation.paramName();
 
                     if (dataKey.equalsIgnoreCase(QSConstant.PARAM_KEY_METADATA)) {
-                        Map<String, Object> map = new Gson().fromJson(o.toString(), HashMap.class);
                         Map<String, String> metadatas = new HashMap<>();
 
-                        for (Map.Entry<String, Object> entry : map.entrySet()) {
-                            String k = entry.getKey().toLowerCase();
-                            if (k.startsWith("x-qs-meta-")) {
-                                metadatas.put(k, entry.getValue().toString());
+                        Map<String, Object> map = null;
+                        try {
+                            map = om.readValue(o.toString(), HashMap.class);
+                            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                                String k = entry.getKey().toLowerCase();
+                                if (k.startsWith("x-qs-meta-")) {
+                                    metadatas.put(k, entry.getValue().toString());
+                                }
                             }
+                        } catch (JsonProcessingException ignored) {
                         }
+
                         if (metadatas.size() > 0) {
                             Method setter =
                                     targetClass.getDeclaredMethod(setMethodName, field.getType());

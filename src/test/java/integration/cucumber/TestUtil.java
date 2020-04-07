@@ -15,7 +15,7 @@
  */
 package integration.cucumber;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,9 +43,9 @@ public class TestUtil {
         }
     }
 
-    public static EvnContext getEvnContext() {
+    public static EnvContext getEnvContext() {
         try {
-            return EvnContext.loadFromFile("config.yaml");
+            return EnvContext.loadFromFile("config.yaml");
         } catch (Exception e) {
             e.printStackTrace();
         }

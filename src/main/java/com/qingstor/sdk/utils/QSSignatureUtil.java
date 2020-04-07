@@ -307,7 +307,7 @@ public class QSSignatureUtil {
         try {
             objectName = QSStringUtil.asciiCharactersEncoding(objectName);
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, envContext);
+            context.put(QSConstant.ENV_CONTEXT_KEY, envContext);
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
             context.put("ServiceName", "QingStor");
@@ -324,7 +324,7 @@ public class QSSignatureUtil {
                         storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
                         bucketName,
                         objectName,
-                        envContext.getAccessKey(),
+                        envContext.getAccessKeyId(),
                         expiresTime + "",
                         expireAuth);
             } else {
@@ -332,7 +332,7 @@ public class QSSignatureUtil {
                         storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
                         bucketName,
                         objectName,
-                        envContext.getAccessKey(),
+                        envContext.getAccessKeyId(),
                         expiresTime + "",
                         expireAuth);
             }
@@ -344,7 +344,7 @@ public class QSSignatureUtil {
     public static String getExpireAuth(Map context, long expiresSecond, RequestInputModel params)
             throws UnsupportedEncodingException {
 
-        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
 
         Map paramsQuery = QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_QUERY);
         Map paramsHeaders =
@@ -365,7 +365,7 @@ public class QSSignatureUtil {
         }
         String authSign =
                 generateSignature(
-                        envContext.getAccessSecret(),
+                        envContext.getSecretAccessKey(),
                         method,
                         requestPath,
                         paramsQuery,

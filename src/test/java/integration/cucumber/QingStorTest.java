@@ -15,7 +15,7 @@
  */
 package integration.cucumber;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.service.QingStor;
 import com.qingstor.sdk.service.QingStor.ListBucketsInput;
@@ -25,7 +25,7 @@ import io.cucumber.java.en.When;
 
 public class QingStorTest {
 
-    private EvnContext evnContext = TestUtil.getEvnContext();
+    private EnvContext ctx = TestUtil.getEnvContext();
 
     private QingStor storSerivce;
 
@@ -33,8 +33,8 @@ public class QingStorTest {
 
     @When("^initialize QingStor service$")
     public void initialize_QingStor_service() throws Throwable {
-        EvnContext evnContext = TestUtil.getEvnContext();
-        storSerivce = new QingStor(evnContext, TestUtil.getZone());
+        EnvContext ctx = TestUtil.getEnvContext();
+        storSerivce = new QingStor(ctx, TestUtil.getZone());
         System.out.print("test : initService");
     }
 
@@ -47,8 +47,8 @@ public class QingStorTest {
 
     @When("^list buckets$")
     public void list_buckets() throws Throwable {
-        EvnContext evnContext = TestUtil.getEvnContext();
-        storSerivce = new QingStor(evnContext, TestUtil.getZone());
+        EnvContext ctx = TestUtil.getEnvContext();
+        storSerivce = new QingStor(ctx, TestUtil.getZone());
         this.listOutput = storSerivce.listBuckets(new ListBucketsInput());
     }
 

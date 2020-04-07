@@ -15,7 +15,8 @@
  */
 package com.qingstor.sdk.upload;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
@@ -34,6 +35,8 @@ import java.io.UnsupportedEncodingException;
  * Created by chengww on 2018/1/23.
  */
 public class UploadManager {
+
+    private static ObjectMapper om = new ObjectMapper();
 
     private long partSize = 4 * 1024 * 1024L;
     private static final int MAX_PART_COUNTS = 10000; // Max part counts.
@@ -153,9 +156,13 @@ public class UploadManager {
         } else {
             byte[] bytes = recorder.get(objectKey);
             String json = new String(bytes);
-            uploadModel = new Gson().fromJson(json, UploadModel.class);
+            try {
+                this.uploadModel = om.readValue(json, UploadModel.class);
+            } catch (JsonProcessingException e) {
+                throw new QSException(e.getMessage(), e);
+            }
             // Check status of the task.
-            if (uploadModel.isUploadComplete()) {
+            if (this.uploadModel.isUploadComplete()) {
                 if (callBack != null) {
                     OutputModel outputModel = new OutputModel();
                     outputModel.setStatueCode(201);
@@ -270,7 +277,12 @@ public class UploadManager {
      */
     private void setData(String objectKey, Recorder recorder) {
         if (recorder == null) return;
-        String upload = new Gson().toJson(uploadModel);
+        String upload = null;
+        try {
+            upload = om.writeValueAsString(uploadModel);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         recorder.set(objectKey, upload.getBytes());
     }
 

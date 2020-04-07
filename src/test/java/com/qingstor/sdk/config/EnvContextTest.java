@@ -20,16 +20,16 @@ import java.io.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class EvnContextTest {
+public class EnvContextTest {
 
     @Test
     public void testDefault() {
-        EvnContext evnContext = new EvnContext("testkey", "test_asss");
-        evnContext.setAdditionalUserAgent("\"");
-        Assert.assertEquals(evnContext.getAccessKey(), "testkey");
-        Assert.assertEquals(evnContext.getAccessSecret(), "test_asss");
-        Assert.assertEquals(evnContext.getRequestUrl(), "https://qingstor.com");
-        String validate = evnContext.validateParam();
+        EnvContext ctx = new EnvContext("testkey", "test_asss");
+        ctx.setAdditionalUserAgent("\"");
+        Assert.assertEquals(ctx.getAccessKeyId(), "testkey");
+        Assert.assertEquals(ctx.getSecretAccessKey(), "test_asss");
+        Assert.assertEquals(ctx.getRequestUrl(), "https://qingstor.com");
+        String validate = ctx.validateParam();
         Assert.assertNotNull(validate);
     }
 
@@ -56,11 +56,11 @@ public class EvnContextTest {
         }
         if (bConf) {
 
-            EvnContext evnContext = EvnContext.loadFromFile("/tmp/config.yaml");
-            Assert.assertEquals(evnContext.getAccessKey(), "testkey");
-            Assert.assertEquals(evnContext.getAccessSecret(), "test_asss");
-            Assert.assertEquals(evnContext.getRequestUrl(), "https://qingcloud.com:443");
-            Assert.assertEquals(evnContext.getAdditionalUserAgent(), "test/integration");
+            EnvContext ctx = EnvContext.loadFromFile("/tmp/config.yaml");
+            Assert.assertEquals(ctx.getAccessKeyId(), "testkey");
+            Assert.assertEquals(ctx.getSecretAccessKey(), "test_asss");
+            Assert.assertEquals(ctx.getRequestUrl(), "https://qingcloud.com:443");
+            Assert.assertEquals(ctx.getAdditionalUserAgent(), "test/integration");
         }
     }
 }

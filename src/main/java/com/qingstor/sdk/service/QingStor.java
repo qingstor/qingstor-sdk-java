@@ -84,7 +84,7 @@ public class QingStor {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListBuckets");
         context.put("APIName", "ListBuckets");
         context.put("ServiceName", "Get Service");
@@ -136,7 +136,7 @@ public class QingStor {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListBuckets");
         context.put("APIName", "ListBuckets");
         context.put("ServiceName", "Get Service");

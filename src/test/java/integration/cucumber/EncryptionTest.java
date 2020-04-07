@@ -15,7 +15,7 @@
  */
 package integration.cucumber;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.service.Bucket;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -26,7 +26,7 @@ public class EncryptionTest {
 
     private static String bucketName = TestUtil.getBucketName();
     private static String zone = TestUtil.getZone();
-    private static EvnContext evnContext = TestUtil.getEvnContext();
+    private static EnvContext ctx = TestUtil.getEnvContext();
     private static Bucket testBucket;
 
     private static Bucket.PutObjectOutput putObjectOutput;
@@ -51,7 +51,7 @@ public class EncryptionTest {
             String encryption_key_md5)
             throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        testBucket = new Bucket(evnContext, zone, bucketName);
+        testBucket = new Bucket(ctx, zone, bucketName);
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         File f = new File("/tmp/encryption_test_object");
         RandomAccessFile raf = new RandomAccessFile(f, "rw");
