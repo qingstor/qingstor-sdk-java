@@ -112,15 +112,13 @@ public class QSStringUtil {
     }
 
     public static String getUserAgent() {
-        String osName = System.getProperty("os.name"); // 操作系统名称
-        String langVersion = System.getProperty("java.version"); // java.version系统版本
         return QSConstant.SDK_NAME
                 + "/"
                 + QSConstant.SDK_VERSION
                 + " ( java v"
-                + langVersion
+                + System.getProperty("java.version")
                 + ";"
-                + osName
+                + System.getProperty("os.name")
                 + ")";
     }
 

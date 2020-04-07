@@ -15,7 +15,7 @@
  */
 package integration.cucumber;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.service.Bucket;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -27,8 +27,8 @@ public class ObjectTest {
 
     private static String bucketName = TestUtil.getBucketName();
     private static String zone = TestUtil.getZone();
-    private static EvnContext evnContext = TestUtil.getEvnContext();
-    private static Bucket testBucket = new Bucket(evnContext, zone, bucketName);
+    private static EnvContext ctx = TestUtil.getEnvContext();
+    private static Bucket testBucket = new Bucket(ctx, zone, bucketName);
 
     private static Bucket.PutObjectOutput objectOutput;
     private static Bucket.PutObjectOutput copyOutput;

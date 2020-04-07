@@ -15,6 +15,7 @@
  */
 package com.qingstor.sdk.request;
 
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
@@ -50,20 +51,28 @@ public class QSOkHttpRequestClient {
     private OkHttpClient client = null;
     private OkHttpClient unsafeClient = null;
 
+    private int readTimeout;
+    private int writeTimeout;
+    private int connectionTimeout;
+
     private static volatile QSOkHttpRequestClient ins;
 
-    protected QSOkHttpRequestClient() {}
+    protected QSOkHttpRequestClient(EnvContext ctx) {
+        readTimeout = ctx.getHttpConfig().getReadTimeout();
+        writeTimeout = ctx.getHttpConfig().getWriteTimeout();
+        connectionTimeout = ctx.getHttpConfig().getConnectionTimeout();
+    }
 
     public OkHttpClient getSafetyClient() {
         return new OkHttpClient.Builder()
-                .connectTimeout(QSConstant.HTTPCLIENT_CONNECTION_TIME_OUT, TimeUnit.SECONDS)
-                .readTimeout(QSConstant.HTTPCLIENT_READ_TIME_OUT, TimeUnit.SECONDS)
-                .writeTimeout(QSConstant.HTTPCLIENT_WRITE_TIME_OUT, TimeUnit.SECONDS)
+                .connectTimeout(connectionTimeout, TimeUnit.SECONDS)
+                .readTimeout(readTimeout, TimeUnit.SECONDS)
+                .writeTimeout(writeTimeout, TimeUnit.SECONDS)
                 .build();
     }
 
     @Deprecated
-    private static OkHttpClient getUnsafeOkHttpClient() {
+    private OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
             final TrustManager[] trustAllCerts =
@@ -94,10 +103,9 @@ public class QSOkHttpRequestClient {
 
             OkHttpClient.Builder builder =
                     new OkHttpClient.Builder()
-                            .connectTimeout(
-                                    QSConstant.HTTPCLIENT_CONNECTION_TIME_OUT, TimeUnit.SECONDS)
-                            .readTimeout(QSConstant.HTTPCLIENT_READ_TIME_OUT, TimeUnit.SECONDS)
-                            .writeTimeout(QSConstant.HTTPCLIENT_WRITE_TIME_OUT, TimeUnit.SECONDS);
+                            .connectTimeout(connectionTimeout, TimeUnit.SECONDS)
+                            .readTimeout(readTimeout, TimeUnit.SECONDS)
+                            .writeTimeout(writeTimeout, TimeUnit.SECONDS);
             builder.sslSocketFactory(sslSocketFactory);
             builder.hostnameVerifier(
                     new HostnameVerifier() {
@@ -115,10 +123,10 @@ public class QSOkHttpRequestClient {
         }
     }
 
-    public static QSOkHttpRequestClient getInstance() {
+    public static QSOkHttpRequestClient getInstance(EnvContext ctx) {
         if (ins == null) {
             synchronized (QSOkHttpRequestClient.class) {
-                if (ins == null) ins = new QSOkHttpRequestClient();
+                if (ins == null) ins = new QSOkHttpRequestClient(ctx);
             }
         }
         return ins;
@@ -172,7 +180,7 @@ public class QSOkHttpRequestClient {
      * @param singedUrl with singed parameter url
      * @return a build request
      */
-    public Request buildUrlRequest(final String singedUrl) {
+    public static Request buildUrlRequest(final String singedUrl) {
 
         Request request = new Request.Builder().url(singedUrl).build();
 
@@ -267,7 +275,7 @@ public class QSOkHttpRequestClient {
      * @param requestBody request body params
      * @return a build request
      */
-    public Request buildRequest(
+    public static Request buildRequest(
             final String method,
             final String signedUrl,
             RequestBody requestBody,

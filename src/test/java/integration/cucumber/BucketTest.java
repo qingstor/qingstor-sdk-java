@@ -15,7 +15,7 @@
  */
 package integration.cucumber;
 
-import com.qingstor.sdk.config.EvnContext;
+import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.service.Bucket.InitiateMultipartUploadOutput;
 import com.qingstor.sdk.service.Bucket.ListMultipartUploadsInput;
@@ -28,7 +28,7 @@ public class BucketTest {
 
     private static String bucketName = TestUtil.getBucketName();
     private static String zone = TestUtil.getZone();
-    private static EvnContext evnContext = TestUtil.getEvnContext();
+    private static EnvContext ctx = TestUtil.getEnvContext();
     private static Bucket testBucket;
 
     private static Bucket.PutBucketOutput putBucketOutput;
@@ -42,7 +42,7 @@ public class BucketTest {
 
     @When("^initialize the bucket$")
     public void initialize_the_bucket() throws Throwable {
-        testBucket = new Bucket(evnContext, zone, bucketName);
+        testBucket = new Bucket(ctx, zone, bucketName);
     }
 
     @Then("^the bucket is initialized$")

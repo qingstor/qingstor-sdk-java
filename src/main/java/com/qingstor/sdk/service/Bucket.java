@@ -85,7 +85,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucket");
         context.put("APIName", "DeleteBucket");
         context.put("ServiceName", "DELETE Bucket");
@@ -129,7 +129,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucket");
         context.put("APIName", "DeleteBucket");
         context.put("ServiceName", "DELETE Bucket");
@@ -186,7 +186,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketCORS");
         context.put("APIName", "DeleteBucketCORS");
         context.put("ServiceName", "DELETE Bucket CORS");
@@ -231,7 +231,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketCORS");
         context.put("APIName", "DeleteBucketCORS");
         context.put("ServiceName", "DELETE Bucket CORS");
@@ -289,7 +289,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketExternalMirror");
         context.put("APIName", "DeleteBucketExternalMirror");
         context.put("ServiceName", "DELETE Bucket External Mirror");
@@ -334,7 +334,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketExternalMirror");
         context.put("APIName", "DeleteBucketExternalMirror");
         context.put("ServiceName", "DELETE Bucket External Mirror");
@@ -391,7 +391,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketLifecycle");
         context.put("APIName", "DeleteBucketLifecycle");
         context.put("ServiceName", "DELETE Bucket Lifecycle");
@@ -436,7 +436,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketLifecycle");
         context.put("APIName", "DeleteBucketLifecycle");
         context.put("ServiceName", "DELETE Bucket Lifecycle");
@@ -493,7 +493,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketNotification");
         context.put("APIName", "DeleteBucketNotification");
         context.put("ServiceName", "DELETE Bucket Notification");
@@ -538,7 +538,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketNotification");
         context.put("APIName", "DeleteBucketNotification");
         context.put("ServiceName", "DELETE Bucket Notification");
@@ -595,7 +595,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketPolicy");
         context.put("APIName", "DeleteBucketPolicy");
         context.put("ServiceName", "DELETE Bucket Policy");
@@ -640,7 +640,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketPolicy");
         context.put("APIName", "DeleteBucketPolicy");
         context.put("ServiceName", "DELETE Bucket Policy");
@@ -709,7 +709,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteMultipleObjects");
         context.put("APIName", "DeleteMultipleObjects");
         context.put("ServiceName", "Delete Multiple Objects");
@@ -767,7 +767,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteMultipleObjects");
         context.put("APIName", "DeleteMultipleObjects");
         context.put("ServiceName", "Delete Multiple Objects");
@@ -926,7 +926,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketACL");
         context.put("APIName", "GetBucketACL");
         context.put("ServiceName", "GET Bucket ACL");
@@ -970,7 +970,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketACL");
         context.put("APIName", "GetBucketACL");
         context.put("ServiceName", "GET Bucket ACL");
@@ -1052,7 +1052,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketCORS");
         context.put("APIName", "GetBucketCORS");
         context.put("ServiceName", "GET Bucket CORS");
@@ -1096,7 +1096,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketCORS");
         context.put("APIName", "GetBucketCORS");
         context.put("ServiceName", "GET Bucket CORS");
@@ -1168,7 +1168,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketExternalMirror");
         context.put("APIName", "GetBucketExternalMirror");
         context.put("ServiceName", "GET Bucket External Mirror");
@@ -1213,7 +1213,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketExternalMirror");
         context.put("APIName", "GetBucketExternalMirror");
         context.put("ServiceName", "GET Bucket External Mirror");
@@ -1284,7 +1284,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketLifecycle");
         context.put("APIName", "GetBucketLifecycle");
         context.put("ServiceName", "GET Bucket Lifecycle");
@@ -1329,7 +1329,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketLifecycle");
         context.put("APIName", "GetBucketLifecycle");
         context.put("ServiceName", "GET Bucket Lifecycle");
@@ -1400,7 +1400,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketNotification");
         context.put("APIName", "GetBucketNotification");
         context.put("ServiceName", "GET Bucket Notification");
@@ -1445,7 +1445,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketNotification");
         context.put("APIName", "GetBucketNotification");
         context.put("ServiceName", "GET Bucket Notification");
@@ -1516,7 +1516,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketPolicy");
         context.put("APIName", "GetBucketPolicy");
         context.put("ServiceName", "GET Bucket Policy");
@@ -1561,7 +1561,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketPolicy");
         context.put("APIName", "GetBucketPolicy");
         context.put("ServiceName", "GET Bucket Policy");
@@ -1632,7 +1632,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketStatistics");
         context.put("APIName", "GetBucketStatistics");
         context.put("ServiceName", "GET Bucket Statistics");
@@ -1677,7 +1677,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketStatistics");
         context.put("APIName", "GetBucketStatistics");
         context.put("ServiceName", "GET Bucket Statistics");
@@ -1815,7 +1815,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadBucket");
         context.put("APIName", "HeadBucket");
         context.put("ServiceName", "HEAD Bucket");
@@ -1859,7 +1859,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadBucket");
         context.put("APIName", "HeadBucket");
         context.put("ServiceName", "HEAD Bucket");
@@ -1928,7 +1928,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipartUploads");
         context.put("APIName", "ListMultipartUploads");
         context.put("ServiceName", "List Multipart Uploads");
@@ -1984,7 +1984,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipartUploads");
         context.put("APIName", "ListMultipartUploads");
         context.put("ServiceName", "List Multipart Uploads");
@@ -2248,7 +2248,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListObjects");
         context.put("APIName", "ListObjects");
         context.put("ServiceName", "GET Bucket (List Objects)");
@@ -2304,7 +2304,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListObjects");
         context.put("APIName", "ListObjects");
         context.put("ServiceName", "GET Bucket (List Objects)");
@@ -2540,7 +2540,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucket");
         context.put("APIName", "PutBucket");
         context.put("ServiceName", "PUT Bucket");
@@ -2584,7 +2584,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucket");
         context.put("APIName", "PutBucket");
         context.put("ServiceName", "PUT Bucket");
@@ -2651,7 +2651,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketACL");
         context.put("APIName", "PutBucketACL");
         context.put("ServiceName", "PUT Bucket ACL");
@@ -2706,7 +2706,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketACL");
         context.put("APIName", "PutBucketACL");
         context.put("ServiceName", "PUT Bucket ACL");
@@ -2821,7 +2821,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketCORS");
         context.put("APIName", "PutBucketCORS");
         context.put("ServiceName", "PUT Bucket CORS");
@@ -2877,7 +2877,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketCORS");
         context.put("APIName", "PutBucketCORS");
         context.put("ServiceName", "PUT Bucket CORS");
@@ -2995,7 +2995,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketExternalMirror");
         context.put("APIName", "PutBucketExternalMirror");
         context.put("ServiceName", "PUT Bucket External Mirror");
@@ -3053,7 +3053,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketExternalMirror");
         context.put("APIName", "PutBucketExternalMirror");
         context.put("ServiceName", "PUT Bucket External Mirror");
@@ -3164,7 +3164,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketLifecycle");
         context.put("APIName", "PutBucketLifecycle");
         context.put("ServiceName", "PUT Bucket Lifecycle");
@@ -3220,7 +3220,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketLifecycle");
         context.put("APIName", "PutBucketLifecycle");
         context.put("ServiceName", "PUT Bucket Lifecycle");
@@ -3337,7 +3337,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketNotification");
         context.put("APIName", "PutBucketNotification");
         context.put("ServiceName", "PUT Bucket Notification");
@@ -3395,7 +3395,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketNotification");
         context.put("APIName", "PutBucketNotification");
         context.put("ServiceName", "PUT Bucket Notification");
@@ -3510,7 +3510,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketPolicy");
         context.put("APIName", "PutBucketPolicy");
         context.put("ServiceName", "PUT Bucket Policy");
@@ -3566,7 +3566,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketPolicy");
         context.put("APIName", "PutBucketPolicy");
         context.put("ServiceName", "PUT Bucket Policy");
@@ -3685,7 +3685,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AbortMultipartUpload");
         context.put("APIName", "AbortMultipartUpload");
         context.put("ServiceName", "Abort Multipart Upload");
@@ -3752,7 +3752,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AbortMultipartUpload");
         context.put("APIName", "AbortMultipartUpload");
         context.put("ServiceName", "Abort Multipart Upload");
@@ -3858,7 +3858,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AppendObject");
         context.put("APIName", "AppendObject");
         context.put("ServiceName", "Append Object");
@@ -3924,7 +3924,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AppendObject");
         context.put("APIName", "AppendObject");
         context.put("ServiceName", "Append Object");
@@ -4161,7 +4161,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "CompleteMultipartUpload");
         context.put("APIName", "CompleteMultipartUpload");
         context.put("ServiceName", "Complete multipart upload");
@@ -4228,7 +4228,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "CompleteMultipartUpload");
         context.put("APIName", "CompleteMultipartUpload");
         context.put("ServiceName", "Complete multipart upload");
@@ -4460,7 +4460,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteObject");
         context.put("APIName", "DeleteObject");
         context.put("ServiceName", "DELETE Object");
@@ -4511,7 +4511,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteObject");
         context.put("APIName", "DeleteObject");
         context.put("ServiceName", "DELETE Object");
@@ -4585,7 +4585,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
         context.put("APIName", "GetObject");
         context.put("ServiceName", "GET Object");
@@ -4647,7 +4647,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
         context.put("APIName", "GetObject");
         context.put("ServiceName", "GET Object");
@@ -5213,7 +5213,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadObject");
         context.put("APIName", "HeadObject");
         context.put("ServiceName", "HEAD Object");
@@ -5275,7 +5275,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadObject");
         context.put("APIName", "HeadObject");
         context.put("ServiceName", "HEAD Object");
@@ -5559,7 +5559,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
         context.put("APIName", "ImageProcess");
         context.put("ServiceName", "Image Process");
@@ -5625,7 +5625,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
         context.put("APIName", "ImageProcess");
         context.put("ServiceName", "Image Process");
@@ -5861,7 +5861,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "InitiateMultipartUpload");
         context.put("APIName", "InitiateMultipartUpload");
         context.put("ServiceName", "Initiate Multipart Upload");
@@ -5928,7 +5928,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "InitiateMultipartUpload");
         context.put("APIName", "InitiateMultipartUpload");
         context.put("ServiceName", "Initiate Multipart Upload");
@@ -6175,7 +6175,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipart");
         context.put("APIName", "ListMultipart");
         context.put("ServiceName", "List Multipart");
@@ -6241,7 +6241,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipart");
         context.put("APIName", "ListMultipart");
         context.put("ServiceName", "List Multipart");
@@ -6398,7 +6398,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "OptionsObject");
         context.put("APIName", "OptionsObject");
         context.put("ServiceName", "OPTIONS Object");
@@ -6464,7 +6464,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "OptionsObject");
         context.put("APIName", "OptionsObject");
         context.put("ServiceName", "OPTIONS Object");
@@ -6660,7 +6660,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutObject");
         context.put("APIName", "PutObject");
         context.put("ServiceName", "PUT Object");
@@ -6722,7 +6722,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutObject");
         context.put("APIName", "PutObject");
         context.put("ServiceName", "PUT Object");
@@ -7209,7 +7209,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "UploadMultipart");
         context.put("APIName", "UploadMultipart");
         context.put("ServiceName", "Upload Multipart");
@@ -7276,7 +7276,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "UploadMultipart");
         context.put("APIName", "UploadMultipart");
         context.put("ServiceName", "Upload Multipart");
@@ -7723,7 +7723,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
         context.put("OperationName", "GetObject");
         context.put("APIName", "GetObject");
@@ -7760,7 +7760,7 @@ public class Bucket {
     public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
         context.put("APIName", "GetObject");
         context.put("ServiceName", "QingStor");
@@ -7787,7 +7787,7 @@ public class Bucket {
             throws QSException {
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
         context.put("APIName", "GetObject");
         context.put("ServiceName", "QingStor");
@@ -7820,7 +7820,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
         context.put("APIName", "ImageProcess");
         context.put("ServiceName", "Image Process");

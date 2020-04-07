@@ -37,9 +37,9 @@ public class QSRequest implements ResourceRequest {
     @Override
     public void sendApiRequestAsync(String requestUrl, Map context, ResponseCallBack callback)
             throws QSException {
-        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
-        Request request = QSOkHttpRequestClient.getInstance().buildUrlRequest(requestUrl);
-        QSOkHttpRequestClient.getInstance()
+        EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
+        Request request = QSOkHttpRequestClient.buildUrlRequest(requestUrl);
+        QSOkHttpRequestClient.getInstance(envContext)
                 .requestActionAsync(request, envContext.isSafeOkHttp(), callback);
     }
 
@@ -47,9 +47,9 @@ public class QSRequest implements ResourceRequest {
     public OutputModel sendApiRequest(
             String requestUrl, Map context, Class<? extends OutputModel> outputClass)
             throws QSException {
-        EnvContext envContext = (EnvContext) context.get(QSConstant.EVN_CONTEXT_KEY);
-        Request request = QSOkHttpRequestClient.getInstance().buildUrlRequest(requestUrl);
-        return QSOkHttpRequestClient.getInstance()
+        EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
+        Request request = QSOkHttpRequestClient.buildUrlRequest(requestUrl);
+        return QSOkHttpRequestClient.getInstance(envContext)
                 .requestAction(request, envContext.isSafeOkHttp(), outputClass);
     }
 

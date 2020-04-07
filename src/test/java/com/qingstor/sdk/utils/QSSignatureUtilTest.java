@@ -16,7 +16,6 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.config.EnvContext;
-import com.qingstor.sdk.config.EvnContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.RequestHandler;
@@ -65,14 +64,14 @@ public class QSSignatureUtilTest {
 
     @Test
     public void testExpireString() {
-        EvnContext evnContext = new EvnContext("testkey", "test_asss");
+        EnvContext ctx = new EnvContext("testkey", "test_asss");
 
         String req1 = null;
         String req2 = null;
         try {
             req1 =
                     QSSignatureUtil.getObjectAuthRequestUrl(
-                            evnContext, "testzone", "bucketName", "objectName/dd.txt", 1000);
+                            ctx, "testzone", "bucketName", "objectName/dd.txt", 1000);
         } catch (QSException e) {
             e.printStackTrace();
         }

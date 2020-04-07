@@ -92,7 +92,7 @@ public class Bucket {
 
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+            context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
             context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
@@ -127,7 +127,7 @@ public class Bucket {
         public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+            context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
             context.put("ServiceName", "QingStor");
@@ -154,7 +154,7 @@ public class Bucket {
                 throws QSException {
             Map context = new HashMap();
             context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+            context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
             context.put("OperationName", "GetObject");
             context.put("APIName", "GetObject");
             context.put("ServiceName", "QingStor");
@@ -189,7 +189,7 @@ public class Bucket {
 
         Map context = new HashMap();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.EVN_CONTEXT_KEY, this.envContext);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
         context.put("APIName", "ImageProcess");
         context.put("ServiceName", "Image Process");

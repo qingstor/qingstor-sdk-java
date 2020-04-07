@@ -15,34 +15,52 @@
  */
 package com.qingstor.sdk.config;
 
-import com.qingstor.sdk.constants.QSConstant;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ParamValidate;
 import com.qingstor.sdk.utils.QSStringUtil;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Map;
-import org.yaml.snakeyaml.Yaml;
+import java.io.*;
+import lombok.Data;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvContext implements ParamValidate {
 
-    public static String qingcloudStorHost = "qingstor.com";
-    public static String default_protocal = "https";
+    private static final ObjectMapper om;
 
-    private String accessKey;
+    static {
+        om = new ObjectMapper(new YAMLFactory());
+        om.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+    }
 
-    private String accessSecret;
+    private static String qingStorHost = "qingstor.com";
+    private static String default_protocol = "https";
+    private static String defaultRequestUrlStyle = "virtual_host_style";
+    private static HttpConfig defaultHttpConfig = new HttpConfig();
 
-    private String host;
+    private String accessKeyId;
+
+    private String secretAccessKey;
+
+    private String host = qingStorHost;
     private String port;
-    private String protocol = default_protocal;
+    private String protocol = default_protocol;
     private String uri;
     private String additionalUserAgent;
 
     // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
-    private String requestUrlStyle;
+    private String requestUrlStyle = defaultRequestUrlStyle;
+
+    private HttpConfig httpConfig = defaultHttpConfig;
+
+    @Data
+    public static class HttpConfig {
+        private int readTimeout = 100;
+        private int connectionTimeout = 60;
+        private int writeTimeout = 100;
+    }
 
     /**
      * {@link com.qingstor.sdk.constants.QSConstant#VIRTUAL_HOST_STYLE}:<br>
@@ -90,20 +108,20 @@ public class EnvContext implements ParamValidate {
         this.safeOkHttp = safeOkHttp;
     }
 
-    public String getAccessKey() {
-        return accessKey;
+    public String getAccessKeyId() {
+        return accessKeyId;
     }
 
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
     }
 
-    public String getAccessSecret() {
-        return accessSecret;
+    public String getSecretAccessKey() {
+        return secretAccessKey;
     }
 
-    public void setAccessSecret(String accessSecret) {
-        this.accessSecret = accessSecret;
+    public void setSecretAccessKey(String secretAccessKey) {
+        this.secretAccessKey = secretAccessKey;
     }
 
     public String getHost() {
@@ -153,51 +171,61 @@ public class EnvContext implements ParamValidate {
         this.uri = uri;
     }
 
+    public HttpConfig getHttpConfig() {
+        return httpConfig;
+    }
+
+    public void setHttpConfig(HttpConfig httpConfig) {
+        this.httpConfig = httpConfig;
+    }
+
+    @Override
+    public String toString() {
+        return "EnvContext{"
+                + "accessKeyId='"
+                + accessKeyId
+                + '\''
+                + ", secretAccessKey='"
+                + secretAccessKey
+                + '\''
+                + ", host='"
+                + host
+                + '\''
+                + ", port='"
+                + port
+                + '\''
+                + ", protocol='"
+                + protocol
+                + '\''
+                + ", uri='"
+                + uri
+                + '\''
+                + ", additionalUserAgent='"
+                + additionalUserAgent
+                + '\''
+                + ", requestUrlStyle='"
+                + requestUrlStyle
+                + '\''
+                + ", httpConfig="
+                + httpConfig
+                + ", safeOkHttp="
+                + safeOkHttp
+                + '}';
+    }
+
     private EnvContext() {}
 
     public EnvContext(String accessKey, String accessSecret) {
-        this.setAccessKey(accessKey);
-        this.setAccessSecret(accessSecret);
-        this.setHost(qingcloudStorHost);
-        this.setRequestUrlStyle(QSConstant.PATH_STYLE);
+        this.setAccessKeyId(accessKey);
+        this.setSecretAccessKey(accessSecret);
     }
 
     public static EnvContext loadFromFile(String filePathName) throws QSException {
-        EnvContext env = new EnvContext();
-        File f = new File(filePathName);
-        loadYaml(env, f);
-        return env;
-    }
-
-    public static void loadYaml(EnvContext env, File f) throws QSException {
-        if (f.exists()) {
-            BufferedReader br = null;
-
-            Yaml yaml = new Yaml();
-            try {
-                Map confParams = (Map) yaml.load(new FileInputStream(f));
-                env.setAccessKey(getYamlConfig("access_key_id", confParams));
-                env.setAccessSecret(getYamlConfig("secret_access_key", confParams));
-                env.setProtocol(getYamlConfig("protocol", confParams));
-                env.setHost(getYamlConfig("host", confParams));
-                env.setUri(getYamlConfig("uri", confParams));
-                env.setPort(getYamlConfig("port", confParams));
-                env.setAdditionalUserAgent(getYamlConfig("additional_user_agent", confParams));
-                // load request url style form config
-                env.setRequestUrlStyle(getYamlConfig("request_url_style", confParams));
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                throw new QSException("Yaml config error:", e);
-            }
+        try {
+            return om.readValue(new File(filePathName), EnvContext.class);
+        } catch (IOException e) {
+            throw new QSException(e.getMessage());
         }
-    }
-
-    public static String getYamlConfig(String key, Map config) {
-        if (config.containsKey(key)) {
-            return String.valueOf(config.get(key));
-        }
-        return null;
     }
 
     /** @return the additionalUserAgent */
@@ -212,8 +240,8 @@ public class EnvContext implements ParamValidate {
 
     @Override
     public String validateParam() {
-        if (QSStringUtil.isEmpty(getAccessKey())) {
-            return QSStringUtil.getParameterRequired("AccessKey", "EnvContext");
+        if (QSStringUtil.isEmpty(getAccessKeyId())) {
+            return QSStringUtil.getParameterRequired("AccessKeyId", "EnvContext");
         }
 
         if (QSStringUtil.isEmpty(getRequestUrl())) {
@@ -225,7 +253,7 @@ public class EnvContext implements ParamValidate {
                 int value = (int) temp;
                 // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
                 if (value < 32 || value > 126 || value == 32 || value == 34) {
-                    return "additional User-Agent contains characters that not allowed :"
+                    return "Additional User-Agent contains characters that not allowed :"
                             + getAdditionalUserAgent().substring(i, i + 1);
                 }
             }

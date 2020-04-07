@@ -74,9 +74,9 @@ public class RequestHandler {
                     QSConstant.REQUEST_ERROR_CODE, validate, out);
             this.asyncCallback.onAPIResponse(out);
         } else {
-            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.ENV_CONTEXT_KEY);
             Request request = this.getRequest();
-            QSOkHttpRequestClient.getInstance()
+            QSOkHttpRequestClient.getInstance(envContext)
                     .requestActionAsync(request, envContext.isSafeOkHttp(), this.asyncCallback);
         }
     }
@@ -95,11 +95,11 @@ public class RequestHandler {
                 throw new QSException(e.getMessage());
             }
         } else {
-            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.ENV_CONTEXT_KEY);
 
             Request request = this.getRequest();
 
-            return QSOkHttpRequestClient.getInstance()
+            return QSOkHttpRequestClient.getInstance(envContext)
                     .requestAction(request, envContext.isSafeOkHttp(), outputClass);
         }
     }
@@ -169,7 +169,7 @@ public class RequestHandler {
 
     public String check() {
         String validate = this.paramBean != null ? paramBean.validateParam() : "";
-        EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.EVN_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.ENV_CONTEXT_KEY);
         String envValidate = envContext.validateParam();
         if (!QSStringUtil.isEmpty(validate) || !QSStringUtil.isEmpty(envValidate)) {
             if (QSStringUtil.isEmpty(validate)) {

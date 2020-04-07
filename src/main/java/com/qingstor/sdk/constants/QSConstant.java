@@ -57,7 +57,7 @@ public class QSConstant {
 
     public static final String ENCODING_UTF8 = "UTF-8";
 
-    public static final String EVN_CONTEXT_KEY = "evnContext";
+    public static final String ENV_CONTEXT_KEY = "envContext";
 
     public static final String SDK_TYPE_IAAS = "qingcloud_iaas";
 
