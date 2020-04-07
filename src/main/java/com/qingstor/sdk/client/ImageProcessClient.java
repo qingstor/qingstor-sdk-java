@@ -103,7 +103,7 @@ public class ImageProcessClient {
     }
 
     private boolean isEmptyAction() {
-        return input.getAction() == null ? true : false;
+        return input.getAction() == null;
     }
 
     public String getObjectName() {
@@ -137,7 +137,7 @@ public class ImageProcessClient {
     public static class InfoParam implements ImageParam {
         @Override
         public String buildOptParamStr() {
-            return new StringBuffer("info").toString();
+            return "info";
         }
     }
 
@@ -297,7 +297,7 @@ public class ImageProcessClient {
 
         @Override
         public String buildOptParamStr() {
-            StringBuffer sb = new StringBuffer("watermark:");
+            StringBuilder sb = new StringBuilder("watermark:");
             sb.append("d_");
             sb.append(this.dpi);
             sb.append(",p_");

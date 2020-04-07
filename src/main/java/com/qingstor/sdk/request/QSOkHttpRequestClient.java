@@ -236,15 +236,15 @@ public class QSOkHttpRequestClient {
         QSJSONUtil.putJsonData(
                 o, QSConstant.PARAM_TYPE_BODYINPUTSTREAM, body.source().inputStream());
         if (target != null) {
-            if (!QSJSONUtil.jsonObjFillValue2Object(o, target)) {
-                try {
-                    String responseInfo = body.string();
-                    // Deserialize HTTP response to concrete type.
-                    if (!QSStringUtil.isEmpty(responseInfo)) {
-                        QSJSONUtil.jsonFillValue2Object(responseInfo, target);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+            boolean binaryBody = false;
+            if (response.isSuccessful()) {
+                binaryBody = QSJSONUtil.jsonObjFillValue2Object(o, target);
+            }
+            if (!binaryBody) {
+                String responseInfo = body.string();
+                // Deserialize HTTP response to concrete type.
+                if (!QSStringUtil.isEmpty(responseInfo)) {
+                    QSJSONUtil.jsonFillValue2Object(responseInfo, target);
                 }
             }
             Headers responseHeaders = response.headers();

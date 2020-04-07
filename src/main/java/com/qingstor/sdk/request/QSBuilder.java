@@ -176,13 +176,16 @@ public class QSBuilder {
                         requestSuffixPath);
         // update paramsQuery.
         this.url = HttpUrl.parse(this.requestUrl);
+        if (this.url == null) {
+            throw new QSException("the request url is malformed");
+        }
         Map<String, String> queries = new HashMap<>();
         for (String k : this.url.queryParameterNames()) {
             List<String> values = this.url.queryParameterValues(k);
             queries.put(k, values.get(0)); // it should always size > 0.
         }
         this.paramsQuery = queries;
-        log.info("== requestUrl ==\n" + this.requestUrl + "\n");
+        log.info("== requestUrl ==\n" + this.url + "\n");
     }
 
     private Map headParamEncoding(Map headParams) throws QSException {
