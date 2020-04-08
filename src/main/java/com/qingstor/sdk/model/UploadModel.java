@@ -19,7 +19,8 @@ import com.qingstor.sdk.annotation.ParamAnnotation;
 
 /**
  * A model kept in the upload of {@link com.qingstor.sdk.upload.impl.FileRecorder} <br>
- * Created by chengww on 2018/1/23.
+ *
+ * @author chengww
  */
 public class UploadModel extends OutputModel {
     private int currentPart;

@@ -26,7 +26,8 @@ import java.util.Date;
 /**
  * An impl of {@link Recorder}. Records will be kept in the upload as files. <br>
  * 实现分段上传时上传进度的接口方法 <br>
- * Created by chengww on 2018/1/23.
+ *
+ * @author chengww
  */
 public final class FileRecorder implements Recorder {
 

@@ -32,7 +32,8 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * A manager of uploading. <br>
- * Created by chengww on 2018/1/23.
+ *
+ * @author chengww
  */
 public class UploadManager {
 
