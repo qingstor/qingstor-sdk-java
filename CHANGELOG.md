@@ -1,6 +1,38 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.3.0] - 2020-04-07
+
+### Fixed
+
+- error message and code etc unpacking failure when potential binary body included
+- headers' unexpect non-ascii escape encoding
+
+### Added
+
+- replace log implementation to an abstract layer, more non-invasive
+- support http client timeout-related config.
+
+### Changed
+
+- finally remove deprecated EvnContext, please use EnvContext.
+
+## [v2.2.19] - 2020-03-27
+
+### Fixed
+
+- signature failure when multiple sub-source with query value combined
+- header's unexpected non-ascii escape encoding
+
+### Added
+
+- append object support
+- user-defined metadata support
+
+## [v2.2.18] - 2019-09-18
+### Fixed
+- Support calling getRequestId() in a normal request.
+
 ## [v2.2.17] - 2019-04-11
 ### Fixed
 - Fix auto set content-disposition in upload manager
