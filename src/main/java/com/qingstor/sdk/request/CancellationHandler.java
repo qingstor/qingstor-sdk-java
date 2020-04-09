@@ -17,7 +17,11 @@ package com.qingstor.sdk.request;
 
 import java.io.IOException;
 
-/** Created by chengww on 2018/1/22. A class defined to cancel data or uploading. */
+/**
+ * A class defined to cancel data or uploading.
+ *
+ * @author chengww
+ */
 public interface CancellationHandler {
 
     /**

@@ -24,6 +24,12 @@ protocol: 'https'
 # Valid request url styles are "virtual_host_style"(default) and "path_style".
 request_url_style: 'path_style'
 
+# optional
+http_config:
+  # unit: second
+  read_timeout: 100
+  connection_timeout: 60
+  write_timeout: 100
 ```
 
 ## Usage

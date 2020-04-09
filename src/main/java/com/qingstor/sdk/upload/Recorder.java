@@ -17,7 +17,8 @@ package com.qingstor.sdk.upload;
 
 /**
  * A interface defined to make records when multi uploads. <br>
- * Created by chengww on 2018/1/23.
+ *
+ * @author chengww
  */
 public interface Recorder {
 
