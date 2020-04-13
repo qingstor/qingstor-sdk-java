@@ -41,7 +41,7 @@ public class InputStreamUploadBody extends RequestBody {
 
     public InputStreamUploadBody(
             String contentType, InputStream rFile, long contentLength, long offset) {
-        log.info("----InputStreamUploadBody----");
+        log.debug("----InputStreamUploadBody----");
         this.contentLength = contentLength;
         this.contentType = contentType;
         this.file = rFile;
@@ -66,7 +66,7 @@ public class InputStreamUploadBody extends RequestBody {
     }
 
     private void writeWithContentLength(BufferedSink sink, long offset) throws IOException {
-        log.info("---writeWithContentLength----");
+        log.debug("---writeWithContentLength----");
         int readSize = 1024;
         int bytes = 0;
         byte[] bufferOut = new byte[readSize];
@@ -92,7 +92,7 @@ public class InputStreamUploadBody extends RequestBody {
     }
 
     private void writeAll(BufferedSink sink) throws IOException {
-        log.info("---writeAll----");
+        log.debug("---writeAll----");
         int readSize = 1024;
         int bytes = 0;
         byte[] bufferOut = new byte[readSize];

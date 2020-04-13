@@ -34,7 +34,7 @@ public class MultiFileuploadRequestBody extends RequestBody {
 
     public MultiFileuploadRequestBody(
             String contentType, RandomAccessFile rFile, long contentLength) {
-        log.info("----InputStreamUploadBody----");
+        log.debug("----InputStreamUploadBody----");
         this.contentLength = contentLength;
         this.contentType = contentType;
         this.file = rFile;
