@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.3.1] - 2020-04-13
+
+### Fixed
+
+- Adjust the log level to suit the actual situation
+
 ## [v2.3.0] - 2020-04-07
 
 ### Fixed

@@ -117,7 +117,7 @@ public class QSBuilder {
     private void doSignature() throws QSException {
 
         String authSign = this.getParamSignature();
-        log.info("== authSign ==\n" + authSign + "\n");
+        log.debug("== authSign ==\n" + authSign + "\n");
 
         paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
     }
@@ -187,7 +187,7 @@ public class QSBuilder {
             queries.put(k, values.get(0)); // it should always size > 0.
         }
         this.paramsQuery = queries;
-        log.info("== requestUrl ==\n" + this.url + "\n");
+        log.debug("== requestUrl ==\n" + this.url + "\n");
     }
 
     private Map headParamEncoding(Map headParams) throws QSException {

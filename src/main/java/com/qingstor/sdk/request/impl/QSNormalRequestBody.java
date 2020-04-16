@@ -40,7 +40,7 @@ public class QSNormalRequestBody implements QSRequestBody {
             Map<String, Object> bodyParams,
             Map<String, Object> queryParams)
             throws QSException {
-        log.info("----QSNormalRequestBody----");
+        log.debug("----QSNormalRequestBody----");
         MediaType mediaType = MediaType.parse(contentType);
         if (bodyParams != null && bodyParams.size() > 0) {
 

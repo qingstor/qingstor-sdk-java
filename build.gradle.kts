@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.yunify"
-version = "2.3.0"
+version = "2.3.1"
 
 repositories {
     mavenCentral()
@@ -49,6 +49,12 @@ tasks {
 
 publishing {
     publications {
+        // create<MavenPublication>("shadow") {
+        //     project.shadow.component(this)
+        //     artifactId = "qingstor.sdk.java"
+        //     version = project.version.toString() + "-all-deps"
+        // }
+
         create<MavenPublication>("maven") {
             artifactId = "qingstor.sdk.java"  // this should be replaced near future.
 
@@ -98,6 +104,7 @@ publishing {
 
 signing {
     sign(publishing.publications["maven"])
+    // sign(publishing.publications["shadow"])
 }
 
 val cucumberRuntime: Configuration by configurations.creating {

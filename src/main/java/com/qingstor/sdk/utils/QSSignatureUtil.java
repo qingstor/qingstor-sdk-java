@@ -148,7 +148,7 @@ public class QSSignatureUtil {
             Map<String, String> headers) {
         String signature = "";
         String strToSign = getStringToSignature(method, requestURI, params, headers);
-        log.info("== String to sign ==\n" + strToSign + "\n");
+        log.debug("== String to sign ==\n" + strToSign + "\n");
         signature = generateSignature(secretKey, strToSign);
         return signature;
     }
@@ -195,7 +195,7 @@ public class QSSignatureUtil {
         }
 
         // Generate canonicalized query string.
-        String canonicalized_query = "";
+        StringBuilder canonicalizedQuery = new StringBuilder();
         if (params != null) {
             String[] sortedParamsKeys = params.keySet().toArray(new String[] {});
             Arrays.sort(sortedParamsKeys);
@@ -205,15 +205,15 @@ public class QSSignatureUtil {
                     continue;
                 }
 
-                if (!canonicalized_query.isEmpty()) {
-                    canonicalized_query += SEPARATOR;
+                if (canonicalizedQuery.length() > 0) {
+                    canonicalizedQuery.append(SEPARATOR);
                 }
 
                 try {
-                    canonicalized_query += key;
+                    canonicalizedQuery.append(key);
                     String value = String.valueOf(params.get(key));
                     if (!value.isEmpty() && !value.equals("null")) {
-                        canonicalized_query += "=" + value;
+                        canonicalizedQuery.append("=").append(value);
                     }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -222,13 +222,13 @@ public class QSSignatureUtil {
         }
 
         // Generate canonicalized resource.
-        String canonicalized_resource = authPath;
-        if (!canonicalized_query.isEmpty()) {
-            canonicalized_resource += "?" + canonicalized_query;
+        String canonicalizedResource = authPath;
+        if (canonicalizedQuery.length() > 0) {
+            canonicalizedResource += "?" + canonicalizedQuery;
         }
-        strToSign += String.format("\n%s", canonicalized_resource);
+        strToSign += String.format("\n%s", canonicalizedResource);
 
-        log.info("== String to sign ==\n" + strToSign + "\n");
+        log.debug("== String to sign ==\n" + strToSign + "\n");
 
         return strToSign;
     }
@@ -319,7 +319,7 @@ public class QSSignatureUtil {
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
             String serviceUrl = envContext.getRequestUrl();
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
-            if (objectName != null && objectName.indexOf("?") > 0) {
+            if (objectName.indexOf("?") > 0) {
                 return String.format(
                         storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
                         bucketName,

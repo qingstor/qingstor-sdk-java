@@ -42,7 +42,7 @@ public class QSMultiPartUploadRequestBody implements QSRequestBody {
             Map<String, Object> bodyParams,
             Map<String, Object> queryParams)
             throws QSException {
-        log.info("----QSMultiPartUploadRequestBody---");
+        log.debug("----QSMultiPartUploadRequestBody---");
         MediaType mediaType = MediaType.parse(contentType);
         if (bodyParams != null && bodyParams.size() > 0) {
             RequestBody requestBody = null;
