@@ -24,9 +24,7 @@ public class Types {
 
     public static class AbortIncompleteMultipartUploadModel extends RequestInputModel {
 
-        // days after initiation
-        // Required
-
+        /** days after initiation Required */
         private Integer daysAfterInitiation;
 
         public void setDaysAfterInitiation(Integer daysAfterInitiation) {
@@ -51,8 +49,7 @@ public class Types {
 
     public static class ACLModel extends RequestInputModel {
 
-        // Required
-
+        /** Required */
         private GranteeModel grantee;
 
         public void setGrantee(GranteeModel grantee) {
@@ -62,10 +59,11 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "grantee")
         public GranteeModel getGrantee() {
             return this.grantee;
-        } // Permission for this grantee
-        // Permission's available values: READ, WRITE, FULL_CONTROL
-        // Required
-
+        }
+        /**
+         * Permission for this grantee Permission's available values: READ, WRITE, FULL_CONTROL
+         * Required
+         */
         private String permission;
 
         public void setPermission(String permission) {
@@ -116,8 +114,7 @@ public class Types {
 
     public static class BucketModel extends RequestInputModel {
 
-        // Created time of the bucket
-
+        /** Created time of the bucket */
         private String created;
 
         public void setCreated(String created) {
@@ -127,8 +124,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "created")
         public String getCreated() {
             return this.created;
-        } // QingCloud Zone ID
-
+        }
+        /** QingCloud Zone ID */
         private String location;
 
         public void setLocation(String location) {
@@ -138,8 +135,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "location")
         public String getLocation() {
             return this.location;
-        } // Bucket name
-
+        }
+        /** Bucket name */
         private String name;
 
         public void setName(String name) {
@@ -149,8 +146,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "name")
         public String getName() {
             return this.name;
-        } // URL to access the bucket
-
+        }
+        /** URL to access the bucket */
         private String uRL;
 
         public void setURL(String uRL) {
@@ -171,8 +168,7 @@ public class Types {
 
     public static class CloudfuncArgsModel extends RequestInputModel {
 
-        // Required
-
+        /** Required */
         private String action;
 
         public void setAction(String action) {
@@ -183,7 +179,7 @@ public class Types {
         public String getAction() {
             return this.action;
         }
-
+        /** */
         private String keyPrefix;
 
         public void setKeyPrefix(String keyPrefix) {
@@ -194,7 +190,7 @@ public class Types {
         public String getKeyPrefix() {
             return this.keyPrefix;
         }
-
+        /** */
         private String keySeprate;
 
         public void setKeySeprate(String keySeprate) {
@@ -205,7 +201,7 @@ public class Types {
         public String getKeySeprate() {
             return this.keySeprate;
         }
-
+        /** */
         private String saveBucket;
 
         public void setSaveBucket(String saveBucket) {
@@ -228,6 +224,7 @@ public class Types {
 
     public static class ConditionModel extends RequestInputModel {
 
+        /** */
         private IPAddressModel iPAddress;
 
         public void setIPAddress(IPAddressModel iPAddress) {
@@ -238,7 +235,7 @@ public class Types {
         public IPAddressModel getIPAddress() {
             return this.iPAddress;
         }
-
+        /** */
         private IsNullModel isNull;
 
         public void setIsNull(IsNullModel isNull) {
@@ -249,7 +246,7 @@ public class Types {
         public IsNullModel getIsNull() {
             return this.isNull;
         }
-
+        /** */
         private NotIPAddressModel notIPAddress;
 
         public void setNotIPAddress(NotIPAddressModel notIPAddress) {
@@ -260,7 +257,7 @@ public class Types {
         public NotIPAddressModel getNotIPAddress() {
             return this.notIPAddress;
         }
-
+        /** */
         private StringLikeModel stringLike;
 
         public void setStringLike(StringLikeModel stringLike) {
@@ -271,7 +268,7 @@ public class Types {
         public StringLikeModel getStringLike() {
             return this.stringLike;
         }
-
+        /** */
         private StringNotLikeModel stringNotLike;
 
         public void setStringNotLike(StringNotLikeModel stringNotLike) {
@@ -327,8 +324,7 @@ public class Types {
 
     public static class CORSRuleModel extends RequestInputModel {
 
-        // Allowed headers
-
+        /** Allowed headers */
         private List<String> allowedHeaders;
 
         public void setAllowedHeaders(List<String> allowedHeaders) {
@@ -338,9 +334,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "allowed_headers")
         public List<String> getAllowedHeaders() {
             return this.allowedHeaders;
-        } // Allowed methods
-        // Required
-
+        }
+        /** Allowed methods Required */
         private List<String> allowedMethods;
 
         public void setAllowedMethods(List<String> allowedMethods) {
@@ -350,9 +345,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "allowed_methods")
         public List<String> getAllowedMethods() {
             return this.allowedMethods;
-        } // Allowed origin
-        // Required
-
+        }
+        /** Allowed origin Required */
         private String allowedOrigin;
 
         public void setAllowedOrigin(String allowedOrigin) {
@@ -362,8 +356,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "allowed_origin")
         public String getAllowedOrigin() {
             return this.allowedOrigin;
-        } // Expose headers
-
+        }
+        /** Expose headers */
         private List<String> exposeHeaders;
 
         public void setExposeHeaders(List<String> exposeHeaders) {
@@ -373,8 +367,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "expose_headers")
         public List<String> getExposeHeaders() {
             return this.exposeHeaders;
-        } // Max age seconds
-
+        }
+        /** Max age seconds */
         private Integer maxAgeSeconds;
 
         public void setMaxAgeSeconds(Integer maxAgeSeconds) {
@@ -397,8 +391,7 @@ public class Types {
 
     public static class ExpirationModel extends RequestInputModel {
 
-        // days
-
+        /** days */
         private Integer days;
 
         public void setDays(Integer days) {
@@ -419,9 +412,7 @@ public class Types {
 
     public static class FilterModel extends RequestInputModel {
 
-        // Prefix matching
-        // Required
-
+        /** Prefix matching Required */
         private String prefix;
 
         public void setPrefix(String prefix) {
@@ -444,8 +435,7 @@ public class Types {
 
     public static class GranteeModel extends RequestInputModel {
 
-        // Grantee user ID
-
+        /** Grantee user ID */
         private String iD;
 
         public void setID(String iD) {
@@ -455,8 +445,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "id")
         public String getID() {
             return this.iD;
-        } // Grantee group name
-
+        }
+        /** Grantee group name */
         private String name;
 
         public void setName(String name) {
@@ -466,10 +456,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "name")
         public String getName() {
             return this.name;
-        } // Grantee type
-        // Type's available values: user, group
-        // Required
-
+        }
+        /** Grantee type Type's available values: user, group Required */
         private String type;
 
         public void setType(String type) {
@@ -510,8 +498,7 @@ public class Types {
 
     public static class IPAddressModel extends RequestInputModel {
 
-        // Source IP
-
+        /** Source IP */
         private List<String> sourceIP;
 
         public void setSourceIP(List<String> sourceIP) {
@@ -532,8 +519,7 @@ public class Types {
 
     public static class IsNullModel extends RequestInputModel {
 
-        // Refer url
-
+        /** Refer url */
         private Boolean referer;
 
         public void setReferer(Boolean referer) {
@@ -554,8 +540,7 @@ public class Types {
 
     public static class KeyModel extends RequestInputModel {
 
-        // Object created time
-
+        /** Object created time */
         private String created;
 
         public void setCreated(String created) {
@@ -565,8 +550,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "created")
         public String getCreated() {
             return this.created;
-        } // Whether this key is encrypted
-
+        }
+        /** Whether this key is encrypted */
         private Boolean encrypted;
 
         public void setEncrypted(Boolean encrypted) {
@@ -576,8 +561,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "encrypted")
         public Boolean getEncrypted() {
             return this.encrypted;
-        } // MD5sum of the object
-
+        }
+        /** MD5sum of the object */
         private String etag;
 
         public void setEtag(String etag) {
@@ -587,8 +572,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "etag")
         public String getEtag() {
             return this.etag;
-        } // Object key
-
+        }
+        /** Object key */
         private String key;
 
         public void setKey(String key) {
@@ -598,8 +583,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "key")
         public String getKey() {
             return this.key;
-        } // MIME type of the object
-
+        }
+        /** MIME type of the object */
         private String mimeType;
 
         public void setMimeType(String mimeType) {
@@ -609,8 +594,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "mime_type")
         public String getMimeType() {
             return this.mimeType;
-        } // Last modified time in unix time format
-
+        }
+        /** Last modified time in unix time format */
         private Integer modified;
 
         public void setModified(Integer modified) {
@@ -620,8 +605,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "modified")
         public Integer getModified() {
             return this.modified;
-        } // Object content size
-
+        }
+        /** Object content size */
         private Long size;
 
         public void setSize(Long size) {
@@ -631,8 +616,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "size")
         public Long getSize() {
             return this.size;
-        } // Object storage class
-
+        }
+        /** Object storage class */
         private String storageClass;
 
         public void setStorageClass(String storageClass) {
@@ -653,8 +638,7 @@ public class Types {
 
     public static class KeyDeleteErrorModel extends RequestInputModel {
 
-        // Error code
-
+        /** Error code */
         private String code;
 
         public void setCode(String code) {
@@ -664,8 +648,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "code")
         public String getCode() {
             return this.code;
-        } // Object key
-
+        }
+        /** Object key */
         private String key;
 
         public void setKey(String key) {
@@ -675,8 +659,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "key")
         public String getKey() {
             return this.key;
-        } // Error message
-
+        }
+        /** Error message */
         private String message;
 
         public void setMessage(String message) {
@@ -697,9 +681,10 @@ public class Types {
 
     public static class LoggingModel extends RequestInputModel {
 
-        // The name of the bucket used to store logs. The user must be the owner of the bucket.
-        // Required
-
+        /**
+         * The name of the bucket used to store logs. The user must be the owner of the bucket.
+         * Required
+         */
         private String targetBucket;
 
         public void setTargetBucket(String targetBucket) {
@@ -709,9 +694,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "target_bucket")
         public String getTargetBucket() {
             return this.targetBucket;
-        } // generated log files' common prefix
-        // Required
-
+        }
+        /** generated log files' common prefix Required */
         private String targetPrefix;
 
         public void setTargetPrefix(String targetPrefix) {
@@ -737,8 +721,7 @@ public class Types {
 
     public static class NotIPAddressModel extends RequestInputModel {
 
-        // Source IP
-
+        /** Source IP */
         private List<String> sourceIP;
 
         public void setSourceIP(List<String> sourceIP) {
@@ -759,10 +742,10 @@ public class Types {
 
     public static class NotificationModel extends RequestInputModel {
 
-        // Event processing service
-        // Cloudfunc's available values: tupu-porn, notifier, image
-        // Required
-
+        /**
+         * Event processing service Cloudfunc's available values: tupu-porn, notifier, image
+         * Required
+         */
         private String cloudfunc;
 
         public void setCloudfunc(String cloudfunc) {
@@ -773,7 +756,7 @@ public class Types {
         public String getCloudfunc() {
             return this.cloudfunc;
         }
-
+        /** */
         private CloudfuncArgsModel cloudfuncArgs;
 
         public void setCloudfuncArgs(CloudfuncArgsModel cloudfuncArgs) {
@@ -783,9 +766,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "cloudfunc_args")
         public CloudfuncArgsModel getCloudfuncArgs() {
             return this.cloudfuncArgs;
-        } // event types
-        // Required
-
+        }
+        /** event types Required */
         private List<String> eventTypes;
 
         public void setEventTypes(List<String> eventTypes) {
@@ -795,9 +777,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "event_types")
         public List<String> getEventTypes() {
             return this.eventTypes;
-        } // notification id
-        // Required
-
+        }
+        /** notification id Required */
         private String iD;
 
         public void setID(String iD) {
@@ -807,8 +788,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "id")
         public String getID() {
             return this.iD;
-        } // notify url
-
+        }
+        /** notify url */
         private String notifyURL;
 
         public void setNotifyURL(String notifyURL) {
@@ -818,8 +799,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "notify_url")
         public String getNotifyURL() {
             return this.notifyURL;
-        } // Object name matching rule
-
+        }
+        /** Object name matching rule */
         private List<String> objectFilters;
 
         public void setObjectFilters(List<String> objectFilters) {
@@ -869,8 +850,7 @@ public class Types {
 
     public static class ObjectPartModel extends RequestInputModel {
 
-        // Object part created time
-
+        /** Object part created time */
         private String created;
 
         public void setCreated(String created) {
@@ -880,8 +860,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "created")
         public String getCreated() {
             return this.created;
-        } // MD5sum of the object part
-
+        }
+        /** MD5sum of the object part */
         private String etag;
 
         public void setEtag(String etag) {
@@ -891,9 +871,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "etag")
         public String getEtag() {
             return this.etag;
-        } // Object part number
-        // Required
-
+        }
+        /** Object part number Required */
         private Integer partNumber;
 
         public void setPartNumber(Integer partNumber) {
@@ -903,8 +882,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "part_number")
         public Integer getPartNumber() {
             return this.partNumber;
-        } // Object part size
-
+        }
+        /** Object part size */
         private Long size;
 
         public void setSize(Long size) {
@@ -928,8 +907,7 @@ public class Types {
 
     public static class OwnerModel extends RequestInputModel {
 
-        // User ID
-
+        /** User ID */
         private String iD;
 
         public void setID(String iD) {
@@ -939,8 +917,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "id")
         public String getID() {
             return this.iD;
-        } // Username
-
+        }
+        /** Username */
         private String name;
 
         public void setName(String name) {
@@ -961,6 +939,7 @@ public class Types {
 
     public static class RuleModel extends RequestInputModel {
 
+        /** */
         private AbortIncompleteMultipartUploadModel abortIncompleteMultipartUpload;
 
         public void setAbortIncompleteMultipartUpload(
@@ -972,7 +951,7 @@ public class Types {
         public AbortIncompleteMultipartUploadModel getAbortIncompleteMultipartUpload() {
             return this.abortIncompleteMultipartUpload;
         }
-
+        /** */
         private ExpirationModel expiration;
 
         public void setExpiration(ExpirationModel expiration) {
@@ -982,8 +961,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "expiration")
         public ExpirationModel getExpiration() {
             return this.expiration;
-        } // Required
-
+        }
+        /** Required */
         private FilterModel filter;
 
         public void setFilter(FilterModel filter) {
@@ -993,9 +972,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "filter")
         public FilterModel getFilter() {
             return this.filter;
-        } // rule id
-        // Required
-
+        }
+        /** rule id Required */
         private String iD;
 
         public void setID(String iD) {
@@ -1005,10 +983,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "id")
         public String getID() {
             return this.iD;
-        } // rule status
-        // Status's available values: enabled, disabled
-        // Required
-
+        }
+        /** rule status Status's available values: enabled, disabled Required */
         private String status;
 
         public void setStatus(String status) {
@@ -1019,7 +995,7 @@ public class Types {
         public String getStatus() {
             return this.status;
         }
-
+        /** */
         private TransitionModel transition;
 
         public void setTransition(TransitionModel transition) {
@@ -1094,9 +1070,7 @@ public class Types {
 
     public static class StatementModel extends RequestInputModel {
 
-        // QingStor API methods
-        // Required
-
+        /** QingStor API methods Required */
         private List<String> action;
 
         public void setAction(List<String> action) {
@@ -1107,7 +1081,7 @@ public class Types {
         public List<String> getAction() {
             return this.action;
         }
-
+        /** */
         private ConditionModel condition;
 
         public void setCondition(ConditionModel condition) {
@@ -1117,10 +1091,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "condition")
         public ConditionModel getCondition() {
             return this.condition;
-        } // Statement effect
-        // Effect's available values: allow, deny
-        // Required
-
+        }
+        /** Statement effect Effect's available values: allow, deny Required */
         private String effect;
 
         public void setEffect(String effect) {
@@ -1130,9 +1102,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "effect")
         public String getEffect() {
             return this.effect;
-        } // Bucket policy id, must be unique
-        // Required
-
+        }
+        /** Bucket policy id, must be unique Required */
         private String iD;
 
         public void setID(String iD) {
@@ -1142,8 +1113,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "id")
         public String getID() {
             return this.iD;
-        } // The resources to apply bucket policy
-
+        }
+        /** The resources to apply bucket policy */
         private List<String> resource;
 
         public void setResource(List<String> resource) {
@@ -1153,9 +1124,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "resource")
         public List<String> getResource() {
             return this.resource;
-        } // The user to apply bucket policy
-        // Required
-
+        }
+        /** The user to apply bucket policy Required */
         private List<String> user;
 
         public void setUser(List<String> user) {
@@ -1206,8 +1176,7 @@ public class Types {
 
     public static class StringLikeModel extends RequestInputModel {
 
-        // Refer url
-
+        /** Refer url */
         private List<String> referer;
 
         public void setReferer(List<String> referer) {
@@ -1228,8 +1197,7 @@ public class Types {
 
     public static class StringNotLikeModel extends RequestInputModel {
 
-        // Refer url
-
+        /** Refer url */
         private List<String> referer;
 
         public void setReferer(List<String> referer) {
@@ -1250,8 +1218,7 @@ public class Types {
 
     public static class TransitionModel extends RequestInputModel {
 
-        // days
-
+        /** days */
         private Integer days;
 
         public void setDays(Integer days) {
@@ -1261,9 +1228,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "days")
         public Integer getDays() {
             return this.days;
-        } // storage class
-        // Required
-
+        }
+        /** storage class Required */
         private Integer storageClass;
 
         public void setStorageClass(Integer storageClass) {
@@ -1287,8 +1253,7 @@ public class Types {
 
     public static class UploadsModel extends RequestInputModel {
 
-        // Object part created time
-
+        /** Object part created time */
         private String created;
 
         public void setCreated(String created) {
@@ -1298,8 +1263,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "created")
         public String getCreated() {
             return this.created;
-        } // Object key
-
+        }
+        /** Object key */
         private String key;
 
         public void setKey(String key) {
@@ -1309,8 +1274,8 @@ public class Types {
         @ParamAnnotation(paramType = "query", paramName = "key")
         public String getKey() {
             return this.key;
-        } // Object upload id
-
+        }
+        /** Object upload id */
         private String uploadID;
 
         public void setUploadID(String uploadID) {

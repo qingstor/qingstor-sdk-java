@@ -142,17 +142,18 @@
 	{{- $PropertyTypes := index . 2 -}}
 
 	{{range $_, $property := $customizedType.Properties -}}
+	    /**
 		{{if $property.Description -}}
-			// {{$property.Description}}
+			* {{$property.Description}}
 		{{end -}}
 		{{if $property.Enum -}}
-			// {{$property.ID | camelCase}}'s available values: {{$property.Enum | commaConnected}}
+			* {{$property.ID | camelCase}}'s available values: {{$property.Enum | commaConnected}}
 		{{end -}}
 
 		{{if $property.IsRequired -}}
-            // Required
+            * Required
         {{- end}}
-
+        */
         {{ if eq $PropertyTypes "header" -}}
             {{template "PropertyTagsHeader"  $property  }}
         {{- else if eq $PropertyTypes "body" -}}
@@ -743,7 +744,7 @@
             {{if $operation.Request.Elements.Properties | len}}
 
                 {{if $operation.Request.Body.Description -}}
-                    // {{$operation.Request.Body.Description}}
+                    /** {{$operation.Request.Body.Description}} */
                 {{- end}}
                 private  String bodyInput;
 
@@ -751,7 +752,7 @@
                 public String getBodyInput() {
                    return bodyInput;
                 }
-                //Object json string
+                /** Object json string */
                 public void setBodyInput(String bodyInput) {
                     this.bodyInput=bodyInput;
                 }
@@ -764,7 +765,7 @@
 
             {{if eq $operation.Request.Body.Type "string"}}
                 {{if $operation.Request.Body.Description -}}
-                    // {{$operation.Request.Body.Description}}
+                    /** {{$operation.Request.Body.Description}} */
                 {{- end}}
                 private  String bodyInput;
 
@@ -787,7 +788,7 @@
 
             {{else if eq $operation.Request.Body.Type "binary"}}
                 {{if $operation.Request.Body.Description -}}
-                    // {{$operation.Request.Body.Description}}
+                    /** {{$operation.Request.Body.Description}} */
                 {{- end}}
                 private  File bodyInputFile;
 
@@ -865,7 +866,7 @@
             {{range $_, $response := $operation.Responses}}
                 {{if eq $response.Body.Type "string"}}
                     {{if $response.Body.Description -}}
-                        // {{$response.Body.Description}}
+                        /** {{$response.Body.Description}} */
                     {{- end}}
                     private  String bodyInput;
 
@@ -887,7 +888,7 @@
                     }
                 {{else if eq $response.Body.Type "binary"}}
                     {{if $response.Body.Description -}}
-                        // {{$response.Body.Description}}
+                        /** {{$response.Body.Description}} */
                     {{- end}}
 
                     {{if eq $opID "GetObject"}}

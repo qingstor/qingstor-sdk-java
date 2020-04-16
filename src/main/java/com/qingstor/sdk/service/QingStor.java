@@ -162,8 +162,7 @@ public class QingStor {
      * field Offset Limit results to keys that start at this offset <br>
      */
     public static class ListBucketsInput extends RequestInputModel {
-        // Results count limit
-
+        /** Results count limit */
         private Integer limit;
 
         public void setLimit(Integer limit) {
@@ -173,8 +172,8 @@ public class QingStor {
         @ParamAnnotation(paramType = "query", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
-        } // Limit results to keys that start at this offset
-
+        }
+        /** Limit results to keys that start at this offset */
         private Integer offset;
 
         public void setOffset(Integer offset) {
@@ -186,8 +185,7 @@ public class QingStor {
             return this.offset;
         }
 
-        // Limits results to buckets that in the location
-
+        /** Limits results to buckets that in the location */
         private String location;
 
         public void setLocation(String location) {
@@ -216,8 +214,7 @@ public class QingStor {
      */
     public static class ListBucketsOutput extends OutputModel {
 
-        // Buckets information
-
+        /** Buckets information */
         private List<BucketModel> buckets;
 
         public void setBuckets(List<BucketModel> buckets) {
@@ -227,8 +224,8 @@ public class QingStor {
         @ParamAnnotation(paramType = "query", paramName = "buckets")
         public List<BucketModel> getBuckets() {
             return this.buckets;
-        } // Bucket count
-
+        }
+        /** Bucket count */
         private Integer count;
 
         public void setCount(Integer count) {

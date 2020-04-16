@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.3.2] - 2020-04-16
+
+### Added
+
+- Support bucket logging api
+
 ## [v2.3.1] - 2020-04-13
 
 ### Fixed
