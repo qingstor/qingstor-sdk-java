@@ -900,9 +900,7 @@ public class Bucket {
      */
     public static class DeleteMultipleObjectsInput extends RequestInputModel {
 
-        // Object MD5sum
-        // Required
-
+        /** Object MD5sum Required */
         private String contentMD5;
 
         public void setContentMD5(String contentMD5) {
@@ -914,19 +912,18 @@ public class Bucket {
             return this.contentMD5;
         }
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // A list of keys to delete
-        // Required
-
+        }
+        /** A list of keys to delete Required */
         private List<KeyModel> objects;
 
         public void setObjects(List<KeyModel> objects) {
@@ -936,8 +933,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "body", paramName = "objects")
         public List<KeyModel> getObjects() {
             return this.objects;
-        } // Whether to return the list of deleted objects
-
+        }
+        /** Whether to return the list of deleted objects */
         private Boolean quiet;
 
         public void setQuiet(Boolean quiet) {
@@ -975,8 +972,7 @@ public class Bucket {
      */
     public static class DeleteMultipleObjectsOutput extends OutputModel {
 
-        // List of deleted objects
-
+        /** List of deleted objects */
         private List<KeyModel> deleted;
 
         public void setDeleted(List<KeyModel> deleted) {
@@ -986,8 +982,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "deleted")
         public List<KeyModel> getDeleted() {
             return this.deleted;
-        } // Error messages
-
+        }
+        /** Error messages */
         private List<KeyDeleteErrorModel> errors;
 
         public void setErrors(List<KeyDeleteErrorModel> errors) {
@@ -1101,8 +1097,7 @@ public class Bucket {
      */
     public static class GetBucketACLOutput extends OutputModel {
 
-        // Bucket ACL rules
-
+        /** Bucket ACL rules */
         private List<ACLModel> aCL;
 
         public void setACL(List<ACLModel> aCL) {
@@ -1112,8 +1107,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "acl")
         public List<ACLModel> getACL() {
             return this.aCL;
-        } // Bucket owner
-
+        }
+        /** Bucket owner */
         private OwnerModel owner;
 
         public void setOwner(OwnerModel owner) {
@@ -1227,8 +1222,7 @@ public class Bucket {
      */
     public static class GetBucketCORSOutput extends OutputModel {
 
-        // Bucket CORS rules
-
+        /** Bucket CORS rules */
         private List<CORSRuleModel> cORSRules;
 
         public void setCORSRules(List<CORSRuleModel> cORSRules) {
@@ -1344,8 +1338,7 @@ public class Bucket {
      */
     public static class GetBucketExternalMirrorOutput extends OutputModel {
 
-        // Source site url
-
+        /** Source site url */
         private String sourceSite;
 
         public void setSourceSite(String sourceSite) {
@@ -1460,8 +1453,7 @@ public class Bucket {
      */
     public static class GetBucketLifecycleOutput extends OutputModel {
 
-        // Bucket Lifecycle rule
-
+        /** Bucket Lifecycle rule */
         private List<RuleModel> rule;
 
         public void setRule(List<RuleModel> rule) {
@@ -1576,8 +1568,7 @@ public class Bucket {
      */
     public static class GetBucketLoggingOutput extends OutputModel {
 
-        // The name of the bucket used to store logs. The user must be the owner of the bucket.
-
+        /** The name of the bucket used to store logs. The user must be the owner of the bucket. */
         private String targetBucket;
 
         public void setTargetBucket(String targetBucket) {
@@ -1587,8 +1578,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "target_bucket")
         public String getTargetBucket() {
             return this.targetBucket;
-        } // generated log files' common prefix
-
+        }
+        /** generated log files' common prefix */
         private String targetPrefix;
 
         public void setTargetPrefix(String targetPrefix) {
@@ -1703,8 +1694,7 @@ public class Bucket {
      */
     public static class GetBucketNotificationOutput extends OutputModel {
 
-        // Bucket Notification
-
+        /** Bucket Notification */
         private List<NotificationModel> notifications;
 
         public void setNotifications(List<NotificationModel> notifications) {
@@ -1819,8 +1809,7 @@ public class Bucket {
      */
     public static class GetBucketPolicyOutput extends OutputModel {
 
-        // Bucket policy statement
-
+        /** Bucket policy statement */
         private List<StatementModel> statement;
 
         public void setStatement(List<StatementModel> statement) {
@@ -1935,8 +1924,7 @@ public class Bucket {
      */
     public static class GetBucketStatisticsOutput extends OutputModel {
 
-        // Objects count in the bucket
-
+        /** Objects count in the bucket */
         private Long count;
 
         public void setCount(Long count) {
@@ -1946,8 +1934,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "count")
         public Long getCount() {
             return this.count;
-        } // Bucket created time
-
+        }
+        /** Bucket created time */
         private String created;
 
         public void setCreated(String created) {
@@ -1957,8 +1945,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "created")
         public String getCreated() {
             return this.created;
-        } // QingCloud Zone ID
-
+        }
+        /** QingCloud Zone ID */
         private String location;
 
         public void setLocation(String location) {
@@ -1968,8 +1956,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "location")
         public String getLocation() {
             return this.location;
-        } // Bucket name
-
+        }
+        /** Bucket name */
         private String name;
 
         public void setName(String name) {
@@ -1979,8 +1967,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "name")
         public String getName() {
             return this.name;
-        } // Bucket storage size
-
+        }
+        /** Bucket storage size */
         private Long size;
 
         public void setSize(Long size) {
@@ -1990,9 +1978,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "size")
         public Long getSize() {
             return this.size;
-        } // Bucket status
-        // Status's available values: active, suspended
-
+        }
+        /** Bucket status Status's available values: active, suspended */
         private String status;
 
         public void setStatus(String status) {
@@ -2002,8 +1989,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "status")
         public String getStatus() {
             return this.status;
-        } // URL to access the bucket
-
+        }
+        /** URL to access the bucket */
         private String uRL;
 
         public void setURL(String uRL) {
@@ -2247,8 +2234,7 @@ public class Bucket {
      * upload_id_marker sorted by the time of upload_id <br>
      */
     public static class ListMultipartUploadsInput extends RequestInputModel {
-        // Put all keys that share a common prefix into a list
-
+        /** Put all keys that share a common prefix into a list */
         private String delimiter;
 
         public void setDelimiter(String delimiter) {
@@ -2258,8 +2244,10 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
-        } // Limit results returned from the first key after key_marker sorted by alphabetical order
-
+        }
+        /**
+         * Limit results returned from the first key after key_marker sorted by alphabetical order
+         */
         private String keyMarker;
 
         public void setKeyMarker(String keyMarker) {
@@ -2269,8 +2257,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "key_marker")
         public String getKeyMarker() {
             return this.keyMarker;
-        } // Results count limit
-
+        }
+        /** Results count limit */
         private Integer limit;
 
         public void setLimit(Integer limit) {
@@ -2280,8 +2268,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
-        } // Limits results to keys that begin with the prefix
-
+        }
+        /** Limits results to keys that begin with the prefix */
         private String prefix;
 
         public void setPrefix(String prefix) {
@@ -2291,9 +2279,11 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "prefix")
         public String getPrefix() {
             return this.prefix;
-        } // Limit results returned from the first uploading segment after upload_id_marker sorted
-        // by the time of upload_id
-
+        }
+        /**
+         * Limit results returned from the first uploading segment after upload_id_marker sorted by
+         * the time of upload_id
+         */
         private String uploadIDMarker;
 
         public void setUploadIDMarker(String uploadIDMarker) {
@@ -2326,8 +2316,7 @@ public class Bucket {
      */
     public static class ListMultipartUploadsOutput extends OutputModel {
 
-        // Other object keys that share common prefixes
-
+        /** Other object keys that share common prefixes */
         private List<String> commonPrefixes;
 
         public void setCommonPrefixes(List<String> commonPrefixes) {
@@ -2337,8 +2326,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "common_prefixes")
         public List<String> getCommonPrefixes() {
             return this.commonPrefixes;
-        } // Delimiter that specified in request parameters
-
+        }
+        /** Delimiter that specified in request parameters */
         private String delimiter;
 
         public void setDelimiter(String delimiter) {
@@ -2348,8 +2337,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
-        } // Indicate if these are more results in the next page
-
+        }
+        /** Indicate if these are more results in the next page */
         private Boolean hasMore;
 
         public void setHasMore(Boolean hasMore) {
@@ -2359,8 +2348,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "has_more")
         public Boolean getHasMore() {
             return this.hasMore;
-        } // Limit that specified in request parameters
-
+        }
+        /** Limit that specified in request parameters */
         private Integer limit;
 
         public void setLimit(Integer limit) {
@@ -2370,8 +2359,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
-        } // Marker that specified in request parameters
-
+        }
+        /** Marker that specified in request parameters */
         private String marker;
 
         public void setMarker(String marker) {
@@ -2381,8 +2370,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "marker")
         public String getMarker() {
             return this.marker;
-        } // Bucket name
-
+        }
+        /** Bucket name */
         private String name;
 
         public void setName(String name) {
@@ -2392,8 +2381,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "name")
         public String getName() {
             return this.name;
-        } // The last key in uploads list
-
+        }
+        /** The last key in uploads list */
         private String nextKeyMarker;
 
         public void setNextKeyMarker(String nextKeyMarker) {
@@ -2403,8 +2392,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "next_key_marker")
         public String getNextKeyMarker() {
             return this.nextKeyMarker;
-        } // The last upload_id in uploads list
-
+        }
+        /** The last upload_id in uploads list */
         private String nextUploadIDMarker;
 
         public void setNextUploadIDMarker(String nextUploadIDMarker) {
@@ -2414,8 +2403,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "next_upload_id_marker")
         public String getNextUploadIDMarker() {
             return this.nextUploadIDMarker;
-        } // Prefix that specified in request parameters
-
+        }
+        /** Prefix that specified in request parameters */
         private String prefix;
 
         public void setPrefix(String prefix) {
@@ -2425,8 +2414,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "prefix")
         public String getPrefix() {
             return this.prefix;
-        } // Multipart uploads
-
+        }
+        /** Multipart uploads */
         private List<UploadsModel> uploads;
 
         public void setUploads(List<UploadsModel> uploads) {
@@ -2564,8 +2553,7 @@ public class Bucket {
      * field Prefix Limits results to keys that begin with the prefix <br>
      */
     public static class ListObjectsInput extends RequestInputModel {
-        // Put all keys that share a common prefix into a list
-
+        /** Put all keys that share a common prefix into a list */
         private String delimiter;
 
         public void setDelimiter(String delimiter) {
@@ -2575,8 +2563,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
-        } // Results count limit
-
+        }
+        /** Results count limit */
         private Integer limit;
 
         public void setLimit(Integer limit) {
@@ -2586,8 +2574,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
-        } // Limit results to keys that start at this marker
-
+        }
+        /** Limit results to keys that start at this marker */
         private String marker;
 
         public void setMarker(String marker) {
@@ -2597,8 +2585,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "marker")
         public String getMarker() {
             return this.marker;
-        } // Limits results to keys that begin with the prefix
-
+        }
+        /** Limits results to keys that begin with the prefix */
         private String prefix;
 
         public void setPrefix(String prefix) {
@@ -2628,8 +2616,7 @@ public class Bucket {
      */
     public static class ListObjectsOutput extends OutputModel {
 
-        // Other object keys that share common prefixes
-
+        /** Other object keys that share common prefixes */
         private List<String> commonPrefixes;
 
         public void setCommonPrefixes(List<String> commonPrefixes) {
@@ -2639,8 +2626,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "common_prefixes")
         public List<String> getCommonPrefixes() {
             return this.commonPrefixes;
-        } // Delimiter that specified in request parameters
-
+        }
+        /** Delimiter that specified in request parameters */
         private String delimiter;
 
         public void setDelimiter(String delimiter) {
@@ -2650,8 +2637,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
-        } // Indicate if these are more results in the next page
-
+        }
+        /** Indicate if these are more results in the next page */
         private Boolean hasMore;
 
         public void setHasMore(Boolean hasMore) {
@@ -2661,8 +2648,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "has_more")
         public Boolean getHasMore() {
             return this.hasMore;
-        } // Object keys
-
+        }
+        /** Object keys */
         private List<KeyModel> keys;
 
         public void setKeys(List<KeyModel> keys) {
@@ -2672,8 +2659,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "keys")
         public List<KeyModel> getKeys() {
             return this.keys;
-        } // Limit that specified in request parameters
-
+        }
+        /** Limit that specified in request parameters */
         private Integer limit;
 
         public void setLimit(Integer limit) {
@@ -2683,8 +2670,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
-        } // Marker that specified in request parameters
-
+        }
+        /** Marker that specified in request parameters */
         private String marker;
 
         public void setMarker(String marker) {
@@ -2694,8 +2681,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "marker")
         public String getMarker() {
             return this.marker;
-        } // Bucket name
-
+        }
+        /** Bucket name */
         private String name;
 
         public void setName(String name) {
@@ -2705,8 +2692,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "name")
         public String getName() {
             return this.name;
-        } // The last key in keys list
-
+        }
+        /** The last key in keys list */
         private String nextMarker;
 
         public void setNextMarker(String nextMarker) {
@@ -2716,8 +2703,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "next_marker")
         public String getNextMarker() {
             return this.nextMarker;
-        } // Bucket owner
-
+        }
+        /** Bucket owner */
         private OwnerModel owner;
 
         public void setOwner(OwnerModel owner) {
@@ -2727,8 +2714,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "owner")
         public OwnerModel getOwner() {
             return this.owner;
-        } // Prefix that specified in request parameters
-
+        }
+        /** Prefix that specified in request parameters */
         private String prefix;
 
         public void setPrefix(String prefix) {
@@ -2964,19 +2951,18 @@ public class Bucket {
      */
     public static class PutBucketACLInput extends RequestInputModel {
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // Bucket ACL rules
-        // Required
-
+        }
+        /** Bucket ACL rules Required */
         private List<ACLModel> aCL;
 
         public void setACL(List<ACLModel> aCL) {
@@ -3135,19 +3121,18 @@ public class Bucket {
      */
     public static class PutBucketCORSInput extends RequestInputModel {
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // Bucket CORS rules
-        // Required
-
+        }
+        /** Bucket CORS rules Required */
         private List<CORSRuleModel> cORSRules;
 
         public void setCORSRules(List<CORSRuleModel> cORSRules) {
@@ -3311,19 +3296,18 @@ public class Bucket {
      */
     public static class PutBucketExternalMirrorInput extends RequestInputModel {
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // Source site url
-        // Required
-
+        }
+        /** Source site url Required */
         private String sourceSite;
 
         public void setSourceSite(String sourceSite) {
@@ -3478,19 +3462,18 @@ public class Bucket {
      */
     public static class PutBucketLifecycleInput extends RequestInputModel {
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // Bucket Lifecycle rule
-        // Required
-
+        }
+        /** Bucket Lifecycle rule Required */
         private List<RuleModel> rule;
 
         public void setRule(List<RuleModel> rule) {
@@ -3651,19 +3634,21 @@ public class Bucket {
      */
     public static class PutBucketLoggingInput extends RequestInputModel {
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // The name of the bucket used to store logs. The user must be the owner of the bucket.
-        // Required
-
+        }
+        /**
+         * The name of the bucket used to store logs. The user must be the owner of the bucket.
+         * Required
+         */
         private String targetBucket;
 
         public void setTargetBucket(String targetBucket) {
@@ -3673,9 +3658,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "body", paramName = "target_bucket")
         public String getTargetBucket() {
             return this.targetBucket;
-        } // generated log files' common prefix
-        // Required
-
+        }
+        /** generated log files' common prefix Required */
         private String targetPrefix;
 
         public void setTargetPrefix(String targetPrefix) {
@@ -3838,19 +3822,18 @@ public class Bucket {
      */
     public static class PutBucketNotificationInput extends RequestInputModel {
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // Bucket Notification
-        // Required
-
+        }
+        /** Bucket Notification Required */
         private List<NotificationModel> notifications;
 
         public void setNotifications(List<NotificationModel> notifications) {
@@ -4009,19 +3992,18 @@ public class Bucket {
      */
     public static class PutBucketPolicyInput extends RequestInputModel {
 
-        // The request body
+        /** The request body */
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // Bucket policy statement
-        // Required
-
+        }
+        /** Bucket policy statement Required */
         private List<StatementModel> statement;
 
         public void setStatement(List<StatementModel> statement) {
@@ -4198,9 +4180,7 @@ public class Bucket {
      * field UploadID Object multipart upload ID <br>
      */
     public static class AbortMultipartUploadInput extends RequestInputModel {
-        // Object multipart upload ID
-        // Required
-
+        /** Object multipart upload ID Required */
         private String uploadID;
 
         public void setUploadID(String uploadID) {
@@ -4374,9 +4354,7 @@ public class Bucket {
      * field Position Object append position <br>
      */
     public static class AppendObjectInput extends RequestInputModel {
-        // Object append position
-        // Required
-
+        /** Object append position Required */
         private Long position;
 
         public void setPosition(Long position) {
@@ -4388,9 +4366,7 @@ public class Bucket {
             return this.position;
         }
 
-        // Object content size
-        // Required
-
+        /** Object content size Required */
         private Long contentLength;
 
         public void setContentLength(Long contentLength) {
@@ -4400,8 +4376,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
-        } // Object MD5sum
-
+        }
+        /** Object MD5sum */
         private String contentMD5;
 
         public void setContentMD5(String contentMD5) {
@@ -4411,8 +4387,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-md5")
         public String getContentMD5() {
             return this.contentMD5;
-        } // Object content type
-
+        }
+        /** Object content type */
         private String contentType;
 
         public void setContentType(String contentType) {
@@ -4422,9 +4398,11 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
-        } // Specify the storage class for object
-        // XQSStorageClass's available values: STANDARD, STANDARD_IA
-
+        }
+        /**
+         * Specify the storage class for object XQSStorageClass's available values: STANDARD,
+         * STANDARD_IA
+         */
         private String xQSStorageClass;
 
         public void setXQSStorageClass(String xQSStorageClass) {
@@ -4436,7 +4414,7 @@ public class Bucket {
             return this.xQSStorageClass;
         }
 
-        // The request body
+        /** The request body */
         private File bodyInputFile;
 
         /**
@@ -4519,8 +4497,7 @@ public class Bucket {
      */
     public static class AppendObjectOutput extends OutputModel {
 
-        // next position when append data to this object
-
+        /** next position when append data to this object */
         private Long xQSNextAppendPosition;
 
         public void setXQSNextAppendPosition(Long xQSNextAppendPosition) {
@@ -4679,9 +4656,7 @@ public class Bucket {
      * field ObjectParts Object parts <br>
      */
     public static class CompleteMultipartUploadInput extends RequestInputModel {
-        // Object multipart upload ID
-        // Required
-
+        /** Object multipart upload ID Required */
         private String uploadID;
 
         public void setUploadID(String uploadID) {
@@ -4728,8 +4703,7 @@ public class Bucket {
             return uploadJson.toString();
         }
 
-        // MD5sum of the object part
-
+        /** MD5sum of the object part */
         private String eTag;
 
         public void setETag(String eTag) {
@@ -4739,8 +4713,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -4750,8 +4724,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSEncryptionCustomerKey;
 
         public void setXQSEncryptionCustomerKey(String xQSEncryptionCustomerKey) {
@@ -4761,8 +4735,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSEncryptionCustomerKeyMD5;
 
         public void setXQSEncryptionCustomerKeyMD5(String xQSEncryptionCustomerKeyMD5) {
@@ -4780,12 +4754,11 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        // Object json string
+        /** Object json string */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
-        } // Object parts
-        // Required
-
+        }
+        /** Object parts Required */
         private List<ObjectPartModel> objectParts;
 
         public void setObjectParts(List<ObjectPartModel> objectParts) {
@@ -4830,8 +4803,7 @@ public class Bucket {
      */
     public static class CompleteMultipartUploadOutput extends OutputModel {
 
-        // Encryption algorithm of the object
-
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -5106,8 +5078,7 @@ public class Bucket {
      * field ResponseExpires Specified the Expires response header <br>
      */
     public static class GetObjectInput extends RequestInputModel {
-        // Specified the Cache-Control response header
-
+        /** Specified the Cache-Control response header */
         private String responseCacheControl;
 
         public void setResponseCacheControl(String responseCacheControl) {
@@ -5117,8 +5088,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-cache-control")
         public String getResponseCacheControl() {
             return this.responseCacheControl;
-        } // Specified the Content-Disposition response header
-
+        }
+        /** Specified the Content-Disposition response header */
         private String responseContentDisposition;
 
         public void setResponseContentDisposition(String responseContentDisposition) {
@@ -5128,8 +5099,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-disposition")
         public String getResponseContentDisposition() {
             return this.responseContentDisposition;
-        } // Specified the Content-Encoding response header
-
+        }
+        /** Specified the Content-Encoding response header */
         private String responseContentEncoding;
 
         public void setResponseContentEncoding(String responseContentEncoding) {
@@ -5139,8 +5110,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-encoding")
         public String getResponseContentEncoding() {
             return this.responseContentEncoding;
-        } // Specified the Content-Language response header
-
+        }
+        /** Specified the Content-Language response header */
         private String responseContentLanguage;
 
         public void setResponseContentLanguage(String responseContentLanguage) {
@@ -5150,8 +5121,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-language")
         public String getResponseContentLanguage() {
             return this.responseContentLanguage;
-        } // Specified the Content-Type response header
-
+        }
+        /** Specified the Content-Type response header */
         private String responseContentType;
 
         public void setResponseContentType(String responseContentType) {
@@ -5161,8 +5132,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-type")
         public String getResponseContentType() {
             return this.responseContentType;
-        } // Specified the Expires response header
-
+        }
+        /** Specified the Expires response header */
         private String responseExpires;
 
         public void setResponseExpires(String responseExpires) {
@@ -5174,8 +5145,7 @@ public class Bucket {
             return this.responseExpires;
         }
 
-        // Check whether the ETag matches
-
+        /** Check whether the ETag matches */
         private String ifMatch;
 
         public void setIfMatch(String ifMatch) {
@@ -5185,8 +5155,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-match")
         public String getIfMatch() {
             return this.ifMatch;
-        } // Check whether the object has been modified
-
+        }
+        /** Check whether the object has been modified */
         private String ifModifiedSince;
 
         public void setIfModifiedSince(String ifModifiedSince) {
@@ -5196,8 +5166,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-modified-since")
         public String getIfModifiedSince() {
             return this.ifModifiedSince;
-        } // Check whether the ETag does not match
-
+        }
+        /** Check whether the ETag does not match */
         private String ifNoneMatch;
 
         public void setIfNoneMatch(String ifNoneMatch) {
@@ -5207,8 +5177,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-none-match")
         public String getIfNoneMatch() {
             return this.ifNoneMatch;
-        } // Check whether the object has not been modified
-
+        }
+        /** Check whether the object has not been modified */
         private String ifUnmodifiedSince;
 
         public void setIfUnmodifiedSince(String ifUnmodifiedSince) {
@@ -5218,8 +5188,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-unmodified-since")
         public String getIfUnmodifiedSince() {
             return this.ifUnmodifiedSince;
-        } // Specified range of the object
-
+        }
+        /** Specified range of the object */
         private String range;
 
         public void setRange(String range) {
@@ -5229,8 +5199,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "range")
         public String getRange() {
             return this.range;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -5240,8 +5210,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSEncryptionCustomerKey;
 
         public void setXQSEncryptionCustomerKey(String xQSEncryptionCustomerKey) {
@@ -5251,8 +5221,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSEncryptionCustomerKeyMD5;
 
         public void setXQSEncryptionCustomerKeyMD5(String xQSEncryptionCustomerKeyMD5) {
@@ -5292,7 +5262,7 @@ public class Bucket {
      */
     public static class GetObjectOutput extends OutputModel {
 
-        // The response body
+        /** The response body */
 
         /**
          * deprecated, please use setCacheControl(String cacheControl)
@@ -5435,9 +5405,10 @@ public class Bucket {
             this.bodyInputStream = bodyInputStream;
         }
 
-        // The Cache-Control general-header field is used to specify directives for caching
-        // mechanisms in both requests and responses.
-
+        /**
+         * The Cache-Control general-header field is used to specify directives for caching
+         * mechanisms in both requests and responses.
+         */
         private String cacheControl;
 
         public void setCacheControl(String cacheControl) {
@@ -5447,10 +5418,12 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "cache-control")
         public String getCacheControl() {
             return this.cacheControl;
-        } // In a multipart/form-data body, the HTTP Content-Disposition general header is a header
-        // that can be used on the subpart of a multipart body to give information about the field
-        // it applies to.
-
+        }
+        /**
+         * In a multipart/form-data body, the HTTP Content-Disposition general header is a header
+         * that can be used on the subpart of a multipart body to give information about the field
+         * it applies to.
+         */
         private String contentDisposition;
 
         public void setContentDisposition(String contentDisposition) {
@@ -5460,8 +5433,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-disposition")
         public String getContentDisposition() {
             return this.contentDisposition;
-        } // The Content-Encoding entity header is used to compress the media-type.
-
+        }
+        /** The Content-Encoding entity header is used to compress the media-type. */
         private String contentEncoding;
 
         public void setContentEncoding(String contentEncoding) {
@@ -5471,9 +5444,11 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-encoding")
         public String getContentEncoding() {
             return this.contentEncoding;
-        } // The Content-Language entity header is used to describe the language(s) intended for the
-        // audience.
-
+        }
+        /**
+         * The Content-Language entity header is used to describe the language(s) intended for the
+         * audience.
+         */
         private String contentLanguage;
 
         public void setContentLanguage(String contentLanguage) {
@@ -5483,8 +5458,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-language")
         public String getContentLanguage() {
             return this.contentLanguage;
-        } // Object content length
-
+        }
+        /** Object content length */
         private Long contentLength;
 
         public void setContentLength(Long contentLength) {
@@ -5494,8 +5469,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
-        } // Range of response data content
-
+        }
+        /** Range of response data content */
         private String contentRange;
 
         public void setContentRange(String contentRange) {
@@ -5505,8 +5480,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-range")
         public String getContentRange() {
             return this.contentRange;
-        } // The Content-Type entity header is used to indicate the media type of the resource.
-
+        }
+        /** The Content-Type entity header is used to indicate the media type of the resource. */
         private String contentType;
 
         public void setContentType(String contentType) {
@@ -5516,8 +5491,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
-        } // MD5sum of the object
-
+        }
+        /** MD5sum of the object */
         private String eTag;
 
         public void setETag(String eTag) {
@@ -5527,8 +5502,10 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
-        } // The Expires header contains the date/time after which the response is considered stale.
-
+        }
+        /**
+         * The Expires header contains the date/time after which the response is considered stale.
+         */
         private String expires;
 
         public void setExpires(String expires) {
@@ -5539,7 +5516,7 @@ public class Bucket {
         public String getExpires() {
             return this.expires;
         }
-
+        /** */
         private String lastModified;
 
         public void setLastModified(String lastModified) {
@@ -5549,8 +5526,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "last-modified")
         public String getLastModified() {
             return this.lastModified;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -5560,8 +5537,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // User-defined metadata
-
+        }
+        /** User-defined metadata */
         private Map<String, String> xQSMetaData;
 
         public void setXQSMetaData(Map<String, String> xQSMetaData) {
@@ -5571,8 +5548,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
         public Map<String, String> getXQSMetaData() {
             return this.xQSMetaData;
-        } // Storage class of the object
-
+        }
+        /** Storage class of the object */
         private String xQSStorageClass;
 
         public void setXQSStorageClass(String xQSStorageClass) {
@@ -5728,8 +5705,7 @@ public class Bucket {
      */
     public static class HeadObjectInput extends RequestInputModel {
 
-        // Check whether the ETag matches
-
+        /** Check whether the ETag matches */
         private String ifMatch;
 
         public void setIfMatch(String ifMatch) {
@@ -5739,8 +5715,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-match")
         public String getIfMatch() {
             return this.ifMatch;
-        } // Check whether the object has been modified
-
+        }
+        /** Check whether the object has been modified */
         private String ifModifiedSince;
 
         public void setIfModifiedSince(String ifModifiedSince) {
@@ -5750,8 +5726,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-modified-since")
         public String getIfModifiedSince() {
             return this.ifModifiedSince;
-        } // Check whether the ETag does not match
-
+        }
+        /** Check whether the ETag does not match */
         private String ifNoneMatch;
 
         public void setIfNoneMatch(String ifNoneMatch) {
@@ -5761,8 +5737,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-none-match")
         public String getIfNoneMatch() {
             return this.ifNoneMatch;
-        } // Check whether the object has not been modified
-
+        }
+        /** Check whether the object has not been modified */
         private String ifUnmodifiedSince;
 
         public void setIfUnmodifiedSince(String ifUnmodifiedSince) {
@@ -5772,8 +5748,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "if-unmodified-since")
         public String getIfUnmodifiedSince() {
             return this.ifUnmodifiedSince;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -5783,8 +5759,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSEncryptionCustomerKey;
 
         public void setXQSEncryptionCustomerKey(String xQSEncryptionCustomerKey) {
@@ -5794,8 +5770,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSEncryptionCustomerKeyMD5;
 
         public void setXQSEncryptionCustomerKeyMD5(String xQSEncryptionCustomerKeyMD5) {
@@ -5828,8 +5804,7 @@ public class Bucket {
      */
     public static class HeadObjectOutput extends OutputModel {
 
-        // Object content length
-
+        /** Object content length */
         private Long contentLength;
 
         public void setContentLength(Long contentLength) {
@@ -5839,8 +5814,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
-        } // Object content type
-
+        }
+        /** Object content type */
         private String contentType;
 
         public void setContentType(String contentType) {
@@ -5850,8 +5825,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
-        } // MD5sum of the object
-
+        }
+        /** MD5sum of the object */
         private String eTag;
 
         public void setETag(String eTag) {
@@ -5862,7 +5837,7 @@ public class Bucket {
         public String getETag() {
             return this.eTag;
         }
-
+        /** */
         private String lastModified;
 
         public void setLastModified(String lastModified) {
@@ -5872,8 +5847,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "last-modified")
         public String getLastModified() {
             return this.lastModified;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -5883,8 +5858,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // User-defined metadata
-
+        }
+        /** User-defined metadata */
         private Map<String, String> xQSMetaData;
 
         public void setXQSMetaData(Map<String, String> xQSMetaData) {
@@ -5894,9 +5869,11 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
         public Map<String, String> getXQSMetaData() {
             return this.xQSMetaData;
-        } // Next position when append data to this object, only returns when object type is
-        // appendable
-
+        }
+        /**
+         * Next position when append data to this object, only returns when object type is
+         * appendable
+         */
         private Long xQSNextAppendPosition;
 
         public void setXQSNextAppendPosition(Long xQSNextAppendPosition) {
@@ -5906,8 +5883,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-next-append-position")
         public Long getXQSNextAppendPosition() {
             return this.xQSNextAppendPosition;
-        } // Object type of this object, only returns when object type is appendable
-
+        }
+        /** Object type of this object, only returns when object type is appendable */
         private String xQSObjectType;
 
         public void setXQSObjectType(String xQSObjectType) {
@@ -5917,8 +5894,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-object-type")
         public String getXQSObjectType() {
             return this.xQSObjectType;
-        } // Storage class of the object
-
+        }
+        /** Storage class of the object */
         private String xQSStorageClass;
 
         public void setXQSStorageClass(String xQSStorageClass) {
@@ -6078,9 +6055,7 @@ public class Bucket {
      * field ResponseExpires Specified the Expires response header <br>
      */
     public static class ImageProcessInput extends RequestInputModel {
-        // Image process action
-        // Required
-
+        /** Image process action Required */
         private String action;
 
         public void setAction(String action) {
@@ -6090,8 +6065,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "action")
         public String getAction() {
             return this.action;
-        } // Specified the Cache-Control response header
-
+        }
+        /** Specified the Cache-Control response header */
         private String responseCacheControl;
 
         public void setResponseCacheControl(String responseCacheControl) {
@@ -6101,8 +6076,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-cache-control")
         public String getResponseCacheControl() {
             return this.responseCacheControl;
-        } // Specified the Content-Disposition response header
-
+        }
+        /** Specified the Content-Disposition response header */
         private String responseContentDisposition;
 
         public void setResponseContentDisposition(String responseContentDisposition) {
@@ -6112,8 +6087,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-disposition")
         public String getResponseContentDisposition() {
             return this.responseContentDisposition;
-        } // Specified the Content-Encoding response header
-
+        }
+        /** Specified the Content-Encoding response header */
         private String responseContentEncoding;
 
         public void setResponseContentEncoding(String responseContentEncoding) {
@@ -6123,8 +6098,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-encoding")
         public String getResponseContentEncoding() {
             return this.responseContentEncoding;
-        } // Specified the Content-Language response header
-
+        }
+        /** Specified the Content-Language response header */
         private String responseContentLanguage;
 
         public void setResponseContentLanguage(String responseContentLanguage) {
@@ -6134,8 +6109,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-language")
         public String getResponseContentLanguage() {
             return this.responseContentLanguage;
-        } // Specified the Content-Type response header
-
+        }
+        /** Specified the Content-Type response header */
         private String responseContentType;
 
         public void setResponseContentType(String responseContentType) {
@@ -6145,8 +6120,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-content-type")
         public String getResponseContentType() {
             return this.responseContentType;
-        } // Specified the Expires response header
-
+        }
+        /** Specified the Expires response header */
         private String responseExpires;
 
         public void setResponseExpires(String responseExpires) {
@@ -6158,8 +6133,7 @@ public class Bucket {
             return this.responseExpires;
         }
 
-        // Check whether the object has been modified
-
+        /** Check whether the object has been modified */
         private String ifModifiedSince;
 
         public void setIfModifiedSince(String ifModifiedSince) {
@@ -6196,8 +6170,7 @@ public class Bucket {
      */
     public static class ImageProcessOutput extends OutputModel {
 
-        // The response body
-
+        /** The response body */
         private java.io.InputStream bodyInputStream;
 
         /**
@@ -6219,8 +6192,7 @@ public class Bucket {
             this.bodyInputStream = bodyInputStream;
         }
 
-        // Object content length
-
+        /** Object content length */
         private Long contentLength;
 
         public void setContentLength(Long contentLength) {
@@ -6380,8 +6352,7 @@ public class Bucket {
      */
     public static class InitiateMultipartUploadInput extends RequestInputModel {
 
-        // Object content type
-
+        /** Object content type */
         private String contentType;
 
         public void setContentType(String contentType) {
@@ -6391,8 +6362,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -6402,8 +6373,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSEncryptionCustomerKey;
 
         public void setXQSEncryptionCustomerKey(String xQSEncryptionCustomerKey) {
@@ -6413,8 +6384,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSEncryptionCustomerKeyMD5;
 
         public void setXQSEncryptionCustomerKeyMD5(String xQSEncryptionCustomerKeyMD5) {
@@ -6424,8 +6395,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
-        } // User-defined metadata
-
+        }
+        /** User-defined metadata */
         private Map<String, String> xQSMetaData;
 
         public void setXQSMetaData(Map<String, String> xQSMetaData) {
@@ -6435,9 +6406,11 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
         public Map<String, String> getXQSMetaData() {
             return this.xQSMetaData;
-        } // Specify the storage class for object
-        // XQSStorageClass's available values: STANDARD, STANDARD_IA
-
+        }
+        /**
+         * Specify the storage class for object XQSStorageClass's available values: STANDARD,
+         * STANDARD_IA
+         */
         private String xQSStorageClass;
 
         public void setXQSStorageClass(String xQSStorageClass) {
@@ -6498,8 +6471,7 @@ public class Bucket {
      */
     public static class InitiateMultipartUploadOutput extends OutputModel {
 
-        // Bucket name
-
+        /** Bucket name */
         private String bucket;
 
         public void setBucket(String bucket) {
@@ -6509,8 +6481,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "bucket")
         public String getBucket() {
             return this.bucket;
-        } // Object key
-
+        }
+        /** Object key */
         private String key;
 
         public void setKey(String key) {
@@ -6520,8 +6492,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "key")
         public String getKey() {
             return this.key;
-        } // Object multipart upload ID
-
+        }
+        /** Object multipart upload ID */
         private String uploadID;
 
         public void setUploadID(String uploadID) {
@@ -6533,8 +6505,7 @@ public class Bucket {
             return this.uploadID;
         }
 
-        // Encryption algorithm of the object
-
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -6689,8 +6660,7 @@ public class Bucket {
      * field UploadID Object multipart upload ID <br>
      */
     public static class ListMultipartInput extends RequestInputModel {
-        // Limit results count
-
+        /** Limit results count */
         private Integer limit;
 
         public void setLimit(Integer limit) {
@@ -6700,8 +6670,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
-        } // Object multipart upload part number
-
+        }
+        /** Object multipart upload part number */
         private Integer partNumberMarker;
 
         public void setPartNumberMarker(Integer partNumberMarker) {
@@ -6711,9 +6681,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "part_number_marker")
         public Integer getPartNumberMarker() {
             return this.partNumberMarker;
-        } // Object multipart upload ID
-        // Required
-
+        }
+        /** Object multipart upload ID Required */
         private String uploadID;
 
         public void setUploadID(String uploadID) {
@@ -6745,8 +6714,7 @@ public class Bucket {
      */
     public static class ListMultipartOutput extends OutputModel {
 
-        // Object multipart count
-
+        /** Object multipart count */
         private Integer count;
 
         public void setCount(Integer count) {
@@ -6756,8 +6724,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "count")
         public Integer getCount() {
             return this.count;
-        } // Object parts
-
+        }
+        /** Object parts */
         private List<ObjectPartModel> objectParts;
 
         public void setObjectParts(List<ObjectPartModel> objectParts) {
@@ -6913,8 +6881,7 @@ public class Bucket {
      */
     public static class OptionsObjectInput extends RequestInputModel {
 
-        // Request headers
-
+        /** Request headers */
         private String accessControlRequestHeaders;
 
         public void setAccessControlRequestHeaders(String accessControlRequestHeaders) {
@@ -6924,9 +6891,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "access-control-request-headers")
         public String getAccessControlRequestHeaders() {
             return this.accessControlRequestHeaders;
-        } // Request method
-        // Required
-
+        }
+        /** Request method Required */
         private String accessControlRequestMethod;
 
         public void setAccessControlRequestMethod(String accessControlRequestMethod) {
@@ -6936,9 +6902,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "access-control-request-method")
         public String getAccessControlRequestMethod() {
             return this.accessControlRequestMethod;
-        } // Request origin
-        // Required
-
+        }
+        /** Request origin Required */
         private String origin;
 
         public void setOrigin(String origin) {
@@ -6975,8 +6940,7 @@ public class Bucket {
      */
     public static class OptionsObjectOutput extends OutputModel {
 
-        // Allowed headers
-
+        /** Allowed headers */
         private String accessControlAllowHeaders;
 
         public void setAccessControlAllowHeaders(String accessControlAllowHeaders) {
@@ -6986,8 +6950,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "access-control-allow-headers")
         public String getAccessControlAllowHeaders() {
             return this.accessControlAllowHeaders;
-        } // Allowed methods
-
+        }
+        /** Allowed methods */
         private String accessControlAllowMethods;
 
         public void setAccessControlAllowMethods(String accessControlAllowMethods) {
@@ -6997,8 +6961,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "access-control-allow-methods")
         public String getAccessControlAllowMethods() {
             return this.accessControlAllowMethods;
-        } // Allowed origin
-
+        }
+        /** Allowed origin */
         private String accessControlAllowOrigin;
 
         public void setAccessControlAllowOrigin(String accessControlAllowOrigin) {
@@ -7008,8 +6972,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "access-control-allow-origin")
         public String getAccessControlAllowOrigin() {
             return this.accessControlAllowOrigin;
-        } // Expose headers
-
+        }
+        /** Expose headers */
         private String accessControlExposeHeaders;
 
         public void setAccessControlExposeHeaders(String accessControlExposeHeaders) {
@@ -7019,8 +6983,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "access-control-expose-headers")
         public String getAccessControlExposeHeaders() {
             return this.accessControlExposeHeaders;
-        } // Max age
-
+        }
+        /** Max age */
         private String accessControlMaxAge;
 
         public void setAccessControlMaxAge(String accessControlMaxAge) {
@@ -7191,8 +7155,7 @@ public class Bucket {
      */
     public static class PutObjectInput extends RequestInputModel {
 
-        // Object cache control
-
+        /** Object cache control */
         private String cacheControl;
 
         public void setCacheControl(String cacheControl) {
@@ -7202,8 +7165,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "cache-control")
         public String getCacheControl() {
             return this.cacheControl;
-        } // Object content encoding
-
+        }
+        /** Object content encoding */
         private String contentEncoding;
 
         public void setContentEncoding(String contentEncoding) {
@@ -7213,9 +7176,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-encoding")
         public String getContentEncoding() {
             return this.contentEncoding;
-        } // Object content size
-        // Required
-
+        }
+        /** Object content size Required */
         private Long contentLength;
 
         public void setContentLength(Long contentLength) {
@@ -7225,8 +7187,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
-        } // Object MD5sum
-
+        }
+        /** Object MD5sum */
         private String contentMD5;
 
         public void setContentMD5(String contentMD5) {
@@ -7236,8 +7198,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-md5")
         public String getContentMD5() {
             return this.contentMD5;
-        } // Object content type
-
+        }
+        /** Object content type */
         private String contentType;
 
         public void setContentType(String contentType) {
@@ -7247,8 +7209,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-type")
         public String getContentType() {
             return this.contentType;
-        } // Used to indicate that particular server behaviors are required by the client
-
+        }
+        /** Used to indicate that particular server behaviors are required by the client */
         private String expect;
 
         public void setExpect(String expect) {
@@ -7258,8 +7220,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "expect")
         public String getExpect() {
             return this.expect;
-        } // Copy source, format (/<bucket-name>/<object-key>)
-
+        }
+        /** Copy source, format (/<bucket-name>/<object-key>) */
         private String xQSCopySource;
 
         public void setXQSCopySource(String xQSCopySource) {
@@ -7269,8 +7231,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source")
         public String getXQSCopySource() {
             return this.xQSCopySource;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSCopySourceEncryptionCustomerAlgorithm;
 
         public void setXQSCopySourceEncryptionCustomerAlgorithm(
@@ -7284,8 +7246,8 @@ public class Bucket {
                 paramName = "x-qs-copy-source-encryption-customer-algorithm")
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSCopySourceEncryptionCustomerKey;
 
         public void setXQSCopySourceEncryptionCustomerKey(
@@ -7298,8 +7260,8 @@ public class Bucket {
                 paramName = "x-qs-copy-source-encryption-customer-key")
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSCopySourceEncryptionCustomerKeyMD5;
 
         public void setXQSCopySourceEncryptionCustomerKeyMD5(
@@ -7312,8 +7274,8 @@ public class Bucket {
                 paramName = "x-qs-copy-source-encryption-customer-key-md5")
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
-        } // Check whether the copy source matches
-
+        }
+        /** Check whether the copy source matches */
         private String xQSCopySourceIfMatch;
 
         public void setXQSCopySourceIfMatch(String xQSCopySourceIfMatch) {
@@ -7323,8 +7285,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-match")
         public String getXQSCopySourceIfMatch() {
             return this.xQSCopySourceIfMatch;
-        } // Check whether the copy source has been modified
-
+        }
+        /** Check whether the copy source has been modified */
         private String xQSCopySourceIfModifiedSince;
 
         public void setXQSCopySourceIfModifiedSince(String xQSCopySourceIfModifiedSince) {
@@ -7334,8 +7296,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-modified-since")
         public String getXQSCopySourceIfModifiedSince() {
             return this.xQSCopySourceIfModifiedSince;
-        } // Check whether the copy source does not match
-
+        }
+        /** Check whether the copy source does not match */
         private String xQSCopySourceIfNoneMatch;
 
         public void setXQSCopySourceIfNoneMatch(String xQSCopySourceIfNoneMatch) {
@@ -7345,8 +7307,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-none-match")
         public String getXQSCopySourceIfNoneMatch() {
             return this.xQSCopySourceIfNoneMatch;
-        } // Check whether the copy source has not been modified
-
+        }
+        /** Check whether the copy source has not been modified */
         private String xQSCopySourceIfUnmodifiedSince;
 
         public void setXQSCopySourceIfUnmodifiedSince(String xQSCopySourceIfUnmodifiedSince) {
@@ -7356,8 +7318,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-unmodified-since")
         public String getXQSCopySourceIfUnmodifiedSince() {
             return this.xQSCopySourceIfUnmodifiedSince;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -7367,8 +7329,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSEncryptionCustomerKey;
 
         public void setXQSEncryptionCustomerKey(String xQSEncryptionCustomerKey) {
@@ -7378,8 +7340,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSEncryptionCustomerKeyMD5;
 
         public void setXQSEncryptionCustomerKeyMD5(String xQSEncryptionCustomerKeyMD5) {
@@ -7389,8 +7351,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key-md5")
         public String getXQSEncryptionCustomerKeyMD5() {
             return this.xQSEncryptionCustomerKeyMD5;
-        } // Check whether fetch target object has not been modified
-
+        }
+        /** Check whether fetch target object has not been modified */
         private String xQSFetchIfUnmodifiedSince;
 
         public void setXQSFetchIfUnmodifiedSince(String xQSFetchIfUnmodifiedSince) {
@@ -7400,8 +7362,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-fetch-if-unmodified-since")
         public String getXQSFetchIfUnmodifiedSince() {
             return this.xQSFetchIfUnmodifiedSince;
-        } // Fetch source, should be a valid url
-
+        }
+        /** Fetch source, should be a valid url */
         private String xQSFetchSource;
 
         public void setXQSFetchSource(String xQSFetchSource) {
@@ -7411,8 +7373,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-fetch-source")
         public String getXQSFetchSource() {
             return this.xQSFetchSource;
-        } // User-defined metadata
-
+        }
+        /** User-defined metadata */
         private Map<String, String> xQSMetaData;
 
         public void setXQSMetaData(Map<String, String> xQSMetaData) {
@@ -7422,8 +7384,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata")
         public Map<String, String> getXQSMetaData() {
             return this.xQSMetaData;
-        } // Move source, format (/<bucket-name>/<object-key>)
-
+        }
+        /** Move source, format (/<bucket-name>/<object-key>) */
         private String xQSMoveSource;
 
         public void setXQSMoveSource(String xQSMoveSource) {
@@ -7433,9 +7395,11 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-move-source")
         public String getXQSMoveSource() {
             return this.xQSMoveSource;
-        } // Specify the storage class for object
-        // XQSStorageClass's available values: STANDARD, STANDARD_IA
-
+        }
+        /**
+         * Specify the storage class for object XQSStorageClass's available values: STANDARD,
+         * STANDARD_IA
+         */
         private String xQSStorageClass;
 
         public void setXQSStorageClass(String xQSStorageClass) {
@@ -7447,7 +7411,7 @@ public class Bucket {
             return this.xQSStorageClass;
         }
 
-        // The request body
+        /** The request body */
         private File bodyInputFile;
 
         /**
@@ -7556,8 +7520,7 @@ public class Bucket {
      */
     public static class PutObjectOutput extends OutputModel {
 
-        // MD5sum of the object
-
+        /** MD5sum of the object */
         private String eTag;
 
         public void setETag(String eTag) {
@@ -7567,8 +7530,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -7741,9 +7704,7 @@ public class Bucket {
      * field UploadID Object multipart upload ID <br>
      */
     public static class UploadMultipartInput extends RequestInputModel {
-        // Object multipart upload part number
-        // Required
-
+        /** Object multipart upload part number Required */
         private Integer partNumber;
 
         public void setPartNumber(Integer partNumber) {
@@ -7753,9 +7714,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "part_number")
         public Integer getPartNumber() {
             return this.partNumber;
-        } // Object multipart upload ID
-        // Required
-
+        }
+        /** Object multipart upload ID Required */
         private String uploadID;
 
         public void setUploadID(String uploadID) {
@@ -7809,8 +7769,7 @@ public class Bucket {
             return bodyInputFile;
         }
 
-        // Object multipart content length
-
+        /** Object multipart content length */
         private Long contentLength;
 
         public void setContentLength(Long contentLength) {
@@ -7820,8 +7779,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-length")
         public Long getContentLength() {
             return this.contentLength;
-        } // Object multipart content MD5sum
-
+        }
+        /** Object multipart content MD5sum */
         private String contentMD5;
 
         public void setContentMD5(String contentMD5) {
@@ -7831,8 +7790,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "content-md5")
         public String getContentMD5() {
             return this.contentMD5;
-        } // Specify range of the source object
-
+        }
+        /** Specify range of the source object */
         private String xQSCopyRange;
 
         public void setXQSCopyRange(String xQSCopyRange) {
@@ -7842,8 +7801,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-range")
         public String getXQSCopyRange() {
             return this.xQSCopyRange;
-        } // Copy source, format (/<bucket-name>/<object-key>)
-
+        }
+        /** Copy source, format (/<bucket-name>/<object-key>) */
         private String xQSCopySource;
 
         public void setXQSCopySource(String xQSCopySource) {
@@ -7853,8 +7812,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source")
         public String getXQSCopySource() {
             return this.xQSCopySource;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSCopySourceEncryptionCustomerAlgorithm;
 
         public void setXQSCopySourceEncryptionCustomerAlgorithm(
@@ -7868,8 +7827,8 @@ public class Bucket {
                 paramName = "x-qs-copy-source-encryption-customer-algorithm")
         public String getXQSCopySourceEncryptionCustomerAlgorithm() {
             return this.xQSCopySourceEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSCopySourceEncryptionCustomerKey;
 
         public void setXQSCopySourceEncryptionCustomerKey(
@@ -7882,8 +7841,8 @@ public class Bucket {
                 paramName = "x-qs-copy-source-encryption-customer-key")
         public String getXQSCopySourceEncryptionCustomerKey() {
             return this.xQSCopySourceEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSCopySourceEncryptionCustomerKeyMD5;
 
         public void setXQSCopySourceEncryptionCustomerKeyMD5(
@@ -7896,8 +7855,8 @@ public class Bucket {
                 paramName = "x-qs-copy-source-encryption-customer-key-md5")
         public String getXQSCopySourceEncryptionCustomerKeyMD5() {
             return this.xQSCopySourceEncryptionCustomerKeyMD5;
-        } // Check whether the Etag of copy source matches the specified value
-
+        }
+        /** Check whether the Etag of copy source matches the specified value */
         private String xQSCopySourceIfMatch;
 
         public void setXQSCopySourceIfMatch(String xQSCopySourceIfMatch) {
@@ -7907,8 +7866,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-match")
         public String getXQSCopySourceIfMatch() {
             return this.xQSCopySourceIfMatch;
-        } // Check whether the copy source has been modified since the specified date
-
+        }
+        /** Check whether the copy source has been modified since the specified date */
         private String xQSCopySourceIfModifiedSince;
 
         public void setXQSCopySourceIfModifiedSince(String xQSCopySourceIfModifiedSince) {
@@ -7918,8 +7877,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-modified-since")
         public String getXQSCopySourceIfModifiedSince() {
             return this.xQSCopySourceIfModifiedSince;
-        } // Check whether the Etag of copy source does not matches the specified value
-
+        }
+        /** Check whether the Etag of copy source does not matches the specified value */
         private String xQSCopySourceIfNoneMatch;
 
         public void setXQSCopySourceIfNoneMatch(String xQSCopySourceIfNoneMatch) {
@@ -7929,8 +7888,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-none-match")
         public String getXQSCopySourceIfNoneMatch() {
             return this.xQSCopySourceIfNoneMatch;
-        } // Check whether the copy source has not been unmodified since the specified date
-
+        }
+        /** Check whether the copy source has not been unmodified since the specified date */
         private String xQSCopySourceIfUnmodifiedSince;
 
         public void setXQSCopySourceIfUnmodifiedSince(String xQSCopySourceIfUnmodifiedSince) {
@@ -7940,8 +7899,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-copy-source-if-unmodified-since")
         public String getXQSCopySourceIfUnmodifiedSince() {
             return this.xQSCopySourceIfUnmodifiedSince;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
@@ -7951,8 +7910,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
-        } // Encryption key of the object
-
+        }
+        /** Encryption key of the object */
         private String xQSEncryptionCustomerKey;
 
         public void setXQSEncryptionCustomerKey(String xQSEncryptionCustomerKey) {
@@ -7962,8 +7921,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-key")
         public String getXQSEncryptionCustomerKey() {
             return this.xQSEncryptionCustomerKey;
-        } // MD5sum of encryption key
-
+        }
+        /** MD5sum of encryption key */
         private String xQSEncryptionCustomerKeyMD5;
 
         public void setXQSEncryptionCustomerKeyMD5(String xQSEncryptionCustomerKeyMD5) {
@@ -7975,7 +7934,7 @@ public class Bucket {
             return this.xQSEncryptionCustomerKeyMD5;
         }
 
-        // The request body
+        /** The request body */
         private File bodyInputFile;
 
         /**
@@ -8062,8 +8021,7 @@ public class Bucket {
      */
     public static class UploadMultipartOutput extends OutputModel {
 
-        // MD5sum of the object
-
+        /** MD5sum of the object */
         private String eTag;
 
         public void setETag(String eTag) {
@@ -8073,8 +8031,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
-        } // Range of response data content
-
+        }
+        /** Range of response data content */
         private String xQSContentCopyRange;
 
         public void setXQSContentCopyRange(String xQSContentCopyRange) {
@@ -8084,8 +8042,8 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-content-copy-range")
         public String getXQSContentCopyRange() {
             return this.xQSContentCopyRange;
-        } // Encryption algorithm of the object
-
+        }
+        /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
         public void setXQSEncryptionCustomerAlgorithm(String xQSEncryptionCustomerAlgorithm) {
