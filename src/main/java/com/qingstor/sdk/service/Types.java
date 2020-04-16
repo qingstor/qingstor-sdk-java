@@ -695,6 +695,46 @@ public class Types {
         }
     }
 
+    public static class LoggingModel extends RequestInputModel {
+
+        // The name of the bucket used to store logs. The user must be the owner of the bucket.
+        // Required
+
+        private String targetBucket;
+
+        public void setTargetBucket(String targetBucket) {
+            this.targetBucket = targetBucket;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "target_bucket")
+        public String getTargetBucket() {
+            return this.targetBucket;
+        } // generated log files' common prefix
+        // Required
+
+        private String targetPrefix;
+
+        public void setTargetPrefix(String targetPrefix) {
+            this.targetPrefix = targetPrefix;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "target_prefix")
+        public String getTargetPrefix() {
+            return this.targetPrefix;
+        }
+
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getTargetBucket())) {
+                return QSStringUtil.getParameterRequired("TargetBucket", "Logging");
+            }
+            if (QSStringUtil.isEmpty(this.getTargetPrefix())) {
+                return QSStringUtil.getParameterRequired("TargetPrefix", "Logging");
+            }
+            return null;
+        }
+    }
+
     public static class NotIPAddressModel extends RequestInputModel {
 
         // Source IP

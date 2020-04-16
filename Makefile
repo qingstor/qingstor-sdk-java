@@ -26,7 +26,7 @@ generate:
 	@echo "ok"
 
 update:
-	git submodule update --init
+	git submodule update --init --recursive
 	@echo "ok"
 
 unit:

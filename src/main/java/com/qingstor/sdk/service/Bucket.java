@@ -467,6 +467,108 @@ public class Bucket {
 
     /**
      * @throws QSException exception
+     * @return DeleteBucketLoggingOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public DeleteBucketLoggingOutput deleteLogging() throws QSException {
+
+        RequestHandler requestHandler = this.deleteLoggingRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (DeleteBucketLoggingOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteLoggingRequest() throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "DeleteBucketLogging");
+        context.put("APIName", "DeleteBucketLogging");
+        context.put("ServiceName", "DELETE Bucket Logging");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?logging");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, null, DeleteBucketLoggingOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void deleteLoggingAsync(ResponseCallBack<DeleteBucketLoggingOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.deleteLoggingAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteLoggingAsyncRequest(
+            ResponseCallBack<DeleteBucketLoggingOutput> callback) throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "DeleteBucketLogging");
+        context.put("APIName", "DeleteBucketLogging");
+        context.put("ServiceName", "DELETE Bucket Logging");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?logging");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * DeleteBucketLoggingOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class DeleteBucketLoggingOutput extends OutputModel {}
+
+    /**
+     * @throws QSException exception
      * @return DeleteBucketNotificationOutput output stream Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">
      *     https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html </a>
@@ -1369,6 +1471,133 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "rule")
         public List<RuleModel> getRule() {
             return this.rule;
+        }
+    }
+
+    /**
+     * @throws QSException exception
+     * @return GetBucketLoggingOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public GetBucketLoggingOutput getLogging() throws QSException {
+
+        RequestHandler requestHandler = this.getLoggingRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (GetBucketLoggingOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getLoggingRequest() throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "GetBucketLogging");
+        context.put("APIName", "GetBucketLogging");
+        context.put("ServiceName", "GET Bucket Logging");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?logging");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, null, GetBucketLoggingOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getLoggingAsync(ResponseCallBack<GetBucketLoggingOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.getLoggingAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getLoggingAsyncRequest(ResponseCallBack<GetBucketLoggingOutput> callback)
+            throws QSException {
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "GetBucketLogging");
+        context.put("APIName", "GetBucketLogging");
+        context.put("ServiceName", "GET Bucket Logging");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?logging");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * GetBucketLoggingOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class GetBucketLoggingOutput extends OutputModel {
+
+        // The name of the bucket used to store logs. The user must be the owner of the bucket.
+
+        private String targetBucket;
+
+        public void setTargetBucket(String targetBucket) {
+            this.targetBucket = targetBucket;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "target_bucket")
+        public String getTargetBucket() {
+            return this.targetBucket;
+        } // generated log files' common prefix
+
+        private String targetPrefix;
+
+        public void setTargetPrefix(String targetPrefix) {
+            this.targetPrefix = targetPrefix;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "target_prefix")
+        public String getTargetPrefix() {
+            return this.targetPrefix;
         }
     }
 
@@ -3296,6 +3525,191 @@ public class Bucket {
      * field Rule Bucket Lifecycle rule <br>
      */
     public static class PutBucketLifecycleOutput extends OutputModel {}
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketLoggingOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public PutBucketLoggingOutput putLogging(PutBucketLoggingInput input) throws QSException {
+
+        if (input == null) {
+            input = new PutBucketLoggingInput();
+        }
+
+        RequestHandler requestHandler = this.putLoggingRequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (PutBucketLoggingOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putLoggingRequest(PutBucketLoggingInput input) throws QSException {
+
+        if (input == null) {
+            input = new PutBucketLoggingInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "PutBucketLogging");
+        context.put("APIName", "PutBucketLogging");
+        context.put("ServiceName", "PUT Bucket Logging");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?logging");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, PutBucketLoggingOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void putLoggingAsync(
+            PutBucketLoggingInput input, ResponseCallBack<PutBucketLoggingOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new PutBucketLoggingInput();
+        }
+
+        RequestHandler requestHandler = this.putLoggingAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putLoggingAsyncRequest(
+            PutBucketLoggingInput input, ResponseCallBack<PutBucketLoggingOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketLoggingInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "PutBucketLogging");
+        context.put("APIName", "PutBucketLogging");
+        context.put("ServiceName", "PUT Bucket Logging");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?logging");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+    /**
+     * PutBucketLoggingInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field TargetBucket The name of the bucket used to store logs. The user must be the owner of
+     * the bucket. <br>
+     * field TargetPrefix generated log files' common prefix <br>
+     */
+    public static class PutBucketLoggingInput extends RequestInputModel {
+
+        // The request body
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        // Object json string
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        } // The name of the bucket used to store logs. The user must be the owner of the bucket.
+        // Required
+
+        private String targetBucket;
+
+        public void setTargetBucket(String targetBucket) {
+            this.targetBucket = targetBucket;
+        }
+
+        @ParamAnnotation(paramType = "body", paramName = "target_bucket")
+        public String getTargetBucket() {
+            return this.targetBucket;
+        } // generated log files' common prefix
+        // Required
+
+        private String targetPrefix;
+
+        public void setTargetPrefix(String targetPrefix) {
+            this.targetPrefix = targetPrefix;
+        }
+
+        @ParamAnnotation(paramType = "body", paramName = "target_prefix")
+        public String getTargetPrefix() {
+            return this.targetPrefix;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (QSStringUtil.isEmpty(this.getTargetBucket())) {
+                return QSStringUtil.getParameterRequired("TargetBucket", "PutBucketLoggingInput");
+            }
+            if (QSStringUtil.isEmpty(this.getTargetPrefix())) {
+                return QSStringUtil.getParameterRequired("TargetPrefix", "PutBucketLoggingInput");
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * PutBucketLoggingOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field TargetBucket The name of the bucket used to store logs. The user must be the owner of
+     * the bucket. <br>
+     * field TargetPrefix generated log files' common prefix <br>
+     */
+    public static class PutBucketLoggingOutput extends OutputModel {}
 
     /**
      * @param input input
