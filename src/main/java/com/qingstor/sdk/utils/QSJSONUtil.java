@@ -15,10 +15,10 @@
  */
 package com.qingstor.sdk.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.constants.QSConstant;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -396,7 +396,7 @@ public class QSJSONUtil {
 
     private static boolean initParameter(
             JSONObject o, Field[] fields, Class targetClass, Object targetObj)
-            throws NoSuchMethodException {
+            throws NoSuchMethodException, IOException {
         boolean hasParam = false;
         NextField:
         for (Field field : fields) {
@@ -418,15 +418,12 @@ public class QSJSONUtil {
                         Map<String, String> metadatas = new HashMap<>();
 
                         Map<String, Object> map = null;
-                        try {
-                            map = om.readValue(o.toString(), HashMap.class);
-                            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                                String k = entry.getKey().toLowerCase();
-                                if (k.startsWith("x-qs-meta-")) {
-                                    metadatas.put(k, entry.getValue().toString());
-                                }
+                        map = om.readValue(o.toString(), HashMap.class);
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            String k = entry.getKey().toLowerCase();
+                            if (k.startsWith("x-qs-meta-")) {
+                                metadatas.put(k, entry.getValue().toString());
                             }
-                        } catch (JsonProcessingException ignored) {
                         }
 
                         if (metadatas.size() > 0) {

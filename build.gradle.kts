@@ -4,7 +4,7 @@ plugins {
     signing
     id("com.diffplug.gradle.spotless") version "3.27.2"
     id("com.github.johnrengelman.shadow") version "5.2.0"
-    id("io.freefair.lombok") version "5.0.0-rc6"
+    id("io.freefair.lombok") version "5.0.0"
 }
 
 group = "com.yunify"
@@ -114,12 +114,12 @@ val cucumberRuntime: Configuration by configurations.creating {
 // In this section you declare the dependencies for your production and test code
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.12")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.3")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.3")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.10")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.10.4")
 
     implementation("org.json:json:20190722")
     implementation("com.squareup.okhttp3:okhttp:3.12.10")
-    // it"s library"s consumer"s responsibility to choose a log implementation(and set log_level.)
+    // it's library's consumer's responsibility to choose a log implementation(and set log_level.)
     implementation("org.slf4j:slf4j-api:1.7.30")
     testImplementation("io.cucumber:cucumber-java:5.5.0")
     testImplementation("io.cucumber:cucumber-junit:5.5.0")
