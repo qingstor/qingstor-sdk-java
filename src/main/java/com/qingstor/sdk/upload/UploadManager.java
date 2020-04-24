@@ -28,6 +28,7 @@ import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -159,7 +160,7 @@ public class UploadManager {
             String json = new String(bytes);
             try {
                 this.uploadModel = om.readValue(json, UploadModel.class);
-            } catch (JsonProcessingException e) {
+            } catch (IOException e) {
                 throw new QSException(e.getMessage(), e);
             }
             // Check status of the task.
