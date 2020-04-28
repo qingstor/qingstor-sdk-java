@@ -21,6 +21,7 @@ import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.request.ResponseCallBack;
 import java.lang.reflect.*;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 public class QSParamInvokeUtil {
@@ -42,7 +43,7 @@ public class QSParamInvokeUtil {
             if (!retParametersMap.containsKey(QSConstant.HEADER_PARAM_KEY_DATE)) {
                 retParametersMap.put(
                         QSConstant.HEADER_PARAM_KEY_DATE,
-                        QSSignatureUtil.formatGmtDate(new Date()));
+                        QSSignatureUtil.formatDateTime(ZonedDateTime.now()));
             }
             /*if(!retParametersMap.containsKey(SDKConstant.HEADER_PARAM_KEY_CONTENTTYPE)){
                 retParametersMap.put(SDKConstant.HEADER_PARAM_KEY_CONTENTTYPE, SDKConstant.CONTENT_TYPE_TEXT);
