@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.3.3] - 2020-05-07
+
+### Added
+
+- Support bucket CNAME api
+
 ## [v2.3.2] - 2020-04-16
 
 ### Added

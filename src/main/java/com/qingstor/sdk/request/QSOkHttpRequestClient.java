@@ -23,13 +23,10 @@ import com.qingstor.sdk.utils.QSJSONUtil;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.IOException;
-import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -105,8 +102,7 @@ public class QSOkHttpRequestClient {
                             .readTimeout(readTimeout, TimeUnit.SECONDS)
                             .writeTimeout(writeTimeout, TimeUnit.SECONDS);
             builder.sslSocketFactory(sslSocketFactory);
-            builder.hostnameVerifier(
-                    (hostname, session) -> true);
+            builder.hostnameVerifier((hostname, session) -> true);
 
             return builder.build();
         } catch (Exception e) {

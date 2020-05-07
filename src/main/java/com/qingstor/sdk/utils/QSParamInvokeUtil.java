@@ -140,9 +140,7 @@ public class QSParamInvokeUtil {
                     Object v2 = ((List) value).get(i);
                     if (v2 instanceof Map) {
                         for (Object key2 : ((Map) v2).keySet()) {
-                            result.put(
-                                    key + "." + (i + 1) + "." + key2,
-                                    ((Map) v2).get(key2));
+                            result.put(key + "." + (i + 1) + "." + key2, ((Map) v2).get(key2));
                         }
                     } else {
                         result.put(key + "." + (i + 1), v2);
