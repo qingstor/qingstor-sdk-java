@@ -54,7 +54,7 @@ public class QSParamInvokeUtil {
     @SuppressWarnings("PARAMETER")
     private static void initParameterMap(
             Class objClass, Object source, Map retParametersMap, String paramType)
-            throws InvocationTargetException, IllegalAccessException, QSException {
+            throws QSException {
         Field[] declaredField = objClass.getDeclaredFields();
         for (Field field : declaredField) {
             String methodName = "get" + QSStringUtil.capitalize(field.getName());
@@ -130,10 +130,9 @@ public class QSParamInvokeUtil {
     }
 
     public static Map serializeParams(Map parameters) {
-        HashMap result = new HashMap();
-        Iterator iterator = parameters.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
+        Map result = new HashMap();
+        for (Object o : parameters.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             String key = (String) entry.getKey();
             Object value = (Object) entry.getValue();
             if (value instanceof List) {
@@ -141,12 +140,10 @@ public class QSParamInvokeUtil {
                     Object v2 = ((List) value).get(i);
                     if (v2 instanceof Map) {
                         for (Object key2 : ((Map) v2).keySet()) {
-                            result.put(
-                                    key + "." + String.valueOf(i + 1) + "." + key2,
-                                    ((Map) v2).get(key2));
+                            result.put(key + "." + (i + 1) + "." + key2, ((Map) v2).get(key2));
                         }
                     } else {
-                        result.put(key + "." + String.valueOf(i + 1), v2);
+                        result.put(key + "." + (i + 1), v2);
                     }
                 }
             } else if (value instanceof Integer
@@ -207,6 +204,7 @@ public class QSParamInvokeUtil {
                     errK = k;
                     errV = v;
                     valid = false;
+                    break;
                 }
             }
             // is Ascii Printable
@@ -215,6 +213,7 @@ public class QSParamInvokeUtil {
                     errK = k;
                     errV = v;
                     valid = false;
+                    break;
                 }
             }
             if (kLen > 512 || vLen > 2048) {

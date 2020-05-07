@@ -222,6 +222,171 @@ public class Types {
         }
     }
 
+    public static class CnameModel extends RequestInputModel {
+
+        /**
+         * The domain name to be bound to the bucket. The domain name must have been registered and
+         * not bound to another bucket. Required
+         */
+        private String domain;
+
+        public void setDomain(String domain) {
+            this.domain = domain;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "domain")
+        public String getDomain() {
+            return this.domain;
+        }
+        /**
+         * The purpose of the domain name to be bound. Currently supports two types, normal and
+         * website. Type's available values: normal, website
+         */
+        private String type;
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "type")
+        public String getType() {
+            return this.type;
+        }
+
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getDomain())) {
+                return QSStringUtil.getParameterRequired("Domain", "Cname");
+            }
+            String[] typeValidValues = {"normal", "website"};
+
+            boolean typeIsValid = false;
+            String value = this.getType();
+            if (null == value || "".equals(value)) {
+                typeIsValid = true;
+            } else {
+                for (String v : typeValidValues) {
+                    if (v.equals(value)) {
+                        typeIsValid = true;
+                    }
+                }
+            }
+
+            if (!typeIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Type", this.getType() + "", typeValidValues);
+            }
+            return null;
+        }
+    }
+
+    public static class CnameRecordModel extends RequestInputModel {
+
+        /** the created time of this CNAME record. */
+        private String created;
+
+        public void setCreated(String created) {
+            this.created = created;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "created")
+        public String getCreated() {
+            return this.created;
+        }
+        /**
+         * The domain name to be bound to the bucket. The domain name must have been registered and
+         * not bound to another bucket.
+         */
+        private String domain;
+
+        public void setDomain(String domain) {
+            this.domain = domain;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "domain")
+        public String getDomain() {
+            return this.domain;
+        }
+        /**
+         * The purpose of the domain name to be bound. Currently supports two types, normal and
+         * website. Type's available values: normal, website
+         */
+        private String type;
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "type")
+        public String getType() {
+            return this.type;
+        }
+
+        @Override
+        public String validateParam() {
+
+            String[] typeValidValues = {"normal", "website"};
+
+            boolean typeIsValid = false;
+            String value = this.getType();
+            if (null == value || "".equals(value)) {
+                typeIsValid = true;
+            } else {
+                for (String v : typeValidValues) {
+                    if (v.equals(value)) {
+                        typeIsValid = true;
+                    }
+                }
+            }
+
+            if (!typeIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Type", this.getType() + "", typeValidValues);
+            }
+            return null;
+        }
+    }
+
+    public static class CnameRecordsModel extends RequestInputModel {
+
+        /** the details of all eligible CNAME records. */
+        private List<CnameRecordModel> cnameRecords;
+
+        public void setCnameRecords(List<CnameRecordModel> cnameRecords) {
+            this.cnameRecords = cnameRecords;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "cname_records")
+        public List<CnameRecordModel> getCnameRecords() {
+            return this.cnameRecords;
+        }
+        /** the count of all eligible CNAME records. */
+        private Integer count;
+
+        public void setCount(Integer count) {
+            this.count = count;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "count")
+        public Integer getCount() {
+            return this.count;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (this.getCnameRecords() != null && this.getCnameRecords().size() > 0) {
+                for (int i = 0; i < this.getCnameRecords().size(); i++) {
+                    String vValidate = this.getCnameRecords().get(i).validateParam();
+                    if (!QSStringUtil.isEmpty(vValidate)) {
+                        return vValidate;
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
     public static class ConditionModel extends RequestInputModel {
 
         /** */

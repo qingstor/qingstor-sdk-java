@@ -159,6 +159,171 @@ public class Bucket {
     public static class DeleteBucketOutput extends OutputModel {}
 
     /**
+     * @param input input
+     * @throws QSException exception
+     * @return DeleteBucketCNAMEOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public DeleteBucketCNAMEOutput deleteCNAME(DeleteBucketCNAMEInput input) throws QSException {
+
+        if (input == null) {
+            input = new DeleteBucketCNAMEInput();
+        }
+
+        RequestHandler requestHandler = this.deleteCNAMERequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (DeleteBucketCNAMEOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteCNAMERequest(DeleteBucketCNAMEInput input) throws QSException {
+
+        if (input == null) {
+            input = new DeleteBucketCNAMEInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "DeleteBucketCNAME");
+        context.put("APIName", "DeleteBucketCNAME");
+        context.put("ServiceName", "DELETE Bucket CNAME");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?cname");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, DeleteBucketCNAMEOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void deleteCNAMEAsync(
+            DeleteBucketCNAMEInput input, ResponseCallBack<DeleteBucketCNAMEOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new DeleteBucketCNAMEInput();
+        }
+
+        RequestHandler requestHandler = this.deleteCNAMEAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteCNAMEAsyncRequest(
+            DeleteBucketCNAMEInput input, ResponseCallBack<DeleteBucketCNAMEOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new DeleteBucketCNAMEInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "DeleteBucketCNAME");
+        context.put("APIName", "DeleteBucketCNAME");
+        context.put("ServiceName", "DELETE Bucket CNAME");
+        context.put("RequestMethod", "DELETE");
+        context.put("RequestURI", "/<bucket-name>?cname");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+    /**
+     * DeleteBucketCNAMEInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Domain domain name <br>
+     */
+    public static class DeleteBucketCNAMEInput extends RequestInputModel {
+
+        /** the domain will deleted from cname records. */
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        /** Object json string */
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        }
+        /** domain name Required */
+        private String domain;
+
+        public void setDomain(String domain) {
+            this.domain = domain;
+        }
+
+        @ParamAnnotation(paramType = "body", paramName = "domain")
+        public String getDomain() {
+            return this.domain;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (QSStringUtil.isEmpty(this.getDomain())) {
+                return QSStringUtil.getParameterRequired("Domain", "DeleteBucketCNAMEInput");
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * DeleteBucketCNAMEOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Domain domain name <br>
+     */
+    public static class DeleteBucketCNAMEOutput extends OutputModel {}
+
+    /**
      * @throws QSException exception
      * @return DeleteBucketCORSOutput output stream Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">
@@ -1118,6 +1283,201 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "owner")
         public OwnerModel getOwner() {
             return this.owner;
+        }
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return GetBucketCNAMEOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public GetBucketCNAMEOutput getCNAME(GetBucketCNAMEInput input) throws QSException {
+
+        if (input == null) {
+            input = new GetBucketCNAMEInput();
+        }
+
+        RequestHandler requestHandler = this.getCNAMERequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (GetBucketCNAMEOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getCNAMERequest(GetBucketCNAMEInput input) throws QSException {
+
+        if (input == null) {
+            input = new GetBucketCNAMEInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "GetBucketCNAME");
+        context.put("APIName", "GetBucketCNAME");
+        context.put("ServiceName", "GET Bucket CNAME");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?cname");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, GetBucketCNAMEOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getCNAMEAsync(
+            GetBucketCNAMEInput input, ResponseCallBack<GetBucketCNAMEOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new GetBucketCNAMEInput();
+        }
+
+        RequestHandler requestHandler = this.getCNAMEAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getCNAMEAsyncRequest(
+            GetBucketCNAMEInput input, ResponseCallBack<GetBucketCNAMEOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new GetBucketCNAMEInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "GetBucketCNAME");
+        context.put("APIName", "GetBucketCNAME");
+        context.put("ServiceName", "GET Bucket CNAME");
+        context.put("RequestMethod", "GET");
+        context.put("RequestURI", "/<bucket-name>?cname");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+    /**
+     * GetBucketCNAMEInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Type Limit the type used for query, normal will be recognized if empty. <br>
+     */
+    public static class GetBucketCNAMEInput extends RequestInputModel {
+        /**
+         * Limit the type used for query, normal will be recognized if empty. Type's available
+         * values: website, normal
+         */
+        private String type;
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "type")
+        public String getType() {
+            return this.type;
+        }
+
+        @Override
+        public String validateParam() {
+
+            String[] typeValidValues = {"website", "normal"};
+
+            boolean typeIsValid = false;
+            String value = this.getType();
+            if (null == value || "".equals(value)) {
+                typeIsValid = true;
+            } else {
+                for (String v : typeValidValues) {
+                    if (v.equals(value)) {
+                        typeIsValid = true;
+                    }
+                }
+            }
+
+            if (!typeIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Type", this.getType() + "", typeValidValues);
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * GetBucketCNAMEOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Type Limit the type used for query, normal will be recognized if empty. <br>
+     */
+    public static class GetBucketCNAMEOutput extends OutputModel {
+
+        /** the details of all eligible CNAME records. */
+        private List<CnameRecordModel> cnameRecords;
+
+        public void setCnameRecords(List<CnameRecordModel> cnameRecords) {
+            this.cnameRecords = cnameRecords;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "cname_records")
+        public List<CnameRecordModel> getCnameRecords() {
+            return this.cnameRecords;
+        }
+        /** the count of all eligible CNAME records. */
+        private Integer count;
+
+        public void setCount(Integer count) {
+            this.count = count;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "count")
+        public Integer getCount() {
+            return this.count;
         }
     }
 
@@ -2997,6 +3357,212 @@ public class Bucket {
      * field ACL Bucket ACL rules <br>
      */
     public static class PutBucketACLOutput extends OutputModel {}
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketCNAMEOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public PutBucketCNAMEOutput putCNAME(PutBucketCNAMEInput input) throws QSException {
+
+        if (input == null) {
+            input = new PutBucketCNAMEInput();
+        }
+
+        RequestHandler requestHandler = this.putCNAMERequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (PutBucketCNAMEOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putCNAMERequest(PutBucketCNAMEInput input) throws QSException {
+
+        if (input == null) {
+            input = new PutBucketCNAMEInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "PutBucketCNAME");
+        context.put("APIName", "PutBucketCNAME");
+        context.put("ServiceName", "PUT Bucket CNAME");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?cname");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequest(context, input, PutBucketCNAMEOutput.class);
+
+        return requestHandler;
+    }
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void putCNAMEAsync(
+            PutBucketCNAMEInput input, ResponseCallBack<PutBucketCNAMEOutput> callback)
+            throws QSException {
+
+        if (input == null) {
+            input = new PutBucketCNAMEInput();
+        }
+
+        RequestHandler requestHandler = this.putCNAMEAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putCNAMEAsyncRequest(
+            PutBucketCNAMEInput input, ResponseCallBack<PutBucketCNAMEOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketCNAMEInput();
+        }
+
+        Map context = new HashMap();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName", "PutBucketCNAME");
+        context.put("APIName", "PutBucketCNAME");
+        context.put("ServiceName", "PUT Bucket CNAME");
+        context.put("RequestMethod", "PUT");
+        context.put("RequestURI", "/<bucket-name>?cname");
+        context.put("bucketNameInput", this.bucketName);
+
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler =
+                ResourceRequestFactory.getResourceRequest()
+                        .getRequestAsync(context, input, callback);
+        return requestHandler;
+    }
+    /**
+     * PutBucketCNAMEInput: an input stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Domain The domain name to be bound to the bucket. The domain name must have been
+     * registered and not bound to another bucket. <br>
+     * field Type The purpose of the domain name to be bound. Currently supports two types, normal
+     * and website. <br>
+     */
+    public static class PutBucketCNAMEInput extends RequestInputModel {
+
+        /** cname record will bound to a specific bucket. */
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        /** Object json string */
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        }
+        /**
+         * The domain name to be bound to the bucket. The domain name must have been registered and
+         * not bound to another bucket. Required
+         */
+        private String domain;
+
+        public void setDomain(String domain) {
+            this.domain = domain;
+        }
+
+        @ParamAnnotation(paramType = "body", paramName = "domain")
+        public String getDomain() {
+            return this.domain;
+        }
+        /**
+         * The purpose of the domain name to be bound. Currently supports two types, normal and
+         * website. Type's available values: normal, website
+         */
+        private String type;
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        @ParamAnnotation(paramType = "body", paramName = "type")
+        public String getType() {
+            return this.type;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (QSStringUtil.isEmpty(this.getDomain())) {
+                return QSStringUtil.getParameterRequired("Domain", "PutBucketCNAMEInput");
+            }
+            String[] typeValidValues = {"normal", "website"};
+
+            boolean typeIsValid = false;
+            String value = this.getType();
+            if (null == value || "".equals(value)) {
+                typeIsValid = true;
+            } else {
+                for (String v : typeValidValues) {
+                    if (v.equals(value)) {
+                        typeIsValid = true;
+                    }
+                }
+            }
+
+            if (!typeIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Type", this.getType() + "", typeValidValues);
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * PutBucketCNAMEOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Domain The domain name to be bound to the bucket. The domain name must have been
+     * registered and not bound to another bucket. <br>
+     * field Type The purpose of the domain name to be bound. Currently supports two types, normal
+     * and website. <br>
+     */
+    public static class PutBucketCNAMEOutput extends OutputModel {}
 
     /**
      * @param input input

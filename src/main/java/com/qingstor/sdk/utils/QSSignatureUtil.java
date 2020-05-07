@@ -146,7 +146,7 @@ public class QSSignatureUtil {
             String requestURI,
             Map<String, String> params,
             Map<String, String> headers) {
-        String signature = "";
+        String signature;
         String strToSign = getStringToSignature(method, requestURI, params, headers);
         log.debug("== String to sign ==\n" + strToSign + "\n");
         signature = generateSignature(secretKey, strToSign);
@@ -159,9 +159,9 @@ public class QSSignatureUtil {
             Map<String, String> params,
             Map<String, String> headers) {
         final String SEPARATOR = "&";
-        String strToSign = "";
+        StringBuilder strToSign = new StringBuilder();
 
-        strToSign += method.toUpperCase() + "\n";
+        strToSign.append(method.toUpperCase()).append("\n");
 
         String contentMD5 = "";
         String contentType = "";
@@ -169,8 +169,8 @@ public class QSSignatureUtil {
             if (headers.containsKey("content-md5")) contentMD5 = headers.get("content-md5");
             if (headers.containsKey("content-type")) contentType = headers.get("content-type");
         }
-        strToSign += contentMD5 + "\n";
-        strToSign += contentType;
+        strToSign.append(contentMD5).append("\n");
+        strToSign.append(contentType);
 
         // Append request time as string
         String dateStr = "";
@@ -182,7 +182,7 @@ public class QSSignatureUtil {
                 dateStr = headers.get(QSConstant.HEADER_PARAM_KEY_EXPIRES);
             }
         }
-        strToSign += "\n" + dateStr;
+        strToSign.append("\n").append(dateStr);
 
         // Generate signed headers.
         if (headers != null) {
@@ -190,7 +190,7 @@ public class QSSignatureUtil {
             Arrays.sort(sortedHeadersKeys);
             for (String key : sortedHeadersKeys) {
                 if (!key.startsWith("x-qs-") && !key.startsWith("X-QS-")) continue;
-                strToSign += String.format("\n%s:%s", key.toLowerCase(), headers.get(key));
+                strToSign.append(String.format("\n%s:%s", key.toLowerCase(), headers.get(key)));
             }
         }
 
@@ -226,15 +226,15 @@ public class QSSignatureUtil {
         if (canonicalizedQuery.length() > 0) {
             canonicalizedResource += "?" + canonicalizedQuery;
         }
-        strToSign += String.format("\n%s", canonicalizedResource);
+        strToSign.append(String.format("\n%s", canonicalizedResource));
 
         log.debug("== String to sign ==\n" + strToSign + "\n");
 
-        return strToSign;
+        return strToSign.toString();
     }
 
     public static String generateSignature(String secretKey, String strToSign) {
-        byte[] signData = null;
+        byte[] signData;
         try {
             Mac mac = Mac.getInstance(ALGORITHM);
             mac.init(new SecretKeySpec(secretKey.getBytes(ENCODING), ALGORITHM));
@@ -251,7 +251,7 @@ public class QSSignatureUtil {
         }
 
         // Base64 encoder = Base64.getEncoder();
-        return new String(Base64.encode(signData));
+        return Base64.encode(signData);
     }
 
     public static boolean isSubSource(String key) {
@@ -259,29 +259,28 @@ public class QSSignatureUtil {
             subSources = new HashSet<>();
             subSources.addAll(
                     Arrays.asList(
-                            new String[] {
-                                "acl",
-                                "cors",
-                                "delete",
-                                "mirror",
-                                "part_number",
-                                "policy",
-                                "stats",
-                                "upload_id",
-                                "uploads",
-                                "append",
-                                "position",
-                                "image",
-                                "notification",
-                                "lifecycle",
-                                "logging",
-                                "response-expires",
-                                "response-cache-control",
-                                "response-content-type",
-                                "response-content-language",
-                                "response-content-encoding",
-                                "response-content-disposition",
-                            }));
+                            "acl",
+                            "cors",
+                            "delete",
+                            "mirror",
+                            "part_number",
+                            "policy",
+                            "stats",
+                            "upload_id",
+                            "uploads",
+                            "append",
+                            "position",
+                            "image",
+                            "notification",
+                            "lifecycle",
+                            "logging",
+                            "cname",
+                            "response-expires",
+                            "response-cache-control",
+                            "response-content-type",
+                            "response-content-language",
+                            "response-content-encoding",
+                            "response-content-disposition"));
         }
         return subSources.contains(key);
     }
