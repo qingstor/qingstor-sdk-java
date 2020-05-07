@@ -80,13 +80,11 @@ public class QSOkHttpRequestClient {
                         new X509TrustManager() {
                             @Override
                             public void checkClientTrusted(
-                                    java.security.cert.X509Certificate[] chain, String authType)
-                                    throws CertificateException {}
+                                    java.security.cert.X509Certificate[] chain, String authType) {}
 
                             @Override
                             public void checkServerTrusted(
-                                    java.security.cert.X509Certificate[] chain, String authType)
-                                    throws CertificateException {}
+                                    java.security.cert.X509Certificate[] chain, String authType) {}
 
                             @Override
                             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -108,15 +106,9 @@ public class QSOkHttpRequestClient {
                             .writeTimeout(writeTimeout, TimeUnit.SECONDS);
             builder.sslSocketFactory(sslSocketFactory);
             builder.hostnameVerifier(
-                    new HostnameVerifier() {
-                        @Override
-                        public boolean verify(String hostname, SSLSession session) {
-                            return true;
-                        }
-                    });
+                    (hostname, session) -> true);
 
-            OkHttpClient okHttpClient = builder.build();
-            return okHttpClient;
+            return builder.build();
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
@@ -157,7 +149,7 @@ public class QSOkHttpRequestClient {
     public OutputModel requestAction(Request request, boolean bSafe, Class outputClass)
             throws QSException {
         Call okhttpCall = getRequestCall(bSafe, request);
-        okhttp3.Response response = null;
+        okhttp3.Response response;
         OutputModel model = (OutputModel) QSParamInvokeUtil.getOutputModel(outputClass);
         try {
             response = okhttpCall.execute();
@@ -182,14 +174,12 @@ public class QSOkHttpRequestClient {
      */
     public static Request buildUrlRequest(final String singedUrl) {
 
-        Request request = new Request.Builder().url(singedUrl).build();
-
         // Execute the request and retrieve the response.
-        return request;
+        return new Request.Builder().url(singedUrl).build();
     }
 
     public OutputModel requestActionAsync(
-            Request request, boolean bSafe, final ResponseCallBack callBack) throws QSException {
+            Request request, boolean bSafe, final ResponseCallBack callBack) {
         Call okhttpCall = getRequestCall(bSafe, request);
         okhttpCall.enqueue(
                 new Callback() {
@@ -199,8 +189,7 @@ public class QSOkHttpRequestClient {
                     }
 
                     @Override
-                    public void onResponse(Call call, okhttp3.Response response)
-                            throws IOException {
+                    public void onResponse(Call call, okhttp3.Response response) {
                         try {
                             if (callBack != null) {
                                 OutputModel m = QSParamInvokeUtil.getOutputModel(callBack);
@@ -211,9 +200,7 @@ public class QSOkHttpRequestClient {
                             log.error(e.getMessage());
                             onOkhttpFailure(e, callBack);
                         } finally {
-                            if (response != null) {
-                                Util.closeQuietly(response.body().source());
-                            }
+                            Util.closeQuietly(response.body().source());
                         }
                     }
                 });
@@ -255,14 +242,12 @@ public class QSOkHttpRequestClient {
                     QSJSONUtil.jsonFillValue2Object(responseInfo, target);
                 }
             }
-            Headers responseHeaders = response.headers();
-            int iHeads = responseHeaders.size();
+            Headers headers = response.headers();
             JSONObject headJson = QSJSONUtil.toJSONObject("{}");
             QSJSONUtil.putJsonData(headJson, QSConstant.QC_CODE_FIELD_NAME, code);
-            for (int i = 0; i < iHeads; i++) {
-                String key = responseHeaders.name(i);
-                if (key != null) key = key.toLowerCase();
-                QSJSONUtil.putJsonData(headJson, key, responseHeaders.value(i));
+            for (int i = 0; i < headers.size(); i++) {
+                String key = headers.name(i).toLowerCase();
+                QSJSONUtil.putJsonData(headJson, key, headers.value(i));
             }
             QSJSONUtil.jsonObjFillValue2Object(headJson, target);
         }
@@ -293,7 +278,7 @@ public class QSOkHttpRequestClient {
     }
 
     public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {
-        Map<String, Object> errorMap = new HashMap<String, Object>();
+        Map<String, Object> errorMap = new HashMap<>();
         errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);
         errorMap.put(QSConstant.QC_MESSAGE_FIELD_NAME, content);
 
