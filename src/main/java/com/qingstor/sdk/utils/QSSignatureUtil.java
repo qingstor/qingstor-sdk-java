@@ -55,6 +55,9 @@ public class QSSignatureUtil {
 
         try {
             for (String key : sortedKeys) {
+                if (key.equals("image")) {
+                    continue;
+                }
                 if (count != 0) {
                     sbStringToSign.append("&");
                 }
@@ -268,9 +271,9 @@ public class QSSignatureUtil {
                             "stats",
                             "upload_id",
                             "uploads",
+                            "image",
                             "append",
                             "position",
-                            "image",
                             "notification",
                             "lifecycle",
                             "logging",
