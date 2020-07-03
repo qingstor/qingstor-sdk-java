@@ -17,7 +17,7 @@ package com.qingstor.sdk.constants;
 
 public class QSConstant {
 
-    public static String SDK_VERSION = "2.3.3";
+    public static String SDK_VERSION = "2.3.4";
     public static String SDK_NAME = "qingstor-sdk-java";
 
     public static String QC_CODE_FIELD_NAME = "statue_code";
