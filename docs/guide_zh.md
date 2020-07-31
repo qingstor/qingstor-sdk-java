@@ -64,6 +64,7 @@ Input 对象由请求参数, 请求头和请求体构成, Output 对象包含 HT
     - [对象下载(GET Object)](./example/download_zh.md)
     - [对象下载 - 获取下载地址](./example/GetObjectUrl_zh.md)
     - [对象下载 - 分段下载](./example/GetDownObjectMulti_zh.md)
+    - [对象追加写](./example/append_object_zh.md)
     - [删除对象(DELETE Object)](./example/delete_object_zh.md)
     - [删除多个对象(DELETE Multiple Objects)](./example/DeleteMulitpleObjects_zh.md)
     - [获取对象元信息(HEAD Object)](./example/metadata_zh.md)
