@@ -25,14 +25,15 @@ import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.http.HttpMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author karooli */
-@Slf4j
 public class QSMultiPartUploadRequestBody implements QSRequestBody {
+    private static final Logger log = LoggerFactory.getLogger(QSMultiPartUploadRequestBody.class);
 
     @Override
     public RequestBody getRequestBody(

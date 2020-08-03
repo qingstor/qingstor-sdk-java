@@ -22,16 +22,17 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.internal.http.HttpMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author karooli */
-@Slf4j
 public class QSFormRequestBody implements QSRequestBody {
+    private static final Logger log = LoggerFactory.getLogger(QSFormRequestBody.class);
 
     @Override
     public RequestBody getRequestBody(

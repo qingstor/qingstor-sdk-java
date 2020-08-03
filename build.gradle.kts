@@ -4,7 +4,6 @@ plugins {
     signing
     id("com.diffplug.gradle.spotless") version "3.27.2"
     id("com.github.johnrengelman.shadow") version "5.2.0"
-    id("io.freefair.lombok") version "5.1.0"
 }
 
 group = "com.yunify"
@@ -106,7 +105,6 @@ val cucumberRuntime: Configuration by configurations.creating {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    compileOnly("org.projectlombok:lombok:1.18.12")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.10")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.9.10.5")
 

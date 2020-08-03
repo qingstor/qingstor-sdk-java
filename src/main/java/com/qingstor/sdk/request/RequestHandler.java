@@ -27,12 +27,14 @@ import com.qingstor.sdk.utils.QSStringUtil;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class RequestHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
     private final Map contextParam;
 
