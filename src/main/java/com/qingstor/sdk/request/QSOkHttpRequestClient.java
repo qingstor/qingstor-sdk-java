@@ -166,13 +166,13 @@ public class QSOkHttpRequestClient {
     }
 
     /**
-     * @param singedUrl with singed parameter url
+     * @param signedUrl with singed parameter url
      * @return a build request
      */
-    public static Request buildUrlRequest(final String singedUrl) {
+    public static Request buildUrlRequest(final String signedUrl) {
 
         // Execute the request and retrieve the response.
-        return new Request.Builder().url(singedUrl).build();
+        return new Request.Builder().url(signedUrl).build();
     }
 
     public OutputModel requestActionAsync(
