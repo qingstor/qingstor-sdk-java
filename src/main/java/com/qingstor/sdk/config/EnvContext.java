@@ -23,7 +23,6 @@ import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ParamValidate;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.*;
-import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvContext implements ParamValidate {
@@ -55,11 +54,42 @@ public class EnvContext implements ParamValidate {
 
     private HttpConfig httpConfig = defaultHttpConfig;
 
-    @Data
     public static class HttpConfig {
         private int readTimeout = 100;
         private int connectionTimeout = 60;
         private int writeTimeout = 100;
+
+        public HttpConfig() {}
+
+        public HttpConfig(int readTimeout, int connectionTimeout, int writeTimeout) {
+            this.readTimeout = readTimeout;
+            this.connectionTimeout = connectionTimeout;
+            this.writeTimeout = writeTimeout;
+        }
+
+        public int getReadTimeout() {
+            return readTimeout;
+        }
+
+        public void setReadTimeout(int readTimeout) {
+            this.readTimeout = readTimeout;
+        }
+
+        public int getConnectionTimeout() {
+            return connectionTimeout;
+        }
+
+        public void setConnectionTimeout(int connectionTimeout) {
+            this.connectionTimeout = connectionTimeout;
+        }
+
+        public int getWriteTimeout() {
+            return writeTimeout;
+        }
+
+        public void setWriteTimeout(int writeTimeout) {
+            this.writeTimeout = writeTimeout;
+        }
     }
 
     /**

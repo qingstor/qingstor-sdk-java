@@ -33,14 +33,16 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSBuilder {
+
+    private static final Logger log = LoggerFactory.getLogger(QSBuilder.class);
 
     private static final String REQUEST_PREFIX = "/";
 

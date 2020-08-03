@@ -17,15 +17,17 @@ package com.qingstor.sdk.request.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.Util;
 import okio.BufferedSink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author karooli */
-@Slf4j
 public class InputStreamUploadBody extends RequestBody {
+
+    private static final Logger log = LoggerFactory.getLogger(InputStreamUploadBody.class);
 
     private String contentType;
 

@@ -23,14 +23,15 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Optional;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.http.HttpMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author karooli */
-@Slf4j
 public class QSNormalRequestBody implements QSRequestBody {
+    private static final Logger log = LoggerFactory.getLogger(QSNormalRequestBody.class);
 
     @Override
     public RequestBody getRequestBody(

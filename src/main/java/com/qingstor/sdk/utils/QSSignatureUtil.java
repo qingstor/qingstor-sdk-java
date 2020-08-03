@@ -30,10 +30,11 @@ import java.util.*;
 import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class QSSignatureUtil {
+    private static final Logger log = LoggerFactory.getLogger(QSSignatureUtil.class);
 
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final String ALGORITHM = "HmacSHA256";

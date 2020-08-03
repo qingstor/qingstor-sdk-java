@@ -30,7 +30,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -40,10 +39,13 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.internal.Util;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QSOkHttpRequestClient {
+
+    private static final Logger log = LoggerFactory.getLogger(QSOkHttpRequestClient.class);
 
     private OkHttpClient client = null;
     private OkHttpClient unsafeClient = null;
