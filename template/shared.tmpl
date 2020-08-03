@@ -4,14 +4,14 @@
     {{- $operation := index . 2 -}}
 
     {{- $opID := $operation.ID | camelCase -}}
-        @Override
-        public String validateParam() {
-            {{- template "ValidateCustomizedType" $operation.Request.Query -}}
-            {{- template "ValidateCustomizedType" $operation.Request.Headers -}}
-            {{- template "ValidateCustomizedType" $operation.Request.Elements }}
+    @Override
+    public String validateParam() {
+        {{- template "ValidateCustomizedType" $operation.Request.Query -}}
+        {{- template "ValidateCustomizedType" $operation.Request.Headers -}}
+        {{- template "ValidateCustomizedType" $operation.Request.Elements }}
 
-            return null;
-        }
+        return null;
+    }
 {{end}}
 
 {{define "ValidateCustomizedType"}}
@@ -22,10 +22,10 @@
         {{- if and $isNormalType (not $isContentLength) -}}
             {{- if $property.IsRequired }}
                 {{- if eq ($property.ID | camelCase) "ContentMD5" }}
-            {{- else -}}
-                if (QSStringUtil.isEmpty(this.get{{$property.ID | camelCase}}())) {
-                    return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
-                }
+                {{- else -}}
+                    if (QSStringUtil.isEmpty(this.get{{$property.ID | camelCase}}())) {
+                        return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
+                    }
                 {{- end -}}
             {{- end -}}
             {{- if gt ($property.Enum | len) 0 }}
@@ -34,23 +34,23 @@
                     {{- $property.Enum | commaConnectedWithQuote -}}
                 };
 
-            boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
-            String value = this.get{{$property.ID | camelCase}}();
-            if (null == value || "".equals(value)) {
-                {{$property.ID | camelCase | lowerFirst}}IsValid = true;
-            } else {
-                for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues) {
-                    if(v.equals(value)){
-                        {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
+                String value = this.get{{$property.ID | camelCase}}();
+                if (null == value || "".equals(value)) {
+                    {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                } else {
+                    for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues) {
+                        if(v.equals(value)){
+                            {{$property.ID | camelCase | lowerFirst}}IsValid = true;
+                        }
                     }
                 }
-            }
 
-            if (!{{$property.ID | camelCase | lowerFirst}}IsValid) {
-                return QSStringUtil.getParameterValueNotAllowedError("{{$property.ID | camelCase}}",
-                        this.get{{$property.ID | camelCase}}()+"",
-                        {{$property.ID | camelCase | lowerFirst}}ValidValues);
-            }
+                if (!{{$property.ID | camelCase | lowerFirst}}IsValid) {
+                    return QSStringUtil.getParameterValueNotAllowedError("{{$property.ID | camelCase}}",
+                            this.get{{$property.ID | camelCase}}()+"",
+                            {{$property.ID | camelCase | lowerFirst}}ValidValues);
+                }
             {{- end -}}
         {{- end -}}
 
@@ -61,8 +61,8 @@
                 if (this.get{{$property.ID | camelCase}}() < 0 ) {
                     return QSStringUtil.getParameterRequired("{{$property.ID | camelCase}}","{{$customizedType.ID | camelCase}}");
                 }
-                {{- end -}}
-                {{- if gt ($property.Enum | len) 0}}
+            {{- end -}}
+            {{- if gt ($property.Enum | len) 0}}
                 String[] {{$property.ID | camelCase | lowerFirst -}}
                 ValidValues = {
                     {{- $property.Enum | commaConnectedWithQuote -}}
@@ -79,56 +79,56 @@
                     }
                 }
 
-            if (!{{$property.ID | camelCase | lowerFirst}}IsValid) {
-                return QSStringUtil.getParameterValueNotAllowedError("{{$property.ID | camelCase}}",
-                        this.get{{$property.ID | camelCase}}()+"",
-                        {{$property.ID | camelCase | lowerFirst}}ValidValues);
-            }
-                {{end -}}
-            {{- end -}}
+                if (!{{$property.ID | camelCase | lowerFirst}}IsValid) {
+                    return QSStringUtil.getParameterValueNotAllowedError("{{$property.ID | camelCase}}",
+                            this.get{{$property.ID | camelCase}}()+"",
+                            {{$property.ID | camelCase | lowerFirst}}ValidValues);
+                }
+            {{end -}}
+        {{- end -}}
 
-            {{if eq $property.Type "map"}}
-                {{if eq $property.ID "X-QS-MetaData" }}
-                    Map<String, String> metadata = this.get{{$property.ID | camelCase}}();
-                    if (metadata != null) {
-                        String vValidate = QSParamInvokeUtil.metadataIsValid(metadata);
-                        if (!QSStringUtil.isEmpty(vValidate)) {
-                            return vValidate;
-                        }
+        {{if eq $property.Type "map"}}
+            {{if eq $property.ID "X-QS-MetaData" }}
+                Map<String, String> metadata = this.get{{$property.ID | camelCase}}();
+                if (metadata != null) {
+                    String vValidate = QSParamInvokeUtil.metadataIsValid(metadata);
+                    if (!QSStringUtil.isEmpty(vValidate)) {
+                        return vValidate;
                     }
-                {{end -}}
-            {{- end -}}
+                }
+            {{end -}}
+        {{- end -}}
 
-            {{- if eq $property.Type "object" }}
+        {{- if eq $property.Type "object" }}
             if (this.get{{$property.ID | camelCase}}() != null) {
                 String vValidate = this.get{{$property.ID | camelCase}}().validateParam();
                 if (!QSStringUtil.isEmpty(vValidate)) {
                     return vValidate;
                 }
             }
-                {{ if $property.IsRequired -}}
-            if (this.get{{$property.ID | camelCase}}() == null) {
-                return QSStringUtil.getParameterRequired(
-                    "{{$property.ID | camelCase}}",
-                    "{{$customizedType.ID | camelCase}}");
-            }
-                {{- end -}}
+            {{ if $property.IsRequired -}}
+                if (this.get{{$property.ID | camelCase}}() == null) {
+                    return QSStringUtil.getParameterRequired(
+                        "{{$property.ID | camelCase}}",
+                        "{{$customizedType.ID | camelCase}}");
+                }
             {{- end -}}
+        {{- end -}}
 
-            {{- if eq $property.Type "array" -}}
+        {{- if eq $property.Type "array" -}}
 
-                {{- $isNotString := ne $property.ExtraType "string" -}}
-                {{- $isNotInteger := ne $property.ExtraType "integer"}}
-                {{- $isNotTimestamp := ne $property.ExtraType "timestamp" -}}
-                {{- if and $isNotString $isNotInteger $isNotTimestamp}}
-            if (this.get{{$property.ID | camelCase}}() != null && this.get{{$property.ID | camelCase}}().size() > 0 ) {
-                for (int i = 0 ; i < this.get{{$property.ID | camelCase}}().size() ; i++ ) {
-                    String vValidate = this.get{{$property.ID | camelCase}}().get(i).validateParam();
-                    if (!QSStringUtil.isEmpty(vValidate)) {
-                        return vValidate;
+            {{- $isNotString := ne $property.ExtraType "string" -}}
+            {{- $isNotInteger := ne $property.ExtraType "integer"}}
+            {{- $isNotTimestamp := ne $property.ExtraType "timestamp" -}}
+            {{- if and $isNotString $isNotInteger $isNotTimestamp}}
+                if (this.get{{$property.ID | camelCase}}() != null && this.get{{$property.ID | camelCase}}().size() > 0 ) {
+                    for (int i = 0 ; i < this.get{{$property.ID | camelCase}}().size() ; i++ ) {
+                        String vValidate = this.get{{$property.ID | camelCase}}().get(i).validateParam();
+                        if (!QSStringUtil.isEmpty(vValidate)) {
+                            return vValidate;
+                        }
                     }
                 }
-            }
             {{- end -}}
         {{- end -}}
     {{- end -}}
@@ -161,9 +161,6 @@
         {{- else -}}
             {{template "PropertyTags"  $property  }}
         {{- end -}}
-
-
-
 	{{end}}
 {{end}}
 
@@ -262,8 +259,8 @@
 
     {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
 
-
 {{end}}
+
 {{define "PropertyTagsBody"}}
 	{{- $property := . -}}
 
@@ -285,10 +282,8 @@
     {{- printf ` get%s(){` ($property.ID | camelCase) -}}
 
     {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
-
-
-
 {{end}}
+
 {{define "PropertyTagsHeader"}}
 	{{- $property := . -}}
 
@@ -310,7 +305,6 @@
     {{- printf ` get%s(){` ($property.ID | camelCase) -}}
 
     {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
-
 
 {{end}}
 
@@ -736,36 +730,138 @@
 
         {{- end}}
 
-            {{if $operation.Request.Headers.Properties | len}}
-                {{- $data := $operation.Request.Headers -}}
-                {{template "RenderProperties" passThrough $data `` "header"}}
-            {{end}}
+        {{if $operation.Request.Headers.Properties | len}}
+            {{- $data := $operation.Request.Headers -}}
+            {{template "RenderProperties" passThrough $data `` "header"}}
+        {{end}}
 
-            {{if $operation.Request.Elements.Properties | len}}
+        {{if $operation.Request.Elements.Properties | len}}
 
-                {{if $operation.Request.Body.Description -}}
-                    /** {{$operation.Request.Body.Description}} */
-                {{- end}}
-                private  String bodyInput;
+            {{if $operation.Request.Body.Description -}}
+                /** {{$operation.Request.Body.Description}} */
+            {{- end}}
+            private  String bodyInput;
 
-                @ParamAnnotation(paramType = "body",paramName = "BodyInput")
-                public String getBodyInput() {
-                   return bodyInput;
-                }
-                /** Object json string */
-                public void setBodyInput(String bodyInput) {
-                    this.bodyInput=bodyInput;
-                }
+            @ParamAnnotation(paramType = "body",paramName = "BodyInput")
+            public String getBodyInput() {
+               return bodyInput;
+            }
+            /** Object json string */
+            public void setBodyInput(String bodyInput) {
+                this.bodyInput=bodyInput;
+            }
 
-                {{- $data := $operation.Request.Elements -}}
-                {{template "RenderProperties" passThrough $data `` "body"}}
+            {{- $data := $operation.Request.Elements -}}
+            {{template "RenderProperties" passThrough $data `` "body"}}
 
 
-            {{end}}
+        {{end}}
 
-            {{if eq $operation.Request.Body.Type "string"}}
-                {{if $operation.Request.Body.Description -}}
-                    /** {{$operation.Request.Body.Description}} */
+        {{if eq $operation.Request.Body.Type "string"}}
+            {{if $operation.Request.Body.Description -}}
+                /** {{$operation.Request.Body.Description}} */
+            {{- end}}
+            private  String bodyInput;
+
+            /**
+            * Get the object json string.
+            * @return object json string
+            */
+            @ParamAnnotation(paramType = "body",paramName = "BodyInput")
+            public String getBodyInput() {
+               return bodyInput;
+            }
+
+            /**
+            * Set the object json string.
+            * @param bodyInput object json string
+            */
+            public void setBodyInput(String bodyInput) {
+                this.bodyInput=bodyInput;
+            }
+
+        {{else if eq $operation.Request.Body.Type "binary"}}
+            {{if $operation.Request.Body.Description -}}
+                /** {{$operation.Request.Body.Description}} */
+            {{- end}}
+            private  File bodyInputFile;
+
+            /**
+            * Get the File will be updated.
+            * @return the File object will be updated
+            */
+            @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
+            public File getBodyInputFile() {
+               return bodyInputFile;
+            }
+
+            /**
+            * Set the File to update. <br>
+            {{if eq $opID "UploadMultipart" -}}
+            * Deprecated, please use setBodyInputFilePart() to upload multi part. <br>
+            * Then setFileOffset() and setContentLength() to get a part of a file or stream.
+            {{- end}}
+            * @param bodyInputFile File to update
+            */
+            {{if eq $opID "UploadMultipart" -}}
+            @Deprecated
+            {{- end}}
+            public void setBodyInputFile(File bodyInputFile) {
+                this.bodyInputFile = bodyInputFile;
+            }
+            private  java.io.InputStream bodyInputStream;
+
+            /**
+            * Get the body input stream.
+            * @return input stream
+            */
+            @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
+            public java.io.InputStream getBodyInputStream() {
+               return bodyInputStream;
+            }
+
+            /**
+            * Set the body input stream.
+            * @param bodyInputStream input stream to update
+            */
+            public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+                this.bodyInputStream=bodyInputStream;
+            }
+
+        {{end}}
+
+        @Override
+        public String validateParam() {
+            {{template "ValidateCustomizedType" $operation.Request.Query}}
+            {{template "ValidateCustomizedType" $operation.Request.Headers}}
+            {{template "ValidateCustomizedType" $operation.Request.Elements}}
+
+            return null;
+        }
+
+    }
+    {{end}}
+
+    /**
+     * {{$opID}}Output: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     {{- range $id, $property := $operation.Request.Headers.Properties}}
+     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Query.Properties}}
+     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Elements.Properties}}
+     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
+     {{- end}}
+     *
+    */
+    public static class {{$opID}}Output extends OutputModel{
+        {{range $_, $response := $operation.Responses}}
+            {{if eq $response.Body.Type "string"}}
+                {{if $response.Body.Description -}}
+                    /** {{$response.Body.Description}} */
                 {{- end}}
                 private  String bodyInput;
 
@@ -785,41 +881,128 @@
                 public void setBodyInput(String bodyInput) {
                     this.bodyInput=bodyInput;
                 }
-
-            {{else if eq $operation.Request.Body.Type "binary"}}
-                {{if $operation.Request.Body.Description -}}
-                    /** {{$operation.Request.Body.Description}} */
+            {{else if eq $response.Body.Type "binary"}}
+                {{if $response.Body.Description -}}
+                    /** {{$response.Body.Description}} */
                 {{- end}}
-                private  File bodyInputFile;
 
+                {{if eq $opID "GetObject"}}
                 /**
-                * Get the File will be updated.
-                * @return the File object will be updated
+                * deprecated, please use setCacheControl(String cacheControl)
+                * @param responseCacheControl cacheControl
                 */
-                @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
-                public File getBodyInputFile() {
-                   return bodyInputFile;
-                }
-
-                /**
-                * Set the File to update. <br>
-                {{if eq $opID "UploadMultipart" -}}
-                * Deprecated, please use setBodyInputFilePart() to upload multi part. <br>
-                * Then setFileOffset() and setContentLength() to get a part of a file or stream.
-                {{- end}}
-                * @param bodyInputFile File to update
-                */
-                {{if eq $opID "UploadMultipart" -}}
                 @Deprecated
-                {{- end}}
-                public void setBodyInputFile(File bodyInputFile) {
-                    this.bodyInputFile = bodyInputFile;
+                public void setResponseCacheControl(String responseCacheControl) {
+                    cacheControl = responseCacheControl;
                 }
+
+                /**
+                * deprecated, please use getCacheControl()
+                * @return cacheControl
+                */
+                @Deprecated
+                public String getResponseCacheControl() {
+                    return cacheControl;
+                } // Specified the Content-Disposition response header
+
+                /**
+                * deprecated, please use setContentDisposition(String contentDisposition)
+                * @param responseContentDisposition contentDisposition
+                */
+                @Deprecated
+                public void setResponseContentDisposition(String responseContentDisposition) {
+                    contentDisposition = responseContentDisposition;
+                }
+
+                /**
+                * deprecated, please use getContentDisposition()
+                * @return contentDisposition
+                */
+                @Deprecated
+                public String getResponseContentDisposition() {
+                    return contentDisposition;
+                } // Specified the Content-Disposition header
+
+                /**
+                * deprecated, please use setContentEncoding(String contentEncoding)
+                * @param responseContentEncoding contentEncoding
+                */
+                @Deprecated
+                public void setResponseContentEncoding(String responseContentEncoding) {
+                    contentEncoding = responseContentEncoding;
+                }
+
+                /**
+                * deprecated, please use getContentEncoding()
+                * @return contentEncoding
+                */
+                @Deprecated
+                public String getResponseContentEncoding() {
+                    return contentEncoding;
+                } // Specified the Content-Language response header
+
+                /**
+                * deprecated, please use setContentLanguage(String contentLanguage)
+                * @param responseContentLanguage contentLanguage
+                */
+                @Deprecated
+                public void setResponseContentLanguage(String responseContentLanguage) {
+                    contentLanguage = responseContentLanguage;
+                }
+
+                /**
+                * deprecated, please use getContentLanguage()
+                * @return contentLanguage
+                */
+                @Deprecated
+                public String getResponseContentLanguage() {
+                    return contentLanguage;
+                } // Specified the Content-Type response header
+
+                /**
+                * deprecated, please use setContentType(String contentType)
+                * @param responseContentType contentType
+                */
+                @Deprecated
+                public void setResponseContentType(String responseContentType) {
+                    contentType = responseContentType;
+                }
+
+                /**
+                * deprecated, please use getContentType()
+                * @return contentType
+                */
+                @Deprecated
+                public String getResponseContentType() {
+                    return contentType;
+                } // Specified the Expires response header
+
+                /**
+                * deprecated, please use setExpires(String expires)
+                * @param responseExpires expires
+                */
+                @Deprecated
+                public void setResponseExpires(String responseExpires) {
+                    expires = responseExpires;
+                }
+
+                /**
+                * deprecated, please use getExpires()
+                * @return expires
+                */
+                @Deprecated
+                public String getResponseExpires() {
+                    return expires;
+                }
+
+                {{- end}}
+
+
                 private  java.io.InputStream bodyInputStream;
 
                 /**
-                * Get the body input stream.
-                * @return input stream
+                * Get the stream will be downloaded.
+                * @return the stream will be downloaded
                 */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
                 public java.io.InputStream getBodyInputStream() {
@@ -827,213 +1010,24 @@
                 }
 
                 /**
-                * Set the body input stream.
-                * @param bodyInputStream input stream to update
+                * Set the stream to download.
+                * @param bodyInputStream stream to download
                 */
                 public void setBodyInputStream(java.io.InputStream bodyInputStream) {
                     this.bodyInputStream=bodyInputStream;
                 }
-
             {{end}}
-            @Override
-            public String validateParam() {
-                {{template "ValidateCustomizedType" $operation.Request.Query}}
-                {{template "ValidateCustomizedType" $operation.Request.Headers}}
-                {{template "ValidateCustomizedType" $operation.Request.Elements}}
 
-                return null;
-            }
-
-        }
-    {{end}}
-
-        /**
-         * {{$opID}}Output: an output stream of the bucket.<br>
-         * The following is the desc of fields.<br>
-         * These fields are headers or bodies of the http request.<br>
-         {{- range $id, $property := $operation.Request.Headers.Properties}}
-         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-         {{- end}}
-         {{- range $id, $property := $operation.Request.Query.Properties}}
-         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-         {{- end}}
-         {{- range $id, $property := $operation.Request.Elements.Properties}}
-         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-         {{- end}}
-         *
-        */
-        public static class {{$opID}}Output extends OutputModel{
-            {{range $_, $response := $operation.Responses}}
-                {{if eq $response.Body.Type "string"}}
-                    {{if $response.Body.Description -}}
-                        /** {{$response.Body.Description}} */
-                    {{- end}}
-                    private  String bodyInput;
-
-                    /**
-                    * Get the object json string.
-                    * @return object json string
-                    */
-                    @ParamAnnotation(paramType = "body",paramName = "BodyInput")
-                    public String getBodyInput() {
-                       return bodyInput;
-                    }
-
-                    /**
-                    * Set the object json string.
-                    * @param bodyInput object json string
-                    */
-                    public void setBodyInput(String bodyInput) {
-                        this.bodyInput=bodyInput;
-                    }
-                {{else if eq $response.Body.Type "binary"}}
-                    {{if $response.Body.Description -}}
-                        /** {{$response.Body.Description}} */
-                    {{- end}}
-
-                    {{if eq $opID "GetObject"}}
-                    /**
-                    * deprecated, please use setCacheControl(String cacheControl)
-                    * @param responseCacheControl cacheControl
-                    */
-                    @Deprecated
-                    public void setResponseCacheControl(String responseCacheControl) {
-                        cacheControl = responseCacheControl;
-                    }
-
-                    /**
-                    * deprecated, please use getCacheControl()
-                    * @return cacheControl
-                    */
-                    @Deprecated
-                    public String getResponseCacheControl() {
-                        return cacheControl;
-                    } // Specified the Content-Disposition response header
-
-                    /**
-                    * deprecated, please use setContentDisposition(String contentDisposition)
-                    * @param responseContentDisposition contentDisposition
-                    */
-                    @Deprecated
-                    public void setResponseContentDisposition(String responseContentDisposition) {
-                        contentDisposition = responseContentDisposition;
-                    }
-
-                    /**
-                    * deprecated, please use getContentDisposition()
-                    * @return contentDisposition
-                    */
-                    @Deprecated
-                    public String getResponseContentDisposition() {
-                        return contentDisposition;
-                    } // Specified the Content-Disposition header
-
-                    /**
-                    * deprecated, please use setContentEncoding(String contentEncoding)
-                    * @param responseContentEncoding contentEncoding
-                    */
-                    @Deprecated
-                    public void setResponseContentEncoding(String responseContentEncoding) {
-                        contentEncoding = responseContentEncoding;
-                    }
-
-                    /**
-                    * deprecated, please use getContentEncoding()
-                    * @return contentEncoding
-                    */
-                    @Deprecated
-                    public String getResponseContentEncoding() {
-                        return contentEncoding;
-                    } // Specified the Content-Language response header
-
-                    /**
-                    * deprecated, please use setContentLanguage(String contentLanguage)
-                    * @param responseContentLanguage contentLanguage
-                    */
-                    @Deprecated
-                    public void setResponseContentLanguage(String responseContentLanguage) {
-                        contentLanguage = responseContentLanguage;
-                    }
-
-                    /**
-                    * deprecated, please use getContentLanguage()
-                    * @return contentLanguage
-                    */
-                    @Deprecated
-                    public String getResponseContentLanguage() {
-                        return contentLanguage;
-                    } // Specified the Content-Type response header
-
-                    /**
-                    * deprecated, please use setContentType(String contentType)
-                    * @param responseContentType contentType
-                    */
-                    @Deprecated
-                    public void setResponseContentType(String responseContentType) {
-                        contentType = responseContentType;
-                    }
-
-                    /**
-                    * deprecated, please use getContentType()
-                    * @return contentType
-                    */
-                    @Deprecated
-                    public String getResponseContentType() {
-                        return contentType;
-                    } // Specified the Expires response header
-
-                    /**
-                    * deprecated, please use setExpires(String expires)
-                    * @param responseExpires expires
-                    */
-                    @Deprecated
-                    public void setResponseExpires(String responseExpires) {
-                        expires = responseExpires;
-                    }
-
-                    /**
-                    * deprecated, please use getExpires()
-                    * @return expires
-                    */
-                    @Deprecated
-                    public String getResponseExpires() {
-                        return expires;
-                    }
-
-                    {{- end}}
-
-
-                    private  java.io.InputStream bodyInputStream;
-
-                    /**
-                    * Get the stream will be downloaded.
-                    * @return the stream will be downloaded
-                    */
-                    @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
-                    public java.io.InputStream getBodyInputStream() {
-                       return bodyInputStream;
-                    }
-
-                    /**
-                    * Set the stream to download.
-                    * @param bodyInputStream stream to download
-                    */
-                    public void setBodyInputStream(java.io.InputStream bodyInputStream) {
-                        this.bodyInputStream=bodyInputStream;
-                    }
-                {{end}}
-
-                {{if $response.Elements.Properties | len}}
-                    {{$data := $response.Elements}}
-                    {{template "RenderProperties" passThrough $data `` "query"}}
-                {{end}}
-
-                {{if $response.Headers.Properties | len}}
-                    {{$data := $response.Headers}}
-                    {{template "RenderProperties" passThrough $data `` "header"}}
-                {{end}}
+            {{if $response.Elements.Properties | len}}
+                {{$data := $response.Elements}}
+                {{template "RenderProperties" passThrough $data `` "query"}}
             {{end}}
-        }
 
+            {{if $response.Headers.Properties | len}}
+                {{$data := $response.Headers}}
+                {{template "RenderProperties" passThrough $data `` "header"}}
+            {{end}}
+        {{end}}
+    }
 
 {{end}}
