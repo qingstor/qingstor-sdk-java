@@ -259,6 +259,7 @@ public class QSOkHttpRequestClient {
      * @param body request body params
      * @return a build request
      */
+    @Deprecated
     public static Request buildRequest(
             final String method, final String url, RequestBody body, final Map headers) {
 
@@ -266,9 +267,6 @@ public class QSOkHttpRequestClient {
         String[] sortedHeadersKeys = (String[]) headers.keySet().toArray(new String[] {});
         for (String key : sortedHeadersKeys) {
             builder.addHeader(key, String.valueOf(headers.get(key)));
-        }
-        if (!headers.containsKey(QSConstant.PARAM_KEY_USER_AGENT)) {
-            builder.addHeader(QSConstant.PARAM_KEY_USER_AGENT, QSStringUtil.getUserAgent());
         }
         return builder.url(url).method(method, body).build();
     }
