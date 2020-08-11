@@ -26,7 +26,6 @@ import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
-import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.util.HashMap;
@@ -8620,18 +8619,6 @@ public class Bucket {
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
         }
-    }
-
-    /**
-     * @param objectName name of the object
-     * @param expiresSecond Relative current time，the second when this quert sign expires
-     * @return signature url
-     * @throws QSException exception
-     */
-    @Deprecated
-    public String GetObjectSignatureUrl(String objectName, int expiresSecond) throws QSException {
-        return QSSignatureUtil.getObjectAuthRequestUrl(
-                this.envContext, this.zone, bucketName, objectName, expiresSecond);
     }
 
     /**
