@@ -46,7 +46,6 @@ public class EnvContext implements ParamValidate {
     private String host = qingStorHost;
     private String port;
     private String protocol = default_protocol;
-    private String uri;
     private String additionalUserAgent;
 
     // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
@@ -181,24 +180,12 @@ public class EnvContext implements ParamValidate {
         this.protocol = protocol;
     }
 
-    public String getUri() {
-        return uri;
-    }
-
     public String getRequestUrl() {
         String joinUrl = this.getProtocol() + "://" + this.getHost();
         if (this.getPort() != null) {
             joinUrl += ":" + this.getPort();
         }
-        if (this.getUri() != null) {
-            joinUrl += this.getUri();
-        }
         return joinUrl;
-    }
-
-    /** @param uri example: /iaas */
-    public void setUri(String uri) {
-        this.uri = uri;
     }
 
     public HttpConfig getHttpConfig() {
@@ -226,9 +213,6 @@ public class EnvContext implements ParamValidate {
                 + '\''
                 + ", protocol='"
                 + protocol
-                + '\''
-                + ", uri='"
-                + uri
                 + '\''
                 + ", additionalUserAgent='"
                 + additionalUserAgent
