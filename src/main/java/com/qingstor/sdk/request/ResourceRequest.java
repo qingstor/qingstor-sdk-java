@@ -23,26 +23,6 @@ import java.util.Map;
 public interface ResourceRequest {
 
     /**
-     * @param context EnvContext
-     * @param paramBean param
-     * @param callback callback
-     * @throws QSException exception
-     */
-    void sendApiRequestAsync(Map context, RequestInputModel paramBean, ResponseCallBack callback)
-            throws QSException;
-
-    /**
-     * @param context EnvContext
-     * @param paramBean param
-     * @param outputClass output class
-     * @return OutputModel
-     * @throws QSException exception
-     */
-    OutputModel sendApiRequest(
-            Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
-            throws QSException;
-
-    /**
      * @param requestUrl request url
      * @param context EnvContext
      * @param callback callback
