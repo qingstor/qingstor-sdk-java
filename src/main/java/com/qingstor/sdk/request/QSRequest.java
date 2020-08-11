@@ -27,14 +27,6 @@ import okhttp3.Request;
 public class QSRequest implements ResourceRequest {
 
     @Override
-    public void sendApiRequestAsync(
-            Map context, RequestInputModel paramBean, ResponseCallBack callback)
-            throws QSException {
-        RequestHandler requestHandler = new RequestHandler(context, paramBean, callback);
-        requestHandler.sendAsync();
-    }
-
-    @Override
     public void sendApiRequestAsync(String requestUrl, Map context, ResponseCallBack callback)
             throws QSException {
         EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
@@ -65,14 +57,5 @@ public class QSRequest implements ResourceRequest {
             Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
             throws QSException {
         return new RequestHandler(context, paramBean, outputClass);
-    }
-
-    @Deprecated
-    @Override
-    public OutputModel sendApiRequest(
-            Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
-            throws QSException {
-        RequestHandler requestHandler = new RequestHandler(context, paramBean, outputClass);
-        return requestHandler.send();
     }
 }
