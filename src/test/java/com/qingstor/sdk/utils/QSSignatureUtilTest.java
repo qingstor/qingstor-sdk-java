@@ -59,25 +59,29 @@ public class QSSignatureUtilTest {
                         queryParam,
                         null);
 
-        Assert.assertEquals(url.indexOf("QS QYACCESSKEYIDEXAMPLE:") >= 0, true);
+        Assert.assertTrue(url.contains("QS QYACCESSKEYIDEXAMPLE:"));
     }
 
     @Test
     public void testExpireString() {
         EnvContext ctx = new EnvContext("testkey", "test_asss");
-
-        String req1 = null;
-        String req2 = null;
+        String zoneKey = "testzone";
+        String bucketName = "bucketname";
+        String objKey = "objectName/dd.txt";
+        Bucket bucket = new Bucket(ctx, zoneKey, bucketName);
+        Bucket.GetObjectInput input = new Bucket.GetObjectInput();
+        String url = null;
         try {
-            req1 =
-                    QSSignatureUtil.getObjectAuthRequestUrl(
-                            ctx, "testzone", "bucketName", "objectName/dd.txt", 1000);
+            RequestHandler reqHandler =
+                    bucket.GetObjectBySignatureUrlRequest(
+                            objKey, null, System.currentTimeMillis() / 1000);
+            url = reqHandler.getExpiresRequestUrl();
         } catch (QSException e) {
             e.printStackTrace();
         }
+        assert url != null;
         Assert.assertEquals(
-                req1.indexOf("https://bucketName.testzone.qingstor.com/objectName/dd.txt?") == 0,
-                true);
+                0, url.indexOf("https://bucketname.testzone.qingstor.com/objectName/dd.txt?"));
     }
 
     @Test
@@ -90,7 +94,7 @@ public class QSSignatureUtilTest {
         Bucket.PutObjectInput input = new Bucket.PutObjectInput();
         input.setContentType("image/jpeg");
         input.setContentMD5("Content-MD5");
-        input.setContentLength(10000l);
+        input.setContentLength(10000L);
         try {
             RequestHandler requestHandler = bucket.putObjectRequest("test/test.jpg", input);
             requestHandler.getBuilder().setHeader("Date", "Thu, 06 Dec 2018 06:47:43 GMT");

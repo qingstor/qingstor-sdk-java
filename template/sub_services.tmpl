@@ -55,18 +55,6 @@ public class Bucket {
 
       {{ if eq $subService.Name "Object"}}
         /**
-         *
-         * @param objectName name of the object
-         * @param expiresSecond  Relative current time，the second when this quert sign expires
-         * @return signature url
-         * @throws QSException exception
-         */
-         @Deprecated
-        public String GetObjectSignatureUrl(String objectName,int expiresSecond) throws QSException{
-            return QSSignatureUtil.getObjectAuthRequestUrl(this.envContext,this.zone,bucketName,objectName,expiresSecond);
-        }
-
-        /**
          * @param objectName name of the object
          * @param expires time to expire
          * @return signature url
