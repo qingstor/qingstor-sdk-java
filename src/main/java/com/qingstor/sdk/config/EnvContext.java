@@ -34,94 +34,98 @@ public class EnvContext implements ParamValidate {
         om.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
     }
 
-    private static String qingStorHost = "qingstor.com";
-    private static String default_protocol = "https";
-    private static String defaultRequestUrlStyle = "virtual_host_style";
-    private static HttpConfig defaultHttpConfig = new HttpConfig();
+    private static String DEFAULT_HOST = "qingstor.com";
+    private static String DEFAULT_PROTOCOL = "https";
+    private static HttpConfig DEFAULT_HTTP_CONFIG = new HttpConfig();
 
     private String accessKeyId;
 
     private String secretAccessKey;
 
-    private String host = qingStorHost;
+    private String host = DEFAULT_HOST;
     private String port;
-    private String protocol = default_protocol;
+    private String protocol = DEFAULT_PROTOCOL;
     private String additionalUserAgent;
 
     // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
-    private String requestUrlStyle = defaultRequestUrlStyle;
+    @Deprecated private String requestUrlStyle = "virtual_host_style";
 
-    private HttpConfig httpConfig = defaultHttpConfig;
+    private boolean virtualHostEnabled = false;
 
-    public static class HttpConfig {
-        private int readTimeout = 100;
-        private int connectionTimeout = 60;
-        private int writeTimeout = 100;
+    private HttpConfig httpConfig = DEFAULT_HTTP_CONFIG;
 
-        public HttpConfig() {}
+    private boolean safeOkHttp = true;
 
-        public HttpConfig(int readTimeout, int connectionTimeout, int writeTimeout) {
-            this.readTimeout = readTimeout;
-            this.connectionTimeout = connectionTimeout;
-            this.writeTimeout = writeTimeout;
-        }
+    private EnvContext() {}
 
-        public int getReadTimeout() {
-            return readTimeout;
-        }
+    public EnvContext(String accessKey, String accessSecret) {
+        this.setAccessKeyId(accessKey);
+        this.setSecretAccessKey(accessSecret);
+    }
 
-        public void setReadTimeout(int readTimeout) {
-            this.readTimeout = readTimeout;
-        }
-
-        public int getConnectionTimeout() {
-            return connectionTimeout;
-        }
-
-        public void setConnectionTimeout(int connectionTimeout) {
-            this.connectionTimeout = connectionTimeout;
-        }
-
-        public int getWriteTimeout() {
-            return writeTimeout;
-        }
-
-        public void setWriteTimeout(int writeTimeout) {
-            this.writeTimeout = writeTimeout;
+    public static EnvContext loadFromFile(String filePathName) throws QSException {
+        try {
+            return om.readValue(new File(filePathName), EnvContext.class);
+        } catch (IOException e) {
+            throw new QSException(e.getMessage());
         }
     }
 
     /**
-     * {@link com.qingstor.sdk.constants.QSConstant#VIRTUAL_HOST_STYLE}:<br>
+     * if true is returned, virtual-host style will be the default url style, otherwise, path style
+     * will be used.
+     *
+     * @return is virtual-host style is enabled
+     * @see #setVirtualHostEnabled(boolean)
+     */
+    public boolean isVirtualHostEnabled() {
+        return virtualHostEnabled;
+    }
+
+    /**
+     * if true is passed in, url style will like 1, otherwise, 2 will be the url style when send
+     * request.
+     *
+     * <p>URL have two style: <br>
+     * 1. VIRTUAL_HOST_STYLE: <br>
      * https://bucket-name.zone-id.qingstor.com/object-name <br>
-     * {@link com.qingstor.sdk.constants.QSConstant#PATH_STYLE}: <br>
+     * 2. PATH_STYLE: <br>
+     * https://zone-id.qingstor.com/bucket-name/object-name <br>
+     */
+    public void setVirtualHostEnabled(boolean virtualHostEnabled) {
+        this.virtualHostEnabled = virtualHostEnabled;
+    }
+
+    /**
+     * URL have two style: <br>
+     * 1. VIRTUAL_HOST_STYLE: <br>
+     * https://bucket-name.zone-id.qingstor.com/object-name <br>
+     * 2. PATH_STYLE: <br>
      * https://zone-id.qingstor.com/bucket-name/object-name <br>
      *
      * @return request url style
+     * @deprecated Use {@link #isVirtualHostEnabled()} instead.
      */
+    @Deprecated
     public String getRequestUrlStyle() {
         return requestUrlStyle;
     }
 
     /**
      * You can use this method to change the url style. <br>
-     * Now available style: <br>
-     * One is the default, when requestUrlStyle != {@link
-     * com.qingstor.sdk.constants.QSConstant#PATH_STYLE} <br>
-     * You may see the url like this({@link
-     * com.qingstor.sdk.constants.QSConstant#VIRTUAL_HOST_STYLE}): <br>
+     * URL have two style: <br>
+     * 1. VIRTUAL_HOST_STYLE: <br>
      * https://bucket-name.zone-id.qingstor.com/object-name <br>
-     * Otherwise you may see the url like this({@link
-     * com.qingstor.sdk.constants.QSConstant#PATH_STYLE}): <br>
+     * 2. PATH_STYLE: <br>
      * https://zone-id.qingstor.com/bucket-name/object-name <br>
      *
      * @param requestUrlStyle set QSConstant.PATH_STYLE or QSConstant.VIRTUAL_HOST_STYLE
+     * @deprecated Use {@link #setVirtualHostEnabled(boolean)} instead.
      */
+    @Deprecated
     public void setRequestUrlStyle(String requestUrlStyle) {
         this.requestUrlStyle = requestUrlStyle;
     }
-
-    private boolean safeOkHttp = true;
 
     public boolean isSafeOkHttp() {
         return safeOkHttp;
@@ -188,6 +192,16 @@ public class EnvContext implements ParamValidate {
         return joinUrl;
     }
 
+    /** @return the additionalUserAgent */
+    public String getAdditionalUserAgent() {
+        return additionalUserAgent;
+    }
+
+    /** @param additionalUserAgent the additionalUserAgent to set */
+    public void setAdditionalUserAgent(String additionalUserAgent) {
+        this.additionalUserAgent = additionalUserAgent;
+    }
+
     public HttpConfig getHttpConfig() {
         return httpConfig;
     }
@@ -227,31 +241,6 @@ public class EnvContext implements ParamValidate {
                 + '}';
     }
 
-    private EnvContext() {}
-
-    public EnvContext(String accessKey, String accessSecret) {
-        this.setAccessKeyId(accessKey);
-        this.setSecretAccessKey(accessSecret);
-    }
-
-    public static EnvContext loadFromFile(String filePathName) throws QSException {
-        try {
-            return om.readValue(new File(filePathName), EnvContext.class);
-        } catch (IOException e) {
-            throw new QSException(e.getMessage());
-        }
-    }
-
-    /** @return the additionalUserAgent */
-    public String getAdditionalUserAgent() {
-        return additionalUserAgent;
-    }
-
-    /** @param additionalUserAgent the additionalUserAgent to set */
-    public void setAdditionalUserAgent(String additionalUserAgent) {
-        this.additionalUserAgent = additionalUserAgent;
-    }
-
     @Override
     public String validateParam() {
         if (QSStringUtil.isEmpty(getAccessKeyId())) {
@@ -272,5 +261,44 @@ public class EnvContext implements ParamValidate {
             }
         }
         return null;
+    }
+
+    public static class HttpConfig {
+        private int readTimeout = 100;
+        private int connectionTimeout = 60;
+
+        private int writeTimeout = 100;
+
+        public HttpConfig() {}
+
+        public HttpConfig(int readTimeout, int connectionTimeout, int writeTimeout) {
+            this.readTimeout = readTimeout;
+            this.connectionTimeout = connectionTimeout;
+            this.writeTimeout = writeTimeout;
+        }
+
+        public int getReadTimeout() {
+            return readTimeout;
+        }
+
+        public void setReadTimeout(int readTimeout) {
+            this.readTimeout = readTimeout;
+        }
+
+        public int getConnectionTimeout() {
+            return connectionTimeout;
+        }
+
+        public void setConnectionTimeout(int connectionTimeout) {
+            this.connectionTimeout = connectionTimeout;
+        }
+
+        public int getWriteTimeout() {
+            return writeTimeout;
+        }
+
+        public void setWriteTimeout(int writeTimeout) {
+            this.writeTimeout = writeTimeout;
+        }
     }
 }

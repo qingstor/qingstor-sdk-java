@@ -69,7 +69,6 @@ public class QSSignatureUtilTest {
         String bucketName = "bucketname";
         String objKey = "objectName/dd.txt";
         Bucket bucket = new Bucket(ctx, zoneKey, bucketName);
-        Bucket.GetObjectInput input = new Bucket.GetObjectInput();
         String url = null;
         try {
             RequestHandler reqHandler =
@@ -81,7 +80,7 @@ public class QSSignatureUtilTest {
         }
         assert url != null;
         Assert.assertEquals(
-                0, url.indexOf("https://bucketname.testzone.qingstor.com/objectName/dd.txt?"));
+                0, url.indexOf("https://testzone.qingstor.com/bucketname/objectName/dd.txt?"));
     }
 
     @Test
