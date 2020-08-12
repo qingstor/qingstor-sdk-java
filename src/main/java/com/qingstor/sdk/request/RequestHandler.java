@@ -50,7 +50,7 @@ public class RequestHandler {
 
     private CancellationHandler cancellationHandler;
 
-    private QSRequestBody qsRequestBody;
+    @Deprecated private QSRequestBody qsRequestBody;
 
     public RequestHandler(
             Map<String, Object> operationCtx,
@@ -114,7 +114,7 @@ public class RequestHandler {
 
     private Request getRequest() throws QSException {
         checkDownloadRequest();
-        RequestBody body = this.builder.getRequestBody(this.getQsRequestBody());
+        RequestBody body = this.builder.getRequestBody();
         if (this.getProgressListener() != null) {
             return this.builder.getRequest(
                     new ProgressRequestBody(body, this.progressListener, getCancellationHandler()));
@@ -124,7 +124,7 @@ public class RequestHandler {
 
     /**
      * OkHttp will use "Accept-Encoding: gzip" as default header, which may not get Content-Length
-     * form server when download.
+     * from server when download.
      */
     private void checkDownloadRequest() {
         if (outputClass == null) return;
@@ -149,7 +149,7 @@ public class RequestHandler {
         }
     }
 
-    public String getStringToSignature() throws QSException {
+    public String getStringToSignature() {
         return this.builder.getStringToSignature();
     }
 
@@ -203,11 +203,13 @@ public class RequestHandler {
     }
 
     /** @return the qsRequestBody */
+    @Deprecated
     public QSRequestBody getQsRequestBody() {
         return qsRequestBody;
     }
 
     /** @param qsRequestBody the qsRequestBody to set */
+    @Deprecated
     public void setQsRequestBody(QSRequestBody qsRequestBody) {
         this.qsRequestBody = qsRequestBody;
     }

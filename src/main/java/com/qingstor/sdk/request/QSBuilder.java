@@ -154,38 +154,6 @@ public class QSBuilder {
         log.debug("== resource Url ==\n" + this.urlWithoutQueries + "\n");
     }
 
-    private void doSignature() throws QSException {
-
-        String authSign = this.getParamSignature();
-        log.debug("== authSign ==\n" + authSign + "\n");
-
-        paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
-    }
-
-    private String getParamSignature() throws QSException {
-
-        String authSign = "";
-        EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
-        try {
-
-            if (this.checkExpiresParam()) {
-                authSign =
-                        QSSignatureUtil.generateSignature(
-                                envContext.getSecretAccessKey(), this.getStringToSignature());
-            } else {
-                authSign =
-                        QSSignatureUtil.generateAuthorization(
-                                envContext.getAccessKeyId(),
-                                envContext.getSecretAccessKey(),
-                                this.getStringToSignature());
-            }
-        } catch (Exception e) {
-            throw new QSException("Auth signature error", e);
-        }
-
-        return authSign;
-    }
-
     private Map headParamEncoding(Map headParams) throws QSException {
         final int maxAscii = 127;
         Map<String, String> head = new HashMap<>();
@@ -228,58 +196,21 @@ public class QSBuilder {
         }
     }
 
-    public void setHeader(String name, String value) {
-        this.paramsHeaders.put(name, value);
-    }
-
-    public void setSignature(String accessKey, String signature) throws QSException {
-        try {
-            EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
-            envContext.setAccessKeyId(accessKey);
-            if (this.checkExpiresParam()) {
-                signature = URLEncoder.encode(signature, QSConstant.ENCODING_UTF8);
-            } else {
-                signature = String.format("QS %s:%s", accessKey, signature);
-            }
-            this.paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, signature);
-        } catch (UnsupportedEncodingException e) {
-            throw new QSException("Auth signature error", e);
-        }
-    }
-
-    public String getStringToSignature() {
-        return QSSignatureUtil.getStringToSignature(
-                this.requestMethod, resourcePathForSign(), this.paramsQuery, this.paramsHeaders);
-    }
-
-    public RequestBody getRequestBody(QSRequestBody qsBody) throws QSException {
-        this.getSignature();
-        RequestBody requestBody = null;
-        String contentType =
-                String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
-        long contentLength = 0;
-        if (paramsHeaders.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
-            contentLength =
-                    Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
-        }
-        if (qsBody != null) {
-            requestBody =
-                    qsBody.getRequestBody(
-                            contentType,
-                            contentLength,
-                            this.requestMethod,
-                            this.paramsBody,
-                            this.paramsQuery);
+    private QSRequestBody determineBody() {
+        if (this.paramsFormData != null && this.paramsFormData.size() > 0) {
+            return new QSFormRequestBody();
         } else {
-            requestBody = getRequestBody();
+            String requestApi = (String) this.opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
+            if (QSConstant.PARAM_KEY_REQUEST_API_MULTIPART.equals(requestApi)) {
+                return new QSMultiPartUploadRequestBody();
+            } else {
+                return new QSNormalRequestBody();
+            }
         }
-
-        return requestBody;
     }
 
     public RequestBody getRequestBody() throws QSException {
         this.getSignature();
-        RequestBody requestBody = null;
         String contentType =
                 String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
         long contentLength = 0;
@@ -287,43 +218,19 @@ public class QSBuilder {
             contentLength =
                     Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
         }
-
+        Map bodyParams;
         if (this.paramsFormData != null && this.paramsFormData.size() > 0) {
-            requestBody =
-                    new QSFormRequestBody()
-                            .getRequestBody(
-                                    contentType,
-                                    contentLength,
-                                    this.requestMethod,
-                                    this.paramsFormData,
-                                    this.paramsQuery);
+            bodyParams = this.paramsFormData;
         } else {
-            String requestApi = (String) this.opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
-            if (QSConstant.PARAM_KEY_REQUEST_API_MULTIPART.equals(requestApi)) {
-                requestBody =
-                        new QSMultiPartUploadRequestBody()
-                                .getRequestBody(
-                                        contentType,
-                                        contentLength,
-                                        this.requestMethod,
-                                        this.paramsBody,
-                                        this.paramsQuery);
-            } else {
-                requestBody =
-                        new QSNormalRequestBody()
-                                .getRequestBody(
-                                        contentType,
-                                        contentLength,
-                                        this.requestMethod,
-                                        this.paramsBody,
-                                        this.paramsQuery);
-            }
+            bodyParams = this.paramsBody;
         }
-        return requestBody;
+        QSRequestBody reqBody = determineBody();
+        return reqBody.getRequestBody(
+                contentType, contentLength, this.requestMethod, bodyParams, this.paramsQuery);
     }
 
-    public Request getRequest(RequestBody requestBody) throws QSException {
-        if (this.checkExpiresParam()) {
+    public Request getRequest(RequestBody reqBody) throws QSException {
+        if (this.checkExpiresParam()) { // is this needed?
             throw new QSException("You need to 'getExpiresRequestUrl' do request!");
         }
 
@@ -333,12 +240,7 @@ public class QSBuilder {
         for (String key : sortedHeadersKeys) {
             builder.addHeader(key, String.valueOf(this.paramsHeaders.get(key)));
         }
-        return builder.url(mergeFullUrl()).method(this.requestMethod, requestBody).build();
-    }
-
-    private boolean checkExpiresParam() {
-        Object expiresTime = this.opCtx.get(QSConstant.PARAM_KEY_EXPIRES);
-        return expiresTime != null;
+        return builder.url(mergeFullUrl()).method(this.requestMethod, reqBody).build();
     }
 
     private String mergeFullUrl() {
@@ -364,6 +266,44 @@ public class QSBuilder {
         return builder.build().toString();
     }
 
+    private String resourcePathForSign() {
+        String encodedPath = this.urlWithoutQueries.encodedPath();
+        if (this.pathMode) {
+            return encodedPath;
+        }
+        String bucketName = (String) this.opCtx.get(QSConstant.PARAM_KEY_BUCKET_NAME);
+        return "/" + (bucketName != null ? bucketName + encodedPath : "");
+    }
+
+    public void setHeader(String name, String value) {
+        this.paramsHeaders.put(name, value);
+    }
+
+    private boolean checkExpiresParam() {
+        Object expiresTime = this.opCtx.get(QSConstant.PARAM_KEY_EXPIRES);
+        return expiresTime != null;
+    }
+
+    public void setSignature(String accessKey, String signature) throws QSException {
+        try {
+            EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+            envContext.setAccessKeyId(accessKey);
+            if (this.checkExpiresParam()) {
+                signature = URLEncoder.encode(signature, QSConstant.ENCODING_UTF8);
+            } else {
+                signature = String.format("QS %s:%s", accessKey, signature);
+            }
+            this.paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, signature);
+        } catch (UnsupportedEncodingException e) {
+            throw new QSException("Auth signature error", e);
+        }
+    }
+
+    public String getStringToSignature() {
+        return QSSignatureUtil.getStringToSignature(
+                this.requestMethod, resourcePathForSign(), this.paramsQuery, this.paramsHeaders);
+    }
+
     private String getSignature() throws QSException {
         String signature =
                 String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
@@ -375,12 +315,61 @@ public class QSBuilder {
         return signature;
     }
 
-    private String resourcePathForSign() {
-        String encodedPath = this.urlWithoutQueries.encodedPath();
-        if (this.pathMode) {
-            return encodedPath;
+    private void doSignature() throws QSException {
+
+        String authSign = this.getParamSignature();
+        log.debug("== authSign ==\n" + authSign + "\n");
+
+        paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
+    }
+
+    private String getParamSignature() throws QSException {
+
+        String authSign = "";
+        EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+        try {
+
+            if (this.checkExpiresParam()) {
+                authSign =
+                        QSSignatureUtil.generateSignature(
+                                envContext.getSecretAccessKey(), this.getStringToSignature());
+            } else {
+                authSign =
+                        QSSignatureUtil.generateAuthorization(
+                                envContext.getAccessKeyId(),
+                                envContext.getSecretAccessKey(),
+                                this.getStringToSignature());
+            }
+        } catch (Exception e) {
+            throw new QSException("Auth signature error", e);
         }
-        String bucketName = (String) this.opCtx.get(QSConstant.PARAM_KEY_BUCKET_NAME);
-        return "/" + (bucketName != null ? bucketName + encodedPath : "");
+
+        return authSign;
+    }
+
+    @Deprecated
+    public RequestBody getRequestBody(QSRequestBody qsBody) throws QSException {
+        this.getSignature();
+        RequestBody requestBody;
+        String contentType =
+                String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
+        long contentLength = 0;
+        if (paramsHeaders.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
+            contentLength =
+                    Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");
+        }
+        if (qsBody != null) {
+            requestBody =
+                    qsBody.getRequestBody(
+                            contentType,
+                            contentLength,
+                            this.requestMethod,
+                            this.paramsBody,
+                            this.paramsQuery);
+        } else {
+            requestBody = getRequestBody();
+        }
+
+        return requestBody;
     }
 }
