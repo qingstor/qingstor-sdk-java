@@ -105,11 +105,11 @@ val cucumberRuntime: Configuration by configurations.creating {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
+    api("com.squareup.okhttp3:okhttp:3.12.12")
+
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.10")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.9.10.5")
-
     implementation("org.json:json:20200518")
-    implementation("com.squareup.okhttp3:okhttp:3.12.12")
     // it's library's consumer's responsibility to choose a log implementation(and set log_level.)
     implementation("org.slf4j:slf4j-api:1.7.30")
     testImplementation("io.cucumber:cucumber-java:6.2.2")
