@@ -49,13 +49,10 @@ public class EnvContextTest {
             output.write(config.getBytes());
             output.close();
             bConf = true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (bConf) {
-
             EnvContext ctx = EnvContext.loadFromFile("/tmp/config.yaml");
             Assert.assertEquals(ctx.getAccessKeyId(), "testkey");
             Assert.assertEquals(ctx.getSecretAccessKey(), "test_asss");

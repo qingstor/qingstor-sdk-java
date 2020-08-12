@@ -21,8 +21,8 @@ protocol: 'https'
 # No need to define a log level in a library. We only provide slf4j: an common abstract layer of logging, 
 # it's user's responsbility to provide a log framework implementation in their application.
 
-# Valid request url styles are "virtual_host_style"(default) and "path_style".
-request_url_style: 'path_style'
+# Valid request url styles are "virtual_host_style" and "path_style"(default).
+virtual_host_enabled: false
 
 # optional
 http_config:

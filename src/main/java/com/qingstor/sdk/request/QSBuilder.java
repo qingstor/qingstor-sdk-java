@@ -116,9 +116,7 @@ public class QSBuilder {
         String objectName = (String) this.opCtx.get(QSConstant.PARAM_KEY_OBJECT_NAME);
 
         EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
-        String urlStyle = envContext.getRequestUrlStyle();
-        boolean pathMode = urlStyle.equals(QSConstant.PATH_STYLE);
-        this.pathMode = pathMode;
+        this.pathMode = !envContext.isVirtualHostEnabled();
 
         HttpUrl endpoint =
                 UrlUtils.calcFinalEndpoint(envContext.getRequestUrl(), zone, bucketName, pathMode);
@@ -154,7 +152,7 @@ public class QSBuilder {
         log.debug("== resource Url ==\n" + this.urlWithoutQueries + "\n");
     }
 
-    private Map headParamEncoding(Map headParams) throws QSException {
+    private Map headParamEncoding(Map headParams) {
         final int maxAscii = 127;
         Map<String, String> head = new HashMap<>();
         for (Object o : headParams.entrySet()) {
@@ -185,7 +183,6 @@ public class QSBuilder {
                 try {
                     MessageDigest md5 = MessageDigest.getInstance("MD5");
                     String contentMD5 =
-                            // Base64.encode(instance.digest(bodyContent.toString().getBytes()));
                             Base64.getEncoder()
                                     .encodeToString(md5.digest(bodyContent.toString().getBytes()));
                     headerParams.put(QSConstant.PARAM_KEY_CONTENT_MD5, contentMD5);
@@ -324,11 +321,9 @@ public class QSBuilder {
     }
 
     private String getParamSignature() throws QSException {
-
-        String authSign = "";
+        String authSign;
         EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
         try {
-
             if (this.checkExpiresParam()) {
                 authSign =
                         QSSignatureUtil.generateSignature(
