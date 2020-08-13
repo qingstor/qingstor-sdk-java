@@ -23,11 +23,11 @@ public class QSConstant {
     public static String QC_CODE_FIELD_NAME = "statue_code";
     public static String QC_MESSAGE_FIELD_NAME = "message";
 
-    public static final String PARAM_TYPE_QUERY = "query";
-    public static final String PARAM_TYPE_BODY = "body";
-    public static final String PARAM_TYPE_BODY_ELEMENT = "element";
-    public static final String PARAM_TYPE_HEADER = "header";
-    public static final String PARAM_TYPE_FORM_DATA = "formData";
+    @Deprecated public static final String PARAM_TYPE_BODY = "body";
+    @Deprecated public static final String PARAM_TYPE_BODY_ELEMENT = "element";
+    @Deprecated public static final String PARAM_TYPE_HEADER = "header";
+    @Deprecated public static final String PARAM_TYPE_FORM_DATA = "formData";
+    @Deprecated public static final String PARAM_TYPE_QUERY = "query";
 
     public static final String PARAM_TYPE_BODYINPUTSTREAM = "BodyInputStream";
     public static final String PARAM_TYPE_BODYINPUTSTRING = "BodyInput";

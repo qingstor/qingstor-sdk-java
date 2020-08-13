@@ -16,6 +16,7 @@
 package com.qingstor.sdk.request;
 
 import com.qingstor.sdk.config.EnvContext;
+import com.qingstor.sdk.constants.ParamType;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
@@ -72,8 +73,7 @@ public class QSBuilder {
 
     private void initHeadersAndBody() throws QSException {
         this.httpMethod = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
-        this.paramsHeaders =
-                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_HEADER);
+        this.paramsHeaders = QSParamInvokeUtil.getRequestParams(this.paramsModel, ParamType.HEADER);
 
         if (this.paramsHeaders.containsKey(QSConstant.PARAM_KEY_METADATA)) {
             Object o = this.paramsHeaders.get(QSConstant.PARAM_KEY_METADATA);
@@ -99,20 +99,16 @@ public class QSBuilder {
         }
 
         this.paramsBody =
-                QSParamInvokeUtil.getRequestParams(
-                        this.paramsModel, QSConstant.PARAM_TYPE_BODY_ELEMENT);
+                QSParamInvokeUtil.getRequestParams(this.paramsModel, ParamType.BODY_ELEMENT);
         if (this.paramsBody.size() != 0) {
             this.paramsHeaders.put(
                     QSConstant.HEADER_PARAM_KEY_CONTENTTYPE, QSConstant.CONTENT_TYPE_JSON);
         } else {
-            this.paramsBody =
-                    QSParamInvokeUtil.getRequestParams(
-                            this.paramsModel, QSConstant.PARAM_TYPE_BODY);
+            this.paramsBody = QSParamInvokeUtil.getRequestParams(this.paramsModel, ParamType.BODY);
         }
         this.initHeadContentMd5(paramsBody, paramsHeaders);
         this.paramsFormData =
-                QSParamInvokeUtil.getRequestParams(
-                        this.paramsModel, QSConstant.PARAM_TYPE_FORM_DATA);
+                QSParamInvokeUtil.getRequestParams(this.paramsModel, ParamType.FORM_DATA);
     }
 
     private void initUrlWithQueries() throws QSException {
@@ -140,8 +136,7 @@ public class QSBuilder {
             urlBuilder.query(extraQueries);
         }
 
-        this.paramsQuery =
-                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_QUERY);
+        this.paramsQuery = QSParamInvokeUtil.getRequestParams(this.paramsModel, ParamType.QUERY);
         this.paramsQuery.forEach(
                 (k, v) ->
                         urlBuilder.addQueryParameter(

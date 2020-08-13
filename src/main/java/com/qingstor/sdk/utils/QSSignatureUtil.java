@@ -16,6 +16,7 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.config.EnvContext;
+import com.qingstor.sdk.constants.ParamType;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
@@ -363,9 +364,8 @@ public class QSSignatureUtil {
 
         EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
 
-        Map paramsQuery = QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_QUERY);
-        Map paramsHeaders =
-                QSParamInvokeUtil.getRequestParams(params, QSConstant.PARAM_TYPE_HEADER);
+        Map paramsQuery = QSParamInvokeUtil.getRequestParams(params, ParamType.QUERY);
+        Map paramsHeaders = QSParamInvokeUtil.getRequestParams(params, ParamType.HEADER);
         paramsHeaders.remove(QSConstant.HEADER_PARAM_KEY_DATE);
         paramsHeaders.clear();
         paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_EXPIRES, expiresSecond + "");
