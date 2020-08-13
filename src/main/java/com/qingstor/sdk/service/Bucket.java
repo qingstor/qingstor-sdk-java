@@ -298,7 +298,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -1095,7 +1100,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -3317,7 +3327,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -3509,7 +3524,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -3697,7 +3717,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -3874,7 +3899,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -4042,7 +4072,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -4230,7 +4265,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -4406,7 +4446,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -4578,7 +4623,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
@@ -5299,7 +5349,12 @@ public class Bucket {
         public String getBodyInput() {
             return bodyInput;
         }
-        /** Object json string */
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
