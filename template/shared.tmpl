@@ -16,6 +16,7 @@
 
 {{define "ValidateCustomizedType"}}
     {{- $customizedType := . -}}
+
     {{- range $_, $property := $customizedType.Properties -}}
         {{- $isNormalType :=  (eq $property.Type "string") -}}
         {{- $isContentLength := eq $property.ID "Content-Length" -}}
@@ -134,39 +135,29 @@
     {{- end -}}
 {{- end -}}
 
-
-
 {{define "RenderProperties"}}
 	{{- $customizedType := index . 0 -}}
-	{{- $PropertyExtraTags := index . 1 -}}
-	{{- $PropertyTypes := index . 2 -}}
+	{{- $propertyExtraTags := index . 1 -}}
+    {{- $operationName := index . 2 -}}
 
 	{{range $_, $property := $customizedType.Properties -}}
-	    /**
-		{{if $property.Description -}}
-			* {{$property.Description}}
-		{{end -}}
-		{{if $property.Enum -}}
-			* {{$property.ID | camelCase}}'s available values: {{$property.Enum | commaConnected}}
-		{{end -}}
+        {{if or (ne $operationName "Delete Multiple Objects") (ne $property.ID "Content-MD5") -}}
+            /**
+            {{if $property.Description -}}
+                * {{$property.Description}}
+            {{end -}}
+            {{if $property.Enum -}}
+                * {{$property.ID | camelCase}}'s available values: {{$property.Enum | commaConnected}}
+            {{end -}}
 
-		{{if $property.IsRequired -}}
-            * Required
+            {{if $property.IsRequired -}}
+                * Required
+            {{- end}}
+            */
+            {{template "PropertyTags" passThrough $property $propertyExtraTags}}
         {{- end}}
-        */
-        {{ if eq $PropertyTypes "header" -}}
-            {{template "PropertyTagsHeader"  $property  }}
-        {{- else if eq $PropertyTypes "body" -}}
-            {{template "PropertyTagsBody"  $property  }}
-        {{- else -}}
-            {{template "PropertyTags"  $property  }}
-        {{- end -}}
 	{{end}}
 {{end}}
-
-
-
-
 
 {{define "Type"}}
 	{{- $typeName := . -}}
@@ -182,15 +173,15 @@
 	{{- else if eq $typeName "timestamp" -}}
 		String
 	{{- else if eq $typeName "binary" -}}
-		File
+		InputStream
 	{{- else if eq $typeName "array" -}}
 		List
 	{{- else if eq $typeName "object" -}}
-		interface{}
+		Object
 	{{- else if eq $typeName "map" -}}
 		Map
 	{{- else if eq $typeName "any" -}}
-		interface{}
+		Object
 	{{- else -}}
 		{{$typeName | camelCase}}Model
 	{{- end -}}
@@ -213,7 +204,8 @@
 {{end}}
 
 {{define "PropertyTags"}}
-	{{- $property := . -}}
+	{{- $property := index . 0 -}}
+	{{- $propertyExtraTags := index . 1 -}}
 
     {{- printf `%s  ` "private" -}}
 
@@ -226,15 +218,25 @@
     {{- printf ` %s){` ($property.ID | camelCase | lowerFirst) -}}
     {{- printf ` this.%s =` ($property.Name | camelCase | lowerFirst) -}}
     {{- printf ` %s;}` ($property.ID | camelCase | lowerFirst) }}
-
-    {{ printf ` @ParamAnnotation(paramType = "query", paramName = "%s")` ($property.Name | normalized) }}
+    {{ printf ` @ParamAnnotation(paramType ="` -}}
+    {{- template "PropertyExtraTags" $propertyExtraTags -}}
+    {{if eq $propertyExtraTags "header" -}}
+        {{ printf `", paramName = "%s")` ($property.Name | lower) }}
+    {{- else -}}
+        {{ printf `", paramName = "%s")` ($property.Name | normalized) }}
+    {{- end}}
     {{ printf ` %s` "public " -}}
     {{template "PropertyType" $property}}
     {{- printf ` get%s(){` ($property.ID | camelCase) -}}
 
-    {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
+    {{- printf ` return this.%s;}` ($property.ID | camelCase | lowerFirst) -}}
+{{end}}
 
-
+{{define "PropertyExtraTags"}}
+    {{- $propertyExtraTags := . -}}
+    {{- if $propertyExtraTags -}}
+        {{- printf "%s" $propertyExtraTags -}}
+    {{- end -}}
 {{end}}
 
 {{define "PropertyTagsQuery"}}
@@ -287,7 +289,7 @@
 {{define "PropertyTagsHeader"}}
 	{{- $property := . -}}
 
-    {{- printf `%s  ` "private" -}}
+    {{- printf `%s ` "private" -}}
 
     {{template "PropertyType" $property}}
     {{- printf `  %s;` ($property.ID | camelCase | lowerFirst) -}}
@@ -305,557 +307,493 @@
     {{- printf ` get%s(){` ($property.ID | camelCase) -}}
 
     {{- printf ` return this.%s ;}` ($property.ID | camelCase | lowerFirst) -}}
-
 {{end}}
-
-{{define "PropertyExtraTags"}}
-	{{- $PropertyExtraTags := . -}}
-	{{- if $PropertyExtraTags -}}
-		{{- printf " %s" $PropertyExtraTags -}}
-	{{- end -}}
-{{end}}
-
 
 {{define "RenderOperation"}}
-	{{$belongs := index . 0}}
+	{{$service := index . 0}}
 	{{$operation := index . 1}}
 
+    {{$belongs := replace $service.Name "QingStor" "Service" -1}}
+    {{$belongs := replace $belongs "Object" "Bucket" -1}}
 	{{$opID := $operation.ID | camelCase}}
 
-	{{$newURI := replace $operation.Request.Path "{objectKey}" "replace" -1}}
-    {{$hasParams := gt (len $operation.Request.Query.Properties) 0}}
+    {{$isBucket := eq $service.Name "Bucket"}}
+    {{$isObject := eq $service.Name "Object"}}
+
+    {{$hasQuery := gt (len $operation.Request.Query.Properties) 0}}
     {{$hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
     {{$hasElements := gt (len $operation.Request.Elements.Properties) 0}}
     {{$hasStringBody := eq $operation.Request.Body.Type "string"}}
     {{$hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
-    {{$hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
+    {{$hasInput := or $hasQuery $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
+
     /**
-     {{- if eq $operation.Request.Path $newURI}}
-     {{ else }}
-     * @param objectName name of the object
-     {{- end}}
-     {{- if $hasInput}}
-     * @param input input
-     {{- end}}
-     * @throws QSException exception
-     * @return {{$opID}}Output output stream
-     * Documentation URL: <a href="{{$operation.DocumentationURL}}"> {{$operation.DocumentationURL}} </a>
+    {{- if $isObject}}
+    * @param objectName name of the object
+    {{- end}}
+    {{- if $hasInput}}
+    * @param input input
+    {{- end}}
+    * @throws QSException exception
+    * @return {{$opID}}Output output stream
+    * Documentation URL: <a href="{{$operation.DocumentationURL}}"> {{$operation.DocumentationURL}} </a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public {{$opID}}Output
     {{if eq $belongs "Bucket" -}}
-        {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
-    {{else -}}
-        {{$opID | camelCase | lowerFirst }}
-    {{end}}
-    (
-    {{if eq $operation.Request.Path $newURI}}
-        {{- if $hasInput}}
-
-         {{$opID}}Input input
-        {{end}}
+        {{$methodName := replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
+        {{$methodName}}
     {{- else -}}
-     String objectName
-        {{- if $hasInput}}
-        ,{{$opID}}Input input
-        {{end}}
+        {{$methodName := $opID | camelCase | lowerFirst }}
+        {{$methodName}}
+    {{- end -}}(
+    {{- if $isObject}}
+        String objectName
+        {{- if $hasInput}}, {{$opID}}Input input{{end -}}
+    {{- else -}}
+        {{- if $hasInput}}{{$opID}}Input input{{end -}}
     {{end}}
     ) throws QSException {
-            {{- if $hasInput}}
-
-                if (input == null ){
-                    input = new {{$opID}}Input();
-                }
-            {{end}}
-
-			RequestHandler requestHandler = this.{{if eq $belongs "Bucket" -}}
-                {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
-                {{else -}}
-                    {{$opID | camelCase | lowerFirst -}}
-                {{end}}Request(
-                {{if eq $operation.Request.Path $newURI}}
-                {{- else -}}
-                objectName
-                {{end}}
-                {{if $hasInput -}}
-                {{if eq $operation.Request.Path $newURI}}
-                {{- else -}}
-                ,
-                {{end}}
-                    input
-                {{end -}}
-            );
-
-            OutputModel backModel = requestHandler.send();
-            if(backModel != null){
-                return ({{$opID}}Output)backModel;
+        {{- if $hasInput}}
+            if (input == null ){
+                input = new {{$opID}}Input();
             }
-            return null;
+        {{end}}
+        RequestHandler requestHandler = this.
+        {{- if eq $belongs "Bucket" -}}
+            {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
+        {{else -}}
+            {{$opID | camelCase | lowerFirst -}}
+        {{end -}}Request(
+        {{- if $isObject}}
+            objectName
+            {{- if $hasInput}}, input{{end -}}
+        {{- else -}}
+            {{- if $hasInput}}input{{end -}}
+        {{end}}
+        );
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return ({{$opID}}Output)backModel;
         }
+        return null;
+    }
 
     /**
-     {{- if eq $operation.Request.Path $newURI}}
-     {{ else }}
-     * @param objectName name of the object
-     {{- end}}
-     {{- if $hasInput}}
-     * @param input input
-     {{- end}}
-     * @throws QSException exception
-     * @return RequestHandler http request handler
-     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
+    {{- if $isObject}}
+    * @param objectName name of the object
+    {{- end}}
+    {{- if $hasInput}}
+    * @param input input
+    {{- end}}
+    * @throws QSException exception
+    * @return RequestHandler http request handler
+    * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public RequestHandler
     {{if eq $belongs "Bucket" -}}
-        {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
-    {{else -}}
-        {{$opID | camelCase | lowerFirst -}}
-    {{end -}}Request
-    (
-    {{if eq $operation.Request.Path $newURI -}}
-        {{- if $hasInput -}}
-
-         {{$opID -}}Input input
-        {{end}}
-    {{ else -}}
-     String objectName
-        {{- if $hasInput}}
-        ,{{$opID}}Input input
-        {{end}}
+        {{$methodPrefix := replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
+        {{$methodPrefix}}
+    {{- else -}}
+        {{$methodPrefix := $opID | camelCase | lowerFirst }}
+        {{$methodPrefix}}
+    {{- end -}}Request(
+    {{- if $isObject}}
+        String objectName
+        {{- if $hasInput}}, {{$opID}}Input input{{end -}}
+    {{- else -}}
+        {{- if $hasInput}}{{$opID}}Input input{{end -}}
     {{end}}
     ) throws QSException {
-            {{- if $hasInput}}
+        {{- if $hasInput}}
+            if (input == null ){
+                input = new {{$opID}}Input();
+            }
+        {{end}}
 
-                if (input == null ){
-                    input = new {{$opID}}Input();
-                }
-            {{end}}
+        {{$path := $operation.Request.Path}}
+        {{$path := replace $path "{" "<" -1}}
+        {{$path := replace $path "}" ">" -1}}
+        {{$path := dashConnected $path}}
 
-            {{$uri := $operation.Request.Path}}
-            {{$uri := replace $uri "{" "<" -1}}
-            {{$uri := replace $uri "}" ">" -1}}
-            {{$uri := dashConnected $uri}}
+        Map<String, Object> context = new HashMap<>();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
+        context.put("OperationName","{{$opID}}");
+        context.put("APIName","{{$opID}}");
+        context.put("ServiceName","{{$operation.Name}}");
+        context.put("RequestMethod","{{$operation.Request.Method}}");
+        context.put("RequestURI","{{$path}}");
 
-            Map context = new HashMap();
-            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
-            context.put(QSConstant.ENV_CONTEXT_KEY,this.envContext);
-            context.put("OperationName","{{$opID}}");
-            context.put("APIName","{{$opID}}");
-            context.put("ServiceName","{{$operation.Name}}");
-            context.put("RequestMethod","{{$operation.Request.Method}}");
-            context.put("RequestURI","{{$uri}}");
+        {{if ne $belongs "Service" -}}
             context.put("bucketNameInput",this.bucketName);
-            {{if eq $operation.Request.Path $newURI}}
-            {{- else -}}
-            context.put("objectNameInput",objectName);
-            {{end}}
-
-            {{if eq $belongs "QingStorService" -}}
-            {{- else -}}
             if (QSStringUtil.isEmpty(bucketName)) {
                 throw new QSException("bucketName can't be empty!");
             }
-            {{- end -}}
-            {{if eq $operation.Request.Path $newURI -}}
-            {{- else -}}
+        {{- end}}
+        {{if $isObject -}}
+            context.put("objectNameInput",objectName);
             if (QSStringUtil.isEmpty(objectName)) {
                 throw new QSException("objectName can't be empty!");
             }
-            {{- end}}
+        {{- end}}
 
-            RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest().getRequest(context,
-                {{- if $hasInput}}
-                    input
-                {{ else }}
-                    null
-                {{end}},
-                {{$opID}}Output.class);
-
-            return requestHandler;
-        }
-    /**
-     {{- if eq $operation.Request.Path $newURI}}
-     {{ else }}
-     * @param objectName name of the object
-     {{- end}}
-     *{{- if $hasInput}}
-     * @param input input
-          {{- end}}
-     * @param callback response callback
-     * @throws QSException exception
-     *
-     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
-    */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public void {{if eq $belongs "Bucket" -}}
-                        {{- replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
-                    {{- else -}}
-                        {{$opID | camelCase | lowerFirst }}
-                    {{- end -}}Async(
-        {{if eq $operation.Request.Path $newURI}}
+        RequestHandler requestHandler =
+            ResourceRequestFactory.getResourceRequest().getRequest(context,
             {{- if $hasInput}}
+                input
+            {{ else }}
+                null
+            {{end}},
+            {{$opID}}Output.class);
 
-             {{$opID}}Input input,
-            {{end}}
-        {{- else -}}
-         String objectName,
-            {{- if $hasInput}}
-            {{$opID}}Input input,
-            {{end}}
-        {{end}}
-        ResponseCallBack<{{camelCase $operation.ID}}Output> callback) throws QSException {
-            {{- if $hasInput}}
-
-                if (input == null ){
-                    input = new {{$opID}}Input();
-                }
-            {{end}}
-
-            RequestHandler requestHandler = this.{{if eq $belongs "Bucket" -}}
-                {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
-                {{else -}}
-                    {{$opID | camelCase | lowerFirst -}}
-                {{end}}AsyncRequest(
-                {{if eq $operation.Request.Path $newURI}}
-                {{- else -}}
-                objectName
-                {{end}}
-                {{if $hasInput -}}
-                    {{if eq $operation.Request.Path $newURI}}
-                    {{- else -}}
-                    ,
-                    {{end}}
-                    input,callback
-                {{- else -}}
-                    {{if eq $operation.Request.Path $newURI}}
-                    callback
-                    {{- else -}}
-                    ,callback
-                    {{end}}
-
-                {{end -}}
-            );
-
-            requestHandler.sendAsync();
-
-        }
-
+        return requestHandler;
+    }
 
     /**
-     {{- if eq $operation.Request.Path $newURI}}
-     {{ else }}
-     * @param objectName name of the object
-     {{- end}}
-     *{{- if $hasInput}}
-     * @param input the input
-          {{- end}}
-     * @param callback response callback
-     * @throws QSException exception
-     * @return RequestHandler http request handler
-     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
+    {{- if $isObject}}
+    * @param objectName name of the object
+    {{- end}}
+    {{- if $hasInput}}
+    * @param input input
+    {{- end}}
+    * @param callback response callback
+    * @throws QSException exception
+    *
+    * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public RequestHandler {{if eq $belongs "Bucket" -}}
-                        {{- replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
-                    {{- else -}}
-                        {{$opID | camelCase | lowerFirst }}
-                    {{- end -}}AsyncRequest(
-        {{if eq $operation.Request.Path $newURI}}
-            {{- if $hasInput}}
-
-             {{$opID}}Input input,
-            {{end}}
-        {{- else -}}
-         String objectName,
-            {{- if $hasInput}}
-            {{$opID}}Input input,
-            {{end}}
+    public void
+    {{if eq $belongs "Bucket" -}}
+        {{$methodPrefix := replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
+        {{$methodPrefix}}
+    {{- else -}}
+        {{$methodPrefix := $opID | camelCase | lowerFirst }}
+        {{$methodPrefix}}
+    {{- end -}}Async(
+    {{- if $isObject}}
+        String objectName,
+        {{- if $hasInput}}{{$opID}}Input input, {{end -}}
+    {{- else -}}
+        {{- if $hasInput}}{{$opID}}Input input, {{end -}}
+    {{end}}
+    ResponseCallBack<{{camelCase $operation.ID}}Output> callback) throws QSException {
+        {{- if $hasInput}}
+            if (input == null ){
+                input = new {{$opID}}Input();
+            }
         {{end}}
-        ResponseCallBack<{{camelCase $operation.ID}}Output> callback) throws QSException {
-            {{- if $hasInput}}
-                if (input == null ){
-                    input = new {{$opID}}Input();
-                }
-            {{end}}
 
-            {{$uri := $operation.Request.Path}}
-            {{$uri := replace $uri "{" "<" -1}}
-            {{$uri := replace $uri "}" ">" -1}}
-            {{$uri := dashConnected $uri}}
+        RequestHandler requestHandler = this.
+        {{- if eq $belongs "Bucket" -}}
+            {{replace $opID "Bucket" "" -1 | camelCase | lowerFirst -}}
+        {{else -}}
+            {{$opID | camelCase | lowerFirst -}}
+        {{end -}}AsyncRequest(
+        {{if $isObject}}objectName,{{end}}
+        {{if $hasInput -}}input,{{end -}}
+        callback);
 
-            Map context = new HashMap();
-            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
-            context.put(QSConstant.ENV_CONTEXT_KEY,this.envContext);
-            context.put("OperationName","{{$opID}}");
-            context.put("APIName","{{$opID}}");
-            context.put("ServiceName","{{$operation.Name}}");
-            context.put("RequestMethod","{{$operation.Request.Method}}");
-            context.put("RequestURI","{{$uri}}");
+        requestHandler.sendAsync();
+    }
+
+    /**
+    {{- if $isObject}}
+    * @param objectName name of the object
+    {{- end}}
+    {{- if $hasInput}}
+    * @param input the input
+    {{- end}}
+    * @param callback response callback
+    * @throws QSException exception
+    * @return RequestHandler http request handler
+    * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
+    */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public RequestHandler
+    {{if eq $belongs "Bucket" -}}
+        {{$methodPrefix := replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
+        {{$methodPrefix}}
+    {{- else -}}
+        {{$methodPrefix := $opID | camelCase | lowerFirst }}
+        {{$methodPrefix}}
+    {{- end -}}AsyncRequest(
+    {{- if $isObject}}
+        String objectName,
+        {{- if $hasInput}}{{$opID}}Input input, {{end -}}
+    {{- else -}}
+        {{- if $hasInput}}{{$opID}}Input input, {{end -}}
+    {{end}}
+    ResponseCallBack<{{camelCase $operation.ID}}Output> callback) throws QSException {
+        {{- if $hasInput}}
+            if (input == null ){
+                input = new {{$opID}}Input();
+            }
+        {{end}}
+
+        {{$path := $operation.Request.Path}}
+        {{$path := replace $path "{" "<" -1}}
+        {{$path := replace $path "}" ">" -1}}
+        {{$path := dashConnected $path}}
+
+        Map<String, Object> context = new HashMap<>();
+        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE,this.zone);
+        context.put(QSConstant.ENV_CONTEXT_KEY,this.envContext);
+        context.put("OperationName","{{$opID}}");
+        context.put("APIName","{{$opID}}");
+        context.put("ServiceName","{{$operation.Name}}");
+        context.put("RequestMethod","{{$operation.Request.Method}}");
+        context.put("RequestURI","{{$path}}");
+
+        {{if ne $belongs "Service" -}}
             context.put("bucketNameInput",this.bucketName);
-            {{if eq $operation.Request.Path $newURI}}
-            {{- else -}}
-            context.put("objectNameInput",objectName);
-            {{end}}
-
-            {{if eq $belongs "QingStorService" -}}
-            {{- else -}}
             if (QSStringUtil.isEmpty(bucketName)) {
                 throw new QSException("bucketName can't be empty!");
             }
-            {{- end -}}
-            {{if eq $operation.Request.Path $newURI -}}
-            {{- else -}}
+        {{- end}}
+        {{if $isObject -}}
+            context.put("objectNameInput",objectName);
             if (QSStringUtil.isEmpty(objectName)) {
                 throw new QSException("objectName can't be empty!");
             }
-            {{- end}}
+        {{- end}}
 
-            if(callback == null){
-                throw new QSException("callback can't be null");
-            }
-
-            RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequestAsync(context,{{- if $hasInput}}
-                                                                                                    input
-                                                                                                {{ else }}
-                                                                                                    null
-                                                                                                {{end}},callback);
-            return requestHandler;
+        if (callback == null) {
+            throw new QSException("callback can't be null");
         }
 
-
-    {{- $hasParams := gt (len $operation.Request.Query.Properties) 0}}
-    {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
-    {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
-    {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
-    {{- $hasBinaryBody := eq $operation.Request.Body.Type "binary"}}
+        RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequestAsync(context,{{- if $hasInput}}
+                                                                                                input
+                                                                                            {{ else }}
+                                                                                                null
+                                                                                            {{end}},callback);
+        return requestHandler;
+    }
 
     {{- if $hasInput}}
-    /**
-     * {{$opID}}Input: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
-     * These fields are headers or bodies of the http request.<br>
-     {{- range $id, $property := $operation.Request.Headers.Properties}}
-     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-     {{- end}}
-     {{- range $id, $property := $operation.Request.Query.Properties}}
-     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-     {{- end}}
-     {{- range $id, $property := $operation.Request.Elements.Properties}}
-     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-     {{- end}}
-     *
-     */
-    public static class {{$opID}}Input extends RequestInputModel{
+        /**
+         * {{$opID}}Input: an input stream of the bucket.<br>
+         * The following is the description of fields.<br>
+         * These fields are headers or bodies of the http request.<br>
+         {{- range $id, $property := $operation.Request.Headers.Properties}}
+         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/'object-key'" -1}} <br>
+         {{- end}}
+         {{- range $id, $property := $operation.Request.Query.Properties}}
+         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/'object-key'" -1}} <br>
+         {{- end}}
+         {{- range $id, $property := $operation.Request.Elements.Properties}}
+         * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/'object-key'" -1}} <br>
+         {{- end}}
+         */
+        public static class {{$opID}}Input extends RequestInputModel {
             {{if $operation.Request.Query.Properties | len}}
-            	{{- $data := $operation.Request.Query -}}
-                {{template "RenderProperties" passThrough $data `` "query"}}
+                {{$data := $operation.Request.Query -}}
+                {{template "RenderProperties" passThrough $data `query` $operation.Name}}
             {{end}}
 
+            {{if $operation.Request.Headers.Properties | len}}
+                {{- $data := $operation.Request.Headers -}}
+                {{template "RenderProperties" passThrough $data `header` $operation.Name}}
+            {{end}}
 
-        {{if eq $opID "CompleteMultipartUpload" -}}
+            {{if $operation.Request.Elements.Properties | len}}
+                {{$data := $operation.Request.Elements -}}
+                {{template "RenderProperties" passThrough $data `element` $operation.Name}}
 
-             public CompleteMultipartUploadInput() {}
+                {{if $operation.Request.Body.Description -}}
+                    /** {{$operation.Request.Body.Description}} */
+                {{- end}}
+                private String bodyInput;
 
-            /**
-            * The constructor will auto set values of upload id and body input.
-            * @param multipart_upload_id upload id
-            * @param partsCount count of multi parts
-            * @param startIndex start of part number's index
-            */
-            public CompleteMultipartUploadInput(String multipart_upload_id, int partsCount, int startIndex) {
-                this.setUploadID(multipart_upload_id);
-                this.setBodyInput(getCompleteMultipartUploadContent(partsCount, startIndex));
-            }
+                @ParamAnnotation(paramType = "body",paramName = "BodyInput")
+                public String getBodyInput() {
+                   return bodyInput;
+                }
+                /** Object json string */
+                public void setBodyInput(String bodyInput) {
+                    this.bodyInput=bodyInput;
+                }
+            {{end}}
 
-            /**
-             * You can get the json content to complete multipart uploading. <br>
-             * @param partsCount count of all the uploaded parts
-             * @param startIndex start of part number's index
-             * @return content to complete multipart uploading
-             */
-            public String getCompleteMultipartUploadContent(int partsCount, int startIndex){
-                if (partsCount < 1 || startIndex < 0) return null;
+            {{if eq $operation.Request.Body.Type "string"}}
+                {{if $operation.Request.Body.Description -}}
+                    /** {{$operation.Request.Body.Description}} */
+                {{- end}}
+                private  String bodyInput;
 
-                StringBuilder uploadJson = new StringBuilder("{\"object_parts\":[");
-                for (int i = 0; i < partsCount; i++) {
-                    uploadJson.append("{\"part_number\":").append(startIndex++).append("}");
-                    if (i < partsCount - 1) uploadJson.append(",");
-                    else uploadJson.append("]}");
+                /**
+                * Get the object json string.
+                * @return object json string
+                */
+                @ParamAnnotation(paramType = "body",paramName = "BodyInput")
+                public String getBodyInput() {
+                   return bodyInput;
                 }
 
-                return uploadJson.toString();
-            }
-        {{- end}}
+                /**
+                * Set the object json string.
+                * @param bodyInput object json string
+                */
+                public void setBodyInput(String bodyInput) {
+                    this.bodyInput=bodyInput;
+                }
 
-        {{if eq $opID "UploadMultipart" -}}
-        private Long fileOffset = -1L;
+            {{else if eq $operation.Request.Body.Type "binary"}}
+                {{if $operation.Request.Body.Description -}}
+                    /** {{$operation.Request.Body.Description}} */
+                {{- end}}
+                private  File bodyInputFile;
 
-        /**
-         * You can set the offset of a file here. <br>
-         * Then use setContentLength() to get a part of a file.
-         * @param fileOffset fileOffset
-         */
-        public void setFileOffset(Long fileOffset){
-            this.fileOffset = fileOffset;
-        }
+                /**
+                * Get the File will be updated.
+                * @return the File object will be updated
+                */
+                @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
+                public File getBodyInputFile() {
+                   return bodyInputFile;
+                }
 
-        /**
-         * Get the offset of the File or stream(default = -1).
-         * @return the offset of the File or stream
-         */
-        @ParamAnnotation(paramType = "query",paramName = "file_offset")
-        public Long getFileOffset() {
-            return fileOffset;
-        }
+                /**
+                * Set the File to update. <br>
+                {{if eq $opID "UploadMultipart" -}}
+                * Deprecated, please use setBodyInputFilePart() to upload multi part. <br>
+                * Then setFileOffset() and setContentLength() to get a part of a file or stream.
+                {{- end}}
+                * @param bodyInputFile File to update
+                */
+                {{if eq $opID "UploadMultipart" -}}
+                @Deprecated
+                {{- end}}
+                public void setBodyInputFile(File bodyInputFile) {
+                    this.bodyInputFile = bodyInputFile;
+                }
 
-        /**
-         * Set the File parts to update.
-         * @param bodyInputFilePart File part to update
-         */
-        public void setBodyInputFilePart(File bodyInputFilePart) {
-            this.bodyInputFile = bodyInputFilePart;
-            fileOffset = 0L;
-        }
+                private InputStream bodyInputStream;
 
-        /**
-         * Get the File will be updated.
-         * @return the File part will be updated
-         */
-        @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
-        public File getBodyInputFilePart() {
-            return bodyInputFile;
-        }
+                /**
+                * Get the body input stream.
+                * @return input stream
+                */
+                @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
+                public InputStream getBodyInputStream() {
+                   return bodyInputStream;
+                }
 
-        {{- end}}
+                /**
+                * Set the body input stream.
+                * @param bodyInputStream input stream to update
+                */
+                public void setBodyInputStream(InputStream bodyInputStream) {
+                    this.bodyInputStream=bodyInputStream;
+                }
+            {{end}}
 
-        {{if $operation.Request.Headers.Properties | len}}
-            {{- $data := $operation.Request.Headers -}}
-            {{template "RenderProperties" passThrough $data `` "header"}}
-        {{end}}
+            {{if eq $opID "CompleteMultipartUpload" -}}
+                public CompleteMultipartUploadInput() {}
 
-        {{if $operation.Request.Elements.Properties | len}}
+                /**
+                * The constructor will auto set values of upload id and body input.
+                * @param multipart_upload_id upload id
+                * @param partsCount count of multi parts
+                * @param startIndex start of part number's index
+                */
+                @Deprecated
+                public CompleteMultipartUploadInput(String multipart_upload_id, int partsCount, int startIndex) {
+                    this.setUploadID(multipart_upload_id);
+                    this.setBodyInput(getCompleteMultipartUploadContent(partsCount, startIndex));
+                }
 
-            {{if $operation.Request.Body.Description -}}
-                /** {{$operation.Request.Body.Description}} */
+                /**
+                 * You can get the json content to complete multipart uploading. <br>
+                 * @param partsCount count of all the uploaded parts
+                 * @param startIndex start of part number's index
+                 * @return content to complete multipart uploading
+                 */
+                @Deprecated
+                public String getCompleteMultipartUploadContent(int partsCount, int startIndex){
+                    if (partsCount < 1 || startIndex < 0) return null;
+
+                    StringBuilder uploadJson = new StringBuilder("{\"object_parts\":[");
+                    for (int i = 0; i < partsCount; i++) {
+                        uploadJson.append("{\"part_number\":").append(startIndex++).append("}");
+                        if (i < partsCount - 1) uploadJson.append(",");
+                        else uploadJson.append("]}");
+                    }
+
+                    return uploadJson.toString();
+                }
             {{- end}}
-            private  String bodyInput;
 
-            @ParamAnnotation(paramType = "body",paramName = "BodyInput")
-            public String getBodyInput() {
-               return bodyInput;
-            }
-            /** Object json string */
-            public void setBodyInput(String bodyInput) {
-                this.bodyInput=bodyInput;
-            }
-
-            {{- $data := $operation.Request.Elements -}}
-            {{template "RenderProperties" passThrough $data `` "body"}}
-
-
-        {{end}}
-
-        {{if eq $operation.Request.Body.Type "string"}}
-            {{if $operation.Request.Body.Description -}}
-                /** {{$operation.Request.Body.Description}} */
-            {{- end}}
-            private  String bodyInput;
-
-            /**
-            * Get the object json string.
-            * @return object json string
-            */
-            @ParamAnnotation(paramType = "body",paramName = "BodyInput")
-            public String getBodyInput() {
-               return bodyInput;
-            }
-
-            /**
-            * Set the object json string.
-            * @param bodyInput object json string
-            */
-            public void setBodyInput(String bodyInput) {
-                this.bodyInput=bodyInput;
-            }
-
-        {{else if eq $operation.Request.Body.Type "binary"}}
-            {{if $operation.Request.Body.Description -}}
-                /** {{$operation.Request.Body.Description}} */
-            {{- end}}
-            private  File bodyInputFile;
-
-            /**
-            * Get the File will be updated.
-            * @return the File object will be updated
-            */
-            @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
-            public File getBodyInputFile() {
-               return bodyInputFile;
-            }
-
-            /**
-            * Set the File to update. <br>
             {{if eq $opID "UploadMultipart" -}}
-            * Deprecated, please use setBodyInputFilePart() to upload multi part. <br>
-            * Then setFileOffset() and setContentLength() to get a part of a file or stream.
+                private Long fileOffset = -1L;
+
+                /**
+                 * You can set the offset of a file here. <br>
+                 * Then use setContentLength() to get a part of a file.
+                 * @param fileOffset fileOffset
+                 */
+                public void setFileOffset(Long fileOffset){
+                    this.fileOffset = fileOffset;
+                }
+
+                /**
+                 * Get the offset of the File or stream(default = -1).
+                 * @return the offset of the File or stream
+                 */
+                @ParamAnnotation(paramType = "query",paramName = "file_offset")
+                public Long getFileOffset() {
+                    return fileOffset;
+                }
+
+                /**
+                 * Set the File parts to update.
+                 * @param bodyInputFilePart File part to update
+                 */
+                public void setBodyInputFilePart(File bodyInputFilePart) {
+                    this.bodyInputFile = bodyInputFilePart;
+                    fileOffset = 0L;
+                }
+
+                /**
+                 * Get the File will be updated.
+                 * @return the File part will be updated
+                 */
+                @ParamAnnotation(paramType = "body",paramName = "BodyInputFile")
+                public File getBodyInputFilePart() {
+                    return bodyInputFile;
+                }
             {{- end}}
-            * @param bodyInputFile File to update
-            */
-            {{if eq $opID "UploadMultipart" -}}
-            @Deprecated
-            {{- end}}
-            public void setBodyInputFile(File bodyInputFile) {
-                this.bodyInputFile = bodyInputFile;
+
+            @Override
+            public String validateParam() {
+                {{template "ValidateCustomizedType" $operation.Request.Query}}
+                {{template "ValidateCustomizedType" $operation.Request.Headers}}
+                {{if $operation.Request.Elements.Properties | len}}
+                    if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                        return null;
+                    }
+                {{end}}
+                {{template "ValidateCustomizedType" $operation.Request.Elements}}
+                return null;
             }
-            private  java.io.InputStream bodyInputStream;
-
-            /**
-            * Get the body input stream.
-            * @return input stream
-            */
-            @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
-            public java.io.InputStream getBodyInputStream() {
-               return bodyInputStream;
-            }
-
-            /**
-            * Set the body input stream.
-            * @param bodyInputStream input stream to update
-            */
-            public void setBodyInputStream(java.io.InputStream bodyInputStream) {
-                this.bodyInputStream=bodyInputStream;
-            }
-
-        {{end}}
-
-        @Override
-        public String validateParam() {
-            {{template "ValidateCustomizedType" $operation.Request.Query}}
-            {{template "ValidateCustomizedType" $operation.Request.Headers}}
-            {{template "ValidateCustomizedType" $operation.Request.Elements}}
-
-            return null;
         }
-
-    }
     {{end}}
 
     /**
-     * {{$opID}}Output: an output stream of the bucket.<br>
-     * The following is the desc of fields.<br>
-     * These fields are headers or bodies of the http request.<br>
-     {{- range $id, $property := $operation.Request.Headers.Properties}}
-     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-     {{- end}}
-     {{- range $id, $property := $operation.Request.Query.Properties}}
-     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-     {{- end}}
-     {{- range $id, $property := $operation.Request.Elements.Properties}}
-     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/object-key'" -1}} <br>
-     {{- end}}
-     *
+    * {{$opID}}Output: an output stream of the bucket.<br>
+    * The following is the desc of fields.<br>
+    * These fields are headers or bodies of the http request.<br>
+    {{- range $id, $property := $operation.Request.Headers.Properties}}
+    * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/'object-key'" -1}} <br>
+    {{- end}}
+    {{- range $id, $property := $operation.Request.Query.Properties}}
+    * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/'object-key'" -1}} <br>
+    {{- end}}
+    {{- range $id, $property := $operation.Request.Elements.Properties}}
+    * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/'object-key'" -1}} <br>
+    {{- end}}
     */
     public static class {{$opID}}Output extends OutputModel{
         {{range $_, $response := $operation.Responses}}
@@ -887,125 +825,123 @@
                 {{- end}}
 
                 {{if eq $opID "GetObject"}}
-                /**
-                * deprecated, please use setCacheControl(String cacheControl)
-                * @param responseCacheControl cacheControl
-                */
-                @Deprecated
-                public void setResponseCacheControl(String responseCacheControl) {
-                    cacheControl = responseCacheControl;
-                }
+                    /**
+                    * deprecated, please use setCacheControl(String cacheControl)
+                    * @param responseCacheControl cacheControl
+                    */
+                    @Deprecated
+                    public void setResponseCacheControl(String responseCacheControl) {
+                        cacheControl = responseCacheControl;
+                    }
 
-                /**
-                * deprecated, please use getCacheControl()
-                * @return cacheControl
-                */
-                @Deprecated
-                public String getResponseCacheControl() {
-                    return cacheControl;
-                } // Specified the Content-Disposition response header
+                    /**
+                    * deprecated, please use getCacheControl()
+                    * @return cacheControl
+                    */
+                    @Deprecated
+                    public String getResponseCacheControl() {
+                        return cacheControl;
+                    } // Specified the Content-Disposition response header
 
-                /**
-                * deprecated, please use setContentDisposition(String contentDisposition)
-                * @param responseContentDisposition contentDisposition
-                */
-                @Deprecated
-                public void setResponseContentDisposition(String responseContentDisposition) {
-                    contentDisposition = responseContentDisposition;
-                }
+                    /**
+                    * deprecated, please use setContentDisposition(String contentDisposition)
+                    * @param responseContentDisposition contentDisposition
+                    */
+                    @Deprecated
+                    public void setResponseContentDisposition(String responseContentDisposition) {
+                        contentDisposition = responseContentDisposition;
+                    }
 
-                /**
-                * deprecated, please use getContentDisposition()
-                * @return contentDisposition
-                */
-                @Deprecated
-                public String getResponseContentDisposition() {
-                    return contentDisposition;
-                } // Specified the Content-Disposition header
+                    /**
+                    * deprecated, please use getContentDisposition()
+                    * @return contentDisposition
+                    */
+                    @Deprecated
+                    public String getResponseContentDisposition() {
+                        return contentDisposition;
+                    } // Specified the Content-Disposition header
 
-                /**
-                * deprecated, please use setContentEncoding(String contentEncoding)
-                * @param responseContentEncoding contentEncoding
-                */
-                @Deprecated
-                public void setResponseContentEncoding(String responseContentEncoding) {
-                    contentEncoding = responseContentEncoding;
-                }
+                    /**
+                    * deprecated, please use setContentEncoding(String contentEncoding)
+                    * @param responseContentEncoding contentEncoding
+                    */
+                    @Deprecated
+                    public void setResponseContentEncoding(String responseContentEncoding) {
+                        contentEncoding = responseContentEncoding;
+                    }
 
-                /**
-                * deprecated, please use getContentEncoding()
-                * @return contentEncoding
-                */
-                @Deprecated
-                public String getResponseContentEncoding() {
-                    return contentEncoding;
-                } // Specified the Content-Language response header
+                    /**
+                    * deprecated, please use getContentEncoding()
+                    * @return contentEncoding
+                    */
+                    @Deprecated
+                    public String getResponseContentEncoding() {
+                        return contentEncoding;
+                    } // Specified the Content-Language response header
 
-                /**
-                * deprecated, please use setContentLanguage(String contentLanguage)
-                * @param responseContentLanguage contentLanguage
-                */
-                @Deprecated
-                public void setResponseContentLanguage(String responseContentLanguage) {
-                    contentLanguage = responseContentLanguage;
-                }
+                    /**
+                    * deprecated, please use setContentLanguage(String contentLanguage)
+                    * @param responseContentLanguage contentLanguage
+                    */
+                    @Deprecated
+                    public void setResponseContentLanguage(String responseContentLanguage) {
+                        contentLanguage = responseContentLanguage;
+                    }
 
-                /**
-                * deprecated, please use getContentLanguage()
-                * @return contentLanguage
-                */
-                @Deprecated
-                public String getResponseContentLanguage() {
-                    return contentLanguage;
-                } // Specified the Content-Type response header
+                    /**
+                    * deprecated, please use getContentLanguage()
+                    * @return contentLanguage
+                    */
+                    @Deprecated
+                    public String getResponseContentLanguage() {
+                        return contentLanguage;
+                    } // Specified the Content-Type response header
 
-                /**
-                * deprecated, please use setContentType(String contentType)
-                * @param responseContentType contentType
-                */
-                @Deprecated
-                public void setResponseContentType(String responseContentType) {
-                    contentType = responseContentType;
-                }
+                    /**
+                    * deprecated, please use setContentType(String contentType)
+                    * @param responseContentType contentType
+                    */
+                    @Deprecated
+                    public void setResponseContentType(String responseContentType) {
+                        contentType = responseContentType;
+                    }
 
-                /**
-                * deprecated, please use getContentType()
-                * @return contentType
-                */
-                @Deprecated
-                public String getResponseContentType() {
-                    return contentType;
-                } // Specified the Expires response header
+                    /**
+                    * deprecated, please use getContentType()
+                    * @return contentType
+                    */
+                    @Deprecated
+                    public String getResponseContentType() {
+                        return contentType;
+                    } // Specified the Expires response header
 
-                /**
-                * deprecated, please use setExpires(String expires)
-                * @param responseExpires expires
-                */
-                @Deprecated
-                public void setResponseExpires(String responseExpires) {
-                    expires = responseExpires;
-                }
+                    /**
+                    * deprecated, please use setExpires(String expires)
+                    * @param responseExpires expires
+                    */
+                    @Deprecated
+                    public void setResponseExpires(String responseExpires) {
+                        expires = responseExpires;
+                    }
 
-                /**
-                * deprecated, please use getExpires()
-                * @return expires
-                */
-                @Deprecated
-                public String getResponseExpires() {
-                    return expires;
-                }
-
+                    /**
+                    * deprecated, please use getExpires()
+                    * @return expires
+                    */
+                    @Deprecated
+                    public String getResponseExpires() {
+                        return expires;
+                    }
                 {{- end}}
 
-
-                private  java.io.InputStream bodyInputStream;
+                private InputStream bodyInputStream;
 
                 /**
                 * Get the stream will be downloaded.
                 * @return the stream will be downloaded
                 */
                 @ParamAnnotation(paramType = "body",paramName = "BodyInputStream")
-                public java.io.InputStream getBodyInputStream() {
+                public InputStream getBodyInputStream() {
                    return bodyInputStream;
                 }
 
@@ -1013,19 +949,19 @@
                 * Set the stream to download.
                 * @param bodyInputStream stream to download
                 */
-                public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+                public void setBodyInputStream(InputStream bodyInputStream) {
                     this.bodyInputStream=bodyInputStream;
                 }
             {{end}}
 
             {{if $response.Elements.Properties | len}}
                 {{$data := $response.Elements}}
-                {{template "RenderProperties" passThrough $data `` "query"}}
+                {{template "RenderProperties" passThrough $data `element` $operation.Name}}
             {{end}}
 
             {{if $response.Headers.Properties | len}}
                 {{$data := $response.Headers}}
-                {{template "RenderProperties" passThrough $data `` "header"}}
+                {{template "RenderProperties" passThrough $data `header` $operation.Name}}
             {{end}}
         {{end}}
     }
