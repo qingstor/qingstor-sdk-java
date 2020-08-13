@@ -36,7 +36,7 @@ public class RequestHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
-    private final Map opCtx;
+    private final Map<String, Object> opCtx;
 
     private final RequestInputModel paramBean;
 
