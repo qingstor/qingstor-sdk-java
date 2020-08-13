@@ -212,11 +212,6 @@ public class QSBuilder {
     }
 
     public RequestBody getRequestBody() throws QSException {
-        paramsHeaders =
-                this.headParamEncoding(
-                        paramsHeaders); // encoding all non-ascii headers before calculate
-        // signature.
-        this.getSignature();
         String contentType =
                 String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
         long contentLength = 0;
@@ -230,6 +225,11 @@ public class QSBuilder {
         } else {
             bodyParams = this.paramsBody;
         }
+        paramsHeaders =
+                this.headParamEncoding(
+                        paramsHeaders); // encoding all non-ascii headers before calculate
+        // signature.
+        this.getSignature();
         QSRequestBody reqBody = determineBody();
         return reqBody.getRequestBody(
                 contentType, contentLength, this.httpMethod, bodyParams, this.paramsQuery);
@@ -313,23 +313,9 @@ public class QSBuilder {
     private String getSignature() throws QSException {
         String signature =
                 String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
-        if (QSStringUtil.isEmpty(signature)) {
-            this.doSignature();
-            return String.valueOf(
-                    this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
+        if (!QSStringUtil.isEmpty(signature)) {
+            return signature;
         }
-        return signature;
-    }
-
-    private void doSignature() throws QSException {
-
-        String authSign = this.getParamSignature();
-        log.debug("== authSign ==\n" + authSign + "\n");
-
-        paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
-    }
-
-    private String getParamSignature() throws QSException {
         String authSign;
         EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
         try {
@@ -347,13 +333,14 @@ public class QSBuilder {
         } catch (Exception e) {
             throw new QSException("Auth signature error", e);
         }
+        log.debug("== authSign ==\n" + authSign + "\n");
 
+        paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
         return authSign;
     }
 
     @Deprecated
     public RequestBody getRequestBody(QSRequestBody qsBody) throws QSException {
-        this.getSignature();
         RequestBody requestBody;
         String contentType =
                 String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
@@ -373,6 +360,11 @@ public class QSBuilder {
         } else {
             requestBody = getRequestBody();
         }
+        paramsHeaders =
+                this.headParamEncoding(
+                        paramsHeaders); // encoding all non-ascii headers before calculate
+        // signature.
+        this.getSignature();
 
         return requestBody;
     }
