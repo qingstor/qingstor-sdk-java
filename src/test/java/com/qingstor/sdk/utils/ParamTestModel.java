@@ -16,10 +16,10 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
-import com.qingstor.sdk.model.OutputModel;
+import com.qingstor.sdk.model.RequestInputModel;
 import java.util.List;
 
-public class ParamTestModel extends OutputModel {
+public class ParamTestModel extends RequestInputModel {
 
     private String action;
 
