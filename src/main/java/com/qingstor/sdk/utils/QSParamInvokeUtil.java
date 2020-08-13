@@ -19,6 +19,7 @@ import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
+import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.request.ResponseCallBack;
 import java.lang.reflect.*;
 import java.time.ZonedDateTime;
@@ -26,7 +27,8 @@ import java.util.*;
 
 public class QSParamInvokeUtil {
 
-    public static Map<String, Object> getRequestParams(Object model, String paramType) {
+    public static <T extends RequestInputModel> Map<String, Object> getRequestParams(
+            T model, String paramType) {
         Map<String, Object> retParametersMap = new HashMap<>();
         if (model != null) {
             try {
@@ -45,9 +47,6 @@ public class QSParamInvokeUtil {
                         QSConstant.HEADER_PARAM_KEY_DATE,
                         QSSignatureUtil.formatDateTime(ZonedDateTime.now()));
             }
-            /*if(!retParametersMap.containsKey(SDKConstant.HEADER_PARAM_KEY_CONTENTTYPE)){
-                retParametersMap.put(SDKConstant.HEADER_PARAM_KEY_CONTENTTYPE, SDKConstant.CONTENT_TYPE_TEXT);
-            }*/
         }
         return retParametersMap;
     }
