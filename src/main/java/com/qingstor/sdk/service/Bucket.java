@@ -8646,7 +8646,7 @@ public class Bucket {
     public RequestHandler GetObjectBySignatureUrlRequest(
             String objectName, GetObjectInput input, long expires) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
@@ -8683,7 +8683,7 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
@@ -8710,7 +8710,7 @@ public class Bucket {
     public void GetObjectBySignatureUrlAsync(
             String signaturedRequest, ResponseCallBack<GetObjectOutput> callback)
             throws QSException {
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
@@ -8743,7 +8743,7 @@ public class Bucket {
             input = new ImageProcessInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
