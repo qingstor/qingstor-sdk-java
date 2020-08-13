@@ -16,7 +16,7 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.config.EnvContext;
-import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.constants.ParamType;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.service.Bucket;
@@ -52,8 +52,7 @@ public class QSSignatureUtilTest {
                 };
         instancesInput.setImageID(imgs);
 
-        Map queryParam =
-                QSParamInvokeUtil.getRequestParams(instancesInput, QSConstant.PARAM_TYPE_QUERY);
+        Map queryParam = QSParamInvokeUtil.getRequestParams(instancesInput, ParamType.QUERY);
 
         /*https://api.qc.dev/iaas?access_key_id=QYACCESSKEYIDEXAMPLE&image_id.0=test-0001&image_id.1=test-0002&
         // search_word=serch_word_test&signature_method=HmacSHA256&signature_version=1&

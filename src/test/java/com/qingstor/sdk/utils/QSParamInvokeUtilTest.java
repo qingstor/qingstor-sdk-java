@@ -15,7 +15,7 @@
  */
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.constants.QSConstant;
+import com.qingstor.sdk.constants.ParamType;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.service.Bucket;
@@ -69,11 +69,8 @@ public class QSParamInvokeUtilTest {
                 };
         instancesInput.setImageID(imgs);
         instancesInput.setAction("serch_word_test");
-        Map queryParam =
-                QSParamInvokeUtil.getRequestParams(instancesInput, QSConstant.PARAM_TYPE_QUERY);
-        Map bodyParam =
-                QSParamInvokeUtil.getRequestParams(
-                        instancesInput, QSConstant.PARAM_TYPE_BODYINPUTSTREAM);
+        Map queryParam = QSParamInvokeUtil.getRequestParams(instancesInput, ParamType.QUERY);
+        Map bodyParam = QSParamInvokeUtil.getRequestParams(instancesInput, ParamType.BODY);
 
         Assert.assertEquals(queryParam.get("action"), "serch_word_test");
         Assert.assertEquals(((List) queryParam.get("image_id")).get(1), "test_classes-0002");

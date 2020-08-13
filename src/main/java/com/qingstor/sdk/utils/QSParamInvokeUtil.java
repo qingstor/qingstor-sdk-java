@@ -16,6 +16,7 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.constants.ParamType;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
@@ -26,22 +27,28 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 public class QSParamInvokeUtil {
-
+    /** use {@link #getRequestParams(RequestInputModel, ParamType)} instead. */
+    @Deprecated
     public static <T extends RequestInputModel> Map<String, Object> getRequestParams(
             T model, String paramType) {
+        return getRequestParams(model, ParamType.valueOf(paramType));
+    }
+
+    public static <T extends RequestInputModel> Map<String, Object> getRequestParams(
+            T model, ParamType paramType) {
         Map<String, Object> retParametersMap = new HashMap<>();
         if (model != null) {
             try {
                 Class<?> tmpClass = model.getClass();
                 while (tmpClass != Object.class) {
-                    initParameterMap(tmpClass, model, retParametersMap, paramType);
+                    initParameterMap(tmpClass, model, retParametersMap, paramType.toString());
                     tmpClass = tmpClass.getSuperclass();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if (QSConstant.PARAM_TYPE_HEADER.equals(paramType)) {
+        if (ParamType.HEADER.equals(paramType)) {
             if (!retParametersMap.containsKey(QSConstant.HEADER_PARAM_KEY_DATE)) {
                 retParametersMap.put(
                         QSConstant.HEADER_PARAM_KEY_DATE,
