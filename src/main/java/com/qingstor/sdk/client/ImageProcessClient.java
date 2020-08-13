@@ -96,8 +96,7 @@ public class ImageProcessClient {
         if (isEmptyAction()) {
             input.setAction(param.buildOptParamStr());
         } else {
-            StringBuffer sb = new StringBuffer(input.getAction());
-            String action = sb.append(OPSep).append(param.buildOptParamStr()).toString();
+            String action = input.getAction() + OPSep + param.buildOptParamStr();
             input.setAction(action);
         }
     }
@@ -131,7 +130,7 @@ public class ImageProcessClient {
     }
 
     public interface ImageParam {
-        public String buildOptParamStr();
+        String buildOptParamStr();
     }
 
     public static class InfoParam implements ImageParam {
@@ -179,14 +178,7 @@ public class ImageProcessClient {
 
         @Override
         public String buildOptParamStr() {
-            StringBuffer sb = new StringBuffer("crop:");
-            sb.append("w_")
-                    .append(this.width)
-                    .append(",h_")
-                    .append(this.height)
-                    .append(",g_")
-                    .append(this.gravity);
-            return sb.toString();
+            return "crop:" + "w_" + this.width + ",h_" + this.height + ",g_" + this.gravity;
         }
     }
 
@@ -199,7 +191,7 @@ public class ImageProcessClient {
 
         @Override
         public String buildOptParamStr() {
-            return new StringBuffer("rotate:a_").append(angle).toString();
+            return "rotate:a_" + angle;
         }
     }
 
@@ -241,14 +233,7 @@ public class ImageProcessClient {
 
         @Override
         public String buildOptParamStr() {
-            StringBuffer sb = new StringBuffer("resize:");
-            sb.append("w_");
-            sb.append(this.width);
-            sb.append(",h_");
-            sb.append(this.height);
-            sb.append(",m_");
-            sb.append(this.mode);
-            return sb.toString();
+            return "resize:" + "w_" + this.width + ",h_" + this.height + ",m_" + this.mode;
         }
     }
 
@@ -358,16 +343,15 @@ public class ImageProcessClient {
 
         @Override
         public String buildOptParamStr() {
-            StringBuffer sb = new StringBuffer("watermark_image:");
-            sb.append("l_");
-            sb.append(this.left);
-            sb.append(",t_");
-            sb.append(this.top);
-            sb.append(",p_");
-            sb.append(this.opacity);
-            sb.append(",u_");
-            sb.append(Base64.getEncoder().encodeToString(url.getBytes()).replace("=", ""));
-            return sb.toString();
+            return "watermark_image:"
+                    + "l_"
+                    + this.left
+                    + ",t_"
+                    + this.top
+                    + ",p_"
+                    + this.opacity
+                    + ",u_"
+                    + Base64.getEncoder().encodeToString(url.getBytes()).replace("=", "");
         }
     }
 
@@ -380,7 +364,7 @@ public class ImageProcessClient {
 
         @Override
         public String buildOptParamStr() {
-            return new StringBuffer("format:t_").append(this.type).toString();
+            return "format:t_" + this.type;
         }
     }
 }
