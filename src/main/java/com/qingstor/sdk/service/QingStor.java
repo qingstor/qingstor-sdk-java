@@ -16,18 +16,16 @@
 package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.common.OperationContext;
 import com.qingstor.sdk.config.EnvContext;
-import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
+import com.qingstor.sdk.request.QSRequest;
 import com.qingstor.sdk.request.RequestHandler;
-import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Types.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * QingStorService: QingStor provides low-cost and reliable online storage service with unlimited
@@ -85,18 +83,21 @@ public class QingStor {
             input = new ListBucketsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListBuckets");
-        context.put("APIName", "ListBuckets");
-        context.put("ServiceName", "Get Service");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListBuckets")
+                .apiName("ListBuckets")
+                .serviceName("Get Service")
+                .reqMethod("GET")
+                .subSourcePath("/");
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, ListBucketsOutput.class);
+                QSRequest.getRequest(builder.build(), input, ListBucketsOutput.class);
 
         return requestHandler;
     }
@@ -136,22 +137,24 @@ public class QingStor {
             input = new ListBucketsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListBuckets");
-        context.put("APIName", "ListBuckets");
-        context.put("ServiceName", "Get Service");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListBuckets")
+                .apiName("ListBuckets")
+                .serviceName("Get Service")
+                .reqMethod("GET")
+                .subSourcePath("/");
 
         if (callback == null) {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**

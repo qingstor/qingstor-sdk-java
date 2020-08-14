@@ -23,8 +23,8 @@ import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.request.RequestHandler;
-
-import okhttp3.Request;
+import com.qingstor.sdk.request.QSRequest;
+import com.qingstor.sdk.common.OperationContext;
 
 /**
  * Most of operations in qingstore can be found in this class.<br>
@@ -78,17 +78,21 @@ public class Bucket {
         public RequestHandler GetObjectBySignatureUrlRequest(String objectName, GetObjectInput input, long expires)
                 throws QSException {
 
-            Map<String, Object> context = new HashMap<>();
-            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-            context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
-            context.put("OperationName", "GetObject");
-            context.put("APIName", "GetObject");
-            context.put("ServiceName", "Get Object");
-            context.put("RequestMethod", "GET");
-            context.put("RequestURI", "/<bucket-name>/<object-key>");
-            context.put("bucketNameInput", this.bucketName);
-            context.put("objectNameInput", objectName);
+            OperationContext.OperationContextBuilder builder = OperationContext.builder();
+            builder.userAgent(this.envContext.getAdditionalUserAgent())
+                                   .safeOKHttp(this.envContext.isSafeOkHttp())
+                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                                   .endpoint(this.envContext.getRequestUrl())
+                    .zone(this.zone)
+                    .credentials(this.envContext)
+                    .expires(String.valueOf(expires))
+                    .operationName("GetObject")
+                    .apiName("GetObject")
+                    .serviceName("Get Object")
+                    .reqMethod("GET")
+                    .subSourcePath("/<bucket-name>/<object-key>")
+                    .bucketName(this.bucketName)
+                    .objKey(objectName);
 
             if (QSStringUtil.isEmpty(bucketName)) {
                 throw new QSException("bucketName can't be empty!");
@@ -101,7 +105,7 @@ public class Bucket {
                 input = new GetObjectInput();
             }
 
-            RequestHandler requestHandler = ResourceRequestFactory.getResourceRequest().getRequest(context, input, OutputModel.class);
+            RequestHandler requestHandler = QSRequest.getRequest(builder.build(), input, OutputModel.class);
 
             return requestHandler;
         }
@@ -113,18 +117,22 @@ public class Bucket {
          */
         @SuppressWarnings({"rawtypes", "unchecked"})
         public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
-            Map<String, Object> context = new HashMap<>();
-            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-            context.put("OperationName", "GetObject");
-            context.put("APIName", "GetObject");
-            context.put("ServiceName", "QingStor");
-            context.put("RequestMethod", "GET");
-            context.put("RequestURI", "/<bucket-name>/<object-key>");
+            OperationContext.OperationContextBuilder builder = OperationContext.builder();
+            builder.userAgent(this.envContext.getAdditionalUserAgent())
+                                   .safeOKHttp(this.envContext.isSafeOkHttp())
+                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                                   .endpoint(this.envContext.getRequestUrl())
+                    .zone(this.zone)
+                    .credentials(this.envContext)
+                    .operationName("GetObject")
+                    .apiName("GetObject")
+                    .serviceName("QingStor")
+                    .reqMethod("GET")
+                    .subSourcePath("/<bucket-name>/<object-key>");
 
             Object backModel =
-                    ResourceRequestFactory.getResourceRequest()
-                            .sendApiRequest(signaturedRequest, context, GetObjectOutput.class);
+                    QSRequest
+                            .sendApiRequest(signaturedRequest, builder.build(), GetObjectOutput.class);
             if (backModel != null) {
                 return (GetObjectOutput) backModel;
             }
@@ -140,21 +148,25 @@ public class Bucket {
         public void GetObjectBySignatureUrlAsync(
                 String signaturedRequest, ResponseCallBack<GetObjectOutput> callback)
                 throws QSException {
-            Map<String, Object> context = new HashMap<>();
-            context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-            context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-            context.put("OperationName", "GetObject");
-            context.put("APIName", "GetObject");
-            context.put("ServiceName", "QingStor");
-            context.put("RequestMethod", "GET");
-            context.put("RequestURI", "/<bucket-name>/<object-key>");
+            OperationContext.OperationContextBuilder builder = OperationContext.builder();
+            builder.userAgent(this.envContext.getAdditionalUserAgent())
+                                   .safeOKHttp(this.envContext.isSafeOkHttp())
+                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                                   .endpoint(this.envContext.getRequestUrl())
+                    .zone(this.zone)
+                    .credentials(this.envContext)
+                    .operationName("GetObject")
+                    .apiName("GetObject")
+                    .serviceName("QingStor")
+                    .reqMethod("GET")
+                    .subSourcePath("/<bucket-name>/<object-key>");
 
             if (callback == null) {
                 throw new QSException("callback can't be null");
             }
 
-            ResourceRequestFactory.getResourceRequest()
-                    .sendApiRequestAsync(signaturedRequest, context, callback);
+            QSRequest
+                    .sendApiRequestAsync(signaturedRequest, builder.build(), callback);
         }
       {{end}}
     {{end}}
@@ -175,19 +187,23 @@ public class Bucket {
             input = new ImageProcessInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ImageProcess");
-        context.put("APIName", "ImageProcess");
-        context.put("ServiceName", "Image Process");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?image");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                                   .safeOKHttp(this.envContext.isSafeOkHttp())
+                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                                   .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ImageProcess")
+                .apiName("ImageProcess")
+                .serviceName("Image Process")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>?image")
+                .bucketName(this.bucketName)
+                .objKey(objectName);
 
         if (expires > System.currentTimeMillis()/1000)
-            context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
+            builder.expires(String.valueOf(expires));
 
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
@@ -197,8 +213,8 @@ public class Bucket {
         }
 
         RequestHandler requestHandler =
-            ResourceRequestFactory.getResourceRequest()
-            .getRequest(context, input, ImageProcessOutput.class);
+            QSRequest
+            .getRequest(builder.build(), input, ImageProcessOutput.class);
 
         return requestHandler;
      }

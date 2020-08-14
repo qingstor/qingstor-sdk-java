@@ -19,13 +19,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.qingstor.sdk.common.auth.Credentials;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ParamValidate;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvContext implements ParamValidate {
+public class EnvContext implements ParamValidate, Credentials {
 
     private static final ObjectMapper om;
 
