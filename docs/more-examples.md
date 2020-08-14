@@ -44,6 +44,7 @@ Each API function take an Input struct and return an Output struct. The Input st
     - [PUT Object - Copy](./example/CopyObject.md)
     - [PUT Object - Move](./example/MoveObject.md)
     - [PUT Object - Fetch](./example/put_object_fetch.md)
+    - [Append Object](./example/append_object.md)
     - [GET Object](./example/GetObject.md)
     - [GET Object Download Url](./example/GetObjectUrl.md)
     - [GET Object Multi](./example/GetDownObjectMulti.md)
