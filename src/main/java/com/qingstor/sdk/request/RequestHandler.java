@@ -36,7 +36,7 @@ public class RequestHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
-    private final Map contextParam;
+    private final Map opCtx;
 
     private final RequestInputModel paramBean;
 
@@ -53,20 +53,22 @@ public class RequestHandler {
     private QSRequestBody qsRequestBody;
 
     public RequestHandler(
-            Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
+            Map<String, Object> operationCtx,
+            RequestInputModel paramBean,
+            Class<? extends OutputModel> outputClass)
             throws QSException {
-        this.contextParam = context;
+        this.opCtx = operationCtx;
         this.paramBean = paramBean;
         this.outputClass = outputClass;
-        this.builder = new QSBuilder(context, paramBean);
+        this.builder = new QSBuilder(operationCtx, paramBean);
     }
 
     public RequestHandler(
-            Map context,
+            Map<String, Object> context,
             RequestInputModel paramBean,
             ResponseCallBack<? extends OutputModel> asyncCallback)
             throws QSException {
-        this.contextParam = context;
+        this.opCtx = context;
         this.paramBean = paramBean;
         this.asyncCallback = asyncCallback;
         this.builder = new QSBuilder(context, paramBean);
@@ -80,7 +82,7 @@ public class RequestHandler {
                     QSConstant.REQUEST_ERROR_CODE, validate, out);
             this.asyncCallback.onAPIResponse(out);
         } else {
-            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.ENV_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.opCtx.get(QSConstant.ENV_CONTEXT_KEY);
             Request request = this.getRequest();
             QSOkHttpRequestClient.getInstance(envContext)
                     .requestActionAsync(request, envContext.isSafeOkHttp(), this.asyncCallback);
@@ -92,7 +94,7 @@ public class RequestHandler {
         String validate = this.check();
         if (!QSStringUtil.isEmpty(validate)) {
             try {
-                OutputModel model = outputClass.newInstance();
+                OutputModel model = outputClass.getDeclaredConstructor().newInstance();
                 QSOkHttpRequestClient.fillResponseCallbackModel(
                         QSConstant.REQUEST_ERROR_CODE, validate, model);
                 return model;
@@ -101,7 +103,7 @@ public class RequestHandler {
                 throw new QSException(e.getMessage());
             }
         } else {
-            EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.ENV_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.opCtx.get(QSConstant.ENV_CONTEXT_KEY);
 
             Request request = this.getRequest();
 
@@ -173,9 +175,9 @@ public class RequestHandler {
         return this.builder.getExpiresRequestUrl();
     }
 
-    public String check() {
+    private String check() {
         String validate = this.paramBean != null ? paramBean.validateParam() : "";
-        EnvContext envContext = (EnvContext) this.contextParam.get(QSConstant.ENV_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) this.opCtx.get(QSConstant.ENV_CONTEXT_KEY);
         String envValidate = envContext.validateParam();
         if (!QSStringUtil.isEmpty(validate) || !QSStringUtil.isEmpty(envValidate)) {
             if (QSStringUtil.isEmpty(validate)) {

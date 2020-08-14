@@ -25,6 +25,7 @@ import com.qingstor.sdk.request.impl.QSNormalRequestBody;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
+import com.qingstor.sdk.utils.UrlUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -44,9 +45,7 @@ public class QSBuilder {
 
     private static final Logger log = LoggerFactory.getLogger(QSBuilder.class);
 
-    private static final String REQUEST_PREFIX = "/";
-
-    private Map context;
+    private Map<String, Object> opCtx;
 
     private RequestInputModel paramsModel;
 
@@ -60,30 +59,23 @@ public class QSBuilder {
 
     private Map paramsFormData;
 
-    private String requestUrl;
+    private HttpUrl urlWithoutQueries;
 
-    private HttpUrl url;
+    private boolean pathMode;
 
-    private String requestUrlStyle;
-
-    public QSBuilder(Map context, RequestInputModel params) throws QSException {
-        this.context = context;
+    public QSBuilder(Map opCtx, RequestInputModel params) throws QSException {
+        this.opCtx = opCtx;
         this.paramsModel = params;
-        this.initParams();
-        this.initUrl();
+        this.initHeadersAndBody();
+        this.initUrlWithQueries();
     }
 
-    private void initParams() throws QSException {
-
-        this.paramsQuery =
-                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_QUERY);
+    private void initHeadersAndBody() throws QSException {
+        this.requestMethod = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
         this.paramsBody =
                 QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_BODY);
         this.paramsHeaders =
                 QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_HEADER);
-        this.paramsFormData =
-                QSParamInvokeUtil.getRequestParams(
-                        this.paramsModel, QSConstant.PARAM_TYPE_FORM_DATA);
 
         if (this.paramsHeaders.containsKey(QSConstant.PARAM_KEY_METADATA)) {
             Object o = this.paramsHeaders.get(QSConstant.PARAM_KEY_METADATA);
@@ -96,24 +88,70 @@ public class QSBuilder {
             this.paramsHeaders.remove(QSConstant.PARAM_KEY_METADATA);
         }
 
-        EnvContext ctx = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
+        EnvContext ctx = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
         String additionalUserAgent = ctx.getAdditionalUserAgent();
-        if (additionalUserAgent != null) {
-            paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, additionalUserAgent);
-        }
+        additionalUserAgent =
+                (additionalUserAgent == null ? QSStringUtil.getUserAgent() : additionalUserAgent);
+        paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, additionalUserAgent);
 
         if (this.checkExpiresParam()) {
             paramsHeaders.clear();
             paramsHeaders.put(
-                    QSConstant.HEADER_PARAM_KEY_EXPIRES, context.get(QSConstant.PARAM_KEY_EXPIRES));
+                    QSConstant.HEADER_PARAM_KEY_EXPIRES, opCtx.get(QSConstant.PARAM_KEY_EXPIRES));
         }
 
-        String requestApi = (String) context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
+        String requestApi = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
         this.initHeadContentMd5(requestApi, paramsBody, paramsHeaders);
 
         paramsHeaders = this.headParamEncoding(paramsHeaders);
 
-        this.requestMethod = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
+        this.paramsFormData =
+                QSParamInvokeUtil.getRequestParams(
+                        this.paramsModel, QSConstant.PARAM_TYPE_FORM_DATA);
+    }
+
+    private void initUrlWithQueries() throws QSException {
+        String zone = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
+        String bucketName = (String) this.opCtx.get(QSConstant.PARAM_KEY_BUCKET_NAME);
+        String objectName = (String) this.opCtx.get(QSConstant.PARAM_KEY_OBJECT_NAME);
+
+        EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+        String urlStyle = envContext.getRequestUrlStyle();
+        boolean pathMode = urlStyle.equals(QSConstant.PATH_STYLE);
+        this.pathMode = pathMode;
+
+        HttpUrl endpoint =
+                UrlUtils.calcFinalEndpoint(envContext.getRequestUrl(), zone, bucketName, pathMode);
+        if (endpoint == null) {
+            throw new QSException("url parsing failed");
+        }
+        String resourcePath = UrlUtils.calcResourcePath(bucketName, objectName, pathMode);
+
+        this.urlWithoutQueries = endpoint.newBuilder().addEncodedPathSegments(resourcePath).build();
+        HttpUrl.Builder urlBuilder = this.urlWithoutQueries.newBuilder();
+
+        String requestPath = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_PATH);
+        int i = requestPath.indexOf('?');
+        if (i != -1) {
+            String extraQueries = requestPath.substring(i + 1);
+            urlBuilder.query(extraQueries);
+        }
+
+        this.paramsQuery =
+                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_QUERY);
+        this.paramsQuery.forEach(
+                (k, v) ->
+                        urlBuilder.addQueryParameter(
+                                k.toString(), v == null ? null : v.toString()));
+        HttpUrl url = urlBuilder.build();
+        Map<String, String> queries = new HashMap<>();
+        for (String k : url.queryParameterNames()) {
+            List<String> values = url.queryParameterValues(k);
+            queries.put(k, values.get(0)); // it should always size > 0.
+        }
+        this.paramsQuery = queries;
+
+        log.debug("== resource Url ==\n" + this.urlWithoutQueries + "\n");
     }
 
     private void doSignature() throws QSException {
@@ -127,14 +165,13 @@ public class QSBuilder {
     private String getParamSignature() throws QSException {
 
         String authSign = "";
-        EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
+        EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
         try {
 
             if (this.checkExpiresParam()) {
                 authSign =
                         QSSignatureUtil.generateSignature(
                                 envContext.getSecretAccessKey(), this.getStringToSignature());
-                authSign = URLEncoder.encode(authSign, QSConstant.ENCODING_UTF8);
             } else {
                 authSign =
                         QSSignatureUtil.generateAuthorization(
@@ -147,49 +184,6 @@ public class QSBuilder {
         }
 
         return authSign;
-    }
-
-    private void initUrl() throws QSException {
-        EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
-        String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
-        String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
-        String requestPath = (String) context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
-
-        // first ensure objectInput exists
-        // remove bucket part may exists in string
-        // then replace object part may exists in string
-        String requestSuffixPath =
-                requestPath.replace(REQUEST_PREFIX + QSConstant.BUCKET_PLACEHOLDER, "");
-        if (this.context.containsKey(QSConstant.PARAM_KEY_OBJECT_NAME)) {
-            String objectName = (String) this.context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
-            requestSuffixPath =
-                    requestSuffixPath.replace(
-                            QSConstant.OBJECT_PLACEHOLDER,
-                            QSStringUtil.asciiCharactersEncoding(objectName));
-        }
-        this.requestUrlStyle = envContext.getRequestUrlStyle();
-        if (this.requestUrlStyle == null) { // todo: EnvContext create with some default values.
-            this.requestUrlStyle = QSConstant.PATH_STYLE;
-        }
-        this.requestUrl =
-                this.getSignedUrl(
-                        envContext.getRequestUrl(),
-                        zone,
-                        bucketName,
-                        paramsQuery,
-                        requestSuffixPath);
-        // update paramsQuery.
-        this.url = HttpUrl.parse(this.requestUrl);
-        if (this.url == null) {
-            throw new QSException("the request url is malformed");
-        }
-        Map<String, String> queries = new HashMap<>();
-        for (String k : this.url.queryParameterNames()) {
-            List<String> values = this.url.queryParameterValues(k);
-            queries.put(k, values.get(0)); // it should always size > 0.
-        }
-        this.paramsQuery = queries;
-        log.debug("== requestUrl ==\n" + this.url + "\n");
     }
 
     private Map headParamEncoding(Map headParams) throws QSException {
@@ -234,55 +228,13 @@ public class QSBuilder {
         }
     }
 
-    private String getRequestSuffixPath(String requestPath, String bucketName, String objectName)
-            throws QSException {
-        if (QSStringUtil.isEmpty(bucketName)) {
-            return REQUEST_PREFIX;
-        }
-        String suffixPath =
-                requestPath
-                        .replace(REQUEST_PREFIX + QSConstant.BUCKET_PLACEHOLDER, "")
-                        .replace(REQUEST_PREFIX + QSConstant.OBJECT_PLACEHOLDER, "");
-        if (QSStringUtil.isEmpty(objectName)) {
-            objectName = "";
-        } else {
-            objectName = QSStringUtil.asciiCharactersEncoding(objectName);
-        }
-
-        return String.format("%s%s%s", REQUEST_PREFIX, objectName, suffixPath);
-    }
-
-    private String getSignedUrl(
-            String serviceUrl,
-            String zone,
-            String bucketName,
-            Map paramsQuery,
-            String requestSuffixPath)
-            throws QSException {
-        if ("".equals(bucketName) || bucketName == null) {
-            return QSSignatureUtil.generateQSURL(paramsQuery, serviceUrl + requestSuffixPath);
-        } else {
-            // handle url style
-            String storRequestUrl;
-            if (QSConstant.PATH_STYLE.equals(requestUrlStyle)) {
-                storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
-            } else {
-                storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
-                storRequestUrl = String.format(storRequestUrl, bucketName);
-            }
-
-            return QSSignatureUtil.generateQSURL(paramsQuery, storRequestUrl + requestSuffixPath);
-        }
-    }
-
-    public void setHeader(String key, String authorization) {
-        this.paramsHeaders.put(key, authorization);
+    public void setHeader(String name, String value) {
+        this.paramsHeaders.put(name, value);
     }
 
     public void setSignature(String accessKey, String signature) throws QSException {
-
         try {
-            EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
             envContext.setAccessKeyId(accessKey);
             if (this.checkExpiresParam()) {
                 signature = URLEncoder.encode(signature, QSConstant.ENCODING_UTF8);
@@ -295,21 +247,9 @@ public class QSBuilder {
         }
     }
 
-    public String getStringToSignature() throws QSException {
-        String requestPath = "";
-        if (this.requestUrlStyle.equals(QSConstant.PATH_STYLE)) {
-            requestPath = this.url.encodedPath();
-        } else {
-            String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
-            if (bucketName != null) {
-                requestPath = "/" + bucketName + this.url.encodedPath();
-            } else { // service level
-                requestPath = this.url.encodedPath();
-            }
-        }
-
+    public String getStringToSignature() {
         return QSSignatureUtil.getStringToSignature(
-                this.requestMethod, requestPath, this.paramsQuery, this.paramsHeaders);
+                this.requestMethod, resourcePathForSign(), this.paramsQuery, this.paramsHeaders);
     }
 
     public RequestBody getRequestBody(QSRequestBody qsBody) throws QSException {
@@ -358,7 +298,7 @@ public class QSBuilder {
                                     this.paramsFormData,
                                     this.paramsQuery);
         } else {
-            String requestApi = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
+            String requestApi = (String) this.opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
             if (QSConstant.PARAM_KEY_REQUEST_API_MULTIPART.equals(requestApi)) {
                 requestBody =
                         new QSMultiPartUploadRequestBody()
@@ -387,59 +327,41 @@ public class QSBuilder {
             throw new QSException("You need to 'getExpiresRequestUrl' do request!");
         }
 
-        return QSOkHttpRequestClient.buildRequest(
-                this.requestMethod, this.requestUrl, requestBody, paramsHeaders);
+        Request.Builder builder = new Request.Builder();
+        String[] sortedHeadersKeys =
+                (String[]) this.paramsHeaders.keySet().toArray(new String[] {});
+        for (String key : sortedHeadersKeys) {
+            builder.addHeader(key, String.valueOf(this.paramsHeaders.get(key)));
+        }
+        return builder.url(mergeFullUrl()).method(this.requestMethod, requestBody).build();
     }
 
     private boolean checkExpiresParam() {
-        Object expiresTime = this.context.get(QSConstant.PARAM_KEY_EXPIRES);
+        Object expiresTime = this.opCtx.get(QSConstant.PARAM_KEY_EXPIRES);
         return expiresTime != null;
     }
 
-    public String getExpiresRequestUrl() throws QSException {
-        Object expiresTime = this.context.get(QSConstant.PARAM_KEY_EXPIRES);
-        if (expiresTime != null) {
-            EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
-            String expireAuth = this.getSignature();
-            String serviceUrl = envContext.getRequestUrl();
-            String objectName = (String) context.get(QSConstant.PARAM_KEY_OBJECT_NAME);
-            String bucketName = (String) this.context.get(QSConstant.PARAM_KEY_BUCKET_NAME);
+    private String mergeFullUrl() {
+        HttpUrl.Builder builder = this.urlWithoutQueries.newBuilder();
+        this.paramsQuery.forEach(
+                (k, v) -> builder.addQueryParameter(k.toString(), v == null ? null : v.toString()));
+        return builder.build().toString();
+    }
 
-            String zone = (String) context.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
-            // handle url style
-            String storRequestUrl;
-            if (QSConstant.PATH_STYLE.equals(requestUrlStyle)) {
-                storRequestUrl = serviceUrl.replace("://", "://" + zone + ".") + "/" + bucketName;
-            } else {
-                storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
-                storRequestUrl = String.format(storRequestUrl, bucketName);
-            }
-            objectName = QSStringUtil.asciiCharactersEncoding(objectName);
-            String requestPath = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
-            requestPath =
-                    requestPath.replace("/<bucket-name>", "").replace("/<object-key>", objectName);
-            String expiresUrl;
-            if (requestPath.indexOf("?") > 0) {
-                expiresUrl =
-                        String.format(
-                                storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
-                                requestPath,
-                                envContext.getAccessKeyId(),
-                                expiresTime + "",
-                                expireAuth);
-            } else {
-                expiresUrl =
-                        String.format(
-                                storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
-                                requestPath,
-                                envContext.getAccessKeyId(),
-                                expiresTime + "",
-                                expireAuth);
-            }
-            return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
-        } else {
-            throw new QSException("ExpiresRequestUrl error:There is no expirs params");
+    public String getExpiresRequestUrl() throws QSException {
+        HttpUrl.Builder builder = this.urlWithoutQueries.newBuilder();
+        this.paramsQuery.forEach(
+                (k, v) -> builder.addQueryParameter(k.toString(), v == null ? null : v.toString()));
+        Object expiresTime = this.opCtx.get(QSConstant.PARAM_KEY_EXPIRES);
+        if (expiresTime != null) {
+            EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+            String expireAuth = this.getSignature();
+            String ak = envContext.getAccessKeyId();
+            builder.addQueryParameter("access_key_id", ak)
+                    .addQueryParameter("expires", expiresTime.toString())
+                    .addQueryParameter("signature", expireAuth);
         }
+        return builder.build().toString();
     }
 
     private String getSignature() throws QSException {
@@ -451,5 +373,14 @@ public class QSBuilder {
                     this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
         }
         return signature;
+    }
+
+    private String resourcePathForSign() {
+        String encodedPath = this.urlWithoutQueries.encodedPath();
+        if (this.pathMode) {
+            return encodedPath;
+        }
+        String bucketName = (String) this.opCtx.get(QSConstant.PARAM_KEY_BUCKET_NAME);
+        return "/" + (bucketName != null ? bucketName + encodedPath : "");
     }
 }

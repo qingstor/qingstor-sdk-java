@@ -53,6 +53,7 @@ public class QSSignatureUtil {
      * @return generated url
      * @throws QSException UnsupportedEncodingException
      */
+    @Deprecated
     public static String generateQSURL(Map<String, String> parameters, String requestUrl)
             throws QSException {
 
@@ -310,6 +311,7 @@ public class QSSignatureUtil {
         return dateStr;
     }
 
+    @Deprecated
     public static String getObjectAuthRequestUrl(
             EnvContext envContext,
             String zone,
@@ -355,6 +357,7 @@ public class QSSignatureUtil {
         }
     }
 
+    @Deprecated
     public static String getExpireAuth(Map context, long expiresSecond, RequestInputModel params)
             throws UnsupportedEncodingException {
 
