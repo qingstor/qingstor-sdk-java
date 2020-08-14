@@ -21,10 +21,13 @@ import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.RequestInputModel;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class QSSignatureUtil {
 
-    private static final String ENCODING = "UTF-8";
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final String ALGORITHM = "HmacSHA256";
     private static final String GMT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
     private static Set<String> subSources;
@@ -237,24 +240,14 @@ public class QSSignatureUtil {
     }
 
     public static String generateSignature(String secretKey, String strToSign) {
-        byte[] signData;
         try {
             Mac mac = Mac.getInstance(ALGORITHM);
-            mac.init(new SecretKeySpec(secretKey.getBytes(ENCODING), ALGORITHM));
-            signData = mac.doFinal(strToSign.getBytes(ENCODING));
-            // return new String(Base64.encodeBase64(signData));
-        } catch (InvalidKeyException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalStateException e) {
+            mac.init(new SecretKeySpec(secretKey.getBytes(DEFAULT_CHARSET), ALGORITHM));
+            byte[] signData = mac.doFinal(strToSign.getBytes(DEFAULT_CHARSET));
+            return Base64.getEncoder().encodeToString(signData);
+        } catch (NoSuchAlgorithmException | IllegalStateException | InvalidKeyException e) {
             throw new RuntimeException(e);
         }
-
-        // Base64 encoder = Base64.getEncoder();
-        return Base64.encode(signData);
     }
 
     public static boolean isSubSource(String key) {

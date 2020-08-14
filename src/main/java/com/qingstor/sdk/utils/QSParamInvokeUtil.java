@@ -25,11 +25,11 @@ import java.util.*;
 
 public class QSParamInvokeUtil {
 
-    public static Map getRequestParams(Object model, String paramType) {
-        Map retParametersMap = new HashMap();
+    public static Map<String, Object> getRequestParams(Object model, String paramType) {
+        Map<String, Object> retParametersMap = new HashMap<>();
         if (model != null) {
             try {
-                Class tmpClass = model.getClass();
+                Class<?> tmpClass = model.getClass();
                 while (tmpClass != Object.class) {
                     initParameterMap(tmpClass, model, retParametersMap, paramType);
                     tmpClass = tmpClass.getSuperclass();
@@ -53,7 +53,10 @@ public class QSParamInvokeUtil {
 
     @SuppressWarnings("PARAMETER")
     private static void initParameterMap(
-            Class objClass, Object source, Map retParametersMap, String paramType)
+            Class<?> objClass,
+            Object source,
+            Map<String, Object> retParametersMap,
+            String paramType)
             throws QSException {
         Field[] declaredField = objClass.getDeclaredFields();
         for (Field field : declaredField) {
@@ -71,10 +74,6 @@ public class QSParamInvokeUtil {
                     }
                     if (paramType.equals(annotation.paramType())) {
                         setParameterToMap(m, source, retParametersMap, fieldName);
-                    } else if (paramType.equals(annotation.paramType())) {
-                        setParameterToMap(m, source, retParametersMap, fieldName);
-                    } else if (paramType.equals(annotation.paramType())) {
-                        setParameterToMap(m, source, retParametersMap, fieldName);
                     } else if ("".equals(paramType)) {
                         setParameterToMap(m, source, retParametersMap, fieldName);
                     }
@@ -84,7 +83,8 @@ public class QSParamInvokeUtil {
     }
 
     private static void setParameterToMap(
-            Method m, Object source, Map targetParametersMap, String paramKey) throws QSException {
+            Method m, Object source, Map<String, Object> targetParametersMap, String paramKey)
+            throws QSException {
         Object[] invokeParams = null;
         try {
             Object objValue = m.invoke(source, invokeParams);
@@ -101,7 +101,8 @@ public class QSParamInvokeUtil {
     }
 
     @SuppressWarnings("PARAMETER")
-    public static void invokeObject2Map(Class sourceClass, Object source, Map targetParametersMap)
+    public static void invokeObject2Map(
+            Class<?> sourceClass, Object source, Map<String, Object> targetParametersMap)
             throws QSException {
         Field[] declaredField = sourceClass.getDeclaredFields();
         for (Field field : declaredField) {
@@ -120,12 +121,11 @@ public class QSParamInvokeUtil {
         }
     }
 
-    public static Object getOutputModel(Class className) throws QSException {
+    public static Object getOutputModel(Class<? extends OutputModel> className) throws QSException {
         try {
-            return className.newInstance();
+            return className.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new QSException(e.getMessage());
+            throw new QSException(e.getMessage(), e);
         }
     }
 
@@ -134,7 +134,7 @@ public class QSParamInvokeUtil {
         for (Object o : parameters.entrySet()) {
             Map.Entry entry = (Map.Entry) o;
             String key = (String) entry.getKey();
-            Object value = (Object) entry.getValue();
+            Object value = entry.getValue();
             if (value instanceof List) {
                 for (int i = 0, cnt = ((List) value).size(); i < cnt; i++) {
                     Object v2 = ((List) value).get(i);
@@ -164,17 +164,15 @@ public class QSParamInvokeUtil {
 
         try {
             if (typeClass[0] instanceof ParameterizedType) {
-                Class actualType =
-                        (Class) ((ParameterizedType) typeClass[0]).getActualTypeArguments()[0];
+                Class<?> actualType =
+                        (Class<?>) ((ParameterizedType) typeClass[0]).getActualTypeArguments()[0];
 
-                return (OutputModel) actualType.newInstance();
+                return (OutputModel) actualType.getDeclaredConstructor().newInstance();
             } else {
-                return OutputModel.class.newInstance();
+                return OutputModel.class.getDeclaredConstructor().newInstance();
             }
-        } catch (InstantiationException e) {
-            throw new QSException("InstantiationException", e);
-        } catch (IllegalAccessException e) {
-            throw new QSException("IllegalAccessException", e);
+        } catch (Exception e) {
+            throw new QSException(e.getMessage(), e);
         }
     }
 

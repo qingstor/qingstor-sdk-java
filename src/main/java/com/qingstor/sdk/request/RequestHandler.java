@@ -34,11 +34,11 @@ import okhttp3.RequestBody;
 @Slf4j
 public class RequestHandler {
 
-    private Map contextParam;
+    private final Map contextParam;
 
-    private RequestInputModel paramBean;
+    private final RequestInputModel paramBean;
 
-    private Class outputClass;
+    private Class<? extends OutputModel> outputClass;
 
     private ResponseCallBack asyncCallback;
 
@@ -50,7 +50,8 @@ public class RequestHandler {
 
     private QSRequestBody qsRequestBody;
 
-    public RequestHandler(Map context, RequestInputModel paramBean, Class outputClass)
+    public RequestHandler(
+            Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
             throws QSException {
         this.contextParam = context;
         this.paramBean = paramBean;
@@ -58,7 +59,10 @@ public class RequestHandler {
         this.builder = new QSBuilder(context, paramBean);
     }
 
-    public RequestHandler(Map context, RequestInputModel paramBean, ResponseCallBack asyncCallback)
+    public RequestHandler(
+            Map context,
+            RequestInputModel paramBean,
+            ResponseCallBack<? extends OutputModel> asyncCallback)
             throws QSException {
         this.contextParam = context;
         this.paramBean = paramBean;
@@ -86,7 +90,7 @@ public class RequestHandler {
         String validate = this.check();
         if (!QSStringUtil.isEmpty(validate)) {
             try {
-                OutputModel model = (OutputModel) outputClass.newInstance();
+                OutputModel model = outputClass.newInstance();
                 QSOkHttpRequestClient.fillResponseCallbackModel(
                         QSConstant.REQUEST_ERROR_CODE, validate, model);
                 return model;

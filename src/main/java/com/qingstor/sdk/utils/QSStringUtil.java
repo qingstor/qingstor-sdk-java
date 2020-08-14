@@ -30,8 +30,7 @@ import org.json.JSONObject;
 public class QSStringUtil {
 
     public static String objectToJson(String key, Object o) throws QSException {
-        String buffer = "{ \"" + key + "\":" + objectJSONKeyValue(key, o) + "}";
-        return buffer;
+        return "{ \"" + key + "\":" + objectJSONKeyValue(key, o) + "}";
     }
 
     private static String objectJSONKeyValue(String key, Object o) throws QSException {
@@ -147,21 +146,19 @@ public class QSStringUtil {
      *
      * @param str unEncoded chars
      * @return encoded chars
-     * @throws QSException UnsupportedEncodingException
      */
-    public static String asciiCharactersEncoding(String str) throws QSException {
+    public static String asciiCharactersEncoding(String str) {
         if (QSStringUtil.isEmpty(str)) {
             return "";
         }
         try {
             String encoded = URLEncoder.encode(str, QSConstant.ENCODING_UTF8);
-            encoded = encoded.replace("%2F", "/");
-            encoded = encoded.replace("%3D", "=");
-            encoded = encoded.replace("+", "%20");
-            encoded = encoded.replace("%3A", ":");
-            return encoded;
+            return encoded.replace("%2F", "/")
+                    .replace("%3D", "=")
+                    .replace("+", "%20")
+                    .replace("%3A", ":");
         } catch (UnsupportedEncodingException e) {
-            throw new QSException("UnsupportedEncodingException:", e);
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

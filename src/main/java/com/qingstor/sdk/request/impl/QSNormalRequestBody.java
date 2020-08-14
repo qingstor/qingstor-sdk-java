@@ -21,8 +21,8 @@ import com.qingstor.sdk.request.QSRequestBody;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -64,16 +64,18 @@ public class QSNormalRequestBody implements QSRequestBody {
     }
 
     public static Object getBodyContent(Map bodyContent) throws QSException {
-        Iterator iterator = bodyContent.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            String key = (String) entry.getKey();
-            Object bodyObj = bodyContent.get(key);
-            if (QSConstant.PARAM_TYPE_BODYINPUTFILE.equals(key)
-                    || QSConstant.PARAM_TYPE_BODYINPUTSTREAM.equals(key)
-                    || QSConstant.PARAM_TYPE_BODYINPUTSTRING.equals(key)) {
-                return bodyObj;
-            }
+        Optional matched =
+                bodyContent.keySet().stream()
+                        .filter(
+                                k -> {
+                                    String key = (String) k;
+                                    return (key.equals(QSConstant.PARAM_TYPE_BODYINPUTFILE)
+                                            || key.equals(QSConstant.PARAM_TYPE_BODYINPUTSTREAM)
+                                            || key.equals(QSConstant.PARAM_TYPE_BODYINPUTSTRING));
+                                })
+                        .findFirst();
+        if (matched.isPresent()) {
+            return bodyContent.get(matched.get());
         }
         return QSStringUtil.getMapToJson(bodyContent).toString();
     }

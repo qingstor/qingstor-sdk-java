@@ -142,7 +142,8 @@ public class QSOkHttpRequestClient {
         }
     }
 
-    public OutputModel requestAction(Request request, boolean bSafe, Class outputClass)
+    public OutputModel requestAction(
+            Request request, boolean bSafe, Class<? extends OutputModel> outputClass)
             throws QSException {
         Call okhttpCall = getRequestCall(bSafe, request);
         okhttp3.Response response;
@@ -251,26 +252,23 @@ public class QSOkHttpRequestClient {
 
     /**
      * @param method request method name
-     * @param signedUrl with signed param url
-     * @param headParams http head params
-     * @param requestBody request body params
+     * @param url with signed param url
+     * @param headers http head params
+     * @param body request body params
      * @return a build request
      */
     public static Request buildRequest(
-            final String method,
-            final String signedUrl,
-            RequestBody requestBody,
-            final Map headParams) {
+            final String method, final String url, RequestBody body, final Map headers) {
 
         Request.Builder builder = new Request.Builder();
-        String[] sortedHeadersKeys = (String[]) headParams.keySet().toArray(new String[] {});
+        String[] sortedHeadersKeys = (String[]) headers.keySet().toArray(new String[] {});
         for (String key : sortedHeadersKeys) {
-            builder.addHeader(key, String.valueOf(headParams.get(key)));
+            builder.addHeader(key, String.valueOf(headers.get(key)));
         }
-        if (!headParams.containsKey(QSConstant.PARAM_KEY_USER_AGENT)) {
+        if (!headers.containsKey(QSConstant.PARAM_KEY_USER_AGENT)) {
             builder.addHeader(QSConstant.PARAM_KEY_USER_AGENT, QSStringUtil.getUserAgent());
         }
-        return builder.url(signedUrl).method(method, requestBody).build();
+        return builder.url(url).method(method, body).build();
     }
 
     public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {

@@ -250,11 +250,10 @@ public class EnvContext implements ParamValidate {
         if (!QSStringUtil.isEmpty(getAdditionalUserAgent())) {
             for (int i = 0; i < getAdditionalUserAgent().length(); i++) {
                 char temp = getAdditionalUserAgent().charAt(i);
-                int value = (int) temp;
                 // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
-                if (value < 32 || value > 126 || value == 32 || value == 34) {
+                if ((int) temp < 32 || (int) temp > 126 || (int) temp == 32 || (int) temp == 34) {
                     return "Additional User-Agent contains characters that not allowed :"
-                            + getAdditionalUserAgent().substring(i, i + 1);
+                            + getAdditionalUserAgent().charAt(i);
                 }
             }
         }

@@ -22,7 +22,6 @@ import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.request.impl.QSFormRequestBody;
 import com.qingstor.sdk.request.impl.QSMultiPartUploadRequestBody;
 import com.qingstor.sdk.request.impl.QSNormalRequestBody;
-import com.qingstor.sdk.utils.Base64;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSSignatureUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
@@ -30,6 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -202,7 +202,7 @@ public class QSBuilder {
                     charIndex < nChars;
                     charIndex += Character.charCount(codePoint)) {
                 codePoint = value.codePointAt(charIndex);
-                if (codePoint > 127) {
+                if (codePoint > maxAscii) {
                     value = QSStringUtil.asciiCharactersEncoding(value);
                     break;
                 }
@@ -218,15 +218,16 @@ public class QSBuilder {
         if (QSConstant.PARAM_KEY_REQUEST_API_DELETE_MULTIPART.equals(requestApi)) {
             if (paramsBody.size() > 0) {
                 Object bodyContent = QSNormalRequestBody.getBodyContent(paramsBody);
-                MessageDigest instance = null;
                 try {
-                    instance = MessageDigest.getInstance("MD5");
+                    MessageDigest md5 = MessageDigest.getInstance("MD5");
+                    String contentMD5 =
+                            // Base64.encode(instance.digest(bodyContent.toString().getBytes()));
+                            Base64.getEncoder()
+                                    .encodeToString(md5.digest(bodyContent.toString().getBytes()));
+                    headerParams.put(QSConstant.PARAM_KEY_CONTENT_MD5, contentMD5);
                 } catch (NoSuchAlgorithmException e) {
-                    throw new QSException("MessageDigest MD5 error", e);
+                    throw new QSException(e.getMessage(), e);
                 }
-                String contentMD5 =
-                        Base64.encode(instance.digest(bodyContent.toString().getBytes()));
-                headerParams.put(QSConstant.PARAM_KEY_CONTENT_MD5, contentMD5);
             }
         }
     }
@@ -390,10 +391,7 @@ public class QSBuilder {
 
     private boolean checkExpiresParam() {
         Object expiresTime = this.context.get(QSConstant.PARAM_KEY_EXPIRES);
-        if (expiresTime != null) {
-            return true;
-        }
-        return false;
+        return expiresTime != null;
     }
 
     public String getExpiresRequestUrl() throws QSException {
@@ -418,25 +416,25 @@ public class QSBuilder {
             String requestPath = (String) this.context.get(QSConstant.PARAM_KEY_REQUEST_PATH);
             requestPath =
                     requestPath.replace("/<bucket-name>", "").replace("/<object-key>", objectName);
-            if (requestPath != null && requestPath.indexOf("?") > 0) {
-                String expiresUrl =
+            String expiresUrl;
+            if (requestPath.indexOf("?") > 0) {
+                expiresUrl =
                         String.format(
                                 storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
                                 requestPath,
                                 envContext.getAccessKeyId(),
                                 expiresTime + "",
                                 expireAuth);
-                return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
             } else {
-                String expiresUrl =
+                expiresUrl =
                         String.format(
                                 storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
                                 requestPath,
                                 envContext.getAccessKeyId(),
                                 expiresTime + "",
                                 expireAuth);
-                return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
             }
+            return QSSignatureUtil.generateQSURL(this.paramsQuery, expiresUrl);
         } else {
             throw new QSException("ExpiresRequestUrl error:There is no expirs params");
         }
@@ -450,6 +448,6 @@ public class QSBuilder {
             return String.valueOf(
                     this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
         }
-        return String.valueOf(signature);
+        return signature;
     }
 }
