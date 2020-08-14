@@ -34,28 +34,28 @@ public class QSParamInvokeUtilTest {
 
     @Test
     public void testClassToModel() {
-        Object outmodel = null;
+        Object outModel;
         try {
-            outmodel = QSParamInvokeUtil.getOutputModel(Bucket.PutBucketACLOutput.class);
+            outModel = QSParamInvokeUtil.getOutputModel(Bucket.PutBucketACLOutput.class);
+            Assert.assertEquals(
+                    outModel.getClass().getName(), Bucket.PutBucketACLOutput.class.getName());
         } catch (QSException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(
-                outmodel.getClass().getName(), Bucket.PutBucketACLOutput.class.getName());
     }
 
     @Test
     public void testOutputModel() {
-        Bucket.PutBucketACLOutput outmodel = null;
+        Bucket.PutBucketACLOutput outModel = null;
         try {
-            outmodel =
+            outModel =
                     (Bucket.PutBucketACLOutput)
                             QSParamInvokeUtil.getOutputModel(Bucket.PutBucketACLOutput.class);
+            Assert.assertEquals(
+                    outModel.getClass().getName(), Bucket.PutBucketACLOutput.class.getName());
         } catch (QSException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(
-                outmodel.getClass().getName(), Bucket.PutBucketACLOutput.class.getName());
     }
 
     @Test

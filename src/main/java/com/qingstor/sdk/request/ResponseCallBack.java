@@ -23,5 +23,5 @@ public interface ResponseCallBack<O extends OutputModel> {
      * @param output output extends OutputModel
      * @throws QSException exception
      */
-    public void onAPIResponse(O output) throws QSException;
+    void onAPIResponse(O output) throws QSException;
 }

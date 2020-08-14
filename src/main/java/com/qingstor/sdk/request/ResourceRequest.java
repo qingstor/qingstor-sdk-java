@@ -28,8 +28,8 @@ public interface ResourceRequest {
      * @param callback callback
      * @throws QSException exception
      */
-    public void sendApiRequestAsync(
-            Map context, RequestInputModel paramBean, ResponseCallBack callback) throws QSException;
+    void sendApiRequestAsync(Map context, RequestInputModel paramBean, ResponseCallBack callback)
+            throws QSException;
 
     /**
      * @param context EnvContext
@@ -38,7 +38,7 @@ public interface ResourceRequest {
      * @return OutputModel
      * @throws QSException exception
      */
-    public OutputModel sendApiRequest(
+    OutputModel sendApiRequest(
             Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
             throws QSException;
 
@@ -48,7 +48,7 @@ public interface ResourceRequest {
      * @param callback callback
      * @throws QSException exception
      */
-    public void sendApiRequestAsync(String requestUrl, Map context, ResponseCallBack callback)
+    void sendApiRequestAsync(String requestUrl, Map context, ResponseCallBack callback)
             throws QSException;
 
     /**
@@ -58,7 +58,7 @@ public interface ResourceRequest {
      * @return output model
      * @throws QSException exception
      */
-    public OutputModel sendApiRequest(
+    OutputModel sendApiRequest(
             String requestUrl, Map context, Class<? extends OutputModel> outputClass)
             throws QSException;
 
@@ -69,7 +69,7 @@ public interface ResourceRequest {
      * @return request handle
      * @throws QSException exception
      */
-    public RequestHandler getRequestAsync(
+    RequestHandler getRequestAsync(
             Map context, RequestInputModel paramBean, ResponseCallBack callback) throws QSException;
 
     /**
@@ -79,7 +79,7 @@ public interface ResourceRequest {
      * @return request handle
      * @throws QSException exception
      */
-    public RequestHandler getRequest(
+    RequestHandler getRequest(
             Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
             throws QSException;
 }

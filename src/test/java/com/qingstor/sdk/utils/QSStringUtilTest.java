@@ -16,7 +16,6 @@
 package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
-import com.qingstor.sdk.exception.QSException;
 import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONObject;
@@ -72,14 +71,9 @@ public class QSStringUtilTest {
     @Test
     public void testChineseCharactersEncoding() {
         String req;
-        try {
-            req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}&:-==辛苦、");
-            System.out.println(req);
-            Assert.assertEquals(req.indexOf("{}") < 0, true);
-            Assert.assertEquals(req.indexOf("中文编码") == -1, true);
-        } catch (QSException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        req = QSStringUtil.asciiCharactersEncoding("中文编码测试/{}&:-==辛苦、");
+        System.out.println(req);
+        Assert.assertFalse(req.contains("{}"));
+        Assert.assertEquals(req.indexOf("中文编码"), -1);
     }
 }

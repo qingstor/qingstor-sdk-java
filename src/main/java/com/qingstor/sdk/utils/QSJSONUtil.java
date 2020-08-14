@@ -42,7 +42,7 @@ public class QSJSONUtil {
     }
 
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         try {
             Iterator<String> keysItr = object.keys();
             while (keysItr.hasNext()) {
@@ -66,7 +66,7 @@ public class QSJSONUtil {
     }
 
     public static List<Object> toList(JSONArray array) {
-        List<Object> list = new ArrayList<Object>();
+        List<Object> list = new ArrayList<>();
         try {
             for (int i = 0, cnt = array.length(); i < cnt; i++) {
                 Object value = array.get(i);
@@ -160,16 +160,16 @@ public class QSJSONUtil {
 
     public static List toList(JSONObject obj, String key) {
         if (obj == null || obj.isNull(key)) return null;
-        ArrayList llist = new ArrayList();
+        List list = new ArrayList();
         try {
             JSONArray array = obj.getJSONArray(key);
             for (int i = 0, c = array.length(); i < c; i++) {
-                llist.add(array.get(i));
+                list.add(array.get(i));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return llist;
+        return list;
     }
 
     public static JSONArray toJSONArray(JSONObject obj, String key) {
@@ -307,57 +307,44 @@ public class QSJSONUtil {
     }
 
     public static List sortJSONArray(JSONArray array) {
-        LinkedList llist = new LinkedList();
+        List list = new LinkedList();
         try {
             for (int i = 0, c = array.length(); i < c; i++) {
-                llist.add(array.getString(i));
+                list.add(array.getString(i));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Collections.sort(
-                (List<String>) llist,
-                new Comparator<String>() {
-                    @Override
-                    public int compare(String s1, String s2) {
-                        return s2.compareToIgnoreCase(s1);
-                    }
-                });
-        return llist;
+        ((List<String>) list).sort((s1, s2) -> s2.compareToIgnoreCase(s1));
+        return list;
     }
 
     public static void sortJSONArray(List array, final String key) {
 
-        Collections.sort(
-                (List<JSONObject>) array,
-                new Comparator<JSONObject>() {
-                    @Override
-                    public int compare(JSONObject o1, JSONObject o2) {
-                        String v1 = QSJSONUtil.toString(o1, key);
-                        String v2 = QSJSONUtil.toString(o2, key);
-                        if (v2 == null) {
-                            v2 = "";
-                        }
-                        if (v1 == null) {
-                            v1 = "";
-                        }
-                        return v2.compareToIgnoreCase(v1);
-                    }
-                });
+        ((List<JSONObject>) array)
+                .sort(
+                        (o1, o2) -> {
+                            String v1 = toString(o1, key);
+                            String v2 = toString(o2, key);
+                            if (v2 == null) {
+                                v2 = "";
+                            }
+                            if (v1 == null) {
+                                v1 = "";
+                            }
+                            return v2.compareToIgnoreCase(v1);
+                        });
     }
 
     public static void sortJSONArrayAscending(List array, final String key) {
 
-        Collections.sort(
-                (List<JSONObject>) array,
-                new Comparator<JSONObject>() {
-                    @Override
-                    public int compare(JSONObject o1, JSONObject o2) {
-                        String v1 = QSJSONUtil.toString(o1, key);
-                        String v2 = QSJSONUtil.toString(o2, key);
-                        return v1.compareToIgnoreCase(v2);
-                    }
-                });
+        ((List<JSONObject>) array)
+                .sort(
+                        (o1, o2) -> {
+                            String v1 = toString(o1, key);
+                            String v2 = toString(o2, key);
+                            return v1.compareToIgnoreCase(v2);
+                        });
     }
 
     public static JSONObject convertJSONObject(String string) {
@@ -478,7 +465,7 @@ public class QSJSONUtil {
                             if (data instanceof JSONArray) {
                                 JSONArray jsonData = (JSONArray) data;
                                 for (int i = 0; i < jsonData.length(); i++) {
-                                    Object fObject = cls.newInstance();
+                                    Object fObject = cls.getDeclaredConstructor().newInstance();
                                     JSONObject o = toJSONObject(jsonData, i);
                                     Class tmpClass = fObject.getClass();
                                     while (tmpClass != Object.class) {
@@ -506,7 +493,7 @@ public class QSJSONUtil {
                         setter.invoke(source, invokeData);
                     } else {
 
-                        Object invokeData = f.getType().newInstance();
+                        Object invokeData = f.getType().getDeclaredConstructor().newInstance();
                         Class tmpClass = invokeData.getClass();
                         while (tmpClass != Object.class) {
                             Field[] fields = tmpClass.getDeclaredFields();

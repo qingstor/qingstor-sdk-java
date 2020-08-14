@@ -15,6 +15,7 @@
  */
 package com.qingstor.sdk.utils;
 
+@Deprecated
 public final class Base64 {
 
     private static final int BASELENGTH = 128;

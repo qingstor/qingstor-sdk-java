@@ -20,7 +20,7 @@ import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.service.Bucket.ImageProcessOutput;
-import com.qingstor.sdk.utils.Base64;
+import java.util.Base64;
 
 public class ImageProcessClient {
     private static final String OPSep = "|";
@@ -303,10 +303,10 @@ public class ImageProcessClient {
             sb.append(",p_");
             sb.append(this.opacity);
             sb.append(",t_");
-            sb.append(Base64.encode(text.getBytes()).replace("=", ""));
+            sb.append(Base64.getEncoder().encodeToString(text.getBytes()).replace("=", ""));
             if (this.color != null) {
                 sb.append(",c_");
-                String encode = Base64.encode(color.getBytes());
+                String encode = Base64.getEncoder().encodeToString(color.getBytes());
                 sb.append(encode.replace("=", ""));
             }
             return sb.toString();
@@ -366,7 +366,7 @@ public class ImageProcessClient {
             sb.append(",p_");
             sb.append(this.opacity);
             sb.append(",u_");
-            sb.append(Base64.encode(url.getBytes()).replace("=", ""));
+            sb.append(Base64.getEncoder().encodeToString(url.getBytes()).replace("=", ""));
             return sb.toString();
         }
     }

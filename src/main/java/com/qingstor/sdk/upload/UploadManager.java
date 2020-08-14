@@ -22,7 +22,6 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.UploadModel;
-import com.qingstor.sdk.request.BodyProgressListener;
 import com.qingstor.sdk.request.CancellationHandler;
 import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.service.Bucket;
@@ -38,7 +37,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class UploadManager {
 
-    private static ObjectMapper om = new ObjectMapper();
+    private static final ObjectMapper om = new ObjectMapper();
 
     private long partSize = 4 * 1024 * 1024L;
     private static final int MAX_PART_COUNTS = 10000; // Max part counts.
@@ -210,13 +209,9 @@ public class UploadManager {
                 // Progress listener
                 if (progressListener != null) {
                     requestHandler.setProgressListener(
-                            new BodyProgressListener() {
-                                @Override
-                                public void onProgress(long len, long size) {
-                                    long bytesWritten =
-                                            uploadModel.getCurrentPart() * partSize + len;
-                                    progressListener.onProgress(objectKey, bytesWritten, length);
-                                }
+                            (len, size) -> {
+                                long bytesWritten = uploadModel.getCurrentPart() * partSize + len;
+                                progressListener.onProgress(objectKey, bytesWritten, length);
                             });
                 }
 
@@ -374,12 +369,7 @@ public class UploadManager {
         // Set progress listener.
         if (progressListener != null) {
             requestHandler.setProgressListener(
-                    new BodyProgressListener() {
-                        @Override
-                        public void onProgress(long len, long size) {
-                            progressListener.onProgress(objectKey, len, size);
-                        }
-                    });
+                    (len, size) -> progressListener.onProgress(objectKey, len, size));
         }
 
         // Cancellation handler.

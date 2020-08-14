@@ -15,7 +15,7 @@
  */
 package com.qingstor.sdk.client;
 
-import com.qingstor.sdk.utils.Base64;
+import java.util.Base64;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -59,7 +59,8 @@ public class ImageProcessClientTest {
         actionString
                 .append("|watermark:d_150,p_0.25,t_")
                 .append(
-                        Base64.encode(markText.getBytes())
+                        Base64.getEncoder()
+                                .encodeToString(markText.getBytes())
                                 .replace("=", "")); // Do base64 encode to mark text in SDK
         Assert.assertEquals(ipc.getInput().getAction(), actionString.toString());
         // Image watermark
@@ -71,7 +72,8 @@ public class ImageProcessClientTest {
         actionString
                 .append("|watermark_image:l_0,t_0,p_0.25,u_")
                 .append(
-                        Base64.encode(markUrl.getBytes())
+                        Base64.getEncoder()
+                                .encodeToString(markUrl.getBytes())
                                 .replace("=", "")); // Do base64 encode to mark url in SDK
         Assert.assertEquals(ipc.getInput().getAction(), actionString.toString());
         // Get info

@@ -69,7 +69,8 @@ public class QSRequest implements ResourceRequest {
 
     @Deprecated
     @Override
-    public OutputModel sendApiRequest(Map context, RequestInputModel paramBean, Class outputClass)
+    public OutputModel sendApiRequest(
+            Map context, RequestInputModel paramBean, Class<? extends OutputModel> outputClass)
             throws QSException {
         RequestHandler requestHandler = new RequestHandler(context, paramBean, outputClass);
         return requestHandler.send();

@@ -21,7 +21,7 @@ import okhttp3.RequestBody;
 
 public interface QSRequestBody {
 
-    public RequestBody getRequestBody(
+    RequestBody getRequestBody(
             String contentType,
             long contentLength,
             String method,

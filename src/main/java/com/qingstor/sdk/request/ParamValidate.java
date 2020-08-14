@@ -17,5 +17,5 @@ package com.qingstor.sdk.request;
 
 public interface ParamValidate {
 
-    public String validateParam();
+    String validateParam();
 }
