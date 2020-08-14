@@ -171,6 +171,7 @@ public class QSOkHttpRequestClient {
      * @param signedUrl with singed parameter url
      * @return a build request
      */
+    @Deprecated
     public static Request buildUrlRequest(final String signedUrl) {
 
         // Execute the request and retrieve the response.

@@ -30,7 +30,7 @@ public class QSRequest implements ResourceRequest {
     public void sendApiRequestAsync(String requestUrl, Map context, ResponseCallBack callback)
             throws QSException {
         EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
-        Request request = QSOkHttpRequestClient.buildUrlRequest(requestUrl);
+        Request request = new Request.Builder().url(requestUrl).build();
         QSOkHttpRequestClient.getInstance(envContext)
                 .requestActionAsync(request, envContext.isSafeOkHttp(), callback);
     }
@@ -40,7 +40,7 @@ public class QSRequest implements ResourceRequest {
             String requestUrl, Map context, Class<? extends OutputModel> outputClass)
             throws QSException {
         EnvContext envContext = (EnvContext) context.get(QSConstant.ENV_CONTEXT_KEY);
-        Request request = QSOkHttpRequestClient.buildUrlRequest(requestUrl);
+        Request request = new Request.Builder().url(requestUrl).build();
         return QSOkHttpRequestClient.getInstance(envContext)
                 .requestAction(request, envContext.isSafeOkHttp(), outputClass);
     }
