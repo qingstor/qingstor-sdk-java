@@ -121,7 +121,7 @@ public class QSParamInvokeUtil {
         }
     }
 
-    public static Object getOutputModel(Class<? extends OutputModel> className) throws QSException {
+    public static <T extends OutputModel> T getOutputModel(Class<T> className) throws QSException {
         try {
             return className.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
@@ -129,6 +129,7 @@ public class QSParamInvokeUtil {
         }
     }
 
+    @Deprecated
     public static Map serializeParams(Map parameters) {
         Map result = new HashMap();
         for (Object o : parameters.entrySet()) {

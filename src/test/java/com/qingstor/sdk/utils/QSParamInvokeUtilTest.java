@@ -17,6 +17,7 @@ package com.qingstor.sdk.utils;
 
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
+import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.service.Bucket;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class QSParamInvokeUtilTest {
 
     @Test
     public void testClassToModel() {
-        Object outModel;
+        OutputModel outModel;
         try {
             outModel = QSParamInvokeUtil.getOutputModel(Bucket.PutBucketACLOutput.class);
             Assert.assertEquals(
@@ -46,11 +47,9 @@ public class QSParamInvokeUtilTest {
 
     @Test
     public void testOutputModel() {
-        Bucket.PutBucketACLOutput outModel = null;
+        Bucket.PutBucketACLOutput outModel;
         try {
-            outModel =
-                    (Bucket.PutBucketACLOutput)
-                            QSParamInvokeUtil.getOutputModel(Bucket.PutBucketACLOutput.class);
+            outModel = QSParamInvokeUtil.getOutputModel(Bucket.PutBucketACLOutput.class);
             Assert.assertEquals(
                     outModel.getClass().getName(), Bucket.PutBucketACLOutput.class.getName());
         } catch (QSException e) {
