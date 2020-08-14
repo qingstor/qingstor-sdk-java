@@ -149,7 +149,7 @@ public class QSOkHttpRequestClient {
             throws QSException {
         Call okhttpCall = getRequestCall(bSafe, request);
         okhttp3.Response response;
-        OutputModel model = (OutputModel) QSParamInvokeUtil.getOutputModel(outputClass);
+        OutputModel model = QSParamInvokeUtil.getOutputModel(outputClass);
         try {
             response = okhttpCall.execute();
             fillResponseValue2Object(response, model);
