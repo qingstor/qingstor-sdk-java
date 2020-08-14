@@ -4,7 +4,7 @@ plugins {
     signing
     id("com.diffplug.gradle.spotless") version "3.27.2"
     id("com.github.johnrengelman.shadow") version "5.2.0"
-    id("io.freefair.lombok") version "5.0.0"
+    id("io.freefair.lombok") version "5.1.0"
 }
 
 group = "com.yunify"
@@ -49,12 +49,6 @@ tasks {
 
 publishing {
     publications {
-        // create<MavenPublication>("shadow") {
-        //     project.shadow.component(this)
-        //     artifactId = "qingstor.sdk.java"
-        //     version = project.version.toString() + "-all-deps"
-        // }
-
         create<MavenPublication>("maven") {
             artifactId = "qingstor.sdk.java"  // this should be replaced near future.
 
@@ -104,7 +98,6 @@ publishing {
 
 signing {
     sign(publishing.publications["maven"])
-    // sign(publishing.publications["shadow"])
 }
 
 val cucumberRuntime: Configuration by configurations.creating {
@@ -115,14 +108,14 @@ val cucumberRuntime: Configuration by configurations.creating {
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.12")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.10")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.10.4")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.10.5")
 
-    implementation("org.json:json:20190722")
-    implementation("com.squareup.okhttp3:okhttp:3.12.10")
+    implementation("org.json:json:20200518")
+    implementation("com.squareup.okhttp3:okhttp:3.12.12")
     // it's library's consumer's responsibility to choose a log implementation(and set log_level.)
     implementation("org.slf4j:slf4j-api:1.7.30")
-    testImplementation("io.cucumber:cucumber-java:5.5.0")
-    testImplementation("io.cucumber:cucumber-junit:5.5.0")
+    testImplementation("io.cucumber:cucumber-java:6.2.2")
+    testImplementation("io.cucumber:cucumber-junit:6.2.2")
     testImplementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
