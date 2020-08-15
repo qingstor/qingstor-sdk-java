@@ -26,6 +26,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Base64;
 import javax.crypto.Mac;
@@ -39,6 +42,9 @@ public class QSSignatureUtil {
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final String ALGORITHM = "HmacSHA256";
     private static final String GMT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
+    private static final DateTimeFormatter timeFormatter =
+            DateTimeFormatter.ofPattern(GMT_DATE_FORMAT, Locale.US).withZone(ZoneId.of("GMT"));
+
     private static Set<String> subSources;
 
     /**
@@ -283,6 +289,18 @@ public class QSSignatureUtil {
         return subSources.contains(key);
     }
 
+    /**
+     * format {@code time} to specified datetime format which used by QingStor. This returned string
+     * will be the value part of http header: {@code Date} or {@code x-qs-date}.
+     *
+     * @param time time we will calculated(often init with ZonedDateTime.now())
+     * @return formatted datetime string
+     */
+    public static String formatDateTime(ZonedDateTime time) {
+        return time.format(timeFormatter);
+    }
+
+    @Deprecated
     public static String formatGmtDate(Date date) {
         SimpleDateFormat df = new SimpleDateFormat(GMT_DATE_FORMAT, Locale.US);
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
