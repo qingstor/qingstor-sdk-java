@@ -20,8 +20,9 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.service.Bucket;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.junit.Assert;
@@ -30,7 +31,16 @@ import org.junit.Test;
 public class QSSignatureUtilTest {
 
     @Test
-    public void testSignature() throws QSException {
+    public void testFormatDateTime() {
+        ZonedDateTime datetime =
+                ZonedDateTime.of(2020, 4, 28, 15, 30, 25, 35, ZoneId.of("Asia/Shanghai"));
+        String s = QSSignatureUtil.formatDateTime(datetime);
+        String expected = "Tue, 28 Apr 2020 07:30:25 GMT";
+        Assert.assertEquals(expected, s);
+    }
+
+    @Test
+    public void testSignature() {
         ParamTestModel instancesInput = new ParamTestModel();
         instancesInput.setAction("TestAction");
         List<String> imgs =
@@ -49,7 +59,6 @@ public class QSSignatureUtilTest {
         // search_word=serch_word_test&signature_method=HmacSHA256&signature_version=1&
         // time_stamp=2016-12-02T13%3A07%3A16Z&version=1&signature=r%2FR9TmmnZQWhkEi1gQy5qV9wEPjoJYi9QHSKzliq2eg%3D
         */
-        String d = QSSignatureUtil.formatGmtDate(new Date());
         String url =
                 QSSignatureUtil.generateAuthorization(
                         "QYACCESSKEYIDEXAMPLE",
