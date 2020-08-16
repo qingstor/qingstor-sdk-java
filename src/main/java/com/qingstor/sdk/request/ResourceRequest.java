@@ -20,6 +20,8 @@ import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
 import java.util.Map;
 
+/** program over/bad-design */
+@Deprecated
 public interface ResourceRequest {
 
     /**

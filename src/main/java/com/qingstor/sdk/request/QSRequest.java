@@ -28,8 +28,7 @@ import okhttp3.Request;
 public class QSRequest implements ResourceRequest {
 
     public static void sendApiRequestAsync(
-            String requestUrl, OperationContext opCtx, ResponseCallBack callback)
-            throws QSException {
+            String requestUrl, OperationContext opCtx, ResponseCallBack callback) {
         EnvContext envContext = (EnvContext) opCtx.credentials();
         Request request = new Request.Builder().url(requestUrl).build();
         QSOkHttpRequestClient.getInstance(envContext)

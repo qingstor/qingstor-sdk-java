@@ -15,6 +15,8 @@
  */
 package com.qingstor.sdk.request;
 
+/** program over-design */
+@Deprecated
 public class ResourceRequestFactory {
 
     public static ResourceRequest getResourceRequest() {
