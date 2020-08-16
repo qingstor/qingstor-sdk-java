@@ -20,7 +20,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ParamAnnotation {
-    String paramType() default "body";
+    String paramType() default "";
 
     String paramName() default "";
 }

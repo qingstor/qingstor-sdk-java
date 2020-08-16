@@ -29,13 +29,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// QingStorService: QingStor provides low-cost and reliable online storage service with unlimited
-// storage space, high read and write performance, high reliability and data safety, fine-grained
-// access control, and easy to use API.
+/**
+ * QingStorService: QingStor provides low-cost and reliable online storage service with unlimited
+ * storage space, high read and write performance, high reliability and data safety, fine-grained
+ * access control, and easy to use API.
+ */
 public class QingStor {
     private String zone;
     private EnvContext envContext;
-    private String bucketName;
 
     public QingStor(EnvContext envContext, String zone) {
         this.envContext = envContext;
@@ -44,6 +45,10 @@ public class QingStor {
 
     public QingStor(EnvContext envContext) {
         this.envContext = envContext;
+    }
+
+    public Bucket getBucket(String bucketName, String zone) {
+        return new Bucket(this.envContext, zone, bucketName);
     }
 
     /**
@@ -55,7 +60,6 @@ public class QingStor {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListBucketsOutput listBuckets(ListBucketsInput input) throws QSException {
-
         if (input == null) {
             input = new ListBucketsInput();
         }
@@ -77,12 +81,11 @@ public class QingStor {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listBucketsRequest(ListBucketsInput input) throws QSException {
-
         if (input == null) {
             input = new ListBucketsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListBuckets");
@@ -90,7 +93,6 @@ public class QingStor {
         context.put("ServiceName", "Get Service");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/");
-        context.put("bucketNameInput", this.bucketName);
 
         RequestHandler requestHandler =
                 ResourceRequestFactory.getResourceRequest()
@@ -98,6 +100,7 @@ public class QingStor {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -109,7 +112,6 @@ public class QingStor {
     public void listBucketsAsync(
             ListBucketsInput input, ResponseCallBack<ListBucketsOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new ListBucketsInput();
         }
@@ -134,7 +136,7 @@ public class QingStor {
             input = new ListBucketsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListBuckets");
@@ -142,7 +144,6 @@ public class QingStor {
         context.put("ServiceName", "Get Service");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/");
-        context.put("bucketNameInput", this.bucketName);
 
         if (callback == null) {
             throw new QSException("callback can't be null");
@@ -155,13 +156,14 @@ public class QingStor {
     }
     /**
      * ListBucketsInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Location Limits results to buckets that in the location <br>
      * field Limit Results count limit <br>
      * field Offset Limit results to keys that start at this offset <br>
      */
     public static class ListBucketsInput extends RequestInputModel {
+
         /** Results count limit */
         private Integer limit;
 
@@ -221,7 +223,7 @@ public class QingStor {
             this.buckets = buckets;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "buckets")
+        @ParamAnnotation(paramType = "element", paramName = "buckets")
         public List<BucketModel> getBuckets() {
             return this.buckets;
         }
@@ -232,13 +234,9 @@ public class QingStor {
             this.count = count;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "count")
+        @ParamAnnotation(paramType = "element", paramName = "count")
         public Integer getCount() {
             return this.count;
         }
-    }
-
-    public com.qingstor.sdk.service.Bucket getBucket(String bucketName, String zone) {
-        return new com.qingstor.sdk.service.Bucket(this.envContext, zone, bucketName);
     }
 }

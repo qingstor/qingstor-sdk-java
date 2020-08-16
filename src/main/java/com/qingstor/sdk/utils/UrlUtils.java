@@ -103,7 +103,7 @@ public class UrlUtils {
     /** Make a resource path from the bucket name and the object key. */
     private static String makeResourcePath(String bucket, String key) {
         if (bucket != null) {
-            return bucket + "/" + (key != null ? rfc3986UriEncode(key, false) : "");
+            return bucket + (key != null ? "/" + rfc3986UriEncode(key, false) : "");
         } else {
             return "";
         }

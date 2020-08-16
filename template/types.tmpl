@@ -10,11 +10,14 @@ import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.utils.QSStringUtil;
 
 public class Types {
+
     {{range $_, $customizedType := $customizedTypes}}
+    /** {{$customizedType.ID | camelCase}}Model represents {{$customizedType.ID | camelCase}}. */
     public static class {{$customizedType.ID | camelCase}}Model extends RequestInputModel {
 
-      {{template "RenderProperties" passThrough $customizedType "" "query"}}
+      {{template "RenderProperties" passThrough $customizedType "" ""}}
 
+      /** validateParam validates the {{$customizedType.ID | camelCase}}. */
       @Override
       public String validateParam() {
           {{template "ValidateCustomizedType" $customizedType}}

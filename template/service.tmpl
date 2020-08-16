@@ -1,5 +1,4 @@
 {{$service := .Data.Service}}
-{{$subServices := .Data.SubServices }}
 
 package com.qingstor.sdk.service;
 
@@ -21,11 +20,10 @@ import com.qingstor.sdk.utils.QSStringUtil;
 import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.request.RequestHandler;
 
-{{if $service.Description}}// {{$service.Name | camelCase}}Service: {{$service.Description}}{{end}}
+{{if $service.Description}}/** {{$service.Name | camelCase}}Service: {{$service.Description}} */{{end}}
 public class QingStor {
     private String zone;
     private EnvContext envContext;
-    private String bucketName;
 
     public QingStor(EnvContext envContext,String zone){
        this.envContext = envContext;
@@ -36,12 +34,12 @@ public class QingStor {
         this.envContext = envContext;
     }
 
+    public Bucket getBucket(String bucketName, String zone){
+        return new Bucket(this.envContext, zone, bucketName);
+    }
+
     {{range $_, $operation := $service.Operations}}
-        {{$belongs := printf "%sService" ($service.Name | camelCase)}}
-        {{template "RenderOperation" passThrough $belongs $operation}}
+        {{template "RenderOperation" passThrough $service $operation}}
     {{end}}
 
-    public com.qingstor.sdk.service.Bucket getBucket(String bucketName,String zone){
-        return new com.qingstor.sdk.service.Bucket(this.envContext, zone, bucketName);
-    }
 }
