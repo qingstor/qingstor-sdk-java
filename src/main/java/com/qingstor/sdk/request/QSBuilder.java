@@ -49,7 +49,7 @@ public class QSBuilder {
 
     private RequestInputModel paramsModel;
 
-    private String requestMethod = "GET";
+    private String httpMethod = "GET";
 
     private Map paramsQuery;
 
@@ -71,9 +71,7 @@ public class QSBuilder {
     }
 
     private void initHeadersAndBody() throws QSException {
-        this.requestMethod = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
-        this.paramsBody =
-                QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_BODY);
+        this.httpMethod = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
         this.paramsHeaders =
                 QSParamInvokeUtil.getRequestParams(this.paramsModel, QSConstant.PARAM_TYPE_HEADER);
 
@@ -100,11 +98,18 @@ public class QSBuilder {
                     QSConstant.HEADER_PARAM_KEY_EXPIRES, opCtx.get(QSConstant.PARAM_KEY_EXPIRES));
         }
 
-        String requestApi = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
-        this.initHeadContentMd5(requestApi, paramsBody, paramsHeaders);
-
-        paramsHeaders = this.headParamEncoding(paramsHeaders);
-
+        this.paramsBody =
+                QSParamInvokeUtil.getRequestParams(
+                        this.paramsModel, QSConstant.PARAM_TYPE_BODY_ELEMENT);
+        if (this.paramsBody.size() != 0) {
+            this.paramsHeaders.put(
+                    QSConstant.HEADER_PARAM_KEY_CONTENTTYPE, QSConstant.CONTENT_TYPE_JSON);
+        } else {
+            this.paramsBody =
+                    QSParamInvokeUtil.getRequestParams(
+                            this.paramsModel, QSConstant.PARAM_TYPE_BODY);
+        }
+        this.initHeadContentMd5(paramsBody, paramsHeaders);
         this.paramsFormData =
                 QSParamInvokeUtil.getRequestParams(
                         this.paramsModel, QSConstant.PARAM_TYPE_FORM_DATA);
@@ -175,8 +180,8 @@ public class QSBuilder {
         return head;
     }
 
-    private void initHeadContentMd5(String requestApi, Map paramsBody, Map headerParams)
-            throws QSException {
+    private void initHeadContentMd5(Map paramsBody, Map headerParams) throws QSException {
+        String requestApi = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
         if (QSConstant.PARAM_KEY_REQUEST_API_DELETE_MULTIPART.equals(requestApi)) {
             if (paramsBody.size() > 0) {
                 Object bodyContent = QSNormalRequestBody.getBodyContent(paramsBody);
@@ -207,6 +212,10 @@ public class QSBuilder {
     }
 
     public RequestBody getRequestBody() throws QSException {
+        paramsHeaders =
+                this.headParamEncoding(
+                        paramsHeaders); // encoding all non-ascii headers before calculate
+        // signature.
         this.getSignature();
         String contentType =
                 String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
@@ -223,7 +232,7 @@ public class QSBuilder {
         }
         QSRequestBody reqBody = determineBody();
         return reqBody.getRequestBody(
-                contentType, contentLength, this.requestMethod, bodyParams, this.paramsQuery);
+                contentType, contentLength, this.httpMethod, bodyParams, this.paramsQuery);
     }
 
     public Request getRequest(RequestBody reqBody) throws QSException {
@@ -237,7 +246,7 @@ public class QSBuilder {
         for (String key : sortedHeadersKeys) {
             builder.addHeader(key, String.valueOf(this.paramsHeaders.get(key)));
         }
-        return builder.url(mergeFullUrl()).method(this.requestMethod, reqBody).build();
+        return builder.url(mergeFullUrl()).method(this.httpMethod, reqBody).build();
     }
 
     private String mergeFullUrl() {
@@ -298,7 +307,7 @@ public class QSBuilder {
 
     public String getStringToSignature() {
         return QSSignatureUtil.getStringToSignature(
-                this.requestMethod, resourcePathForSign(), this.paramsQuery, this.paramsHeaders);
+                this.httpMethod, resourcePathForSign(), this.paramsQuery, this.paramsHeaders);
     }
 
     private String getSignature() throws QSException {
@@ -358,7 +367,7 @@ public class QSBuilder {
                     qsBody.getRequestBody(
                             contentType,
                             contentLength,
-                            this.requestMethod,
+                            this.httpMethod,
                             this.paramsBody,
                             this.paramsQuery);
         } else {

@@ -25,6 +25,7 @@ public class QSConstant {
 
     public static final String PARAM_TYPE_QUERY = "query";
     public static final String PARAM_TYPE_BODY = "body";
+    public static final String PARAM_TYPE_BODY_ELEMENT = "element";
     public static final String PARAM_TYPE_HEADER = "header";
     public static final String PARAM_TYPE_FORM_DATA = "formData";
 
@@ -53,7 +54,7 @@ public class QSConstant {
     public static final String BUCKET_PLACEHOLDER = "<bucket-name>";
     public static final String OBJECT_PLACEHOLDER = "<object-key>";
 
-    public static final String CONTENT_TYPE_TEXT = "application/json";
+    public static final String CONTENT_TYPE_JSON = "application/json";
 
     public static final String ENCODING_UTF8 = "UTF-8";
 

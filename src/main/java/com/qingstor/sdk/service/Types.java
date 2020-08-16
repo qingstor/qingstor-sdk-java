@@ -22,6 +22,7 @@ import java.util.List;
 
 public class Types {
 
+    /** AbortIncompleteMultipartUploadModel represents AbortIncompleteMultipartUpload. */
     public static class AbortIncompleteMultipartUploadModel extends RequestInputModel {
 
         /** days after initiation Required */
@@ -31,11 +32,12 @@ public class Types {
             this.daysAfterInitiation = daysAfterInitiation;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "days_after_initiation")
+        @ParamAnnotation(paramType = "", paramName = "days_after_initiation")
         public Integer getDaysAfterInitiation() {
             return this.daysAfterInitiation;
         }
 
+        /** validateParam validates the AbortIncompleteMultipartUpload. */
         @Override
         public String validateParam() {
 
@@ -47,6 +49,7 @@ public class Types {
         }
     }
 
+    /** ACLModel represents ACL. */
     public static class ACLModel extends RequestInputModel {
 
         /** Required */
@@ -56,7 +59,7 @@ public class Types {
             this.grantee = grantee;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "grantee")
+        @ParamAnnotation(paramType = "", paramName = "grantee")
         public GranteeModel getGrantee() {
             return this.grantee;
         }
@@ -70,11 +73,12 @@ public class Types {
             this.permission = permission;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "permission")
+        @ParamAnnotation(paramType = "", paramName = "permission")
         public String getPermission() {
             return this.permission;
         }
 
+        /** validateParam validates the ACL. */
         @Override
         public String validateParam() {
 
@@ -112,6 +116,7 @@ public class Types {
         }
     }
 
+    /** BucketModel represents Bucket. */
     public static class BucketModel extends RequestInputModel {
 
         /** Created time of the bucket */
@@ -121,7 +126,7 @@ public class Types {
             this.created = created;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "created")
+        @ParamAnnotation(paramType = "", paramName = "created")
         public String getCreated() {
             return this.created;
         }
@@ -132,7 +137,7 @@ public class Types {
             this.location = location;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "location")
+        @ParamAnnotation(paramType = "", paramName = "location")
         public String getLocation() {
             return this.location;
         }
@@ -143,7 +148,7 @@ public class Types {
             this.name = name;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "name")
+        @ParamAnnotation(paramType = "", paramName = "name")
         public String getName() {
             return this.name;
         }
@@ -154,11 +159,12 @@ public class Types {
             this.uRL = uRL;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "url")
+        @ParamAnnotation(paramType = "", paramName = "url")
         public String getURL() {
             return this.uRL;
         }
 
+        /** validateParam validates the Bucket. */
         @Override
         public String validateParam() {
 
@@ -166,6 +172,7 @@ public class Types {
         }
     }
 
+    /** CloudfuncArgsModel represents CloudfuncArgs. */
     public static class CloudfuncArgsModel extends RequestInputModel {
 
         /** Required */
@@ -175,7 +182,7 @@ public class Types {
             this.action = action;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "action")
+        @ParamAnnotation(paramType = "", paramName = "action")
         public String getAction() {
             return this.action;
         }
@@ -186,7 +193,7 @@ public class Types {
             this.keyPrefix = keyPrefix;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "key_prefix")
+        @ParamAnnotation(paramType = "", paramName = "key_prefix")
         public String getKeyPrefix() {
             return this.keyPrefix;
         }
@@ -197,7 +204,7 @@ public class Types {
             this.keySeprate = keySeprate;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "key_seprate")
+        @ParamAnnotation(paramType = "", paramName = "key_seprate")
         public String getKeySeprate() {
             return this.keySeprate;
         }
@@ -208,11 +215,12 @@ public class Types {
             this.saveBucket = saveBucket;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "save_bucket")
+        @ParamAnnotation(paramType = "", paramName = "save_bucket")
         public String getSaveBucket() {
             return this.saveBucket;
         }
 
+        /** validateParam validates the CloudfuncArgs. */
         @Override
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getAction())) {
@@ -222,6 +230,7 @@ public class Types {
         }
     }
 
+    /** CnameModel represents Cname. */
     public static class CnameModel extends RequestInputModel {
 
         /**
@@ -234,7 +243,7 @@ public class Types {
             this.domain = domain;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "domain")
+        @ParamAnnotation(paramType = "", paramName = "domain")
         public String getDomain() {
             return this.domain;
         }
@@ -248,11 +257,12 @@ public class Types {
             this.type = type;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "type")
+        @ParamAnnotation(paramType = "", paramName = "type")
         public String getType() {
             return this.type;
         }
 
+        /** validateParam validates the Cname. */
         @Override
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getDomain())) {
@@ -280,6 +290,7 @@ public class Types {
         }
     }
 
+    /** CnameRecordModel represents CnameRecord. */
     public static class CnameRecordModel extends RequestInputModel {
 
         /** the created time of this CNAME record. */
@@ -289,7 +300,7 @@ public class Types {
             this.created = created;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "created")
+        @ParamAnnotation(paramType = "", paramName = "created")
         public String getCreated() {
             return this.created;
         }
@@ -303,7 +314,7 @@ public class Types {
             this.domain = domain;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "domain")
+        @ParamAnnotation(paramType = "", paramName = "domain")
         public String getDomain() {
             return this.domain;
         }
@@ -317,11 +328,12 @@ public class Types {
             this.type = type;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "type")
+        @ParamAnnotation(paramType = "", paramName = "type")
         public String getType() {
             return this.type;
         }
 
+        /** validateParam validates the CnameRecord. */
         @Override
         public String validateParam() {
 
@@ -347,6 +359,7 @@ public class Types {
         }
     }
 
+    /** CnameRecordsModel represents CnameRecords. */
     public static class CnameRecordsModel extends RequestInputModel {
 
         /** the details of all eligible CNAME records. */
@@ -356,7 +369,7 @@ public class Types {
             this.cnameRecords = cnameRecords;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "cname_records")
+        @ParamAnnotation(paramType = "", paramName = "cname_records")
         public List<CnameRecordModel> getCnameRecords() {
             return this.cnameRecords;
         }
@@ -367,11 +380,12 @@ public class Types {
             this.count = count;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "count")
+        @ParamAnnotation(paramType = "", paramName = "count")
         public Integer getCount() {
             return this.count;
         }
 
+        /** validateParam validates the CnameRecords. */
         @Override
         public String validateParam() {
 
@@ -387,6 +401,7 @@ public class Types {
         }
     }
 
+    /** ConditionModel represents Condition. */
     public static class ConditionModel extends RequestInputModel {
 
         /** */
@@ -396,7 +411,7 @@ public class Types {
             this.iPAddress = iPAddress;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "ip_address")
+        @ParamAnnotation(paramType = "", paramName = "ip_address")
         public IPAddressModel getIPAddress() {
             return this.iPAddress;
         }
@@ -407,7 +422,7 @@ public class Types {
             this.isNull = isNull;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "is_null")
+        @ParamAnnotation(paramType = "", paramName = "is_null")
         public IsNullModel getIsNull() {
             return this.isNull;
         }
@@ -418,7 +433,7 @@ public class Types {
             this.notIPAddress = notIPAddress;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "not_ip_address")
+        @ParamAnnotation(paramType = "", paramName = "not_ip_address")
         public NotIPAddressModel getNotIPAddress() {
             return this.notIPAddress;
         }
@@ -429,7 +444,7 @@ public class Types {
             this.stringLike = stringLike;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "string_like")
+        @ParamAnnotation(paramType = "", paramName = "string_like")
         public StringLikeModel getStringLike() {
             return this.stringLike;
         }
@@ -440,11 +455,12 @@ public class Types {
             this.stringNotLike = stringNotLike;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "string_not_like")
+        @ParamAnnotation(paramType = "", paramName = "string_not_like")
         public StringNotLikeModel getStringNotLike() {
             return this.stringNotLike;
         }
 
+        /** validateParam validates the Condition. */
         @Override
         public String validateParam() {
 
@@ -487,6 +503,7 @@ public class Types {
         }
     }
 
+    /** CORSRuleModel represents CORSRule. */
     public static class CORSRuleModel extends RequestInputModel {
 
         /** Allowed headers */
@@ -496,7 +513,7 @@ public class Types {
             this.allowedHeaders = allowedHeaders;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "allowed_headers")
+        @ParamAnnotation(paramType = "", paramName = "allowed_headers")
         public List<String> getAllowedHeaders() {
             return this.allowedHeaders;
         }
@@ -507,7 +524,7 @@ public class Types {
             this.allowedMethods = allowedMethods;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "allowed_methods")
+        @ParamAnnotation(paramType = "", paramName = "allowed_methods")
         public List<String> getAllowedMethods() {
             return this.allowedMethods;
         }
@@ -518,7 +535,7 @@ public class Types {
             this.allowedOrigin = allowedOrigin;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "allowed_origin")
+        @ParamAnnotation(paramType = "", paramName = "allowed_origin")
         public String getAllowedOrigin() {
             return this.allowedOrigin;
         }
@@ -529,7 +546,7 @@ public class Types {
             this.exposeHeaders = exposeHeaders;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "expose_headers")
+        @ParamAnnotation(paramType = "", paramName = "expose_headers")
         public List<String> getExposeHeaders() {
             return this.exposeHeaders;
         }
@@ -540,11 +557,12 @@ public class Types {
             this.maxAgeSeconds = maxAgeSeconds;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "max_age_seconds")
+        @ParamAnnotation(paramType = "", paramName = "max_age_seconds")
         public Integer getMaxAgeSeconds() {
             return this.maxAgeSeconds;
         }
 
+        /** validateParam validates the CORSRule. */
         @Override
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getAllowedOrigin())) {
@@ -554,6 +572,7 @@ public class Types {
         }
     }
 
+    /** ExpirationModel represents Expiration. */
     public static class ExpirationModel extends RequestInputModel {
 
         /** days */
@@ -563,11 +582,12 @@ public class Types {
             this.days = days;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "days")
+        @ParamAnnotation(paramType = "", paramName = "days")
         public Integer getDays() {
             return this.days;
         }
 
+        /** validateParam validates the Expiration. */
         @Override
         public String validateParam() {
 
@@ -575,6 +595,7 @@ public class Types {
         }
     }
 
+    /** FilterModel represents Filter. */
     public static class FilterModel extends RequestInputModel {
 
         /** Prefix matching Required */
@@ -584,11 +605,12 @@ public class Types {
             this.prefix = prefix;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "prefix")
+        @ParamAnnotation(paramType = "", paramName = "prefix")
         public String getPrefix() {
             return this.prefix;
         }
 
+        /** validateParam validates the Filter. */
         @Override
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getPrefix())) {
@@ -598,6 +620,7 @@ public class Types {
         }
     }
 
+    /** GranteeModel represents Grantee. */
     public static class GranteeModel extends RequestInputModel {
 
         /** Grantee user ID */
@@ -607,7 +630,7 @@ public class Types {
             this.iD = iD;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "id")
+        @ParamAnnotation(paramType = "", paramName = "id")
         public String getID() {
             return this.iD;
         }
@@ -618,7 +641,7 @@ public class Types {
             this.name = name;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "name")
+        @ParamAnnotation(paramType = "", paramName = "name")
         public String getName() {
             return this.name;
         }
@@ -629,11 +652,12 @@ public class Types {
             this.type = type;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "type")
+        @ParamAnnotation(paramType = "", paramName = "type")
         public String getType() {
             return this.type;
         }
 
+        /** validateParam validates the Grantee. */
         @Override
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getType())) {
@@ -661,6 +685,7 @@ public class Types {
         }
     }
 
+    /** IPAddressModel represents IPAddress. */
     public static class IPAddressModel extends RequestInputModel {
 
         /** Source IP */
@@ -670,11 +695,12 @@ public class Types {
             this.sourceIP = sourceIP;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "source_ip")
+        @ParamAnnotation(paramType = "", paramName = "source_ip")
         public List<String> getSourceIP() {
             return this.sourceIP;
         }
 
+        /** validateParam validates the IPAddress. */
         @Override
         public String validateParam() {
 
@@ -682,6 +708,7 @@ public class Types {
         }
     }
 
+    /** IsNullModel represents IsNull. */
     public static class IsNullModel extends RequestInputModel {
 
         /** Refer url */
@@ -691,11 +718,12 @@ public class Types {
             this.referer = referer;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "Referer")
+        @ParamAnnotation(paramType = "", paramName = "Referer")
         public Boolean getReferer() {
             return this.referer;
         }
 
+        /** validateParam validates the IsNull. */
         @Override
         public String validateParam() {
 
@@ -703,6 +731,7 @@ public class Types {
         }
     }
 
+    /** KeyModel represents Key. */
     public static class KeyModel extends RequestInputModel {
 
         /** Object created time */
@@ -712,7 +741,7 @@ public class Types {
             this.created = created;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "created")
+        @ParamAnnotation(paramType = "", paramName = "created")
         public String getCreated() {
             return this.created;
         }
@@ -723,7 +752,7 @@ public class Types {
             this.encrypted = encrypted;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "encrypted")
+        @ParamAnnotation(paramType = "", paramName = "encrypted")
         public Boolean getEncrypted() {
             return this.encrypted;
         }
@@ -734,7 +763,7 @@ public class Types {
             this.etag = etag;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "etag")
+        @ParamAnnotation(paramType = "", paramName = "etag")
         public String getEtag() {
             return this.etag;
         }
@@ -745,7 +774,7 @@ public class Types {
             this.key = key;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "key")
+        @ParamAnnotation(paramType = "", paramName = "key")
         public String getKey() {
             return this.key;
         }
@@ -756,7 +785,7 @@ public class Types {
             this.mimeType = mimeType;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "mime_type")
+        @ParamAnnotation(paramType = "", paramName = "mime_type")
         public String getMimeType() {
             return this.mimeType;
         }
@@ -767,7 +796,7 @@ public class Types {
             this.modified = modified;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "modified")
+        @ParamAnnotation(paramType = "", paramName = "modified")
         public Integer getModified() {
             return this.modified;
         }
@@ -778,7 +807,7 @@ public class Types {
             this.size = size;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "size")
+        @ParamAnnotation(paramType = "", paramName = "size")
         public Long getSize() {
             return this.size;
         }
@@ -789,11 +818,12 @@ public class Types {
             this.storageClass = storageClass;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "storage_class")
+        @ParamAnnotation(paramType = "", paramName = "storage_class")
         public String getStorageClass() {
             return this.storageClass;
         }
 
+        /** validateParam validates the Key. */
         @Override
         public String validateParam() {
 
@@ -801,6 +831,7 @@ public class Types {
         }
     }
 
+    /** KeyDeleteErrorModel represents KeyDeleteError. */
     public static class KeyDeleteErrorModel extends RequestInputModel {
 
         /** Error code */
@@ -810,7 +841,7 @@ public class Types {
             this.code = code;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "code")
+        @ParamAnnotation(paramType = "", paramName = "code")
         public String getCode() {
             return this.code;
         }
@@ -821,7 +852,7 @@ public class Types {
             this.key = key;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "key")
+        @ParamAnnotation(paramType = "", paramName = "key")
         public String getKey() {
             return this.key;
         }
@@ -832,11 +863,12 @@ public class Types {
             this.message = message;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "message")
+        @ParamAnnotation(paramType = "", paramName = "message")
         public String getMessage() {
             return this.message;
         }
 
+        /** validateParam validates the KeyDeleteError. */
         @Override
         public String validateParam() {
 
@@ -844,6 +876,7 @@ public class Types {
         }
     }
 
+    /** LoggingModel represents Logging. */
     public static class LoggingModel extends RequestInputModel {
 
         /**
@@ -856,7 +889,7 @@ public class Types {
             this.targetBucket = targetBucket;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "target_bucket")
+        @ParamAnnotation(paramType = "", paramName = "target_bucket")
         public String getTargetBucket() {
             return this.targetBucket;
         }
@@ -867,11 +900,12 @@ public class Types {
             this.targetPrefix = targetPrefix;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "target_prefix")
+        @ParamAnnotation(paramType = "", paramName = "target_prefix")
         public String getTargetPrefix() {
             return this.targetPrefix;
         }
 
+        /** validateParam validates the Logging. */
         @Override
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getTargetBucket())) {
@@ -884,6 +918,7 @@ public class Types {
         }
     }
 
+    /** NotIPAddressModel represents NotIPAddress. */
     public static class NotIPAddressModel extends RequestInputModel {
 
         /** Source IP */
@@ -893,11 +928,12 @@ public class Types {
             this.sourceIP = sourceIP;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "source_ip")
+        @ParamAnnotation(paramType = "", paramName = "source_ip")
         public List<String> getSourceIP() {
             return this.sourceIP;
         }
 
+        /** validateParam validates the NotIPAddress. */
         @Override
         public String validateParam() {
 
@@ -905,6 +941,7 @@ public class Types {
         }
     }
 
+    /** NotificationModel represents Notification. */
     public static class NotificationModel extends RequestInputModel {
 
         /**
@@ -917,7 +954,7 @@ public class Types {
             this.cloudfunc = cloudfunc;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "cloudfunc")
+        @ParamAnnotation(paramType = "", paramName = "cloudfunc")
         public String getCloudfunc() {
             return this.cloudfunc;
         }
@@ -928,7 +965,7 @@ public class Types {
             this.cloudfuncArgs = cloudfuncArgs;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "cloudfunc_args")
+        @ParamAnnotation(paramType = "", paramName = "cloudfunc_args")
         public CloudfuncArgsModel getCloudfuncArgs() {
             return this.cloudfuncArgs;
         }
@@ -939,7 +976,7 @@ public class Types {
             this.eventTypes = eventTypes;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "event_types")
+        @ParamAnnotation(paramType = "", paramName = "event_types")
         public List<String> getEventTypes() {
             return this.eventTypes;
         }
@@ -950,7 +987,7 @@ public class Types {
             this.iD = iD;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "id")
+        @ParamAnnotation(paramType = "", paramName = "id")
         public String getID() {
             return this.iD;
         }
@@ -961,7 +998,7 @@ public class Types {
             this.notifyURL = notifyURL;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "notify_url")
+        @ParamAnnotation(paramType = "", paramName = "notify_url")
         public String getNotifyURL() {
             return this.notifyURL;
         }
@@ -972,11 +1009,12 @@ public class Types {
             this.objectFilters = objectFilters;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "object_filters")
+        @ParamAnnotation(paramType = "", paramName = "object_filters")
         public List<String> getObjectFilters() {
             return this.objectFilters;
         }
 
+        /** validateParam validates the Notification. */
         @Override
         public String validateParam() {
             if (QSStringUtil.isEmpty(this.getCloudfunc())) {
@@ -1013,6 +1051,7 @@ public class Types {
         }
     }
 
+    /** ObjectPartModel represents ObjectPart. */
     public static class ObjectPartModel extends RequestInputModel {
 
         /** Object part created time */
@@ -1022,7 +1061,7 @@ public class Types {
             this.created = created;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "created")
+        @ParamAnnotation(paramType = "", paramName = "created")
         public String getCreated() {
             return this.created;
         }
@@ -1033,7 +1072,7 @@ public class Types {
             this.etag = etag;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "etag")
+        @ParamAnnotation(paramType = "", paramName = "etag")
         public String getEtag() {
             return this.etag;
         }
@@ -1044,7 +1083,7 @@ public class Types {
             this.partNumber = partNumber;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "part_number")
+        @ParamAnnotation(paramType = "", paramName = "part_number")
         public Integer getPartNumber() {
             return this.partNumber;
         }
@@ -1055,11 +1094,12 @@ public class Types {
             this.size = size;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "size")
+        @ParamAnnotation(paramType = "", paramName = "size")
         public Long getSize() {
             return this.size;
         }
 
+        /** validateParam validates the ObjectPart. */
         @Override
         public String validateParam() {
 
@@ -1070,6 +1110,7 @@ public class Types {
         }
     }
 
+    /** OwnerModel represents Owner. */
     public static class OwnerModel extends RequestInputModel {
 
         /** User ID */
@@ -1079,7 +1120,7 @@ public class Types {
             this.iD = iD;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "id")
+        @ParamAnnotation(paramType = "", paramName = "id")
         public String getID() {
             return this.iD;
         }
@@ -1090,11 +1131,12 @@ public class Types {
             this.name = name;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "name")
+        @ParamAnnotation(paramType = "", paramName = "name")
         public String getName() {
             return this.name;
         }
 
+        /** validateParam validates the Owner. */
         @Override
         public String validateParam() {
 
@@ -1102,6 +1144,7 @@ public class Types {
         }
     }
 
+    /** RuleModel represents Rule. */
     public static class RuleModel extends RequestInputModel {
 
         /** */
@@ -1112,7 +1155,7 @@ public class Types {
             this.abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "abort_incomplete_multipart_upload")
+        @ParamAnnotation(paramType = "", paramName = "abort_incomplete_multipart_upload")
         public AbortIncompleteMultipartUploadModel getAbortIncompleteMultipartUpload() {
             return this.abortIncompleteMultipartUpload;
         }
@@ -1123,7 +1166,7 @@ public class Types {
             this.expiration = expiration;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "expiration")
+        @ParamAnnotation(paramType = "", paramName = "expiration")
         public ExpirationModel getExpiration() {
             return this.expiration;
         }
@@ -1134,7 +1177,7 @@ public class Types {
             this.filter = filter;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "filter")
+        @ParamAnnotation(paramType = "", paramName = "filter")
         public FilterModel getFilter() {
             return this.filter;
         }
@@ -1145,7 +1188,7 @@ public class Types {
             this.iD = iD;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "id")
+        @ParamAnnotation(paramType = "", paramName = "id")
         public String getID() {
             return this.iD;
         }
@@ -1156,7 +1199,7 @@ public class Types {
             this.status = status;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "status")
+        @ParamAnnotation(paramType = "", paramName = "status")
         public String getStatus() {
             return this.status;
         }
@@ -1167,11 +1210,12 @@ public class Types {
             this.transition = transition;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "transition")
+        @ParamAnnotation(paramType = "", paramName = "transition")
         public TransitionModel getTransition() {
             return this.transition;
         }
 
+        /** validateParam validates the Rule. */
         @Override
         public String validateParam() {
 
@@ -1233,6 +1277,7 @@ public class Types {
         }
     }
 
+    /** StatementModel represents Statement. */
     public static class StatementModel extends RequestInputModel {
 
         /** QingStor API methods Required */
@@ -1242,7 +1287,7 @@ public class Types {
             this.action = action;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "action")
+        @ParamAnnotation(paramType = "", paramName = "action")
         public List<String> getAction() {
             return this.action;
         }
@@ -1253,7 +1298,7 @@ public class Types {
             this.condition = condition;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "condition")
+        @ParamAnnotation(paramType = "", paramName = "condition")
         public ConditionModel getCondition() {
             return this.condition;
         }
@@ -1264,7 +1309,7 @@ public class Types {
             this.effect = effect;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "effect")
+        @ParamAnnotation(paramType = "", paramName = "effect")
         public String getEffect() {
             return this.effect;
         }
@@ -1275,7 +1320,7 @@ public class Types {
             this.iD = iD;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "id")
+        @ParamAnnotation(paramType = "", paramName = "id")
         public String getID() {
             return this.iD;
         }
@@ -1286,7 +1331,7 @@ public class Types {
             this.resource = resource;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "resource")
+        @ParamAnnotation(paramType = "", paramName = "resource")
         public List<String> getResource() {
             return this.resource;
         }
@@ -1297,11 +1342,12 @@ public class Types {
             this.user = user;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "user")
+        @ParamAnnotation(paramType = "", paramName = "user")
         public List<String> getUser() {
             return this.user;
         }
 
+        /** validateParam validates the Statement. */
         @Override
         public String validateParam() {
 
@@ -1339,6 +1385,7 @@ public class Types {
         }
     }
 
+    /** StringLikeModel represents StringLike. */
     public static class StringLikeModel extends RequestInputModel {
 
         /** Refer url */
@@ -1348,11 +1395,12 @@ public class Types {
             this.referer = referer;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "Referer")
+        @ParamAnnotation(paramType = "", paramName = "Referer")
         public List<String> getReferer() {
             return this.referer;
         }
 
+        /** validateParam validates the StringLike. */
         @Override
         public String validateParam() {
 
@@ -1360,6 +1408,7 @@ public class Types {
         }
     }
 
+    /** StringNotLikeModel represents StringNotLike. */
     public static class StringNotLikeModel extends RequestInputModel {
 
         /** Refer url */
@@ -1369,11 +1418,12 @@ public class Types {
             this.referer = referer;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "Referer")
+        @ParamAnnotation(paramType = "", paramName = "Referer")
         public List<String> getReferer() {
             return this.referer;
         }
 
+        /** validateParam validates the StringNotLike. */
         @Override
         public String validateParam() {
 
@@ -1381,6 +1431,7 @@ public class Types {
         }
     }
 
+    /** TransitionModel represents Transition. */
     public static class TransitionModel extends RequestInputModel {
 
         /** days */
@@ -1390,7 +1441,7 @@ public class Types {
             this.days = days;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "days")
+        @ParamAnnotation(paramType = "", paramName = "days")
         public Integer getDays() {
             return this.days;
         }
@@ -1401,11 +1452,12 @@ public class Types {
             this.storageClass = storageClass;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "storage_class")
+        @ParamAnnotation(paramType = "", paramName = "storage_class")
         public Integer getStorageClass() {
             return this.storageClass;
         }
 
+        /** validateParam validates the Transition. */
         @Override
         public String validateParam() {
 
@@ -1416,6 +1468,7 @@ public class Types {
         }
     }
 
+    /** UploadsModel represents Uploads. */
     public static class UploadsModel extends RequestInputModel {
 
         /** Object part created time */
@@ -1425,7 +1478,7 @@ public class Types {
             this.created = created;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "created")
+        @ParamAnnotation(paramType = "", paramName = "created")
         public String getCreated() {
             return this.created;
         }
@@ -1436,7 +1489,7 @@ public class Types {
             this.key = key;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "key")
+        @ParamAnnotation(paramType = "", paramName = "key")
         public String getKey() {
             return this.key;
         }
@@ -1447,11 +1500,12 @@ public class Types {
             this.uploadID = uploadID;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "upload_id")
+        @ParamAnnotation(paramType = "", paramName = "upload_id")
         public String getUploadID() {
             return this.uploadID;
         }
 
+        /** validateParam validates the Uploads. */
         @Override
         public String validateParam() {
 

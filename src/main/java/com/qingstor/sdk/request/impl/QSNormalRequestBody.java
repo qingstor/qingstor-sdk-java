@@ -21,6 +21,7 @@ import com.qingstor.sdk.request.QSRequestBody;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Optional;
 import okhttp3.MediaType;
@@ -48,7 +49,11 @@ public class QSNormalRequestBody implements QSRequestBody {
             RequestBody body = null;
             Object bodyObj = getBodyContent(bodyParams);
             if (bodyObj instanceof String) {
-                body = RequestBody.create(mediaType, bodyObj.toString());
+                // use bytes to avoid okhttp auto add "; charset=utf-8" after MIME type, which could
+                // cause signature mismatch.
+                body =
+                        RequestBody.create(
+                                mediaType, ((String) bodyObj).getBytes(StandardCharsets.UTF_8));
             } else if (bodyObj instanceof File) {
                 body = RequestBody.create(mediaType, (File) bodyObj);
             } else if (bodyObj instanceof InputStream) {
@@ -64,16 +69,14 @@ public class QSNormalRequestBody implements QSRequestBody {
         return null;
     }
 
-    public static Object getBodyContent(Map bodyContent) throws QSException {
-        Optional matched =
+    public static Object getBodyContent(Map<String, Object> bodyContent) throws QSException {
+        Optional<String> matched =
                 bodyContent.keySet().stream()
                         .filter(
-                                k -> {
-                                    String key = (String) k;
-                                    return (key.equals(QSConstant.PARAM_TYPE_BODYINPUTFILE)
-                                            || key.equals(QSConstant.PARAM_TYPE_BODYINPUTSTREAM)
-                                            || key.equals(QSConstant.PARAM_TYPE_BODYINPUTSTRING));
-                                })
+                                k ->
+                                        (k.equals(QSConstant.PARAM_TYPE_BODYINPUTFILE)
+                                                || k.equals(QSConstant.PARAM_TYPE_BODYINPUTSTREAM)
+                                                || k.equals(QSConstant.PARAM_TYPE_BODYINPUTSTRING)))
                         .findFirst();
         if (matched.isPresent()) {
             return bodyContent.get(matched.get());

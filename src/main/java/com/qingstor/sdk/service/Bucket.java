@@ -28,6 +28,7 @@ import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketOutput delete() throws QSException {
-
         RequestHandler requestHandler = this.deleteRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -82,7 +82,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucket");
@@ -90,8 +90,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -102,6 +102,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -126,7 +127,7 @@ public class Bucket {
     public RequestHandler deleteAsyncRequest(ResponseCallBack<DeleteBucketOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucket");
@@ -134,8 +135,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -166,7 +167,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketCNAMEOutput deleteCNAME(DeleteBucketCNAMEInput input) throws QSException {
-
         if (input == null) {
             input = new DeleteBucketCNAMEInput();
         }
@@ -188,12 +188,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteCNAMERequest(DeleteBucketCNAMEInput input) throws QSException {
-
         if (input == null) {
             input = new DeleteBucketCNAMEInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketCNAME");
@@ -201,8 +200,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket CNAME");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?cname");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -213,6 +212,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -224,7 +224,6 @@ public class Bucket {
     public void deleteCNAMEAsync(
             DeleteBucketCNAMEInput input, ResponseCallBack<DeleteBucketCNAMEOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new DeleteBucketCNAMEInput();
         }
@@ -249,7 +248,7 @@ public class Bucket {
             input = new DeleteBucketCNAMEInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketCNAME");
@@ -257,8 +256,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket CNAME");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?cname");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -274,11 +273,23 @@ public class Bucket {
     }
     /**
      * DeleteBucketCNAMEInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Domain domain name <br>
      */
     public static class DeleteBucketCNAMEInput extends RequestInputModel {
+
+        /** domain name Required */
+        private String domain;
+
+        public void setDomain(String domain) {
+            this.domain = domain;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "domain")
+        public String getDomain() {
+            return this.domain;
+        }
 
         /** the domain will deleted from cname records. */
         private String bodyInput;
@@ -291,25 +302,17 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** domain name Required */
-        private String domain;
-
-        public void setDomain(String domain) {
-            this.domain = domain;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "domain")
-        public String getDomain() {
-            return this.domain;
-        }
 
         @Override
         public String validateParam() {
 
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
+
             if (QSStringUtil.isEmpty(this.getDomain())) {
                 return QSStringUtil.getParameterRequired("Domain", "DeleteBucketCNAMEInput");
             }
-
             return null;
         }
     }
@@ -330,7 +333,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketCORSOutput deleteCORS() throws QSException {
-
         RequestHandler requestHandler = this.deleteCORSRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -348,7 +350,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteCORSRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketCORS");
@@ -356,8 +358,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket CORS");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?cors");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -368,6 +370,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -393,7 +396,7 @@ public class Bucket {
     public RequestHandler deleteCORSAsyncRequest(ResponseCallBack<DeleteBucketCORSOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketCORS");
@@ -401,8 +404,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket CORS");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?cors");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -433,7 +436,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketExternalMirrorOutput deleteExternalMirror() throws QSException {
-
         RequestHandler requestHandler = this.deleteExternalMirrorRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -451,7 +453,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteExternalMirrorRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketExternalMirror");
@@ -459,8 +461,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket External Mirror");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?mirror");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -471,6 +473,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -496,7 +499,7 @@ public class Bucket {
     public RequestHandler deleteExternalMirrorAsyncRequest(
             ResponseCallBack<DeleteBucketExternalMirrorOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketExternalMirror");
@@ -504,8 +507,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket External Mirror");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?mirror");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -535,7 +538,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketLifecycleOutput deleteLifecycle() throws QSException {
-
         RequestHandler requestHandler = this.deleteLifecycleRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -553,7 +555,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteLifecycleRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketLifecycle");
@@ -561,8 +563,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Lifecycle");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?lifecycle");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -573,6 +575,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -598,7 +601,7 @@ public class Bucket {
     public RequestHandler deleteLifecycleAsyncRequest(
             ResponseCallBack<DeleteBucketLifecycleOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketLifecycle");
@@ -606,8 +609,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Lifecycle");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?lifecycle");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -637,7 +640,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketLoggingOutput deleteLogging() throws QSException {
-
         RequestHandler requestHandler = this.deleteLoggingRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -655,7 +657,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteLoggingRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketLogging");
@@ -663,8 +665,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Logging");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?logging");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -675,6 +677,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -700,7 +703,7 @@ public class Bucket {
     public RequestHandler deleteLoggingAsyncRequest(
             ResponseCallBack<DeleteBucketLoggingOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketLogging");
@@ -708,8 +711,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Logging");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?logging");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -739,7 +742,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketNotificationOutput deleteNotification() throws QSException {
-
         RequestHandler requestHandler = this.deleteNotificationRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -757,7 +759,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteNotificationRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketNotification");
@@ -765,8 +767,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Notification");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?notification");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -777,6 +779,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -802,7 +805,7 @@ public class Bucket {
     public RequestHandler deleteNotificationAsyncRequest(
             ResponseCallBack<DeleteBucketNotificationOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketNotification");
@@ -810,8 +813,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Notification");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?notification");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -841,7 +844,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketPolicyOutput deletePolicy() throws QSException {
-
         RequestHandler requestHandler = this.deletePolicyRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -859,7 +861,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deletePolicyRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketPolicy");
@@ -867,8 +869,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Policy");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?policy");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -879,6 +881,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -904,7 +907,7 @@ public class Bucket {
     public RequestHandler deletePolicyAsyncRequest(
             ResponseCallBack<DeleteBucketPolicyOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteBucketPolicy");
@@ -912,8 +915,8 @@ public class Bucket {
         context.put("ServiceName", "DELETE Bucket Policy");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>?policy");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -945,7 +948,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteMultipleObjectsOutput deleteMultipleObjects(DeleteMultipleObjectsInput input)
             throws QSException {
-
         if (input == null) {
             input = new DeleteMultipleObjectsInput();
         }
@@ -968,12 +970,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteMultipleObjectsRequest(DeleteMultipleObjectsInput input)
             throws QSException {
-
         if (input == null) {
             input = new DeleteMultipleObjectsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteMultipleObjects");
@@ -981,8 +982,8 @@ public class Bucket {
         context.put("ServiceName", "Delete Multiple Objects");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>?delete");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -993,6 +994,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -1005,7 +1007,6 @@ public class Bucket {
             DeleteMultipleObjectsInput input,
             ResponseCallBack<DeleteMultipleObjectsOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new DeleteMultipleObjectsInput();
         }
@@ -1031,7 +1032,7 @@ public class Bucket {
             input = new DeleteMultipleObjectsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteMultipleObjects");
@@ -1039,8 +1040,8 @@ public class Bucket {
         context.put("ServiceName", "Delete Multiple Objects");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>?delete");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1056,7 +1057,7 @@ public class Bucket {
     }
     /**
      * DeleteMultipleObjectsInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field ContentMD5 Object MD5sum <br>
      * field Objects A list of keys to delete <br>
@@ -1064,16 +1065,27 @@ public class Bucket {
      */
     public static class DeleteMultipleObjectsInput extends RequestInputModel {
 
-        /** Object MD5sum Required */
-        private String contentMD5;
+        /** A list of keys to delete Required */
+        private List<KeyModel> objects;
 
-        public void setContentMD5(String contentMD5) {
-            this.contentMD5 = contentMD5;
+        public void setObjects(List<KeyModel> objects) {
+            this.objects = objects;
         }
 
-        @ParamAnnotation(paramType = "header", paramName = "content-md5")
-        public String getContentMD5() {
-            return this.contentMD5;
+        @ParamAnnotation(paramType = "element", paramName = "objects")
+        public List<KeyModel> getObjects() {
+            return this.objects;
+        }
+        /** Whether to return the list of deleted objects */
+        private Boolean quiet;
+
+        public void setQuiet(Boolean quiet) {
+            this.quiet = quiet;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "quiet")
+        public Boolean getQuiet() {
+            return this.quiet;
         }
 
         /** The request body */
@@ -1087,31 +1099,13 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** A list of keys to delete Required */
-        private List<KeyModel> objects;
-
-        public void setObjects(List<KeyModel> objects) {
-            this.objects = objects;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "objects")
-        public List<KeyModel> getObjects() {
-            return this.objects;
-        }
-        /** Whether to return the list of deleted objects */
-        private Boolean quiet;
-
-        public void setQuiet(Boolean quiet) {
-            this.quiet = quiet;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "quiet")
-        public Boolean getQuiet() {
-            return this.quiet;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (this.getObjects() != null && this.getObjects().size() > 0) {
                 for (int i = 0; i < this.getObjects().size(); i++) {
@@ -1121,7 +1115,6 @@ public class Bucket {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -1143,7 +1136,7 @@ public class Bucket {
             this.deleted = deleted;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "deleted")
+        @ParamAnnotation(paramType = "element", paramName = "deleted")
         public List<KeyModel> getDeleted() {
             return this.deleted;
         }
@@ -1154,7 +1147,7 @@ public class Bucket {
             this.errors = errors;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "errors")
+        @ParamAnnotation(paramType = "element", paramName = "errors")
         public List<KeyDeleteErrorModel> getErrors() {
             return this.errors;
         }
@@ -1168,7 +1161,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketACLOutput getACL() throws QSException {
-
         RequestHandler requestHandler = this.getACLRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -1186,7 +1178,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getACLRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketACL");
@@ -1194,8 +1186,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket ACL");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?acl");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1206,6 +1198,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -1230,7 +1223,7 @@ public class Bucket {
     public RequestHandler getACLAsyncRequest(ResponseCallBack<GetBucketACLOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketACL");
@@ -1238,8 +1231,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket ACL");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?acl");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1268,7 +1261,7 @@ public class Bucket {
             this.aCL = aCL;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "acl")
+        @ParamAnnotation(paramType = "element", paramName = "acl")
         public List<ACLModel> getACL() {
             return this.aCL;
         }
@@ -1279,7 +1272,7 @@ public class Bucket {
             this.owner = owner;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "owner")
+        @ParamAnnotation(paramType = "element", paramName = "owner")
         public OwnerModel getOwner() {
             return this.owner;
         }
@@ -1294,7 +1287,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketCNAMEOutput getCNAME(GetBucketCNAMEInput input) throws QSException {
-
         if (input == null) {
             input = new GetBucketCNAMEInput();
         }
@@ -1316,12 +1308,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getCNAMERequest(GetBucketCNAMEInput input) throws QSException {
-
         if (input == null) {
             input = new GetBucketCNAMEInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketCNAME");
@@ -1329,8 +1320,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket CNAME");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?cname");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1341,6 +1332,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -1352,7 +1344,6 @@ public class Bucket {
     public void getCNAMEAsync(
             GetBucketCNAMEInput input, ResponseCallBack<GetBucketCNAMEOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new GetBucketCNAMEInput();
         }
@@ -1377,7 +1368,7 @@ public class Bucket {
             input = new GetBucketCNAMEInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketCNAME");
@@ -1385,8 +1376,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket CNAME");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?cname");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1402,11 +1393,12 @@ public class Bucket {
     }
     /**
      * GetBucketCNAMEInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Type Limit the type used for query, normal will be recognized if empty. <br>
      */
     public static class GetBucketCNAMEInput extends RequestInputModel {
+
         /**
          * Limit the type used for query, normal will be recognized if empty. Type's available
          * values: website, normal
@@ -1463,7 +1455,7 @@ public class Bucket {
             this.cnameRecords = cnameRecords;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "cname_records")
+        @ParamAnnotation(paramType = "element", paramName = "cname_records")
         public List<CnameRecordModel> getCnameRecords() {
             return this.cnameRecords;
         }
@@ -1474,7 +1466,7 @@ public class Bucket {
             this.count = count;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "count")
+        @ParamAnnotation(paramType = "element", paramName = "count")
         public Integer getCount() {
             return this.count;
         }
@@ -1488,7 +1480,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketCORSOutput getCORS() throws QSException {
-
         RequestHandler requestHandler = this.getCORSRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -1506,7 +1497,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getCORSRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketCORS");
@@ -1514,8 +1505,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket CORS");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?cors");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1526,6 +1517,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -1550,7 +1542,7 @@ public class Bucket {
     public RequestHandler getCORSAsyncRequest(ResponseCallBack<GetBucketCORSOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketCORS");
@@ -1558,8 +1550,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket CORS");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?cors");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1588,7 +1580,7 @@ public class Bucket {
             this.cORSRules = cORSRules;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "cors_rules")
+        @ParamAnnotation(paramType = "element", paramName = "cors_rules")
         public List<CORSRuleModel> getCORSRules() {
             return this.cORSRules;
         }
@@ -1603,7 +1595,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketExternalMirrorOutput getExternalMirror() throws QSException {
-
         RequestHandler requestHandler = this.getExternalMirrorRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -1621,7 +1612,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getExternalMirrorRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketExternalMirror");
@@ -1629,8 +1620,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket External Mirror");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?mirror");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1641,6 +1632,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -1666,7 +1658,7 @@ public class Bucket {
     public RequestHandler getExternalMirrorAsyncRequest(
             ResponseCallBack<GetBucketExternalMirrorOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketExternalMirror");
@@ -1674,8 +1666,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket External Mirror");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?mirror");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1704,7 +1696,7 @@ public class Bucket {
             this.sourceSite = sourceSite;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "source_site")
+        @ParamAnnotation(paramType = "element", paramName = "source_site")
         public String getSourceSite() {
             return this.sourceSite;
         }
@@ -1718,7 +1710,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketLifecycleOutput getLifecycle() throws QSException {
-
         RequestHandler requestHandler = this.getLifecycleRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -1736,7 +1727,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getLifecycleRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketLifecycle");
@@ -1744,8 +1735,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Lifecycle");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?lifecycle");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1756,6 +1747,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -1781,7 +1773,7 @@ public class Bucket {
     public RequestHandler getLifecycleAsyncRequest(
             ResponseCallBack<GetBucketLifecycleOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketLifecycle");
@@ -1789,8 +1781,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Lifecycle");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?lifecycle");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1819,7 +1811,7 @@ public class Bucket {
             this.rule = rule;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "rule")
+        @ParamAnnotation(paramType = "element", paramName = "rule")
         public List<RuleModel> getRule() {
             return this.rule;
         }
@@ -1833,7 +1825,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketLoggingOutput getLogging() throws QSException {
-
         RequestHandler requestHandler = this.getLoggingRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -1851,7 +1842,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getLoggingRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketLogging");
@@ -1859,8 +1850,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Logging");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?logging");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1871,6 +1862,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -1896,7 +1888,7 @@ public class Bucket {
     public RequestHandler getLoggingAsyncRequest(ResponseCallBack<GetBucketLoggingOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketLogging");
@@ -1904,8 +1896,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Logging");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?logging");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1934,7 +1926,7 @@ public class Bucket {
             this.targetBucket = targetBucket;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "target_bucket")
+        @ParamAnnotation(paramType = "element", paramName = "target_bucket")
         public String getTargetBucket() {
             return this.targetBucket;
         }
@@ -1945,7 +1937,7 @@ public class Bucket {
             this.targetPrefix = targetPrefix;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "target_prefix")
+        @ParamAnnotation(paramType = "element", paramName = "target_prefix")
         public String getTargetPrefix() {
             return this.targetPrefix;
         }
@@ -1959,7 +1951,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketNotificationOutput getNotification() throws QSException {
-
         RequestHandler requestHandler = this.getNotificationRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -1977,7 +1968,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getNotificationRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketNotification");
@@ -1985,8 +1976,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Notification");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?notification");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1997,6 +1988,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -2022,7 +2014,7 @@ public class Bucket {
     public RequestHandler getNotificationAsyncRequest(
             ResponseCallBack<GetBucketNotificationOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketNotification");
@@ -2030,8 +2022,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Notification");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?notification");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2060,7 +2052,7 @@ public class Bucket {
             this.notifications = notifications;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "notifications")
+        @ParamAnnotation(paramType = "element", paramName = "notifications")
         public List<NotificationModel> getNotifications() {
             return this.notifications;
         }
@@ -2074,7 +2066,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketPolicyOutput getPolicy() throws QSException {
-
         RequestHandler requestHandler = this.getPolicyRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -2092,7 +2083,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getPolicyRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketPolicy");
@@ -2100,8 +2091,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Policy");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?policy");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2112,6 +2103,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -2137,7 +2129,7 @@ public class Bucket {
     public RequestHandler getPolicyAsyncRequest(ResponseCallBack<GetBucketPolicyOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketPolicy");
@@ -2145,8 +2137,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Policy");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?policy");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2175,7 +2167,7 @@ public class Bucket {
             this.statement = statement;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "statement")
+        @ParamAnnotation(paramType = "element", paramName = "statement")
         public List<StatementModel> getStatement() {
             return this.statement;
         }
@@ -2189,7 +2181,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketStatisticsOutput getStatistics() throws QSException {
-
         RequestHandler requestHandler = this.getStatisticsRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -2207,7 +2198,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getStatisticsRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketStatistics");
@@ -2215,8 +2206,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Statistics");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?stats");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2227,6 +2218,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -2252,7 +2244,7 @@ public class Bucket {
     public RequestHandler getStatisticsAsyncRequest(
             ResponseCallBack<GetBucketStatisticsOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetBucketStatistics");
@@ -2260,8 +2252,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket Statistics");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?stats");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2290,7 +2282,7 @@ public class Bucket {
             this.count = count;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "count")
+        @ParamAnnotation(paramType = "element", paramName = "count")
         public Long getCount() {
             return this.count;
         }
@@ -2301,7 +2293,7 @@ public class Bucket {
             this.created = created;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "created")
+        @ParamAnnotation(paramType = "element", paramName = "created")
         public String getCreated() {
             return this.created;
         }
@@ -2312,7 +2304,7 @@ public class Bucket {
             this.location = location;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "location")
+        @ParamAnnotation(paramType = "element", paramName = "location")
         public String getLocation() {
             return this.location;
         }
@@ -2323,7 +2315,7 @@ public class Bucket {
             this.name = name;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "name")
+        @ParamAnnotation(paramType = "element", paramName = "name")
         public String getName() {
             return this.name;
         }
@@ -2334,7 +2326,7 @@ public class Bucket {
             this.size = size;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "size")
+        @ParamAnnotation(paramType = "element", paramName = "size")
         public Long getSize() {
             return this.size;
         }
@@ -2345,7 +2337,7 @@ public class Bucket {
             this.status = status;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "status")
+        @ParamAnnotation(paramType = "element", paramName = "status")
         public String getStatus() {
             return this.status;
         }
@@ -2356,7 +2348,7 @@ public class Bucket {
             this.uRL = uRL;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "url")
+        @ParamAnnotation(paramType = "element", paramName = "url")
         public String getURL() {
             return this.uRL;
         }
@@ -2370,7 +2362,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public HeadBucketOutput head() throws QSException {
-
         RequestHandler requestHandler = this.headRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -2388,7 +2379,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler headRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadBucket");
@@ -2396,8 +2387,8 @@ public class Bucket {
         context.put("ServiceName", "HEAD Bucket");
         context.put("RequestMethod", "HEAD");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2408,6 +2399,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -2432,7 +2424,7 @@ public class Bucket {
     public RequestHandler headAsyncRequest(ResponseCallBack<HeadBucketOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadBucket");
@@ -2440,8 +2432,8 @@ public class Bucket {
         context.put("ServiceName", "HEAD Bucket");
         context.put("RequestMethod", "HEAD");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2473,7 +2465,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListMultipartUploadsOutput listMultipartUploads(ListMultipartUploadsInput input)
             throws QSException {
-
         if (input == null) {
             input = new ListMultipartUploadsInput();
         }
@@ -2496,12 +2487,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listMultipartUploadsRequest(ListMultipartUploadsInput input)
             throws QSException {
-
         if (input == null) {
             input = new ListMultipartUploadsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipartUploads");
@@ -2509,8 +2499,8 @@ public class Bucket {
         context.put("ServiceName", "List Multipart Uploads");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?uploads");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2521,6 +2511,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -2532,7 +2523,6 @@ public class Bucket {
     public void listMultipartUploadsAsync(
             ListMultipartUploadsInput input, ResponseCallBack<ListMultipartUploadsOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new ListMultipartUploadsInput();
         }
@@ -2557,7 +2547,7 @@ public class Bucket {
             input = new ListMultipartUploadsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipartUploads");
@@ -2565,8 +2555,8 @@ public class Bucket {
         context.put("ServiceName", "List Multipart Uploads");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>?uploads");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2582,7 +2572,7 @@ public class Bucket {
     }
     /**
      * ListMultipartUploadsInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Delimiter Put all keys that share a common prefix into a list <br>
      * field KeyMarker Limit results returned from the first key after key_marker sorted by
@@ -2593,6 +2583,7 @@ public class Bucket {
      * upload_id_marker sorted by the time of upload_id <br>
      */
     public static class ListMultipartUploadsInput extends RequestInputModel {
+
         /** Put all keys that share a common prefix into a list */
         private String delimiter;
 
@@ -2682,7 +2673,7 @@ public class Bucket {
             this.commonPrefixes = commonPrefixes;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "common_prefixes")
+        @ParamAnnotation(paramType = "element", paramName = "common_prefixes")
         public List<String> getCommonPrefixes() {
             return this.commonPrefixes;
         }
@@ -2693,7 +2684,7 @@ public class Bucket {
             this.delimiter = delimiter;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "delimiter")
+        @ParamAnnotation(paramType = "element", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
         }
@@ -2704,7 +2695,7 @@ public class Bucket {
             this.hasMore = hasMore;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "has_more")
+        @ParamAnnotation(paramType = "element", paramName = "has_more")
         public Boolean getHasMore() {
             return this.hasMore;
         }
@@ -2715,7 +2706,7 @@ public class Bucket {
             this.limit = limit;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "limit")
+        @ParamAnnotation(paramType = "element", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
         }
@@ -2726,7 +2717,7 @@ public class Bucket {
             this.marker = marker;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "marker")
+        @ParamAnnotation(paramType = "element", paramName = "marker")
         public String getMarker() {
             return this.marker;
         }
@@ -2737,7 +2728,7 @@ public class Bucket {
             this.name = name;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "name")
+        @ParamAnnotation(paramType = "element", paramName = "name")
         public String getName() {
             return this.name;
         }
@@ -2748,7 +2739,7 @@ public class Bucket {
             this.nextKeyMarker = nextKeyMarker;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "next_key_marker")
+        @ParamAnnotation(paramType = "element", paramName = "next_key_marker")
         public String getNextKeyMarker() {
             return this.nextKeyMarker;
         }
@@ -2759,7 +2750,7 @@ public class Bucket {
             this.nextUploadIDMarker = nextUploadIDMarker;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "next_upload_id_marker")
+        @ParamAnnotation(paramType = "element", paramName = "next_upload_id_marker")
         public String getNextUploadIDMarker() {
             return this.nextUploadIDMarker;
         }
@@ -2770,7 +2761,7 @@ public class Bucket {
             this.prefix = prefix;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "prefix")
+        @ParamAnnotation(paramType = "element", paramName = "prefix")
         public String getPrefix() {
             return this.prefix;
         }
@@ -2781,7 +2772,7 @@ public class Bucket {
             this.uploads = uploads;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "uploads")
+        @ParamAnnotation(paramType = "element", paramName = "uploads")
         public List<UploadsModel> getUploads() {
             return this.uploads;
         }
@@ -2796,7 +2787,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListObjectsOutput listObjects(ListObjectsInput input) throws QSException {
-
         if (input == null) {
             input = new ListObjectsInput();
         }
@@ -2818,12 +2808,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listObjectsRequest(ListObjectsInput input) throws QSException {
-
         if (input == null) {
             input = new ListObjectsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListObjects");
@@ -2831,8 +2820,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket (List Objects)");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2843,6 +2832,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -2854,7 +2844,6 @@ public class Bucket {
     public void listObjectsAsync(
             ListObjectsInput input, ResponseCallBack<ListObjectsOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new ListObjectsInput();
         }
@@ -2879,7 +2868,7 @@ public class Bucket {
             input = new ListObjectsInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListObjects");
@@ -2887,8 +2876,8 @@ public class Bucket {
         context.put("ServiceName", "GET Bucket (List Objects)");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2904,7 +2893,7 @@ public class Bucket {
     }
     /**
      * ListObjectsInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Delimiter Put all keys that share a common prefix into a list <br>
      * field Limit Results count limit <br>
@@ -2912,6 +2901,7 @@ public class Bucket {
      * field Prefix Limits results to keys that begin with the prefix <br>
      */
     public static class ListObjectsInput extends RequestInputModel {
+
         /** Put all keys that share a common prefix into a list */
         private String delimiter;
 
@@ -2982,7 +2972,7 @@ public class Bucket {
             this.commonPrefixes = commonPrefixes;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "common_prefixes")
+        @ParamAnnotation(paramType = "element", paramName = "common_prefixes")
         public List<String> getCommonPrefixes() {
             return this.commonPrefixes;
         }
@@ -2993,7 +2983,7 @@ public class Bucket {
             this.delimiter = delimiter;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "delimiter")
+        @ParamAnnotation(paramType = "element", paramName = "delimiter")
         public String getDelimiter() {
             return this.delimiter;
         }
@@ -3004,7 +2994,7 @@ public class Bucket {
             this.hasMore = hasMore;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "has_more")
+        @ParamAnnotation(paramType = "element", paramName = "has_more")
         public Boolean getHasMore() {
             return this.hasMore;
         }
@@ -3015,7 +3005,7 @@ public class Bucket {
             this.keys = keys;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "keys")
+        @ParamAnnotation(paramType = "element", paramName = "keys")
         public List<KeyModel> getKeys() {
             return this.keys;
         }
@@ -3026,7 +3016,7 @@ public class Bucket {
             this.limit = limit;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "limit")
+        @ParamAnnotation(paramType = "element", paramName = "limit")
         public Integer getLimit() {
             return this.limit;
         }
@@ -3037,7 +3027,7 @@ public class Bucket {
             this.marker = marker;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "marker")
+        @ParamAnnotation(paramType = "element", paramName = "marker")
         public String getMarker() {
             return this.marker;
         }
@@ -3048,7 +3038,7 @@ public class Bucket {
             this.name = name;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "name")
+        @ParamAnnotation(paramType = "element", paramName = "name")
         public String getName() {
             return this.name;
         }
@@ -3059,7 +3049,7 @@ public class Bucket {
             this.nextMarker = nextMarker;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "next_marker")
+        @ParamAnnotation(paramType = "element", paramName = "next_marker")
         public String getNextMarker() {
             return this.nextMarker;
         }
@@ -3070,7 +3060,7 @@ public class Bucket {
             this.owner = owner;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "owner")
+        @ParamAnnotation(paramType = "element", paramName = "owner")
         public OwnerModel getOwner() {
             return this.owner;
         }
@@ -3081,7 +3071,7 @@ public class Bucket {
             this.prefix = prefix;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "prefix")
+        @ParamAnnotation(paramType = "element", paramName = "prefix")
         public String getPrefix() {
             return this.prefix;
         }
@@ -3095,7 +3085,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketOutput put() throws QSException {
-
         RequestHandler requestHandler = this.putRequest();
 
         OutputModel backModel = requestHandler.send();
@@ -3113,7 +3102,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putRequest() throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucket");
@@ -3121,8 +3110,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3133,6 +3122,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param callback response callback
      * @throws QSException exception
@@ -3157,7 +3147,7 @@ public class Bucket {
     public RequestHandler putAsyncRequest(ResponseCallBack<PutBucketOutput> callback)
             throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucket");
@@ -3165,8 +3155,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3197,7 +3187,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketACLOutput putACL(PutBucketACLInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketACLInput();
         }
@@ -3219,12 +3208,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putACLRequest(PutBucketACLInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketACLInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketACL");
@@ -3232,8 +3220,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket ACL");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?acl");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3244,6 +3232,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -3254,7 +3243,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putACLAsync(PutBucketACLInput input, ResponseCallBack<PutBucketACLOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketACLInput();
         }
@@ -3279,7 +3267,7 @@ public class Bucket {
             input = new PutBucketACLInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketACL");
@@ -3287,8 +3275,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket ACL");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?acl");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3304,11 +3292,23 @@ public class Bucket {
     }
     /**
      * PutBucketACLInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field ACL Bucket ACL rules <br>
      */
     public static class PutBucketACLInput extends RequestInputModel {
+
+        /** Bucket ACL rules Required */
+        private List<ACLModel> aCL;
+
+        public void setACL(List<ACLModel> aCL) {
+            this.aCL = aCL;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "acl")
+        public List<ACLModel> getACL() {
+            return this.aCL;
+        }
 
         /** The request body */
         private String bodyInput;
@@ -3321,20 +3321,13 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** Bucket ACL rules Required */
-        private List<ACLModel> aCL;
-
-        public void setACL(List<ACLModel> aCL) {
-            this.aCL = aCL;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "acl")
-        public List<ACLModel> getACL() {
-            return this.aCL;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (this.getACL() != null && this.getACL().size() > 0) {
                 for (int i = 0; i < this.getACL().size(); i++) {
@@ -3344,7 +3337,6 @@ public class Bucket {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -3366,7 +3358,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketCNAMEOutput putCNAME(PutBucketCNAMEInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketCNAMEInput();
         }
@@ -3388,12 +3379,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putCNAMERequest(PutBucketCNAMEInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketCNAMEInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketCNAME");
@@ -3401,8 +3391,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket CNAME");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?cname");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3413,6 +3403,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -3424,7 +3415,6 @@ public class Bucket {
     public void putCNAMEAsync(
             PutBucketCNAMEInput input, ResponseCallBack<PutBucketCNAMEOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketCNAMEInput();
         }
@@ -3449,7 +3439,7 @@ public class Bucket {
             input = new PutBucketCNAMEInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketCNAME");
@@ -3457,8 +3447,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket CNAME");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?cname");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3474,7 +3464,7 @@ public class Bucket {
     }
     /**
      * PutBucketCNAMEInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Domain The domain name to be bound to the bucket. The domain name must have been
      * registered and not bound to another bucket. <br>
@@ -3483,17 +3473,6 @@ public class Bucket {
      */
     public static class PutBucketCNAMEInput extends RequestInputModel {
 
-        /** cname record will bound to a specific bucket. */
-        private String bodyInput;
-
-        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
-        public String getBodyInput() {
-            return bodyInput;
-        }
-        /** Object json string */
-        public void setBodyInput(String bodyInput) {
-            this.bodyInput = bodyInput;
-        }
         /**
          * The domain name to be bound to the bucket. The domain name must have been registered and
          * not bound to another bucket. Required
@@ -3504,7 +3483,7 @@ public class Bucket {
             this.domain = domain;
         }
 
-        @ParamAnnotation(paramType = "body", paramName = "domain")
+        @ParamAnnotation(paramType = "element", paramName = "domain")
         public String getDomain() {
             return this.domain;
         }
@@ -3518,13 +3497,29 @@ public class Bucket {
             this.type = type;
         }
 
-        @ParamAnnotation(paramType = "body", paramName = "type")
+        @ParamAnnotation(paramType = "element", paramName = "type")
         public String getType() {
             return this.type;
         }
 
+        /** cname record will bound to a specific bucket. */
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        /** Object json string */
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        }
+
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (QSStringUtil.isEmpty(this.getDomain())) {
                 return QSStringUtil.getParameterRequired("Domain", "PutBucketCNAMEInput");
@@ -3547,7 +3542,6 @@ public class Bucket {
                 return QSStringUtil.getParameterValueNotAllowedError(
                         "Type", this.getType() + "", typeValidValues);
             }
-
             return null;
         }
     }
@@ -3572,7 +3566,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketCORSOutput putCORS(PutBucketCORSInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketCORSInput();
         }
@@ -3594,12 +3587,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putCORSRequest(PutBucketCORSInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketCORSInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketCORS");
@@ -3607,8 +3599,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket CORS");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?cors");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3619,6 +3611,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -3630,7 +3623,6 @@ public class Bucket {
     public void putCORSAsync(
             PutBucketCORSInput input, ResponseCallBack<PutBucketCORSOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketCORSInput();
         }
@@ -3655,7 +3647,7 @@ public class Bucket {
             input = new PutBucketCORSInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketCORS");
@@ -3663,8 +3655,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket CORS");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?cors");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3680,11 +3672,23 @@ public class Bucket {
     }
     /**
      * PutBucketCORSInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field CORSRules Bucket CORS rules <br>
      */
     public static class PutBucketCORSInput extends RequestInputModel {
+
+        /** Bucket CORS rules Required */
+        private List<CORSRuleModel> cORSRules;
+
+        public void setCORSRules(List<CORSRuleModel> cORSRules) {
+            this.cORSRules = cORSRules;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "cors_rules")
+        public List<CORSRuleModel> getCORSRules() {
+            return this.cORSRules;
+        }
 
         /** The request body */
         private String bodyInput;
@@ -3697,20 +3701,13 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** Bucket CORS rules Required */
-        private List<CORSRuleModel> cORSRules;
-
-        public void setCORSRules(List<CORSRuleModel> cORSRules) {
-            this.cORSRules = cORSRules;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "cors_rules")
-        public List<CORSRuleModel> getCORSRules() {
-            return this.cORSRules;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (this.getCORSRules() != null && this.getCORSRules().size() > 0) {
                 for (int i = 0; i < this.getCORSRules().size(); i++) {
@@ -3720,7 +3717,6 @@ public class Bucket {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -3744,7 +3740,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketExternalMirrorOutput putExternalMirror(PutBucketExternalMirrorInput input)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketExternalMirrorInput();
         }
@@ -3767,12 +3762,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putExternalMirrorRequest(PutBucketExternalMirrorInput input)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketExternalMirrorInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketExternalMirror");
@@ -3780,8 +3774,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket External Mirror");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?mirror");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3792,6 +3786,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -3804,7 +3799,6 @@ public class Bucket {
             PutBucketExternalMirrorInput input,
             ResponseCallBack<PutBucketExternalMirrorOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketExternalMirrorInput();
         }
@@ -3830,7 +3824,7 @@ public class Bucket {
             input = new PutBucketExternalMirrorInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketExternalMirror");
@@ -3838,8 +3832,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket External Mirror");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?mirror");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3855,11 +3849,23 @@ public class Bucket {
     }
     /**
      * PutBucketExternalMirrorInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field SourceSite Source site url <br>
      */
     public static class PutBucketExternalMirrorInput extends RequestInputModel {
+
+        /** Source site url Required */
+        private String sourceSite;
+
+        public void setSourceSite(String sourceSite) {
+            this.sourceSite = sourceSite;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "source_site")
+        public String getSourceSite() {
+            return this.sourceSite;
+        }
 
         /** The request body */
         private String bodyInput;
@@ -3872,26 +3878,18 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** Source site url Required */
-        private String sourceSite;
-
-        public void setSourceSite(String sourceSite) {
-            this.sourceSite = sourceSite;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "source_site")
-        public String getSourceSite() {
-            return this.sourceSite;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (QSStringUtil.isEmpty(this.getSourceSite())) {
                 return QSStringUtil.getParameterRequired(
                         "SourceSite", "PutBucketExternalMirrorInput");
             }
-
             return null;
         }
     }
@@ -3913,7 +3911,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketLifecycleOutput putLifecycle(PutBucketLifecycleInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketLifecycleInput();
         }
@@ -3935,12 +3932,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putLifecycleRequest(PutBucketLifecycleInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketLifecycleInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketLifecycle");
@@ -3948,8 +3944,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Lifecycle");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?lifecycle");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3960,6 +3956,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -3971,7 +3968,6 @@ public class Bucket {
     public void putLifecycleAsync(
             PutBucketLifecycleInput input, ResponseCallBack<PutBucketLifecycleOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketLifecycleInput();
         }
@@ -3996,7 +3992,7 @@ public class Bucket {
             input = new PutBucketLifecycleInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketLifecycle");
@@ -4004,8 +4000,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Lifecycle");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?lifecycle");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4021,11 +4017,23 @@ public class Bucket {
     }
     /**
      * PutBucketLifecycleInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Rule Bucket Lifecycle rule <br>
      */
     public static class PutBucketLifecycleInput extends RequestInputModel {
+
+        /** Bucket Lifecycle rule Required */
+        private List<RuleModel> rule;
+
+        public void setRule(List<RuleModel> rule) {
+            this.rule = rule;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "rule")
+        public List<RuleModel> getRule() {
+            return this.rule;
+        }
 
         /** The request body */
         private String bodyInput;
@@ -4038,20 +4046,13 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** Bucket Lifecycle rule Required */
-        private List<RuleModel> rule;
-
-        public void setRule(List<RuleModel> rule) {
-            this.rule = rule;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "rule")
-        public List<RuleModel> getRule() {
-            return this.rule;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (this.getRule() != null && this.getRule().size() > 0) {
                 for (int i = 0; i < this.getRule().size(); i++) {
@@ -4061,7 +4062,6 @@ public class Bucket {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -4083,7 +4083,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketLoggingOutput putLogging(PutBucketLoggingInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketLoggingInput();
         }
@@ -4105,12 +4104,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putLoggingRequest(PutBucketLoggingInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketLoggingInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketLogging");
@@ -4118,8 +4116,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Logging");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?logging");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4130,6 +4128,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -4141,7 +4140,6 @@ public class Bucket {
     public void putLoggingAsync(
             PutBucketLoggingInput input, ResponseCallBack<PutBucketLoggingOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketLoggingInput();
         }
@@ -4166,7 +4164,7 @@ public class Bucket {
             input = new PutBucketLoggingInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketLogging");
@@ -4174,8 +4172,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Logging");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?logging");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4191,13 +4189,39 @@ public class Bucket {
     }
     /**
      * PutBucketLoggingInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field TargetBucket The name of the bucket used to store logs. The user must be the owner of
      * the bucket. <br>
      * field TargetPrefix generated log files' common prefix <br>
      */
     public static class PutBucketLoggingInput extends RequestInputModel {
+
+        /**
+         * The name of the bucket used to store logs. The user must be the owner of the bucket.
+         * Required
+         */
+        private String targetBucket;
+
+        public void setTargetBucket(String targetBucket) {
+            this.targetBucket = targetBucket;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "target_bucket")
+        public String getTargetBucket() {
+            return this.targetBucket;
+        }
+        /** generated log files' common prefix Required */
+        private String targetPrefix;
+
+        public void setTargetPrefix(String targetPrefix) {
+            this.targetPrefix = targetPrefix;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "target_prefix")
+        public String getTargetPrefix() {
+            return this.targetPrefix;
+        }
 
         /** The request body */
         private String bodyInput;
@@ -4210,34 +4234,13 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /**
-         * The name of the bucket used to store logs. The user must be the owner of the bucket.
-         * Required
-         */
-        private String targetBucket;
-
-        public void setTargetBucket(String targetBucket) {
-            this.targetBucket = targetBucket;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "target_bucket")
-        public String getTargetBucket() {
-            return this.targetBucket;
-        }
-        /** generated log files' common prefix Required */
-        private String targetPrefix;
-
-        public void setTargetPrefix(String targetPrefix) {
-            this.targetPrefix = targetPrefix;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "target_prefix")
-        public String getTargetPrefix() {
-            return this.targetPrefix;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (QSStringUtil.isEmpty(this.getTargetBucket())) {
                 return QSStringUtil.getParameterRequired("TargetBucket", "PutBucketLoggingInput");
@@ -4245,7 +4248,6 @@ public class Bucket {
             if (QSStringUtil.isEmpty(this.getTargetPrefix())) {
                 return QSStringUtil.getParameterRequired("TargetPrefix", "PutBucketLoggingInput");
             }
-
             return null;
         }
     }
@@ -4270,7 +4272,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketNotificationOutput putNotification(PutBucketNotificationInput input)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketNotificationInput();
         }
@@ -4293,12 +4294,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putNotificationRequest(PutBucketNotificationInput input)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketNotificationInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketNotification");
@@ -4306,8 +4306,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Notification");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?notification");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4318,6 +4318,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -4330,7 +4331,6 @@ public class Bucket {
             PutBucketNotificationInput input,
             ResponseCallBack<PutBucketNotificationOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketNotificationInput();
         }
@@ -4356,7 +4356,7 @@ public class Bucket {
             input = new PutBucketNotificationInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketNotification");
@@ -4364,8 +4364,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Notification");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?notification");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4381,11 +4381,23 @@ public class Bucket {
     }
     /**
      * PutBucketNotificationInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Notifications Bucket Notification <br>
      */
     public static class PutBucketNotificationInput extends RequestInputModel {
+
+        /** Bucket Notification Required */
+        private List<NotificationModel> notifications;
+
+        public void setNotifications(List<NotificationModel> notifications) {
+            this.notifications = notifications;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "notifications")
+        public List<NotificationModel> getNotifications() {
+            return this.notifications;
+        }
 
         /** The request body */
         private String bodyInput;
@@ -4398,20 +4410,13 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** Bucket Notification Required */
-        private List<NotificationModel> notifications;
-
-        public void setNotifications(List<NotificationModel> notifications) {
-            this.notifications = notifications;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "notifications")
-        public List<NotificationModel> getNotifications() {
-            return this.notifications;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (this.getNotifications() != null && this.getNotifications().size() > 0) {
                 for (int i = 0; i < this.getNotifications().size(); i++) {
@@ -4421,7 +4426,6 @@ public class Bucket {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -4443,7 +4447,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketPolicyOutput putPolicy(PutBucketPolicyInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketPolicyInput();
         }
@@ -4465,12 +4468,11 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putPolicyRequest(PutBucketPolicyInput input) throws QSException {
-
         if (input == null) {
             input = new PutBucketPolicyInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketPolicy");
@@ -4478,8 +4480,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Policy");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?policy");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4490,6 +4492,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param input input
      * @param callback response callback
@@ -4501,7 +4504,6 @@ public class Bucket {
     public void putPolicyAsync(
             PutBucketPolicyInput input, ResponseCallBack<PutBucketPolicyOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutBucketPolicyInput();
         }
@@ -4526,7 +4528,7 @@ public class Bucket {
             input = new PutBucketPolicyInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutBucketPolicy");
@@ -4534,8 +4536,8 @@ public class Bucket {
         context.put("ServiceName", "PUT Bucket Policy");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>?policy");
-        context.put("bucketNameInput", this.bucketName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4551,11 +4553,23 @@ public class Bucket {
     }
     /**
      * PutBucketPolicyInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Statement Bucket policy statement <br>
      */
     public static class PutBucketPolicyInput extends RequestInputModel {
+
+        /** Bucket policy statement Required */
+        private List<StatementModel> statement;
+
+        public void setStatement(List<StatementModel> statement) {
+            this.statement = statement;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "statement")
+        public List<StatementModel> getStatement() {
+            return this.statement;
+        }
 
         /** The request body */
         private String bodyInput;
@@ -4568,20 +4582,13 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** Bucket policy statement Required */
-        private List<StatementModel> statement;
-
-        public void setStatement(List<StatementModel> statement) {
-            this.statement = statement;
-        }
-
-        @ParamAnnotation(paramType = "body", paramName = "statement")
-        public List<StatementModel> getStatement() {
-            return this.statement;
-        }
 
         @Override
         public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
 
             if (this.getStatement() != null && this.getStatement().size() > 0) {
                 for (int i = 0; i < this.getStatement().size(); i++) {
@@ -4591,7 +4598,6 @@ public class Bucket {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -4615,7 +4621,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public AbortMultipartUploadOutput abortMultipartUpload(
             String objectName, AbortMultipartUploadInput input) throws QSException {
-
         if (input == null) {
             input = new AbortMultipartUploadInput();
         }
@@ -4639,12 +4644,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler abortMultipartUploadRequest(
             String objectName, AbortMultipartUploadInput input) throws QSException {
-
         if (input == null) {
             input = new AbortMultipartUploadInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AbortMultipartUpload");
@@ -4652,12 +4656,12 @@ public class Bucket {
         context.put("ServiceName", "Abort Multipart Upload");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -4668,6 +4672,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -4682,7 +4687,6 @@ public class Bucket {
             AbortMultipartUploadInput input,
             ResponseCallBack<AbortMultipartUploadOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new AbortMultipartUploadInput();
         }
@@ -4711,7 +4715,7 @@ public class Bucket {
             input = new AbortMultipartUploadInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AbortMultipartUpload");
@@ -4719,12 +4723,12 @@ public class Bucket {
         context.put("ServiceName", "Abort Multipart Upload");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -4740,11 +4744,12 @@ public class Bucket {
     }
     /**
      * AbortMultipartUploadInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field UploadID Object multipart upload ID <br>
      */
     public static class AbortMultipartUploadInput extends RequestInputModel {
+
         /** Object multipart upload ID Required */
         private String uploadID;
 
@@ -4786,7 +4791,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public AppendObjectOutput appendObject(String objectName, AppendObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new AppendObjectInput();
         }
@@ -4810,12 +4814,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler appendObjectRequest(String objectName, AppendObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new AppendObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AppendObject");
@@ -4823,12 +4826,12 @@ public class Bucket {
         context.put("ServiceName", "Append Object");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>/<object-key>?append");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -4839,6 +4842,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -4853,7 +4857,6 @@ public class Bucket {
             AppendObjectInput input,
             ResponseCallBack<AppendObjectOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new AppendObjectInput();
         }
@@ -4881,7 +4884,7 @@ public class Bucket {
             input = new AppendObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "AppendObject");
@@ -4889,12 +4892,12 @@ public class Bucket {
         context.put("ServiceName", "Append Object");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>/<object-key>?append");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -4910,7 +4913,7 @@ public class Bucket {
     }
     /**
      * AppendObjectInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field ContentLength Object content size <br>
      * field ContentMD5 Object MD5sum <br>
@@ -4919,6 +4922,7 @@ public class Bucket {
      * field Position Object append position <br>
      */
     public static class AppendObjectInput extends RequestInputModel {
+
         /** Object append position Required */
         private Long position;
 
@@ -5001,7 +5005,7 @@ public class Bucket {
             this.bodyInputFile = bodyInputFile;
         }
 
-        private java.io.InputStream bodyInputStream;
+        private InputStream bodyInputStream;
 
         /**
          * Get the body input stream.
@@ -5009,7 +5013,7 @@ public class Bucket {
          * @return input stream
          */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
-        public java.io.InputStream getBodyInputStream() {
+        public InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
@@ -5018,7 +5022,7 @@ public class Bucket {
          *
          * @param bodyInputStream input stream to update
          */
-        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+        public void setBodyInputStream(InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
 
@@ -5086,7 +5090,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public CompleteMultipartUploadOutput completeMultipartUpload(
             String objectName, CompleteMultipartUploadInput input) throws QSException {
-
         if (input == null) {
             input = new CompleteMultipartUploadInput();
         }
@@ -5110,12 +5113,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler completeMultipartUploadRequest(
             String objectName, CompleteMultipartUploadInput input) throws QSException {
-
         if (input == null) {
             input = new CompleteMultipartUploadInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "CompleteMultipartUpload");
@@ -5123,12 +5125,12 @@ public class Bucket {
         context.put("ServiceName", "Complete multipart upload");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5139,6 +5141,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -5153,7 +5156,6 @@ public class Bucket {
             CompleteMultipartUploadInput input,
             ResponseCallBack<CompleteMultipartUploadOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new CompleteMultipartUploadInput();
         }
@@ -5182,7 +5184,7 @@ public class Bucket {
             input = new CompleteMultipartUploadInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "CompleteMultipartUpload");
@@ -5190,12 +5192,12 @@ public class Bucket {
         context.put("ServiceName", "Complete multipart upload");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5211,7 +5213,7 @@ public class Bucket {
     }
     /**
      * CompleteMultipartUploadInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field ETag MD5sum of the object part <br>
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
@@ -5221,6 +5223,7 @@ public class Bucket {
      * field ObjectParts Object parts <br>
      */
     public static class CompleteMultipartUploadInput extends RequestInputModel {
+
         /** Object multipart upload ID Required */
         private String uploadID;
 
@@ -5231,41 +5234,6 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "upload_id")
         public String getUploadID() {
             return this.uploadID;
-        }
-
-        public CompleteMultipartUploadInput() {}
-
-        /**
-         * The constructor will auto set values of upload id and body input.
-         *
-         * @param multipart_upload_id upload id
-         * @param partsCount count of multi parts
-         * @param startIndex start of part number's index
-         */
-        public CompleteMultipartUploadInput(
-                String multipart_upload_id, int partsCount, int startIndex) {
-            this.setUploadID(multipart_upload_id);
-            this.setBodyInput(getCompleteMultipartUploadContent(partsCount, startIndex));
-        }
-
-        /**
-         * You can get the json content to complete multipart uploading. <br>
-         *
-         * @param partsCount count of all the uploaded parts
-         * @param startIndex start of part number's index
-         * @return content to complete multipart uploading
-         */
-        public String getCompleteMultipartUploadContent(int partsCount, int startIndex) {
-            if (partsCount < 1 || startIndex < 0) return null;
-
-            StringBuilder uploadJson = new StringBuilder("{\"object_parts\":[");
-            for (int i = 0; i < partsCount; i++) {
-                uploadJson.append("{\"part_number\":").append(startIndex++).append("}");
-                if (i < partsCount - 1) uploadJson.append(",");
-                else uploadJson.append("]}");
-            }
-
-            return uploadJson.toString();
         }
 
         /** MD5sum of the object part */
@@ -5313,6 +5281,18 @@ public class Bucket {
             return this.xQSEncryptionCustomerKeyMD5;
         }
 
+        /** Object parts Required */
+        private List<ObjectPartModel> objectParts;
+
+        public void setObjectParts(List<ObjectPartModel> objectParts) {
+            this.objectParts = objectParts;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "object_parts")
+        public List<ObjectPartModel> getObjectParts() {
+            return this.objectParts;
+        }
+
         private String bodyInput;
 
         @ParamAnnotation(paramType = "body", paramName = "BodyInput")
@@ -5323,16 +5303,42 @@ public class Bucket {
         public void setBodyInput(String bodyInput) {
             this.bodyInput = bodyInput;
         }
-        /** Object parts Required */
-        private List<ObjectPartModel> objectParts;
 
-        public void setObjectParts(List<ObjectPartModel> objectParts) {
-            this.objectParts = objectParts;
+        public CompleteMultipartUploadInput() {}
+
+        /**
+         * The constructor will auto set values of upload id and body input.
+         *
+         * @param multipart_upload_id upload id
+         * @param partsCount count of multi parts
+         * @param startIndex start of part number's index
+         */
+        @Deprecated
+        public CompleteMultipartUploadInput(
+                String multipart_upload_id, int partsCount, int startIndex) {
+            this.setUploadID(multipart_upload_id);
+            this.setBodyInput(getCompleteMultipartUploadContent(partsCount, startIndex));
         }
 
-        @ParamAnnotation(paramType = "body", paramName = "object_parts")
-        public List<ObjectPartModel> getObjectParts() {
-            return this.objectParts;
+        /**
+         * You can get the json content to complete multipart uploading. <br>
+         *
+         * @param partsCount count of all the uploaded parts
+         * @param startIndex start of part number's index
+         * @return content to complete multipart uploading
+         */
+        @Deprecated
+        public String getCompleteMultipartUploadContent(int partsCount, int startIndex) {
+            if (partsCount < 1 || startIndex < 0) return null;
+
+            StringBuilder uploadJson = new StringBuilder("{\"object_parts\":[");
+            for (int i = 0; i < partsCount; i++) {
+                uploadJson.append("{\"part_number\":").append(startIndex++).append("}");
+                if (i < partsCount - 1) uploadJson.append(",");
+                else uploadJson.append("]}");
+            }
+
+            return uploadJson.toString();
         }
 
         @Override
@@ -5340,6 +5346,10 @@ public class Bucket {
             if (QSStringUtil.isEmpty(this.getUploadID())) {
                 return QSStringUtil.getParameterRequired(
                         "UploadID", "CompleteMultipartUploadInput");
+            }
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
             }
 
             if (this.getObjectParts() != null && this.getObjectParts().size() > 0) {
@@ -5350,7 +5360,6 @@ public class Bucket {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -5390,7 +5399,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteObjectOutput deleteObject(String objectName) throws QSException {
-
         RequestHandler requestHandler = this.deleteObjectRequest(objectName);
 
         OutputModel backModel = requestHandler.send();
@@ -5409,7 +5417,7 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteObjectRequest(String objectName) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteObject");
@@ -5417,12 +5425,12 @@ public class Bucket {
         context.put("ServiceName", "DELETE Object");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5433,6 +5441,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param callback response callback
@@ -5460,7 +5469,7 @@ public class Bucket {
     public RequestHandler deleteObjectAsyncRequest(
             String objectName, ResponseCallBack<DeleteObjectOutput> callback) throws QSException {
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "DeleteObject");
@@ -5468,12 +5477,12 @@ public class Bucket {
         context.put("ServiceName", "DELETE Object");
         context.put("RequestMethod", "DELETE");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5505,7 +5514,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput getObject(String objectName, GetObjectInput input) throws QSException {
-
         if (input == null) {
             input = new GetObjectInput();
         }
@@ -5529,12 +5537,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getObjectRequest(String objectName, GetObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new GetObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
@@ -5542,12 +5549,12 @@ public class Bucket {
         context.put("ServiceName", "GET Object");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5558,6 +5565,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -5570,7 +5578,6 @@ public class Bucket {
     public void getObjectAsync(
             String objectName, GetObjectInput input, ResponseCallBack<GetObjectOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new GetObjectInput();
         }
@@ -5596,7 +5603,7 @@ public class Bucket {
             input = new GetObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "GetObject");
@@ -5604,12 +5611,12 @@ public class Bucket {
         context.put("ServiceName", "GET Object");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5625,7 +5632,7 @@ public class Bucket {
     }
     /**
      * GetObjectInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field IfMatch Check whether the ETag matches <br>
      * field IfModifiedSince Check whether the object has been modified <br>
@@ -5643,6 +5650,7 @@ public class Bucket {
      * field ResponseExpires Specified the Expires response header <br>
      */
     public static class GetObjectInput extends RequestInputModel {
+
         /** Specified the Cache-Control response header */
         private String responseCacheControl;
 
@@ -5949,7 +5957,7 @@ public class Bucket {
             return expires;
         }
 
-        private java.io.InputStream bodyInputStream;
+        private InputStream bodyInputStream;
 
         /**
          * Get the stream will be downloaded.
@@ -5957,7 +5965,7 @@ public class Bucket {
          * @return the stream will be downloaded
          */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
-        public java.io.InputStream getBodyInputStream() {
+        public InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
@@ -5966,7 +5974,7 @@ public class Bucket {
          *
          * @param bodyInputStream stream to download
          */
-        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+        public void setBodyInputStream(InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
 
@@ -6138,7 +6146,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public HeadObjectOutput headObject(String objectName, HeadObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new HeadObjectInput();
         }
@@ -6162,12 +6169,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler headObjectRequest(String objectName, HeadObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new HeadObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadObject");
@@ -6175,12 +6181,12 @@ public class Bucket {
         context.put("ServiceName", "HEAD Object");
         context.put("RequestMethod", "HEAD");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6191,6 +6197,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -6203,7 +6210,6 @@ public class Bucket {
     public void headObjectAsync(
             String objectName, HeadObjectInput input, ResponseCallBack<HeadObjectOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new HeadObjectInput();
         }
@@ -6229,7 +6235,7 @@ public class Bucket {
             input = new HeadObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "HeadObject");
@@ -6237,12 +6243,12 @@ public class Bucket {
         context.put("ServiceName", "HEAD Object");
         context.put("RequestMethod", "HEAD");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6258,7 +6264,7 @@ public class Bucket {
     }
     /**
      * HeadObjectInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field IfMatch Check whether the ETag matches <br>
      * field IfModifiedSince Check whether the object has been modified <br>
@@ -6484,7 +6490,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ImageProcessOutput imageProcess(String objectName, ImageProcessInput input)
             throws QSException {
-
         if (input == null) {
             input = new ImageProcessInput();
         }
@@ -6508,12 +6513,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler imageProcessRequest(String objectName, ImageProcessInput input)
             throws QSException {
-
         if (input == null) {
             input = new ImageProcessInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
@@ -6521,12 +6525,12 @@ public class Bucket {
         context.put("ServiceName", "Image Process");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>/<object-key>?image");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6537,6 +6541,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -6551,7 +6556,6 @@ public class Bucket {
             ImageProcessInput input,
             ResponseCallBack<ImageProcessOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new ImageProcessInput();
         }
@@ -6579,7 +6583,7 @@ public class Bucket {
             input = new ImageProcessInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ImageProcess");
@@ -6587,12 +6591,12 @@ public class Bucket {
         context.put("ServiceName", "Image Process");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>/<object-key>?image");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6608,7 +6612,7 @@ public class Bucket {
     }
     /**
      * ImageProcessInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field IfModifiedSince Check whether the object has been modified <br>
      * field Action Image process action <br>
@@ -6620,6 +6624,7 @@ public class Bucket {
      * field ResponseExpires Specified the Expires response header <br>
      */
     public static class ImageProcessInput extends RequestInputModel {
+
         /** Image process action Required */
         private String action;
 
@@ -6736,7 +6741,7 @@ public class Bucket {
     public static class ImageProcessOutput extends OutputModel {
 
         /** The response body */
-        private java.io.InputStream bodyInputStream;
+        private InputStream bodyInputStream;
 
         /**
          * Get the stream will be downloaded.
@@ -6744,7 +6749,7 @@ public class Bucket {
          * @return the stream will be downloaded
          */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
-        public java.io.InputStream getBodyInputStream() {
+        public InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
@@ -6753,7 +6758,7 @@ public class Bucket {
          *
          * @param bodyInputStream stream to download
          */
-        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+        public void setBodyInputStream(InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
 
@@ -6781,7 +6786,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public InitiateMultipartUploadOutput initiateMultipartUpload(
             String objectName, InitiateMultipartUploadInput input) throws QSException {
-
         if (input == null) {
             input = new InitiateMultipartUploadInput();
         }
@@ -6805,12 +6809,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler initiateMultipartUploadRequest(
             String objectName, InitiateMultipartUploadInput input) throws QSException {
-
         if (input == null) {
             input = new InitiateMultipartUploadInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "InitiateMultipartUpload");
@@ -6818,12 +6821,12 @@ public class Bucket {
         context.put("ServiceName", "Initiate Multipart Upload");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>/<object-key>?uploads");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6834,6 +6837,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -6848,7 +6852,6 @@ public class Bucket {
             InitiateMultipartUploadInput input,
             ResponseCallBack<InitiateMultipartUploadOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new InitiateMultipartUploadInput();
         }
@@ -6877,7 +6880,7 @@ public class Bucket {
             input = new InitiateMultipartUploadInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "InitiateMultipartUpload");
@@ -6885,12 +6888,12 @@ public class Bucket {
         context.put("ServiceName", "Initiate Multipart Upload");
         context.put("RequestMethod", "POST");
         context.put("RequestURI", "/<bucket-name>/<object-key>?uploads");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6906,7 +6909,7 @@ public class Bucket {
     }
     /**
      * InitiateMultipartUploadInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field ContentType Object content type <br>
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
@@ -7043,7 +7046,7 @@ public class Bucket {
             this.bucket = bucket;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "bucket")
+        @ParamAnnotation(paramType = "element", paramName = "bucket")
         public String getBucket() {
             return this.bucket;
         }
@@ -7054,7 +7057,7 @@ public class Bucket {
             this.key = key;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "key")
+        @ParamAnnotation(paramType = "element", paramName = "key")
         public String getKey() {
             return this.key;
         }
@@ -7065,7 +7068,7 @@ public class Bucket {
             this.uploadID = uploadID;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "upload_id")
+        @ParamAnnotation(paramType = "element", paramName = "upload_id")
         public String getUploadID() {
             return this.uploadID;
         }
@@ -7094,7 +7097,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListMultipartOutput listMultipart(String objectName, ListMultipartInput input)
             throws QSException {
-
         if (input == null) {
             input = new ListMultipartInput();
         }
@@ -7118,12 +7120,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler listMultipartRequest(String objectName, ListMultipartInput input)
             throws QSException {
-
         if (input == null) {
             input = new ListMultipartInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipart");
@@ -7131,12 +7132,12 @@ public class Bucket {
         context.put("ServiceName", "List Multipart");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7147,6 +7148,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -7161,7 +7163,6 @@ public class Bucket {
             ListMultipartInput input,
             ResponseCallBack<ListMultipartOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new ListMultipartInput();
         }
@@ -7189,7 +7190,7 @@ public class Bucket {
             input = new ListMultipartInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "ListMultipart");
@@ -7197,12 +7198,12 @@ public class Bucket {
         context.put("ServiceName", "List Multipart");
         context.put("RequestMethod", "GET");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7218,13 +7219,14 @@ public class Bucket {
     }
     /**
      * ListMultipartInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field Limit Limit results count <br>
      * field PartNumberMarker Object multipart upload part number <br>
      * field UploadID Object multipart upload ID <br>
      */
     public static class ListMultipartInput extends RequestInputModel {
+
         /** Limit results count */
         private Integer limit;
 
@@ -7286,7 +7288,7 @@ public class Bucket {
             this.count = count;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "count")
+        @ParamAnnotation(paramType = "element", paramName = "count")
         public Integer getCount() {
             return this.count;
         }
@@ -7297,7 +7299,7 @@ public class Bucket {
             this.objectParts = objectParts;
         }
 
-        @ParamAnnotation(paramType = "query", paramName = "object_parts")
+        @ParamAnnotation(paramType = "element", paramName = "object_parts")
         public List<ObjectPartModel> getObjectParts() {
             return this.objectParts;
         }
@@ -7314,7 +7316,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public OptionsObjectOutput optionsObject(String objectName, OptionsObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new OptionsObjectInput();
         }
@@ -7338,12 +7339,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler optionsObjectRequest(String objectName, OptionsObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new OptionsObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "OptionsObject");
@@ -7351,12 +7351,12 @@ public class Bucket {
         context.put("ServiceName", "OPTIONS Object");
         context.put("RequestMethod", "OPTIONS");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7367,6 +7367,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -7381,7 +7382,6 @@ public class Bucket {
             OptionsObjectInput input,
             ResponseCallBack<OptionsObjectOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new OptionsObjectInput();
         }
@@ -7409,7 +7409,7 @@ public class Bucket {
             input = new OptionsObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "OptionsObject");
@@ -7417,12 +7417,12 @@ public class Bucket {
         context.put("ServiceName", "OPTIONS Object");
         context.put("RequestMethod", "OPTIONS");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7438,7 +7438,7 @@ public class Bucket {
     }
     /**
      * OptionsObjectInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field AccessControlRequestHeaders Request headers <br>
      * field AccessControlRequestMethod Request method <br>
@@ -7572,7 +7572,6 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutObjectOutput putObject(String objectName, PutObjectInput input) throws QSException {
-
         if (input == null) {
             input = new PutObjectInput();
         }
@@ -7596,12 +7595,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putObjectRequest(String objectName, PutObjectInput input)
             throws QSException {
-
         if (input == null) {
             input = new PutObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutObject");
@@ -7609,12 +7607,12 @@ public class Bucket {
         context.put("ServiceName", "PUT Object");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7625,6 +7623,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -7637,7 +7636,6 @@ public class Bucket {
     public void putObjectAsync(
             String objectName, PutObjectInput input, ResponseCallBack<PutObjectOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new PutObjectInput();
         }
@@ -7663,7 +7661,7 @@ public class Bucket {
             input = new PutObjectInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "PutObject");
@@ -7671,12 +7669,12 @@ public class Bucket {
         context.put("ServiceName", "PUT Object");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7692,7 +7690,7 @@ public class Bucket {
     }
     /**
      * PutObjectInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field CacheControl Object cache control <br>
      * field ContentEncoding Object content encoding <br>
@@ -7701,7 +7699,7 @@ public class Bucket {
      * field ContentType Object content type <br>
      * field Expect Used to indicate that particular server behaviors are required by the client
      * <br>
-     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/'object-key') <br>
      * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
      * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
@@ -7715,7 +7713,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMetaData User-defined metadata <br>
-     * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
+     * field XQSMoveSource Move source, format (/'bucket-name'/'object-key') <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class PutObjectInput extends RequestInputModel {
@@ -7998,7 +7996,7 @@ public class Bucket {
             this.bodyInputFile = bodyInputFile;
         }
 
-        private java.io.InputStream bodyInputStream;
+        private InputStream bodyInputStream;
 
         /**
          * Get the body input stream.
@@ -8006,7 +8004,7 @@ public class Bucket {
          * @return input stream
          */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
-        public java.io.InputStream getBodyInputStream() {
+        public InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
@@ -8015,7 +8013,7 @@ public class Bucket {
          *
          * @param bodyInputStream input stream to update
          */
-        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+        public void setBodyInputStream(InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
         }
 
@@ -8066,7 +8064,7 @@ public class Bucket {
      * field ContentType Object content type <br>
      * field Expect Used to indicate that particular server behaviors are required by the client
      * <br>
-     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/'object-key') <br>
      * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
      * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
@@ -8080,7 +8078,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMetaData User-defined metadata <br>
-     * field XQSMoveSource Move source, format (/'bucket-name'/object-key') <br>
+     * field XQSMoveSource Move source, format (/'bucket-name'/'object-key') <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */
     public static class PutObjectOutput extends OutputModel {
@@ -8120,7 +8118,6 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public UploadMultipartOutput uploadMultipart(String objectName, UploadMultipartInput input)
             throws QSException {
-
         if (input == null) {
             input = new UploadMultipartInput();
         }
@@ -8144,12 +8141,11 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler uploadMultipartRequest(String objectName, UploadMultipartInput input)
             throws QSException {
-
         if (input == null) {
             input = new UploadMultipartInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "UploadMultipart");
@@ -8157,12 +8153,12 @@ public class Bucket {
         context.put("ServiceName", "Upload Multipart");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -8173,6 +8169,7 @@ public class Bucket {
 
         return requestHandler;
     }
+
     /**
      * @param objectName name of the object
      * @param input input
@@ -8187,7 +8184,6 @@ public class Bucket {
             UploadMultipartInput input,
             ResponseCallBack<UploadMultipartOutput> callback)
             throws QSException {
-
         if (input == null) {
             input = new UploadMultipartInput();
         }
@@ -8216,7 +8212,7 @@ public class Bucket {
             input = new UploadMultipartInput();
         }
 
-        Map context = new HashMap();
+        Map<String, Object> context = new HashMap<>();
         context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
         context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
         context.put("OperationName", "UploadMultipart");
@@ -8224,12 +8220,12 @@ public class Bucket {
         context.put("ServiceName", "Upload Multipart");
         context.put("RequestMethod", "PUT");
         context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
 
+        context.put("bucketNameInput", this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
+        context.put("objectNameInput", objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -8245,12 +8241,12 @@ public class Bucket {
     }
     /**
      * UploadMultipartInput: an input stream of the bucket.<br>
-     * The following is the desc of fields.<br>
+     * The following is the description of fields.<br>
      * These fields are headers or bodies of the http request.<br>
      * field ContentLength Object multipart content length <br>
      * field ContentMD5 Object multipart content MD5sum <br>
      * field XQSCopyRange Specify range of the source object <br>
-     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/'object-key') <br>
      * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
      * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
@@ -8269,6 +8265,7 @@ public class Bucket {
      * field UploadID Object multipart upload ID <br>
      */
     public static class UploadMultipartInput extends RequestInputModel {
+
         /** Object multipart upload part number Required */
         private Integer partNumber;
 
@@ -8290,48 +8287,6 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "upload_id")
         public String getUploadID() {
             return this.uploadID;
-        }
-
-        private Long fileOffset = -1L;
-
-        /**
-         * You can set the offset of a file here. <br>
-         * Then use setContentLength() to get a part of a file.
-         *
-         * @param fileOffset fileOffset
-         */
-        public void setFileOffset(Long fileOffset) {
-            this.fileOffset = fileOffset;
-        }
-
-        /**
-         * Get the offset of the File or stream(default = -1).
-         *
-         * @return the offset of the File or stream
-         */
-        @ParamAnnotation(paramType = "query", paramName = "file_offset")
-        public Long getFileOffset() {
-            return fileOffset;
-        }
-
-        /**
-         * Set the File parts to update.
-         *
-         * @param bodyInputFilePart File part to update
-         */
-        public void setBodyInputFilePart(File bodyInputFilePart) {
-            this.bodyInputFile = bodyInputFilePart;
-            fileOffset = 0L;
-        }
-
-        /**
-         * Get the File will be updated.
-         *
-         * @return the File part will be updated
-         */
-        @ParamAnnotation(paramType = "body", paramName = "BodyInputFile")
-        public File getBodyInputFilePart() {
-            return bodyInputFile;
         }
 
         /** Object multipart content length */
@@ -8524,7 +8479,7 @@ public class Bucket {
             this.bodyInputFile = bodyInputFile;
         }
 
-        private java.io.InputStream bodyInputStream;
+        private InputStream bodyInputStream;
 
         /**
          * Get the body input stream.
@@ -8532,7 +8487,7 @@ public class Bucket {
          * @return input stream
          */
         @ParamAnnotation(paramType = "body", paramName = "BodyInputStream")
-        public java.io.InputStream getBodyInputStream() {
+        public InputStream getBodyInputStream() {
             return bodyInputStream;
         }
 
@@ -8541,8 +8496,50 @@ public class Bucket {
          *
          * @param bodyInputStream input stream to update
          */
-        public void setBodyInputStream(java.io.InputStream bodyInputStream) {
+        public void setBodyInputStream(InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
+        }
+
+        private Long fileOffset = -1L;
+
+        /**
+         * You can set the offset of a file here. <br>
+         * Then use setContentLength() to get a part of a file.
+         *
+         * @param fileOffset fileOffset
+         */
+        public void setFileOffset(Long fileOffset) {
+            this.fileOffset = fileOffset;
+        }
+
+        /**
+         * Get the offset of the File or stream(default = -1).
+         *
+         * @return the offset of the File or stream
+         */
+        @ParamAnnotation(paramType = "query", paramName = "file_offset")
+        public Long getFileOffset() {
+            return fileOffset;
+        }
+
+        /**
+         * Set the File parts to update.
+         *
+         * @param bodyInputFilePart File part to update
+         */
+        public void setBodyInputFilePart(File bodyInputFilePart) {
+            this.bodyInputFile = bodyInputFilePart;
+            fileOffset = 0L;
+        }
+
+        /**
+         * Get the File will be updated.
+         *
+         * @return the File part will be updated
+         */
+        @ParamAnnotation(paramType = "body", paramName = "BodyInputFile")
+        public File getBodyInputFilePart() {
+            return bodyInputFile;
         }
 
         @Override
@@ -8566,7 +8563,7 @@ public class Bucket {
      * field ContentLength Object multipart content length <br>
      * field ContentMD5 Object multipart content MD5sum <br>
      * field XQSCopyRange Specify range of the source object <br>
-     * field XQSCopySource Copy source, format (/'bucket-name'/object-key') <br>
+     * field XQSCopySource Copy source, format (/'bucket-name'/'object-key') <br>
      * field XQSCopySourceEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSCopySourceEncryptionCustomerKey Encryption key of the object <br>
      * field XQSCopySourceEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
