@@ -185,10 +185,10 @@ Add a construction method of QingStor.java
 
 - Add a class 'CancellationHandler' to handle cancellation when upload.
 
-  Visit below links to get examples.
+Visit below links to get examples.
 
-  [English Version](docs/example/UploadProgressCancellation.md)
-  [Chinese Version](docs/example/UploadProgressCancellation_zh.md)
+[English Version](docs/example/UploadProgressCancellation.md)
+[Chinese Version](docs/example/UploadProgressCancellation_zh.md)
 
 - Add upload manager to auto upload which will keep the position last uploaded.
 
@@ -202,10 +202,10 @@ Add a construction method of QingStor.java
 ### Fixed
 - Fix improper design of multipart upload interface. Now we allow to upload either using offsets to a file or using slices of large content that stored separately.
 
-  Visit below links to know more.
+Visit below links to know more.
 
-  [English Version](docs/example/MultipartUpload.md)
-  [Chinese Version](docs/example/MultipartUpload_zh.md)
+[English Version](docs/example/MultipartUpload.md)
+[Chinese Version](docs/example/MultipartUpload_zh.md)
 
 ### Add
 
@@ -222,7 +222,7 @@ Add a construction method of QingStor.java
 
 - Fixed the encoding problem when set the http header with key "content-disposition".
 
-  (The java method corresponding to: ``` Bucket#GetObjectInput#setResponseContentDisposition(String); ``` ).
+(The java method corresponding to: ``` Bucket#GetObjectInput#setResponseContentDisposition(String); ``` ).
 
 ### Add
 
@@ -323,7 +323,7 @@ Add a construction method of QingStor.java
 ### Changed
 
 - Add Last-Modified to getObject response head.
-- Optimize type definition. 
+- Optimize type definition.
 
 ## [v2.1.10] - 2017-07-08
 
@@ -431,4 +431,3 @@ Add a construction method of QingStor.java
 [v2.1.1]: https://github.com/yunify/qingstor-sdk-java/compare/2.1.0...2.1.1
 [v2.1.0]: https://github.com/yunify/qingstor-sdk-java/compare/2.0.1...2.1.0
 [v2.0.1]: https://github.com/yunify/qingstor-sdk-java/compare/2.0.0...2.0.1
-

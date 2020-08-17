@@ -2,8 +2,8 @@ plugins {
     `java-library`
     `maven-publish`
     signing
-    id("com.diffplug.gradle.spotless") version "3.27.2"
-    id("com.github.johnrengelman.shadow") version "5.2.0"
+    id("com.diffplug.spotless") version "5.1.1"
+    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 group = "com.yunify"
@@ -129,6 +129,14 @@ task("cucumber") {
 }
 
 spotless {
+    format("misc") {
+        // define the files to apply `misc` to
+        target("*.gradle*", "*.md", ".gitignore")
+        // define the steps to apply to those files
+        trimTrailingWhitespace()
+        indentWithSpaces(4)
+        endWithNewline()
+    }
     java {
         // switch to AOSP style
         googleJavaFormat("1.7").aosp()
