@@ -26,9 +26,9 @@ import com.qingstor.sdk.request.CancellationHandler;
 import com.qingstor.sdk.request.RequestHandler;
 import com.qingstor.sdk.service.Bucket;
 import com.qingstor.sdk.utils.QSStringUtil;
+import com.qingstor.sdk.utils.UrlUtils;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * A manager of uploading. <br>
@@ -303,15 +303,10 @@ public class UploadManager {
 
         // Set content disposition to the object.
         if (!QSStringUtil.isEmpty(fileName)) {
-            try {
-                String keyName = QSStringUtil.percentEncode(fileName, "UTF-8");
-                completeMultipartUploadInput.setContentDisposition(
-                        String.format(
-                                "attachment; filename=\"%s\"; filename*=utf-8''%s",
-                                keyName, keyName));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            String keyName = UrlUtils.rfc3986UriEncode(fileName, true);
+            completeMultipartUploadInput.setContentDisposition(
+                    String.format(
+                            "attachment; filename=\"%s\"; filename*=utf-8''%s", keyName, keyName));
         }
 
         // Set the Md5 info to the object.
@@ -353,15 +348,10 @@ public class UploadManager {
         input.setBodyInputFile(file);
         // Set content disposition to the object.
         if (!QSStringUtil.isEmpty(fileName)) {
-            try {
-                String keyName = QSStringUtil.percentEncode(fileName, "UTF-8");
-                input.setContentDisposition(
-                        String.format(
-                                "attachment; filename=\"%s\"; filename*=utf-8''%s",
-                                keyName, keyName));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            String keyName = UrlUtils.rfc3986UriEncode(fileName, true);
+            input.setContentDisposition(
+                    String.format(
+                            "attachment; filename=\"%s\"; filename*=utf-8''%s", keyName, keyName));
         }
 
         RequestHandler requestHandler = bucket.putObjectRequest(objectKey, input);

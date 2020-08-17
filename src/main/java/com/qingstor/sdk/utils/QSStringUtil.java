@@ -96,6 +96,8 @@ public class QSStringUtil {
         return json.toString();
     }
 
+    /** Use UrlUtils.rfc3986UriEncode() instead. */
+    @Deprecated
     public static String percentEncode(String value, String encoding)
             throws UnsupportedEncodingException {
         return value != null
