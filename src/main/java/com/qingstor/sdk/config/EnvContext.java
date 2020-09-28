@@ -195,6 +195,7 @@ public class EnvContext implements ParamValidate, Credentials {
         return URI.create(joinUrl);
     }
 
+    /** @deprecated Use {@link #getEndpoint()} instead. */
     public String getRequestUrl() {
         String joinUrl = this.getProtocol() + "://" + this.getHost();
         if (this.getPort() != null) {
@@ -258,7 +259,7 @@ public class EnvContext implements ParamValidate, Credentials {
             return QSStringUtil.getParameterRequired("AccessKeyId", "EnvContext");
         }
 
-        if (QSStringUtil.isEmpty(getRequestUrl())) {
+        if (QSStringUtil.isEmpty(getEndpoint().toString())) {
             return QSStringUtil.getParameterRequired("host", "EnvContext");
         }
         if (!QSStringUtil.isEmpty(getAdditionalUserAgent())) {
