@@ -1,6 +1,31 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.4.0] - 2020-09-28
+
+### Added
+
+- update docs/api comments;
+- support send cname host req to qingstor;
+- ParamType: add enum to replace constants;
+
+### Changed
+
+- Multiple refactors and improvements(robust req build procedure);
+- Remove several deprecated api that exist from long time ago;
+- virtual_host_enabled instead of specify url mode;
+- Multiple simplification(local-scope use of stringBuffer, over-encapsulation);
+
+### Fixed
+
+- Correct paramType annotation;
+
+## [v2.3.4] - 2020-07-03
+
+### Fixed
+
+- Fix construct pre-signed url failure when handle image process.
+
 ## [v2.3.3] - 2020-05-07
 
 ### Added
