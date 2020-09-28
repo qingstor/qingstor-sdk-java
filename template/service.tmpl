@@ -13,12 +13,13 @@ import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ResponseCallBack;
-import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
 import com.qingstor.sdk.utils.QSStringUtil;
 import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.request.RequestHandler;
+import com.qingstor.sdk.request.QSRequest;
+import com.qingstor.sdk.common.OperationContext;
 
 {{if $service.Description}}/** {{$service.Name | camelCase}}Service: {{$service.Description}} */{{end}}
 public class QingStor {

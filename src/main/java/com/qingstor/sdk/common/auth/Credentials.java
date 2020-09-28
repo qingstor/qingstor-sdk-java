@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qingstor.sdk.request;
+package com.qingstor.sdk.common.auth;
 
-/** program over-design */
-@Deprecated
-public class ResourceRequestFactory {
+/**
+ * Provides access to credentials used for accessing QingStorage, these credentials are used to
+ * securely sign requests to QingStorage.
+ */
+public interface Credentials {
+    /** Returns the access key ID for this credentials. */
+    String getAccessKeyId();
 
-    public static ResourceRequest getResourceRequest() {
-        return new QSRequest();
-    }
+    /** Returns the secret access key for this credentials. */
+    String getSecretAccessKey();
 }

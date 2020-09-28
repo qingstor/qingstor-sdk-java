@@ -16,6 +16,7 @@
 package com.qingstor.sdk.request;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.common.OperationContext;
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
@@ -36,7 +37,7 @@ public class RequestHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
-    private final Map<String, Object> opCtx;
+    private final OperationContext opCtx;
 
     private final RequestInputModel paramBean;
 
@@ -52,19 +53,37 @@ public class RequestHandler {
 
     @Deprecated private QSRequestBody qsRequestBody;
 
+    @Deprecated
     public RequestHandler(
             Map<String, Object> operationCtx,
             RequestInputModel paramBean,
             Class<? extends OutputModel> outputClass)
             throws QSException {
-        this.opCtx = operationCtx;
-        this.paramBean = paramBean;
-        this.outputClass = outputClass;
-        this.builder = new QSBuilder(operationCtx, paramBean);
+        this(OperationContext.from(operationCtx), paramBean, outputClass);
     }
 
     public RequestHandler(
+            OperationContext opCtx,
+            RequestInputModel paramBean,
+            Class<? extends OutputModel> outputClass)
+            throws QSException {
+        this.opCtx = opCtx;
+        this.paramBean = paramBean;
+        this.outputClass = outputClass;
+        this.builder = new QSBuilder(opCtx, paramBean);
+    }
+
+    @Deprecated
+    public RequestHandler(
             Map<String, Object> context,
+            RequestInputModel paramBean,
+            ResponseCallBack<? extends OutputModel> asyncCallback)
+            throws QSException {
+        this(OperationContext.from(context), paramBean, asyncCallback);
+    }
+
+    public RequestHandler(
+            OperationContext context,
             RequestInputModel paramBean,
             ResponseCallBack<? extends OutputModel> asyncCallback)
             throws QSException {
@@ -82,10 +101,10 @@ public class RequestHandler {
                     QSConstant.REQUEST_ERROR_CODE, validate, out);
             this.asyncCallback.onAPIResponse(out);
         } else {
-            EnvContext envContext = (EnvContext) this.opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.opCtx.credentials();
             Request request = this.getRequest();
             QSOkHttpRequestClient.getInstance(envContext)
-                    .requestActionAsync(request, envContext.isSafeOkHttp(), this.asyncCallback);
+                    .requestActionAsync(request, this.opCtx.isSafeOKHttp(), this.asyncCallback);
         }
     }
 
@@ -103,12 +122,12 @@ public class RequestHandler {
                 throw new QSException(e.getMessage());
             }
         } else {
-            EnvContext envContext = (EnvContext) this.opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+            EnvContext envContext = (EnvContext) this.opCtx.credentials();
 
             Request request = this.getRequest();
 
             return QSOkHttpRequestClient.getInstance(envContext)
-                    .requestAction(request, envContext.isSafeOkHttp(), outputClass);
+                    .requestAction(request, this.opCtx.isSafeOKHttp(), outputClass);
         }
     }
 
@@ -176,16 +195,7 @@ public class RequestHandler {
     }
 
     private String check() {
-        String validate = this.paramBean != null ? paramBean.validateParam() : "";
-        EnvContext envContext = (EnvContext) this.opCtx.get(QSConstant.ENV_CONTEXT_KEY);
-        String envValidate = envContext.validateParam();
-        if (!QSStringUtil.isEmpty(validate) || !QSStringUtil.isEmpty(envValidate)) {
-            if (QSStringUtil.isEmpty(validate)) {
-                validate = envValidate;
-            }
-            return validate;
-        }
-        return null;
+        return this.paramBean != null ? paramBean.validateParam() : "";
     }
 
     public QSBuilder getBuilder() {

@@ -65,25 +65,19 @@ public class QSSignatureUtil {
         Arrays.sort(sortedKeys);
         int count = 0;
 
-        try {
-            for (String key : sortedKeys) {
-                if (key.equals("image")) {
-                    continue;
-                }
-                if (count != 0) {
-                    sbStringToSign.append("&");
-                }
-                sbStringToSign
-                        .append(QSStringUtil.percentEncode(key, QSConstant.ENCODING_UTF8))
-                        .append("=")
-                        .append(
-                                QSStringUtil.percentEncode(
-                                        parameters.get(key), QSConstant.ENCODING_UTF8));
-                count++;
+        for (String key : sortedKeys) {
+            if (key.equals("image")) {
+                continue;
             }
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage());
-            throw new QSException("generateQSURL error", e);
+            if (count != 0) {
+                sbStringToSign.append("&");
+            }
+            String value = parameters.get(key);
+            sbStringToSign
+                    .append(UrlUtils.rfc3986UriEncode(key, true))
+                    .append("=")
+                    .append(value == null ? null : UrlUtils.rfc3986UriEncode(value, true));
+            count++;
         }
 
         if (sbStringToSign.length() > 0) {

@@ -16,20 +16,19 @@
 package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.common.OperationContext;
 import com.qingstor.sdk.config.EnvContext;
-import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
 import com.qingstor.sdk.model.RequestInputModel;
+import com.qingstor.sdk.request.QSRequest;
 import com.qingstor.sdk.request.RequestHandler;
-import com.qingstor.sdk.request.ResourceRequestFactory;
 import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.File;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,23 +81,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucket");
-        context.put("APIName", "DeleteBucket");
-        context.put("ServiceName", "DELETE Bucket");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucket")
+                .apiName("DeleteBucket")
+                .serviceName("DELETE Bucket")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteBucketOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteBucketOutput.class);
 
         return requestHandler;
     }
@@ -127,16 +129,20 @@ public class Bucket {
     public RequestHandler deleteAsyncRequest(ResponseCallBack<DeleteBucketOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucket");
-        context.put("APIName", "DeleteBucket");
-        context.put("ServiceName", "DELETE Bucket");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucket")
+                .apiName("DeleteBucket")
+                .serviceName("DELETE Bucket")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -145,9 +151,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -192,23 +196,26 @@ public class Bucket {
             input = new DeleteBucketCNAMEInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketCNAME");
-        context.put("APIName", "DeleteBucketCNAME");
-        context.put("ServiceName", "DELETE Bucket CNAME");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?cname");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketCNAME")
+                .apiName("DeleteBucketCNAME")
+                .serviceName("DELETE Bucket CNAME")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?cname");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, DeleteBucketCNAMEOutput.class);
+                QSRequest.getRequest(builder.build(), input, DeleteBucketCNAMEOutput.class);
 
         return requestHandler;
     }
@@ -248,16 +255,20 @@ public class Bucket {
             input = new DeleteBucketCNAMEInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketCNAME");
-        context.put("APIName", "DeleteBucketCNAME");
-        context.put("ServiceName", "DELETE Bucket CNAME");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?cname");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketCNAME")
+                .apiName("DeleteBucketCNAME")
+                .serviceName("DELETE Bucket CNAME")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?cname");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -266,9 +277,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -355,23 +364,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteCORSRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketCORS");
-        context.put("APIName", "DeleteBucketCORS");
-        context.put("ServiceName", "DELETE Bucket CORS");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?cors");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketCORS")
+                .apiName("DeleteBucketCORS")
+                .serviceName("DELETE Bucket CORS")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?cors");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteBucketCORSOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteBucketCORSOutput.class);
 
         return requestHandler;
     }
@@ -401,16 +413,20 @@ public class Bucket {
     public RequestHandler deleteCORSAsyncRequest(ResponseCallBack<DeleteBucketCORSOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketCORS");
-        context.put("APIName", "DeleteBucketCORS");
-        context.put("ServiceName", "DELETE Bucket CORS");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?cors");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketCORS")
+                .apiName("DeleteBucketCORS")
+                .serviceName("DELETE Bucket CORS")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?cors");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -419,9 +435,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -458,23 +472,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteExternalMirrorRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketExternalMirror");
-        context.put("APIName", "DeleteBucketExternalMirror");
-        context.put("ServiceName", "DELETE Bucket External Mirror");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?mirror");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketExternalMirror")
+                .apiName("DeleteBucketExternalMirror")
+                .serviceName("DELETE Bucket External Mirror")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?mirror");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteBucketExternalMirrorOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteBucketExternalMirrorOutput.class);
 
         return requestHandler;
     }
@@ -504,16 +521,20 @@ public class Bucket {
     public RequestHandler deleteExternalMirrorAsyncRequest(
             ResponseCallBack<DeleteBucketExternalMirrorOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketExternalMirror");
-        context.put("APIName", "DeleteBucketExternalMirror");
-        context.put("ServiceName", "DELETE Bucket External Mirror");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?mirror");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketExternalMirror")
+                .apiName("DeleteBucketExternalMirror")
+                .serviceName("DELETE Bucket External Mirror")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?mirror");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -522,9 +543,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -560,23 +579,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteLifecycleRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketLifecycle");
-        context.put("APIName", "DeleteBucketLifecycle");
-        context.put("ServiceName", "DELETE Bucket Lifecycle");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketLifecycle")
+                .apiName("DeleteBucketLifecycle")
+                .serviceName("DELETE Bucket Lifecycle")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?lifecycle");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteBucketLifecycleOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteBucketLifecycleOutput.class);
 
         return requestHandler;
     }
@@ -606,16 +628,20 @@ public class Bucket {
     public RequestHandler deleteLifecycleAsyncRequest(
             ResponseCallBack<DeleteBucketLifecycleOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketLifecycle");
-        context.put("APIName", "DeleteBucketLifecycle");
-        context.put("ServiceName", "DELETE Bucket Lifecycle");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketLifecycle")
+                .apiName("DeleteBucketLifecycle")
+                .serviceName("DELETE Bucket Lifecycle")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?lifecycle");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -624,9 +650,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -662,23 +686,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteLoggingRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketLogging");
-        context.put("APIName", "DeleteBucketLogging");
-        context.put("ServiceName", "DELETE Bucket Logging");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?logging");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketLogging")
+                .apiName("DeleteBucketLogging")
+                .serviceName("DELETE Bucket Logging")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?logging");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteBucketLoggingOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteBucketLoggingOutput.class);
 
         return requestHandler;
     }
@@ -708,16 +735,20 @@ public class Bucket {
     public RequestHandler deleteLoggingAsyncRequest(
             ResponseCallBack<DeleteBucketLoggingOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketLogging");
-        context.put("APIName", "DeleteBucketLogging");
-        context.put("ServiceName", "DELETE Bucket Logging");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?logging");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketLogging")
+                .apiName("DeleteBucketLogging")
+                .serviceName("DELETE Bucket Logging")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?logging");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -726,9 +757,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -764,23 +793,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteNotificationRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketNotification");
-        context.put("APIName", "DeleteBucketNotification");
-        context.put("ServiceName", "DELETE Bucket Notification");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?notification");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketNotification")
+                .apiName("DeleteBucketNotification")
+                .serviceName("DELETE Bucket Notification")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?notification");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteBucketNotificationOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteBucketNotificationOutput.class);
 
         return requestHandler;
     }
@@ -810,16 +842,20 @@ public class Bucket {
     public RequestHandler deleteNotificationAsyncRequest(
             ResponseCallBack<DeleteBucketNotificationOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketNotification");
-        context.put("APIName", "DeleteBucketNotification");
-        context.put("ServiceName", "DELETE Bucket Notification");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?notification");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketNotification")
+                .apiName("DeleteBucketNotification")
+                .serviceName("DELETE Bucket Notification")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?notification");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -828,9 +864,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -866,23 +900,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deletePolicyRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketPolicy");
-        context.put("APIName", "DeleteBucketPolicy");
-        context.put("ServiceName", "DELETE Bucket Policy");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?policy");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketPolicy")
+                .apiName("DeleteBucketPolicy")
+                .serviceName("DELETE Bucket Policy")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?policy");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteBucketPolicyOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteBucketPolicyOutput.class);
 
         return requestHandler;
     }
@@ -912,16 +949,20 @@ public class Bucket {
     public RequestHandler deletePolicyAsyncRequest(
             ResponseCallBack<DeleteBucketPolicyOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteBucketPolicy");
-        context.put("APIName", "DeleteBucketPolicy");
-        context.put("ServiceName", "DELETE Bucket Policy");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>?policy");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteBucketPolicy")
+                .apiName("DeleteBucketPolicy")
+                .serviceName("DELETE Bucket Policy")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?policy");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -930,9 +971,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -979,23 +1018,26 @@ public class Bucket {
             input = new DeleteMultipleObjectsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteMultipleObjects");
-        context.put("APIName", "DeleteMultipleObjects");
-        context.put("ServiceName", "Delete Multiple Objects");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>?delete");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteMultipleObjects")
+                .apiName("DeleteMultipleObjects")
+                .serviceName("Delete Multiple Objects")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>?delete");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, DeleteMultipleObjectsOutput.class);
+                QSRequest.getRequest(builder.build(), input, DeleteMultipleObjectsOutput.class);
 
         return requestHandler;
     }
@@ -1037,16 +1079,20 @@ public class Bucket {
             input = new DeleteMultipleObjectsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteMultipleObjects");
-        context.put("APIName", "DeleteMultipleObjects");
-        context.put("ServiceName", "Delete Multiple Objects");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>?delete");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteMultipleObjects")
+                .apiName("DeleteMultipleObjects")
+                .serviceName("Delete Multiple Objects")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>?delete");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1055,9 +1101,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -1188,23 +1232,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getACLRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketACL");
-        context.put("APIName", "GetBucketACL");
-        context.put("ServiceName", "GET Bucket ACL");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?acl");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketACL")
+                .apiName("GetBucketACL")
+                .serviceName("GET Bucket ACL")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?acl");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketACLOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketACLOutput.class);
 
         return requestHandler;
     }
@@ -1233,16 +1280,20 @@ public class Bucket {
     public RequestHandler getACLAsyncRequest(ResponseCallBack<GetBucketACLOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketACL");
-        context.put("APIName", "GetBucketACL");
-        context.put("ServiceName", "GET Bucket ACL");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?acl");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketACL")
+                .apiName("GetBucketACL")
+                .serviceName("GET Bucket ACL")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?acl");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1251,9 +1302,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -1322,23 +1371,26 @@ public class Bucket {
             input = new GetBucketCNAMEInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketCNAME");
-        context.put("APIName", "GetBucketCNAME");
-        context.put("ServiceName", "GET Bucket CNAME");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?cname");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketCNAME")
+                .apiName("GetBucketCNAME")
+                .serviceName("GET Bucket CNAME")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?cname");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, GetBucketCNAMEOutput.class);
+                QSRequest.getRequest(builder.build(), input, GetBucketCNAMEOutput.class);
 
         return requestHandler;
     }
@@ -1378,16 +1430,20 @@ public class Bucket {
             input = new GetBucketCNAMEInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketCNAME");
-        context.put("APIName", "GetBucketCNAME");
-        context.put("ServiceName", "GET Bucket CNAME");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?cname");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketCNAME")
+                .apiName("GetBucketCNAME")
+                .serviceName("GET Bucket CNAME")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?cname");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1396,9 +1452,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -1507,23 +1561,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getCORSRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketCORS");
-        context.put("APIName", "GetBucketCORS");
-        context.put("ServiceName", "GET Bucket CORS");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?cors");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketCORS")
+                .apiName("GetBucketCORS")
+                .serviceName("GET Bucket CORS")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?cors");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketCORSOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketCORSOutput.class);
 
         return requestHandler;
     }
@@ -1552,16 +1609,20 @@ public class Bucket {
     public RequestHandler getCORSAsyncRequest(ResponseCallBack<GetBucketCORSOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketCORS");
-        context.put("APIName", "GetBucketCORS");
-        context.put("ServiceName", "GET Bucket CORS");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?cors");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketCORS")
+                .apiName("GetBucketCORS")
+                .serviceName("GET Bucket CORS")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?cors");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1570,9 +1631,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -1622,23 +1681,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getExternalMirrorRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketExternalMirror");
-        context.put("APIName", "GetBucketExternalMirror");
-        context.put("ServiceName", "GET Bucket External Mirror");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?mirror");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketExternalMirror")
+                .apiName("GetBucketExternalMirror")
+                .serviceName("GET Bucket External Mirror")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?mirror");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketExternalMirrorOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketExternalMirrorOutput.class);
 
         return requestHandler;
     }
@@ -1668,16 +1730,20 @@ public class Bucket {
     public RequestHandler getExternalMirrorAsyncRequest(
             ResponseCallBack<GetBucketExternalMirrorOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketExternalMirror");
-        context.put("APIName", "GetBucketExternalMirror");
-        context.put("ServiceName", "GET Bucket External Mirror");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?mirror");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketExternalMirror")
+                .apiName("GetBucketExternalMirror")
+                .serviceName("GET Bucket External Mirror")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?mirror");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1686,9 +1752,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -1737,23 +1801,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getLifecycleRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketLifecycle");
-        context.put("APIName", "GetBucketLifecycle");
-        context.put("ServiceName", "GET Bucket Lifecycle");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketLifecycle")
+                .apiName("GetBucketLifecycle")
+                .serviceName("GET Bucket Lifecycle")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?lifecycle");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketLifecycleOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketLifecycleOutput.class);
 
         return requestHandler;
     }
@@ -1783,16 +1850,20 @@ public class Bucket {
     public RequestHandler getLifecycleAsyncRequest(
             ResponseCallBack<GetBucketLifecycleOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketLifecycle");
-        context.put("APIName", "GetBucketLifecycle");
-        context.put("ServiceName", "GET Bucket Lifecycle");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketLifecycle")
+                .apiName("GetBucketLifecycle")
+                .serviceName("GET Bucket Lifecycle")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?lifecycle");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1801,9 +1872,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -1852,23 +1921,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getLoggingRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketLogging");
-        context.put("APIName", "GetBucketLogging");
-        context.put("ServiceName", "GET Bucket Logging");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?logging");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketLogging")
+                .apiName("GetBucketLogging")
+                .serviceName("GET Bucket Logging")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?logging");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketLoggingOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketLoggingOutput.class);
 
         return requestHandler;
     }
@@ -1898,16 +1970,20 @@ public class Bucket {
     public RequestHandler getLoggingAsyncRequest(ResponseCallBack<GetBucketLoggingOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketLogging");
-        context.put("APIName", "GetBucketLogging");
-        context.put("ServiceName", "GET Bucket Logging");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?logging");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketLogging")
+                .apiName("GetBucketLogging")
+                .serviceName("GET Bucket Logging")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?logging");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -1916,9 +1992,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -1978,23 +2052,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getNotificationRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketNotification");
-        context.put("APIName", "GetBucketNotification");
-        context.put("ServiceName", "GET Bucket Notification");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?notification");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketNotification")
+                .apiName("GetBucketNotification")
+                .serviceName("GET Bucket Notification")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?notification");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketNotificationOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketNotificationOutput.class);
 
         return requestHandler;
     }
@@ -2024,16 +2101,20 @@ public class Bucket {
     public RequestHandler getNotificationAsyncRequest(
             ResponseCallBack<GetBucketNotificationOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketNotification");
-        context.put("APIName", "GetBucketNotification");
-        context.put("ServiceName", "GET Bucket Notification");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?notification");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketNotification")
+                .apiName("GetBucketNotification")
+                .serviceName("GET Bucket Notification")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?notification");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2042,9 +2123,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -2093,23 +2172,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getPolicyRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketPolicy");
-        context.put("APIName", "GetBucketPolicy");
-        context.put("ServiceName", "GET Bucket Policy");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?policy");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketPolicy")
+                .apiName("GetBucketPolicy")
+                .serviceName("GET Bucket Policy")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?policy");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketPolicyOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketPolicyOutput.class);
 
         return requestHandler;
     }
@@ -2139,16 +2221,20 @@ public class Bucket {
     public RequestHandler getPolicyAsyncRequest(ResponseCallBack<GetBucketPolicyOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketPolicy");
-        context.put("APIName", "GetBucketPolicy");
-        context.put("ServiceName", "GET Bucket Policy");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?policy");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketPolicy")
+                .apiName("GetBucketPolicy")
+                .serviceName("GET Bucket Policy")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?policy");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2157,9 +2243,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -2208,23 +2292,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler getStatisticsRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketStatistics");
-        context.put("APIName", "GetBucketStatistics");
-        context.put("ServiceName", "GET Bucket Statistics");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?stats");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketStatistics")
+                .apiName("GetBucketStatistics")
+                .serviceName("GET Bucket Statistics")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?stats");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, GetBucketStatisticsOutput.class);
+                QSRequest.getRequest(builder.build(), null, GetBucketStatisticsOutput.class);
 
         return requestHandler;
     }
@@ -2254,16 +2341,20 @@ public class Bucket {
     public RequestHandler getStatisticsAsyncRequest(
             ResponseCallBack<GetBucketStatisticsOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetBucketStatistics");
-        context.put("APIName", "GetBucketStatistics");
-        context.put("ServiceName", "GET Bucket Statistics");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?stats");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetBucketStatistics")
+                .apiName("GetBucketStatistics")
+                .serviceName("GET Bucket Statistics")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?stats");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2272,9 +2363,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -2389,23 +2478,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler headRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "HeadBucket");
-        context.put("APIName", "HeadBucket");
-        context.put("ServiceName", "HEAD Bucket");
-        context.put("RequestMethod", "HEAD");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("HeadBucket")
+                .apiName("HeadBucket")
+                .serviceName("HEAD Bucket")
+                .reqMethod("HEAD")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, HeadBucketOutput.class);
+                QSRequest.getRequest(builder.build(), null, HeadBucketOutput.class);
 
         return requestHandler;
     }
@@ -2434,16 +2526,20 @@ public class Bucket {
     public RequestHandler headAsyncRequest(ResponseCallBack<HeadBucketOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "HeadBucket");
-        context.put("APIName", "HeadBucket");
-        context.put("ServiceName", "HEAD Bucket");
-        context.put("RequestMethod", "HEAD");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("HeadBucket")
+                .apiName("HeadBucket")
+                .serviceName("HEAD Bucket")
+                .reqMethod("HEAD")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2452,9 +2548,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -2501,23 +2595,26 @@ public class Bucket {
             input = new ListMultipartUploadsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListMultipartUploads");
-        context.put("APIName", "ListMultipartUploads");
-        context.put("ServiceName", "List Multipart Uploads");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?uploads");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListMultipartUploads")
+                .apiName("ListMultipartUploads")
+                .serviceName("List Multipart Uploads")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?uploads");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, ListMultipartUploadsOutput.class);
+                QSRequest.getRequest(builder.build(), input, ListMultipartUploadsOutput.class);
 
         return requestHandler;
     }
@@ -2557,16 +2654,20 @@ public class Bucket {
             input = new ListMultipartUploadsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListMultipartUploads");
-        context.put("APIName", "ListMultipartUploads");
-        context.put("ServiceName", "List Multipart Uploads");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>?uploads");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListMultipartUploads")
+                .apiName("ListMultipartUploads")
+                .serviceName("List Multipart Uploads")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?uploads");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2575,9 +2676,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -2822,23 +2921,26 @@ public class Bucket {
             input = new ListObjectsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListObjects");
-        context.put("APIName", "ListObjects");
-        context.put("ServiceName", "GET Bucket (List Objects)");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListObjects")
+                .apiName("ListObjects")
+                .serviceName("GET Bucket (List Objects)")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, ListObjectsOutput.class);
+                QSRequest.getRequest(builder.build(), input, ListObjectsOutput.class);
 
         return requestHandler;
     }
@@ -2878,16 +2980,20 @@ public class Bucket {
             input = new ListObjectsInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListObjects");
-        context.put("APIName", "ListObjects");
-        context.put("ServiceName", "GET Bucket (List Objects)");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListObjects")
+                .apiName("ListObjects")
+                .serviceName("GET Bucket (List Objects)")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -2896,9 +3002,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -3112,23 +3216,26 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler putRequest() throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucket");
-        context.put("APIName", "PutBucket");
-        context.put("ServiceName", "PUT Bucket");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucket")
+                .apiName("PutBucket")
+                .serviceName("PUT Bucket")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, PutBucketOutput.class);
+                QSRequest.getRequest(builder.build(), null, PutBucketOutput.class);
 
         return requestHandler;
     }
@@ -3157,16 +3264,20 @@ public class Bucket {
     public RequestHandler putAsyncRequest(ResponseCallBack<PutBucketOutput> callback)
             throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucket");
-        context.put("APIName", "PutBucket");
-        context.put("ServiceName", "PUT Bucket");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucket")
+                .apiName("PutBucket")
+                .serviceName("PUT Bucket")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3175,9 +3286,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -3222,23 +3331,26 @@ public class Bucket {
             input = new PutBucketACLInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketACL");
-        context.put("APIName", "PutBucketACL");
-        context.put("ServiceName", "PUT Bucket ACL");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?acl");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketACL")
+                .apiName("PutBucketACL")
+                .serviceName("PUT Bucket ACL")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?acl");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketACLOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketACLOutput.class);
 
         return requestHandler;
     }
@@ -3277,16 +3389,20 @@ public class Bucket {
             input = new PutBucketACLInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketACL");
-        context.put("APIName", "PutBucketACL");
-        context.put("ServiceName", "PUT Bucket ACL");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?acl");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketACL")
+                .apiName("PutBucketACL")
+                .serviceName("PUT Bucket ACL")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?acl");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3295,9 +3411,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -3398,23 +3512,26 @@ public class Bucket {
             input = new PutBucketCNAMEInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketCNAME");
-        context.put("APIName", "PutBucketCNAME");
-        context.put("ServiceName", "PUT Bucket CNAME");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?cname");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketCNAME")
+                .apiName("PutBucketCNAME")
+                .serviceName("PUT Bucket CNAME")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?cname");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketCNAMEOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketCNAMEOutput.class);
 
         return requestHandler;
     }
@@ -3454,16 +3571,20 @@ public class Bucket {
             input = new PutBucketCNAMEInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketCNAME");
-        context.put("APIName", "PutBucketCNAME");
-        context.put("ServiceName", "PUT Bucket CNAME");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?cname");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketCNAME")
+                .apiName("PutBucketCNAME")
+                .serviceName("PUT Bucket CNAME")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?cname");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3472,9 +3593,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -3611,23 +3730,26 @@ public class Bucket {
             input = new PutBucketCORSInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketCORS");
-        context.put("APIName", "PutBucketCORS");
-        context.put("ServiceName", "PUT Bucket CORS");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?cors");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketCORS")
+                .apiName("PutBucketCORS")
+                .serviceName("PUT Bucket CORS")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?cors");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketCORSOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketCORSOutput.class);
 
         return requestHandler;
     }
@@ -3667,16 +3789,20 @@ public class Bucket {
             input = new PutBucketCORSInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketCORS");
-        context.put("APIName", "PutBucketCORS");
-        context.put("ServiceName", "PUT Bucket CORS");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?cors");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketCORS")
+                .apiName("PutBucketCORS")
+                .serviceName("PUT Bucket CORS")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?cors");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3685,9 +3811,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -3791,23 +3915,26 @@ public class Bucket {
             input = new PutBucketExternalMirrorInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketExternalMirror");
-        context.put("APIName", "PutBucketExternalMirror");
-        context.put("ServiceName", "PUT Bucket External Mirror");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?mirror");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketExternalMirror")
+                .apiName("PutBucketExternalMirror")
+                .serviceName("PUT Bucket External Mirror")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?mirror");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketExternalMirrorOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketExternalMirrorOutput.class);
 
         return requestHandler;
     }
@@ -3849,16 +3976,20 @@ public class Bucket {
             input = new PutBucketExternalMirrorInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketExternalMirror");
-        context.put("APIName", "PutBucketExternalMirror");
-        context.put("ServiceName", "PUT Bucket External Mirror");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?mirror");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketExternalMirror")
+                .apiName("PutBucketExternalMirror")
+                .serviceName("PUT Bucket External Mirror")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?mirror");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -3867,9 +3998,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -3966,23 +4095,26 @@ public class Bucket {
             input = new PutBucketLifecycleInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketLifecycle");
-        context.put("APIName", "PutBucketLifecycle");
-        context.put("ServiceName", "PUT Bucket Lifecycle");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketLifecycle")
+                .apiName("PutBucketLifecycle")
+                .serviceName("PUT Bucket Lifecycle")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?lifecycle");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketLifecycleOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketLifecycleOutput.class);
 
         return requestHandler;
     }
@@ -4022,16 +4154,20 @@ public class Bucket {
             input = new PutBucketLifecycleInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketLifecycle");
-        context.put("APIName", "PutBucketLifecycle");
-        context.put("ServiceName", "PUT Bucket Lifecycle");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?lifecycle");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketLifecycle")
+                .apiName("PutBucketLifecycle")
+                .serviceName("PUT Bucket Lifecycle")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?lifecycle");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4040,9 +4176,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -4143,23 +4277,26 @@ public class Bucket {
             input = new PutBucketLoggingInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketLogging");
-        context.put("APIName", "PutBucketLogging");
-        context.put("ServiceName", "PUT Bucket Logging");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?logging");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketLogging")
+                .apiName("PutBucketLogging")
+                .serviceName("PUT Bucket Logging")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?logging");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketLoggingOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketLoggingOutput.class);
 
         return requestHandler;
     }
@@ -4199,16 +4336,20 @@ public class Bucket {
             input = new PutBucketLoggingInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketLogging");
-        context.put("APIName", "PutBucketLogging");
-        context.put("ServiceName", "PUT Bucket Logging");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?logging");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketLogging")
+                .apiName("PutBucketLogging")
+                .serviceName("PUT Bucket Logging")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?logging");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4217,9 +4358,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -4338,23 +4477,26 @@ public class Bucket {
             input = new PutBucketNotificationInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketNotification");
-        context.put("APIName", "PutBucketNotification");
-        context.put("ServiceName", "PUT Bucket Notification");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?notification");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketNotification")
+                .apiName("PutBucketNotification")
+                .serviceName("PUT Bucket Notification")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?notification");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketNotificationOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketNotificationOutput.class);
 
         return requestHandler;
     }
@@ -4396,16 +4538,20 @@ public class Bucket {
             input = new PutBucketNotificationInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketNotification");
-        context.put("APIName", "PutBucketNotification");
-        context.put("ServiceName", "PUT Bucket Notification");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?notification");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketNotification")
+                .apiName("PutBucketNotification")
+                .serviceName("PUT Bucket Notification")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?notification");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4414,9 +4560,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -4517,23 +4661,26 @@ public class Bucket {
             input = new PutBucketPolicyInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketPolicy");
-        context.put("APIName", "PutBucketPolicy");
-        context.put("ServiceName", "PUT Bucket Policy");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?policy");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketPolicy")
+                .apiName("PutBucketPolicy")
+                .serviceName("PUT Bucket Policy")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?policy");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutBucketPolicyOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutBucketPolicyOutput.class);
 
         return requestHandler;
     }
@@ -4573,16 +4720,20 @@ public class Bucket {
             input = new PutBucketPolicyInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutBucketPolicy");
-        context.put("APIName", "PutBucketPolicy");
-        context.put("ServiceName", "PUT Bucket Policy");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>?policy");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutBucketPolicy")
+                .apiName("PutBucketPolicy")
+                .serviceName("PUT Bucket Policy")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?policy");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
@@ -4591,9 +4742,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -4698,27 +4847,30 @@ public class Bucket {
             input = new AbortMultipartUploadInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "AbortMultipartUpload");
-        context.put("APIName", "AbortMultipartUpload");
-        context.put("ServiceName", "Abort Multipart Upload");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("AbortMultipartUpload")
+                .apiName("AbortMultipartUpload")
+                .serviceName("Abort Multipart Upload")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, AbortMultipartUploadOutput.class);
+                QSRequest.getRequest(builder.build(), input, AbortMultipartUploadOutput.class);
 
         return requestHandler;
     }
@@ -4765,20 +4917,24 @@ public class Bucket {
             input = new AbortMultipartUploadInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "AbortMultipartUpload");
-        context.put("APIName", "AbortMultipartUpload");
-        context.put("ServiceName", "Abort Multipart Upload");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("AbortMultipartUpload")
+                .apiName("AbortMultipartUpload")
+                .serviceName("Abort Multipart Upload")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -4787,9 +4943,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -4868,27 +5022,30 @@ public class Bucket {
             input = new AppendObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "AppendObject");
-        context.put("APIName", "AppendObject");
-        context.put("ServiceName", "Append Object");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?append");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("AppendObject")
+                .apiName("AppendObject")
+                .serviceName("Append Object")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>/<object-key>?append");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, AppendObjectOutput.class);
+                QSRequest.getRequest(builder.build(), input, AppendObjectOutput.class);
 
         return requestHandler;
     }
@@ -4934,20 +5091,24 @@ public class Bucket {
             input = new AppendObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "AppendObject");
-        context.put("APIName", "AppendObject");
-        context.put("ServiceName", "Append Object");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?append");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("AppendObject")
+                .apiName("AppendObject")
+                .serviceName("Append Object")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>/<object-key>?append");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -4956,9 +5117,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -5167,27 +5326,30 @@ public class Bucket {
             input = new CompleteMultipartUploadInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "CompleteMultipartUpload");
-        context.put("APIName", "CompleteMultipartUpload");
-        context.put("ServiceName", "Complete multipart upload");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("CompleteMultipartUpload")
+                .apiName("CompleteMultipartUpload")
+                .serviceName("Complete multipart upload")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, CompleteMultipartUploadOutput.class);
+                QSRequest.getRequest(builder.build(), input, CompleteMultipartUploadOutput.class);
 
         return requestHandler;
     }
@@ -5234,20 +5396,24 @@ public class Bucket {
             input = new CompleteMultipartUploadInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "CompleteMultipartUpload");
-        context.put("APIName", "CompleteMultipartUpload");
-        context.put("ServiceName", "Complete multipart upload");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("CompleteMultipartUpload")
+                .apiName("CompleteMultipartUpload")
+                .serviceName("Complete multipart upload")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5256,9 +5422,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -5472,27 +5636,30 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler deleteObjectRequest(String objectName) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteObject");
-        context.put("APIName", "DeleteObject");
-        context.put("ServiceName", "DELETE Object");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteObject")
+                .apiName("DeleteObject")
+                .serviceName("DELETE Object")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, null, DeleteObjectOutput.class);
+                QSRequest.getRequest(builder.build(), null, DeleteObjectOutput.class);
 
         return requestHandler;
     }
@@ -5524,20 +5691,24 @@ public class Bucket {
     public RequestHandler deleteObjectAsyncRequest(
             String objectName, ResponseCallBack<DeleteObjectOutput> callback) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "DeleteObject");
-        context.put("APIName", "DeleteObject");
-        context.put("ServiceName", "DELETE Object");
-        context.put("RequestMethod", "DELETE");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("DeleteObject")
+                .apiName("DeleteObject")
+                .serviceName("DELETE Object")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5546,9 +5717,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, null, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
         return requestHandler;
     }
 
@@ -5596,27 +5765,30 @@ public class Bucket {
             input = new GetObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetObject");
-        context.put("APIName", "GetObject");
-        context.put("ServiceName", "GET Object");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetObject")
+                .apiName("GetObject")
+                .serviceName("GET Object")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, GetObjectOutput.class);
+                QSRequest.getRequest(builder.build(), input, GetObjectOutput.class);
 
         return requestHandler;
     }
@@ -5658,20 +5830,24 @@ public class Bucket {
             input = new GetObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetObject");
-        context.put("APIName", "GetObject");
-        context.put("ServiceName", "GET Object");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetObject")
+                .apiName("GetObject")
+                .serviceName("GET Object")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -5680,9 +5856,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -6228,27 +6402,30 @@ public class Bucket {
             input = new HeadObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "HeadObject");
-        context.put("APIName", "HeadObject");
-        context.put("ServiceName", "HEAD Object");
-        context.put("RequestMethod", "HEAD");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("HeadObject")
+                .apiName("HeadObject")
+                .serviceName("HEAD Object")
+                .reqMethod("HEAD")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, HeadObjectOutput.class);
+                QSRequest.getRequest(builder.build(), input, HeadObjectOutput.class);
 
         return requestHandler;
     }
@@ -6290,20 +6467,24 @@ public class Bucket {
             input = new HeadObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "HeadObject");
-        context.put("APIName", "HeadObject");
-        context.put("ServiceName", "HEAD Object");
-        context.put("RequestMethod", "HEAD");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("HeadObject")
+                .apiName("HeadObject")
+                .serviceName("HEAD Object")
+                .reqMethod("HEAD")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6312,9 +6493,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -6572,27 +6751,30 @@ public class Bucket {
             input = new ImageProcessInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ImageProcess");
-        context.put("APIName", "ImageProcess");
-        context.put("ServiceName", "Image Process");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?image");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ImageProcess")
+                .apiName("ImageProcess")
+                .serviceName("Image Process")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>?image");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, ImageProcessOutput.class);
+                QSRequest.getRequest(builder.build(), input, ImageProcessOutput.class);
 
         return requestHandler;
     }
@@ -6638,20 +6820,24 @@ public class Bucket {
             input = new ImageProcessInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ImageProcess");
-        context.put("APIName", "ImageProcess");
-        context.put("ServiceName", "Image Process");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?image");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ImageProcess")
+                .apiName("ImageProcess")
+                .serviceName("Image Process")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>?image");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6660,9 +6846,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -6868,27 +7052,30 @@ public class Bucket {
             input = new InitiateMultipartUploadInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "InitiateMultipartUpload");
-        context.put("APIName", "InitiateMultipartUpload");
-        context.put("ServiceName", "Initiate Multipart Upload");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?uploads");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("InitiateMultipartUpload")
+                .apiName("InitiateMultipartUpload")
+                .serviceName("Initiate Multipart Upload")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>/<object-key>?uploads");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, InitiateMultipartUploadOutput.class);
+                QSRequest.getRequest(builder.build(), input, InitiateMultipartUploadOutput.class);
 
         return requestHandler;
     }
@@ -6935,20 +7122,24 @@ public class Bucket {
             input = new InitiateMultipartUploadInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "InitiateMultipartUpload");
-        context.put("APIName", "InitiateMultipartUpload");
-        context.put("ServiceName", "Initiate Multipart Upload");
-        context.put("RequestMethod", "POST");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?uploads");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("InitiateMultipartUpload")
+                .apiName("InitiateMultipartUpload")
+                .serviceName("Initiate Multipart Upload")
+                .reqMethod("POST")
+                .subSourcePath("/<bucket-name>/<object-key>?uploads");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -6957,9 +7148,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -7179,27 +7368,30 @@ public class Bucket {
             input = new ListMultipartInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListMultipart");
-        context.put("APIName", "ListMultipart");
-        context.put("ServiceName", "List Multipart");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListMultipart")
+                .apiName("ListMultipart")
+                .serviceName("List Multipart")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, ListMultipartOutput.class);
+                QSRequest.getRequest(builder.build(), input, ListMultipartOutput.class);
 
         return requestHandler;
     }
@@ -7245,20 +7437,24 @@ public class Bucket {
             input = new ListMultipartInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ListMultipart");
-        context.put("APIName", "ListMultipart");
-        context.put("ServiceName", "List Multipart");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ListMultipart")
+                .apiName("ListMultipart")
+                .serviceName("List Multipart")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7267,9 +7463,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -7398,27 +7592,30 @@ public class Bucket {
             input = new OptionsObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "OptionsObject");
-        context.put("APIName", "OptionsObject");
-        context.put("ServiceName", "OPTIONS Object");
-        context.put("RequestMethod", "OPTIONS");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("OptionsObject")
+                .apiName("OptionsObject")
+                .serviceName("OPTIONS Object")
+                .reqMethod("OPTIONS")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, OptionsObjectOutput.class);
+                QSRequest.getRequest(builder.build(), input, OptionsObjectOutput.class);
 
         return requestHandler;
     }
@@ -7464,20 +7661,24 @@ public class Bucket {
             input = new OptionsObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "OptionsObject");
-        context.put("APIName", "OptionsObject");
-        context.put("ServiceName", "OPTIONS Object");
-        context.put("RequestMethod", "OPTIONS");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("OptionsObject")
+                .apiName("OptionsObject")
+                .serviceName("OPTIONS Object")
+                .reqMethod("OPTIONS")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7486,9 +7687,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -7654,27 +7853,30 @@ public class Bucket {
             input = new PutObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutObject");
-        context.put("APIName", "PutObject");
-        context.put("ServiceName", "PUT Object");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutObject")
+                .apiName("PutObject")
+                .serviceName("PUT Object")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, PutObjectOutput.class);
+                QSRequest.getRequest(builder.build(), input, PutObjectOutput.class);
 
         return requestHandler;
     }
@@ -7716,20 +7918,24 @@ public class Bucket {
             input = new PutObjectInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "PutObject");
-        context.put("APIName", "PutObject");
-        context.put("ServiceName", "PUT Object");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("PutObject")
+                .apiName("PutObject")
+                .serviceName("PUT Object")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -7738,9 +7944,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -8200,27 +8404,30 @@ public class Bucket {
             input = new UploadMultipartInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "UploadMultipart");
-        context.put("APIName", "UploadMultipart");
-        context.put("ServiceName", "Upload Multipart");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("UploadMultipart")
+                .apiName("UploadMultipart")
+                .serviceName("Upload Multipart")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, UploadMultipartOutput.class);
+                QSRequest.getRequest(builder.build(), input, UploadMultipartOutput.class);
 
         return requestHandler;
     }
@@ -8267,20 +8474,24 @@ public class Bucket {
             input = new UploadMultipartInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "UploadMultipart");
-        context.put("APIName", "UploadMultipart");
-        context.put("ServiceName", "Upload Multipart");
-        context.put("RequestMethod", "PUT");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("UploadMultipart")
+                .apiName("UploadMultipart")
+                .serviceName("Upload Multipart")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
-        context.put("bucketNameInput", this.bucketName);
+        builder.bucketName(this.bucketName);
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
         }
-        context.put("objectNameInput", objectName);
+        builder.objKey(objectName);
         if (QSStringUtil.isEmpty(objectName)) {
             throw new QSException("objectName can't be empty!");
         }
@@ -8289,9 +8500,7 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequestAsync(context, input, callback);
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
         return requestHandler;
     }
     /**
@@ -8698,17 +8907,21 @@ public class Bucket {
     public RequestHandler GetObjectBySignatureUrlRequest(
             String objectName, GetObjectInput input, long expires) throws QSException {
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
-        context.put("OperationName", "GetObject");
-        context.put("APIName", "GetObject");
-        context.put("ServiceName", "Get Object");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .expires(String.valueOf(expires))
+                .operationName("GetObject")
+                .apiName("GetObject")
+                .serviceName("Get Object")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>")
+                .bucketName(this.bucketName)
+                .objKey(objectName);
 
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
@@ -8722,8 +8935,7 @@ public class Bucket {
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, OutputModel.class);
+                QSRequest.getRequest(builder.build(), input, OutputModel.class);
 
         return requestHandler;
     }
@@ -8735,18 +8947,21 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetObject");
-        context.put("APIName", "GetObject");
-        context.put("ServiceName", "QingStor");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetObject")
+                .apiName("GetObject")
+                .serviceName("QingStor")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
         Object backModel =
-                ResourceRequestFactory.getResourceRequest()
-                        .sendApiRequest(signaturedRequest, context, GetObjectOutput.class);
+                QSRequest.sendApiRequest(signaturedRequest, builder.build(), GetObjectOutput.class);
         if (backModel != null) {
             return (GetObjectOutput) backModel;
         }
@@ -8762,21 +8977,24 @@ public class Bucket {
     public void GetObjectBySignatureUrlAsync(
             String signaturedRequest, ResponseCallBack<GetObjectOutput> callback)
             throws QSException {
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "GetObject");
-        context.put("APIName", "GetObject");
-        context.put("ServiceName", "QingStor");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>");
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("GetObject")
+                .apiName("GetObject")
+                .serviceName("QingStor")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>");
 
         if (callback == null) {
             throw new QSException("callback can't be null");
         }
 
-        ResourceRequestFactory.getResourceRequest()
-                .sendApiRequestAsync(signaturedRequest, context, callback);
+        QSRequest.sendApiRequestAsync(signaturedRequest, builder.build(), callback);
     }
 
     /**
@@ -8795,19 +9013,22 @@ public class Bucket {
             input = new ImageProcessInput();
         }
 
-        Map<String, Object> context = new HashMap<>();
-        context.put(QSConstant.PARAM_KEY_REQUEST_ZONE, this.zone);
-        context.put(QSConstant.ENV_CONTEXT_KEY, this.envContext);
-        context.put("OperationName", "ImageProcess");
-        context.put("APIName", "ImageProcess");
-        context.put("ServiceName", "Image Process");
-        context.put("RequestMethod", "GET");
-        context.put("RequestURI", "/<bucket-name>/<object-key>?image");
-        context.put("bucketNameInput", this.bucketName);
-        context.put("objectNameInput", objectName);
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.userAgent(this.envContext.getAdditionalUserAgent())
+                .safeOKHttp(this.envContext.isSafeOkHttp())
+                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
+                .endpoint(this.envContext.getRequestUrl())
+                .zone(this.zone)
+                .credentials(this.envContext)
+                .operationName("ImageProcess")
+                .apiName("ImageProcess")
+                .serviceName("Image Process")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>/<object-key>?image")
+                .bucketName(this.bucketName)
+                .objKey(objectName);
 
-        if (expires > System.currentTimeMillis() / 1000)
-            context.put(QSConstant.PARAM_KEY_EXPIRES, String.valueOf(expires));
+        if (expires > System.currentTimeMillis() / 1000) builder.expires(String.valueOf(expires));
 
         if (QSStringUtil.isEmpty(bucketName)) {
             throw new QSException("bucketName can't be empty!");
@@ -8817,8 +9038,7 @@ public class Bucket {
         }
 
         RequestHandler requestHandler =
-                ResourceRequestFactory.getResourceRequest()
-                        .getRequest(context, input, ImageProcessOutput.class);
+                QSRequest.getRequest(builder.build(), input, ImageProcessOutput.class);
 
         return requestHandler;
     }

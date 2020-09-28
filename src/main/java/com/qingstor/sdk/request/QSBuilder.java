@@ -15,7 +15,8 @@
  */
 package com.qingstor.sdk.request;
 
-import com.qingstor.sdk.config.EnvContext;
+import com.qingstor.sdk.common.OperationContext;
+import com.qingstor.sdk.common.auth.Credentials;
 import com.qingstor.sdk.constants.ParamType;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
@@ -46,7 +47,7 @@ public class QSBuilder {
 
     private static final Logger log = LoggerFactory.getLogger(QSBuilder.class);
 
-    private Map<String, Object> opCtx;
+    private OperationContext opCtx;
 
     private RequestInputModel paramsModel;
 
@@ -64,15 +65,20 @@ public class QSBuilder {
 
     private boolean pathMode;
 
+    @Deprecated
     public QSBuilder(Map opCtx, RequestInputModel params) throws QSException {
-        this.opCtx = opCtx;
+        this(OperationContext.from(opCtx), params);
+    }
+
+    public QSBuilder(OperationContext ctx, RequestInputModel params) throws QSException {
+        this.opCtx = ctx;
         this.paramsModel = params;
         this.initHeadersAndBody();
         this.initUrlWithQueries();
     }
 
     private void initHeadersAndBody() throws QSException {
-        this.httpMethod = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
+        this.httpMethod = opCtx.reqMethod();
         this.paramsHeaders = QSParamInvokeUtil.getRequestParams(this.paramsModel, ParamType.HEADER);
 
         if (this.paramsHeaders.containsKey(QSConstant.PARAM_KEY_METADATA)) {
@@ -86,16 +92,14 @@ public class QSBuilder {
             this.paramsHeaders.remove(QSConstant.PARAM_KEY_METADATA);
         }
 
-        EnvContext ctx = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
-        String additionalUserAgent = ctx.getAdditionalUserAgent();
+        String additionalUserAgent = opCtx.userAgent();
         additionalUserAgent =
                 (additionalUserAgent == null ? QSStringUtil.getUserAgent() : additionalUserAgent);
         paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, additionalUserAgent);
 
         if (this.checkExpiresParam()) {
             paramsHeaders.clear();
-            paramsHeaders.put(
-                    QSConstant.HEADER_PARAM_KEY_EXPIRES, opCtx.get(QSConstant.PARAM_KEY_EXPIRES));
+            paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_EXPIRES, opCtx.expires());
         }
 
         this.paramsBody =
@@ -112,15 +116,13 @@ public class QSBuilder {
     }
 
     private void initUrlWithQueries() throws QSException {
-        String zone = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_ZONE);
-        String bucketName = (String) this.opCtx.get(QSConstant.PARAM_KEY_BUCKET_NAME);
-        String objectName = (String) this.opCtx.get(QSConstant.PARAM_KEY_OBJECT_NAME);
+        String zone = opCtx.zone();
+        String bucketName = opCtx.bucketName();
+        String objectName = opCtx.objKey();
 
-        EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
-        this.pathMode = !envContext.isVirtualHostEnabled();
+        this.pathMode = !opCtx.isVirtualHostEnabled();
 
-        HttpUrl endpoint =
-                UrlUtils.calcFinalEndpoint(envContext.getRequestUrl(), zone, bucketName, pathMode);
+        HttpUrl endpoint = UrlUtils.calcFinalEndpoint(opCtx.endpoint(), zone, bucketName, pathMode);
         if (endpoint == null) {
             throw new QSException("url parsing failed");
         }
@@ -129,7 +131,7 @@ public class QSBuilder {
         this.urlWithoutQueries = endpoint.newBuilder().addEncodedPathSegments(resourcePath).build();
         HttpUrl.Builder urlBuilder = this.urlWithoutQueries.newBuilder();
 
-        String requestPath = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_PATH);
+        String requestPath = opCtx.subSourcePath();
         int i = requestPath.indexOf('?');
         if (i != -1) {
             String extraQueries = requestPath.substring(i + 1);
@@ -176,7 +178,7 @@ public class QSBuilder {
     }
 
     private void initHeadContentMd5(Map paramsBody, Map headerParams) throws QSException {
-        String requestApi = (String) opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
+        String requestApi = opCtx.apiName();
         if (QSConstant.PARAM_KEY_REQUEST_API_DELETE_MULTIPART.equals(requestApi)) {
             if (paramsBody.size() > 0) {
                 Object bodyContent = QSNormalRequestBody.getBodyContent(paramsBody);
@@ -197,7 +199,7 @@ public class QSBuilder {
         if (this.paramsFormData != null && this.paramsFormData.size() > 0) {
             return new QSFormRequestBody();
         } else {
-            String requestApi = (String) this.opCtx.get(QSConstant.PARAM_KEY_REQUEST_APINAME);
+            String requestApi = opCtx.apiName();
             if (QSConstant.PARAM_KEY_REQUEST_API_MULTIPART.equals(requestApi)) {
                 return new QSMultiPartUploadRequestBody();
             } else {
@@ -255,11 +257,11 @@ public class QSBuilder {
         HttpUrl.Builder builder = this.urlWithoutQueries.newBuilder();
         this.paramsQuery.forEach(
                 (k, v) -> builder.addQueryParameter(k.toString(), v == null ? null : v.toString()));
-        Object expiresTime = this.opCtx.get(QSConstant.PARAM_KEY_EXPIRES);
+        String expiresTime = opCtx.expires();
         if (expiresTime != null) {
-            EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+            Credentials credentials = opCtx.credentials();
             String expireAuth = this.getSignature();
-            String ak = envContext.getAccessKeyId();
+            String ak = credentials.getAccessKeyId();
             builder.addQueryParameter("access_key_id", ak)
                     .addQueryParameter("expires", expiresTime.toString())
                     .addQueryParameter("signature", expireAuth);
@@ -272,7 +274,7 @@ public class QSBuilder {
         if (this.pathMode) {
             return encodedPath;
         }
-        String bucketName = (String) this.opCtx.get(QSConstant.PARAM_KEY_BUCKET_NAME);
+        String bucketName = opCtx.bucketName();
         return "/" + (bucketName != null ? bucketName + encodedPath : "");
     }
 
@@ -281,14 +283,12 @@ public class QSBuilder {
     }
 
     private boolean checkExpiresParam() {
-        Object expiresTime = this.opCtx.get(QSConstant.PARAM_KEY_EXPIRES);
+        String expiresTime = opCtx.expires();
         return expiresTime != null;
     }
 
     public void setSignature(String accessKey, String signature) throws QSException {
         try {
-            EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
-            envContext.setAccessKeyId(accessKey);
             if (this.checkExpiresParam()) {
                 signature = URLEncoder.encode(signature, QSConstant.ENCODING_UTF8);
             } else {
@@ -312,17 +312,17 @@ public class QSBuilder {
             return signature;
         }
         String authSign;
-        EnvContext envContext = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
+        Credentials credentials = opCtx.credentials();
         try {
             if (this.checkExpiresParam()) {
                 authSign =
                         QSSignatureUtil.generateSignature(
-                                envContext.getSecretAccessKey(), this.getStringToSignature());
+                                credentials.getSecretAccessKey(), this.getStringToSignature());
             } else {
                 authSign =
                         QSSignatureUtil.generateAuthorization(
-                                envContext.getAccessKeyId(),
-                                envContext.getSecretAccessKey(),
+                                credentials.getAccessKeyId(),
+                                credentials.getSecretAccessKey(),
                                 this.getStringToSignature());
             }
         } catch (Exception e) {
