@@ -17,6 +17,8 @@ package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.common.OperationContext;
+import com.qingstor.sdk.common.auth.Credentials;
+import com.qingstor.sdk.config.ClientConfiguration;
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
@@ -34,19 +36,22 @@ import java.util.List;
  */
 public class QingStor {
     private String zone;
-    private EnvContext envContext;
+    private Credentials cred;
+    private ClientConfiguration clientCfg;
 
     public QingStor(EnvContext envContext, String zone) {
-        this.envContext = envContext;
+        this.cred = envContext;
+        this.clientCfg = ClientConfiguration.from(envContext);
         this.zone = zone;
     }
 
     public QingStor(EnvContext envContext) {
-        this.envContext = envContext;
+        this.cred = envContext;
+        this.clientCfg = ClientConfiguration.from(envContext);
     }
 
     public Bucket getBucket(String bucketName, String zone) {
-        return new Bucket(this.envContext, zone, bucketName);
+        return new Bucket(this.cred, this.clientCfg, zone, bucketName);
     }
 
     /**
@@ -84,12 +89,9 @@ public class QingStor {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListBuckets")
                 .apiName("ListBuckets")
                 .serviceName("Get Service")
@@ -138,12 +140,9 @@ public class QingStor {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListBuckets")
                 .apiName("ListBuckets")
                 .serviceName("Get Service")

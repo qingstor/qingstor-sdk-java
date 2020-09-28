@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/** DO NOT use code in this class in your project, it's not aims to be used outside. */
 public class QSJSONUtil {
 
     private static ObjectMapper om = new ObjectMapper();

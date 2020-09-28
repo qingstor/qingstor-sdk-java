@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
+import com.qingstor.sdk.common.auth.Credentials;
+import com.qingstor.sdk.config.ClientConfiguration;
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
@@ -39,10 +41,20 @@ import com.qingstor.sdk.common.OperationContext;
 public class Bucket {
     private String zone;
     private String bucketName;
-    private EnvContext envContext;
+    private Credentials cred;
+    private ClientConfiguration clientCfg;
 
-    public Bucket(EnvContext envContext, String zone,String bucketName) {
-        this.envContext = envContext;
+    public Bucket(EnvContext envContext, String zone, String bucketName) {
+        this.cred = envContext;
+        this.clientCfg = ClientConfiguration.from(envContext);
+        this.zone = zone;
+        this.bucketName = bucketName;
+    }
+
+    // Provided for {@code QingStor#getBucket()} only currently.
+    Bucket(Credentials cred, ClientConfiguration clientCfg, String zone, String bucketName) {
+        this.cred = cred;
+        this.clientCfg = clientCfg;
         this.zone = zone;
         this.bucketName = bucketName;
     }
@@ -78,12 +90,9 @@ public class Bucket {
                 throws QSException {
 
             OperationContext.OperationContextBuilder builder = OperationContext.builder();
-            builder.userAgent(this.envContext.getAdditionalUserAgent())
-                                   .safeOKHttp(this.envContext.isSafeOkHttp())
-                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                                   .endpoint(this.envContext.getRequestUrl())
+            builder.clientCfg(this.clientCfg)
                     .zone(this.zone)
-                    .credentials(this.envContext)
+                    .credentials(this.cred)
                     .expires(String.valueOf(expires))
                     .operationName("GetObject")
                     .apiName("GetObject")
@@ -117,12 +126,9 @@ public class Bucket {
         @SuppressWarnings({"rawtypes", "unchecked"})
         public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
             OperationContext.OperationContextBuilder builder = OperationContext.builder();
-            builder.userAgent(this.envContext.getAdditionalUserAgent())
-                                   .safeOKHttp(this.envContext.isSafeOkHttp())
-                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                                   .endpoint(this.envContext.getRequestUrl())
+            builder.clientCfg(this.clientCfg)
                     .zone(this.zone)
-                    .credentials(this.envContext)
+                    .credentials(this.cred)
                     .operationName("GetObject")
                     .apiName("GetObject")
                     .serviceName("QingStor")
@@ -148,12 +154,9 @@ public class Bucket {
                 String signaturedRequest, ResponseCallBack<GetObjectOutput> callback)
                 throws QSException {
             OperationContext.OperationContextBuilder builder = OperationContext.builder();
-            builder.userAgent(this.envContext.getAdditionalUserAgent())
-                                   .safeOKHttp(this.envContext.isSafeOkHttp())
-                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                                   .endpoint(this.envContext.getRequestUrl())
+            builder.clientCfg(this.clientCfg)
                     .zone(this.zone)
-                    .credentials(this.envContext)
+                    .credentials(this.cred)
                     .operationName("GetObject")
                     .apiName("GetObject")
                     .serviceName("QingStor")
@@ -187,12 +190,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                                   .safeOKHttp(this.envContext.isSafeOkHttp())
-                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                                   .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ImageProcess")
                 .apiName("ImageProcess")
                 .serviceName("Image Process")

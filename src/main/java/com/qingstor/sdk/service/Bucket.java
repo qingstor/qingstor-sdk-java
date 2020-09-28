@@ -17,6 +17,8 @@ package com.qingstor.sdk.service;
 
 import com.qingstor.sdk.annotation.ParamAnnotation;
 import com.qingstor.sdk.common.OperationContext;
+import com.qingstor.sdk.common.auth.Credentials;
+import com.qingstor.sdk.config.ClientConfiguration;
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.model.OutputModel;
@@ -48,10 +50,20 @@ import java.util.Map;
 public class Bucket {
     private String zone;
     private String bucketName;
-    private EnvContext envContext;
+    private Credentials cred;
+    private ClientConfiguration clientCfg;
 
     public Bucket(EnvContext envContext, String zone, String bucketName) {
-        this.envContext = envContext;
+        this.cred = envContext;
+        this.clientCfg = ClientConfiguration.from(envContext);
+        this.zone = zone;
+        this.bucketName = bucketName;
+    }
+
+    // Provided for {@code QingStor#getBucket()} only currently.
+    Bucket(Credentials cred, ClientConfiguration clientCfg, String zone, String bucketName) {
+        this.cred = cred;
+        this.clientCfg = clientCfg;
         this.zone = zone;
         this.bucketName = bucketName;
     }
@@ -82,12 +94,9 @@ public class Bucket {
     public RequestHandler deleteRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucket")
                 .apiName("DeleteBucket")
                 .serviceName("DELETE Bucket")
@@ -130,12 +139,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucket")
                 .apiName("DeleteBucket")
                 .serviceName("DELETE Bucket")
@@ -197,12 +203,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketCNAME")
                 .apiName("DeleteBucketCNAME")
                 .serviceName("DELETE Bucket CNAME")
@@ -256,12 +259,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketCNAME")
                 .apiName("DeleteBucketCNAME")
                 .serviceName("DELETE Bucket CNAME")
@@ -365,12 +365,9 @@ public class Bucket {
     public RequestHandler deleteCORSRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketCORS")
                 .apiName("DeleteBucketCORS")
                 .serviceName("DELETE Bucket CORS")
@@ -414,12 +411,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketCORS")
                 .apiName("DeleteBucketCORS")
                 .serviceName("DELETE Bucket CORS")
@@ -473,12 +467,9 @@ public class Bucket {
     public RequestHandler deleteExternalMirrorRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketExternalMirror")
                 .apiName("DeleteBucketExternalMirror")
                 .serviceName("DELETE Bucket External Mirror")
@@ -522,12 +513,9 @@ public class Bucket {
             ResponseCallBack<DeleteBucketExternalMirrorOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketExternalMirror")
                 .apiName("DeleteBucketExternalMirror")
                 .serviceName("DELETE Bucket External Mirror")
@@ -580,12 +568,9 @@ public class Bucket {
     public RequestHandler deleteLifecycleRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketLifecycle")
                 .apiName("DeleteBucketLifecycle")
                 .serviceName("DELETE Bucket Lifecycle")
@@ -629,12 +614,9 @@ public class Bucket {
             ResponseCallBack<DeleteBucketLifecycleOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketLifecycle")
                 .apiName("DeleteBucketLifecycle")
                 .serviceName("DELETE Bucket Lifecycle")
@@ -687,12 +669,9 @@ public class Bucket {
     public RequestHandler deleteLoggingRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketLogging")
                 .apiName("DeleteBucketLogging")
                 .serviceName("DELETE Bucket Logging")
@@ -736,12 +715,9 @@ public class Bucket {
             ResponseCallBack<DeleteBucketLoggingOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketLogging")
                 .apiName("DeleteBucketLogging")
                 .serviceName("DELETE Bucket Logging")
@@ -794,12 +770,9 @@ public class Bucket {
     public RequestHandler deleteNotificationRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketNotification")
                 .apiName("DeleteBucketNotification")
                 .serviceName("DELETE Bucket Notification")
@@ -843,12 +816,9 @@ public class Bucket {
             ResponseCallBack<DeleteBucketNotificationOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketNotification")
                 .apiName("DeleteBucketNotification")
                 .serviceName("DELETE Bucket Notification")
@@ -901,12 +871,9 @@ public class Bucket {
     public RequestHandler deletePolicyRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketPolicy")
                 .apiName("DeleteBucketPolicy")
                 .serviceName("DELETE Bucket Policy")
@@ -950,12 +917,9 @@ public class Bucket {
             ResponseCallBack<DeleteBucketPolicyOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteBucketPolicy")
                 .apiName("DeleteBucketPolicy")
                 .serviceName("DELETE Bucket Policy")
@@ -1019,12 +983,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteMultipleObjects")
                 .apiName("DeleteMultipleObjects")
                 .serviceName("Delete Multiple Objects")
@@ -1080,12 +1041,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteMultipleObjects")
                 .apiName("DeleteMultipleObjects")
                 .serviceName("Delete Multiple Objects")
@@ -1233,12 +1191,9 @@ public class Bucket {
     public RequestHandler getACLRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketACL")
                 .apiName("GetBucketACL")
                 .serviceName("GET Bucket ACL")
@@ -1281,12 +1236,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketACL")
                 .apiName("GetBucketACL")
                 .serviceName("GET Bucket ACL")
@@ -1372,12 +1324,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketCNAME")
                 .apiName("GetBucketCNAME")
                 .serviceName("GET Bucket CNAME")
@@ -1431,12 +1380,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketCNAME")
                 .apiName("GetBucketCNAME")
                 .serviceName("GET Bucket CNAME")
@@ -1562,12 +1508,9 @@ public class Bucket {
     public RequestHandler getCORSRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketCORS")
                 .apiName("GetBucketCORS")
                 .serviceName("GET Bucket CORS")
@@ -1610,12 +1553,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketCORS")
                 .apiName("GetBucketCORS")
                 .serviceName("GET Bucket CORS")
@@ -1682,12 +1622,9 @@ public class Bucket {
     public RequestHandler getExternalMirrorRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketExternalMirror")
                 .apiName("GetBucketExternalMirror")
                 .serviceName("GET Bucket External Mirror")
@@ -1731,12 +1668,9 @@ public class Bucket {
             ResponseCallBack<GetBucketExternalMirrorOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketExternalMirror")
                 .apiName("GetBucketExternalMirror")
                 .serviceName("GET Bucket External Mirror")
@@ -1802,12 +1736,9 @@ public class Bucket {
     public RequestHandler getLifecycleRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketLifecycle")
                 .apiName("GetBucketLifecycle")
                 .serviceName("GET Bucket Lifecycle")
@@ -1851,12 +1782,9 @@ public class Bucket {
             ResponseCallBack<GetBucketLifecycleOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketLifecycle")
                 .apiName("GetBucketLifecycle")
                 .serviceName("GET Bucket Lifecycle")
@@ -1922,12 +1850,9 @@ public class Bucket {
     public RequestHandler getLoggingRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketLogging")
                 .apiName("GetBucketLogging")
                 .serviceName("GET Bucket Logging")
@@ -1971,12 +1896,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketLogging")
                 .apiName("GetBucketLogging")
                 .serviceName("GET Bucket Logging")
@@ -2053,12 +1975,9 @@ public class Bucket {
     public RequestHandler getNotificationRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketNotification")
                 .apiName("GetBucketNotification")
                 .serviceName("GET Bucket Notification")
@@ -2102,12 +2021,9 @@ public class Bucket {
             ResponseCallBack<GetBucketNotificationOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketNotification")
                 .apiName("GetBucketNotification")
                 .serviceName("GET Bucket Notification")
@@ -2173,12 +2089,9 @@ public class Bucket {
     public RequestHandler getPolicyRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketPolicy")
                 .apiName("GetBucketPolicy")
                 .serviceName("GET Bucket Policy")
@@ -2222,12 +2135,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketPolicy")
                 .apiName("GetBucketPolicy")
                 .serviceName("GET Bucket Policy")
@@ -2293,12 +2203,9 @@ public class Bucket {
     public RequestHandler getStatisticsRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketStatistics")
                 .apiName("GetBucketStatistics")
                 .serviceName("GET Bucket Statistics")
@@ -2342,12 +2249,9 @@ public class Bucket {
             ResponseCallBack<GetBucketStatisticsOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetBucketStatistics")
                 .apiName("GetBucketStatistics")
                 .serviceName("GET Bucket Statistics")
@@ -2479,12 +2383,9 @@ public class Bucket {
     public RequestHandler headRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("HeadBucket")
                 .apiName("HeadBucket")
                 .serviceName("HEAD Bucket")
@@ -2527,12 +2428,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("HeadBucket")
                 .apiName("HeadBucket")
                 .serviceName("HEAD Bucket")
@@ -2596,12 +2494,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListMultipartUploads")
                 .apiName("ListMultipartUploads")
                 .serviceName("List Multipart Uploads")
@@ -2655,12 +2550,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListMultipartUploads")
                 .apiName("ListMultipartUploads")
                 .serviceName("List Multipart Uploads")
@@ -2922,12 +2814,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListObjects")
                 .apiName("ListObjects")
                 .serviceName("GET Bucket (List Objects)")
@@ -2981,12 +2870,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListObjects")
                 .apiName("ListObjects")
                 .serviceName("GET Bucket (List Objects)")
@@ -3217,12 +3103,9 @@ public class Bucket {
     public RequestHandler putRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucket")
                 .apiName("PutBucket")
                 .serviceName("PUT Bucket")
@@ -3265,12 +3148,9 @@ public class Bucket {
             throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucket")
                 .apiName("PutBucket")
                 .serviceName("PUT Bucket")
@@ -3332,12 +3212,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketACL")
                 .apiName("PutBucketACL")
                 .serviceName("PUT Bucket ACL")
@@ -3390,12 +3267,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketACL")
                 .apiName("PutBucketACL")
                 .serviceName("PUT Bucket ACL")
@@ -3513,12 +3387,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketCNAME")
                 .apiName("PutBucketCNAME")
                 .serviceName("PUT Bucket CNAME")
@@ -3572,12 +3443,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketCNAME")
                 .apiName("PutBucketCNAME")
                 .serviceName("PUT Bucket CNAME")
@@ -3731,12 +3599,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketCORS")
                 .apiName("PutBucketCORS")
                 .serviceName("PUT Bucket CORS")
@@ -3790,12 +3655,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketCORS")
                 .apiName("PutBucketCORS")
                 .serviceName("PUT Bucket CORS")
@@ -3916,12 +3778,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketExternalMirror")
                 .apiName("PutBucketExternalMirror")
                 .serviceName("PUT Bucket External Mirror")
@@ -3977,12 +3836,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketExternalMirror")
                 .apiName("PutBucketExternalMirror")
                 .serviceName("PUT Bucket External Mirror")
@@ -4096,12 +3952,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketLifecycle")
                 .apiName("PutBucketLifecycle")
                 .serviceName("PUT Bucket Lifecycle")
@@ -4155,12 +4008,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketLifecycle")
                 .apiName("PutBucketLifecycle")
                 .serviceName("PUT Bucket Lifecycle")
@@ -4278,12 +4128,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketLogging")
                 .apiName("PutBucketLogging")
                 .serviceName("PUT Bucket Logging")
@@ -4337,12 +4184,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketLogging")
                 .apiName("PutBucketLogging")
                 .serviceName("PUT Bucket Logging")
@@ -4478,12 +4322,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketNotification")
                 .apiName("PutBucketNotification")
                 .serviceName("PUT Bucket Notification")
@@ -4539,12 +4380,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketNotification")
                 .apiName("PutBucketNotification")
                 .serviceName("PUT Bucket Notification")
@@ -4662,12 +4500,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketPolicy")
                 .apiName("PutBucketPolicy")
                 .serviceName("PUT Bucket Policy")
@@ -4721,12 +4556,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutBucketPolicy")
                 .apiName("PutBucketPolicy")
                 .serviceName("PUT Bucket Policy")
@@ -4848,12 +4680,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("AbortMultipartUpload")
                 .apiName("AbortMultipartUpload")
                 .serviceName("Abort Multipart Upload")
@@ -4918,12 +4747,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("AbortMultipartUpload")
                 .apiName("AbortMultipartUpload")
                 .serviceName("Abort Multipart Upload")
@@ -5023,12 +4849,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("AppendObject")
                 .apiName("AppendObject")
                 .serviceName("Append Object")
@@ -5092,12 +4915,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("AppendObject")
                 .apiName("AppendObject")
                 .serviceName("Append Object")
@@ -5327,12 +5147,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("CompleteMultipartUpload")
                 .apiName("CompleteMultipartUpload")
                 .serviceName("Complete multipart upload")
@@ -5397,12 +5214,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("CompleteMultipartUpload")
                 .apiName("CompleteMultipartUpload")
                 .serviceName("Complete multipart upload")
@@ -5637,12 +5451,9 @@ public class Bucket {
     public RequestHandler deleteObjectRequest(String objectName) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteObject")
                 .apiName("DeleteObject")
                 .serviceName("DELETE Object")
@@ -5692,12 +5503,9 @@ public class Bucket {
             String objectName, ResponseCallBack<DeleteObjectOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("DeleteObject")
                 .apiName("DeleteObject")
                 .serviceName("DELETE Object")
@@ -5766,12 +5574,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetObject")
                 .apiName("GetObject")
                 .serviceName("GET Object")
@@ -5831,12 +5636,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetObject")
                 .apiName("GetObject")
                 .serviceName("GET Object")
@@ -6403,12 +6205,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("HeadObject")
                 .apiName("HeadObject")
                 .serviceName("HEAD Object")
@@ -6468,12 +6267,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("HeadObject")
                 .apiName("HeadObject")
                 .serviceName("HEAD Object")
@@ -6752,12 +6548,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ImageProcess")
                 .apiName("ImageProcess")
                 .serviceName("Image Process")
@@ -6821,12 +6614,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ImageProcess")
                 .apiName("ImageProcess")
                 .serviceName("Image Process")
@@ -7053,12 +6843,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("InitiateMultipartUpload")
                 .apiName("InitiateMultipartUpload")
                 .serviceName("Initiate Multipart Upload")
@@ -7123,12 +6910,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("InitiateMultipartUpload")
                 .apiName("InitiateMultipartUpload")
                 .serviceName("Initiate Multipart Upload")
@@ -7369,12 +7153,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListMultipart")
                 .apiName("ListMultipart")
                 .serviceName("List Multipart")
@@ -7438,12 +7219,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ListMultipart")
                 .apiName("ListMultipart")
                 .serviceName("List Multipart")
@@ -7593,12 +7371,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("OptionsObject")
                 .apiName("OptionsObject")
                 .serviceName("OPTIONS Object")
@@ -7662,12 +7437,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("OptionsObject")
                 .apiName("OptionsObject")
                 .serviceName("OPTIONS Object")
@@ -7854,12 +7626,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutObject")
                 .apiName("PutObject")
                 .serviceName("PUT Object")
@@ -7919,12 +7688,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("PutObject")
                 .apiName("PutObject")
                 .serviceName("PUT Object")
@@ -8405,12 +8171,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("UploadMultipart")
                 .apiName("UploadMultipart")
                 .serviceName("Upload Multipart")
@@ -8475,12 +8238,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("UploadMultipart")
                 .apiName("UploadMultipart")
                 .serviceName("Upload Multipart")
@@ -8908,12 +8668,9 @@ public class Bucket {
             String objectName, GetObjectInput input, long expires) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .expires(String.valueOf(expires))
                 .operationName("GetObject")
                 .apiName("GetObject")
@@ -8948,12 +8705,9 @@ public class Bucket {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput GetObjectBySignatureUrl(String signaturedRequest) throws QSException {
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetObject")
                 .apiName("GetObject")
                 .serviceName("QingStor")
@@ -8978,12 +8732,9 @@ public class Bucket {
             String signaturedRequest, ResponseCallBack<GetObjectOutput> callback)
             throws QSException {
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("GetObject")
                 .apiName("GetObject")
                 .serviceName("QingStor")
@@ -9014,12 +8765,9 @@ public class Bucket {
         }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                .safeOKHttp(this.envContext.isSafeOkHttp())
-                .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("ImageProcess")
                 .apiName("ImageProcess")
                 .serviceName("Image Process")

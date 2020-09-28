@@ -65,8 +65,8 @@ public class QSParamInvokeUtil {
             Map<String, Object> retParametersMap,
             String paramType)
             throws QSException {
-        Field[] declaredField = objClass.getDeclaredFields();
-        for (Field field : declaredField) {
+        Field[] fields = objClass.getDeclaredFields();
+        for (Field field : fields) {
             String methodName = "get" + QSStringUtil.capitalize(field.getName());
             String fieldName = field.getName();
             Method[] methods = objClass.getDeclaredMethods();
@@ -76,12 +76,10 @@ public class QSParamInvokeUtil {
                     if (annotation == null) {
                         continue;
                     }
-                    if (!"".equals(annotation.paramName())) {
+                    if (!annotation.paramName().equals("")) {
                         fieldName = annotation.paramName();
                     }
-                    if (paramType.equals(annotation.paramType())) {
-                        setParameterToMap(m, source, retParametersMap, fieldName);
-                    } else if ("".equals(paramType)) {
+                    if (paramType.equals(annotation.paramType()) || paramType.equals("")) {
                         setParameterToMap(m, source, retParametersMap, fieldName);
                     }
                 }
@@ -92,9 +90,8 @@ public class QSParamInvokeUtil {
     private static void setParameterToMap(
             Method m, Object source, Map<String, Object> targetParametersMap, String paramKey)
             throws QSException {
-        Object[] invokeParams = null;
         try {
-            Object objValue = m.invoke(source, invokeParams);
+            Object objValue = m.invoke(source, (Object[]) null);
             if (objValue != null) {
                 targetParametersMap.put(paramKey, objValue);
             }

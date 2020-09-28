@@ -24,6 +24,12 @@ protocol: 'https'
 # Valid request url styles are "virtual_host_style" and "path_style"(default).
 virtual_host_enabled: false
 
+# cname_support is used when you want access object use your own domain.
+# You can aliasing a bucket by adding cname record to map your own domain to some bucket of qingstor.
+# then you can access your object of this bucket use your url with object path.
+# Note: if this value is set to true, virtual_host_enabled must be true too.
+cname_support: false
+
 # optional
 http_config:
   # unit: second

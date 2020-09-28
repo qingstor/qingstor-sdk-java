@@ -92,10 +92,9 @@ public class QSBuilder {
             this.paramsHeaders.remove(QSConstant.PARAM_KEY_METADATA);
         }
 
-        String additionalUserAgent = opCtx.userAgent();
-        additionalUserAgent =
-                (additionalUserAgent == null ? QSStringUtil.getUserAgent() : additionalUserAgent);
-        paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, additionalUserAgent);
+        String customUA = opCtx.clientCfg().userAgent();
+        customUA = (customUA == null ? QSStringUtil.getUserAgent() : customUA);
+        paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, customUA);
 
         if (this.checkExpiresParam()) {
             paramsHeaders.clear();
@@ -120,12 +119,13 @@ public class QSBuilder {
         String bucketName = opCtx.bucketName();
         String objectName = opCtx.objKey();
 
-        this.pathMode = !opCtx.isVirtualHostEnabled();
-
-        HttpUrl endpoint = UrlUtils.calcFinalEndpoint(opCtx.endpoint(), zone, bucketName, pathMode);
+        HttpUrl endpoint =
+                UrlUtils.calcFinalEndpoint(
+                        opCtx.clientCfg().endpoint(), zone, bucketName, opCtx.clientCfg());
         if (endpoint == null) {
             throw new QSException("url parsing failed");
         }
+        this.pathMode = !opCtx.clientCfg().isVirtualHostEnabled();
         String resourcePath = UrlUtils.calcResourcePath(bucketName, objectName, pathMode);
 
         this.urlWithoutQueries = endpoint.newBuilder().addEncodedPathSegments(resourcePath).build();
@@ -263,7 +263,7 @@ public class QSBuilder {
             String expireAuth = this.getSignature();
             String ak = credentials.getAccessKeyId();
             builder.addQueryParameter("access_key_id", ak)
-                    .addQueryParameter("expires", expiresTime.toString())
+                    .addQueryParameter("expires", expiresTime)
                     .addQueryParameter("signature", expireAuth);
         }
         return builder.build().toString();
