@@ -419,12 +419,9 @@
         {{$path := dashConnected $path}}
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                                   .safeOKHttp(this.envContext.isSafeOkHttp())
-                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                                   .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("{{$opID}}")
                 .apiName("{{$opID}}")
                 .serviceName("{{$operation.Name}}")
@@ -543,12 +540,9 @@
         {{$path := dashConnected $path}}
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
-        builder.userAgent(this.envContext.getAdditionalUserAgent())
-                                   .safeOKHttp(this.envContext.isSafeOkHttp())
-                                   .virtualHostEnabled(this.envContext.isVirtualHostEnabled())
-                                   .endpoint(this.envContext.getRequestUrl())
+        builder.clientCfg(this.clientCfg)
                 .zone(this.zone)
-                .credentials(this.envContext)
+                .credentials(this.cred)
                 .operationName("{{$opID}}")
                 .apiName("{{$opID}}")
                 .serviceName("{{$operation.Name}}")
