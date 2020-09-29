@@ -15,8 +15,11 @@
  */
 package com.qingstor.sdk.utils;
 
+import com.qingstor.sdk.config.ClientConfiguration;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLEncoder;
+import java.util.Set;
 import okhttp3.HttpUrl;
 
 public class UrlUtils {
@@ -53,30 +56,45 @@ public class UrlUtils {
      * @param endpoint endpoint from your config, format: http(s)://storage.com(:80).
      * @param zone zone of your bucket
      * @param bucket bucket name
-     * @param pathMode construct use path mode or virtual-host mode.
+     * @param config url-related config, like supportCname, virtualHostEnabled.
      * @return calculated url. if null is returned, means your endpoint is malformed.
      */
     public static HttpUrl calcFinalEndpoint(
-            String endpoint, String zone, String bucket, boolean pathMode) {
-        HttpUrl uri = HttpUrl.parse(endpoint);
+            URI endpoint, String zone, String bucket, ClientConfiguration config) {
+        HttpUrl uri = HttpUrl.get(endpoint);
         if (uri == null) {
             return null;
         }
-        return uri.newBuilder().host(buildCanonicalHost(uri, zone, bucket, pathMode)).build();
+        return uri.newBuilder().host(buildCanonicalHost(uri, zone, bucket, config)).build();
     }
 
     private static String buildCanonicalHost(
-            HttpUrl endpoint, String zone, String bucket, boolean pathMode) {
+            HttpUrl endpoint, String zone, String bucket, ClientConfiguration config) {
         String host = endpoint.host();
-
+        if (config.isCnameSupport() && escapeFromExcluded(host, config.cnameExcludeSet())) {
+            return host;
+        }
         StringBuilder canonicalHost = new StringBuilder();
-        if (bucket != null && !pathMode) {
+        if (bucket != null && config.isVirtualHostEnabled()) {
             canonicalHost.append(bucket).append(".").append(zone).append(".");
         } else {
             canonicalHost.append(zone).append(".");
         }
 
         return canonicalHost.append(host).toString();
+    }
+
+    private static boolean escapeFromExcluded(String hostToFilter, Set<String> cnameExcludeSet) {
+        if (hostToFilter != null && !hostToFilter.trim().isEmpty()) {
+            String canonicalHost = hostToFilter.toLowerCase();
+            for (String excl : cnameExcludeSet) {
+                if (canonicalHost.endsWith(excl)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        throw new IllegalArgumentException("Host name can not be null.");
     }
 
     /**

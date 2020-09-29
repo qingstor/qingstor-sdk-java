@@ -16,6 +16,7 @@
 package com.qingstor.sdk.common;
 
 import com.qingstor.sdk.common.auth.Credentials;
+import com.qingstor.sdk.config.ClientConfiguration;
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.constants.QSConstant;
 import java.util.Map;
@@ -29,49 +30,39 @@ public class OperationContext {
     private String serviceName;
     private String reqMethod;
 
-    private boolean virtualHostEnabled;
-    private String endpoint;
     private String subSourcePath;
 
     private String zone;
     private String bucketName;
     private String objKey;
 
-    private String userAgent;
-
-    @Deprecated private boolean safeOKHttp = true;
+    private ClientConfiguration clientCfg;
 
     /** support temp expires param */
     @Deprecated private String expires;
 
     OperationContext(
             Credentials credentials,
+            ClientConfiguration clientCfg,
             String operationName,
             String apiName,
             String serviceName,
             String reqMethod,
-            boolean virtualHostEnabled,
-            String endpoint,
             String subSourcePath,
             String zone,
             String bucketName,
             String objKey,
-            String userAgent,
-            boolean safeOKHttp,
             String expires) {
         this.credentials = credentials;
+        this.clientCfg = clientCfg;
         this.operationName = operationName;
         this.apiName = apiName;
         this.serviceName = serviceName;
         this.reqMethod = reqMethod;
-        this.virtualHostEnabled = virtualHostEnabled;
-        this.endpoint = endpoint;
         this.subSourcePath = subSourcePath;
         this.zone = zone;
         this.bucketName = bucketName;
         this.objKey = objKey;
-        this.userAgent = userAgent;
-        this.safeOKHttp = safeOKHttp;
         this.expires = expires;
     }
 
@@ -79,11 +70,7 @@ public class OperationContext {
         OperationContextBuilder builder = OperationContext.builder();
         EnvContext envCtx = (EnvContext) opCtx.get(QSConstant.ENV_CONTEXT_KEY);
         if (envCtx != null) {
-            builder.userAgent(envCtx.getAdditionalUserAgent())
-                    .safeOKHttp(envCtx.isSafeOkHttp())
-                    .virtualHostEnabled(envCtx.isVirtualHostEnabled())
-                    .credentials(envCtx)
-                    .endpoint(envCtx.getRequestUrl());
+            builder.clientCfg(ClientConfiguration.from(envCtx)).credentials(envCtx);
         }
         return builder.operationName((String) opCtx.get("OperationName"))
                 .apiName((String) opCtx.get("APIName"))
@@ -121,10 +108,6 @@ public class OperationContext {
         return this.reqMethod;
     }
 
-    public String endpoint() {
-        return this.endpoint;
-    }
-
     public String subSourcePath() {
         return this.subSourcePath;
     }
@@ -133,25 +116,16 @@ public class OperationContext {
         return this.zone;
     }
 
+    public ClientConfiguration clientCfg() {
+        return this.clientCfg;
+    }
+
     public String bucketName() {
         return this.bucketName;
     }
 
     public String objKey() {
         return this.objKey;
-    }
-
-    public String userAgent() {
-        return this.userAgent;
-    }
-
-    @Deprecated
-    public boolean isSafeOKHttp() {
-        return this.safeOKHttp;
-    }
-
-    public boolean isVirtualHostEnabled() {
-        return this.virtualHostEnabled;
     }
 
     @Deprecated
@@ -170,8 +144,6 @@ public class OperationContext {
                 + this.serviceName()
                 + ", reqMethod="
                 + this.reqMethod()
-                + ", endpoint="
-                + this.endpoint()
                 + ", subSourcePath="
                 + this.subSourcePath()
                 + ", zone="
@@ -180,10 +152,6 @@ public class OperationContext {
                 + this.bucketName()
                 + ", objKey="
                 + this.objKey()
-                + ", userAgent="
-                + this.userAgent()
-                + ", safeOKHttp="
-                + this.isSafeOKHttp()
                 + ", expires="
                 + this.expires()
                 + ")";
@@ -195,20 +163,23 @@ public class OperationContext {
         private String apiName;
         private String serviceName;
         private String reqMethod;
-        private boolean virtualHostEnabled;
-        private String endpoint;
+
         private String subSourcePath;
         private String zone;
         private String bucketName;
         private String objKey;
-        private String userAgent;
-        private boolean safeOKHttp;
+        private ClientConfiguration clientCfg;
         private String expires;
 
         OperationContextBuilder() {}
 
         public OperationContextBuilder credentials(Credentials credentials) {
             this.credentials = credentials;
+            return this;
+        }
+
+        public OperationContextBuilder clientCfg(ClientConfiguration config) {
+            this.clientCfg = config;
             return this;
         }
 
@@ -232,19 +203,6 @@ public class OperationContext {
             return this;
         }
 
-        public OperationContextBuilder virtualHostEnabled(boolean enable) {
-            this.virtualHostEnabled = enable;
-            return this;
-        }
-
-        public OperationContextBuilder endpoint(String endpoint) {
-            if (endpoint == null) {
-                throw new NullPointerException("endpoint must be NonNull");
-            }
-            this.endpoint = endpoint;
-            return this;
-        }
-
         public OperationContextBuilder subSourcePath(String subSourcePath) {
             this.subSourcePath = subSourcePath;
             return this;
@@ -265,17 +223,6 @@ public class OperationContext {
             return this;
         }
 
-        public OperationContextBuilder userAgent(String userAgent) {
-            this.userAgent = userAgent;
-            return this;
-        }
-
-        @Deprecated
-        public OperationContextBuilder safeOKHttp(boolean safeOKHttp) {
-            this.safeOKHttp = safeOKHttp;
-            return this;
-        }
-
         @Deprecated
         public OperationContextBuilder expires(String expires) {
             this.expires = expires;
@@ -285,51 +232,16 @@ public class OperationContext {
         public OperationContext build() {
             return new OperationContext(
                     credentials,
+                    clientCfg,
                     operationName,
                     apiName,
                     serviceName,
                     reqMethod,
-                    virtualHostEnabled,
-                    endpoint,
                     subSourcePath,
                     zone,
                     bucketName,
                     objKey,
-                    userAgent,
-                    safeOKHttp,
                     expires);
-        }
-
-        public String toString() {
-            return "OperationContext.OperationContextBuilder(credentials="
-                    + this.credentials
-                    + ", operationName="
-                    + this.operationName
-                    + ", apiName="
-                    + this.apiName
-                    + ", serviceName="
-                    + this.serviceName
-                    + ", reqMethod="
-                    + this.reqMethod
-                    + ", virtualHostEnabled="
-                    + this.virtualHostEnabled
-                    + ", endpoint="
-                    + this.endpoint
-                    + ", subSourcePath="
-                    + this.subSourcePath
-                    + ", zone="
-                    + this.zone
-                    + ", bucketName="
-                    + this.bucketName
-                    + ", objKey="
-                    + this.objKey
-                    + ", userAgent="
-                    + this.userAgent
-                    + ", safeOKHttp="
-                    + this.safeOKHttp
-                    + ", expires="
-                    + this.expires
-                    + ")";
         }
     }
 }

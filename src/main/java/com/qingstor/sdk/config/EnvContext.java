@@ -24,6 +24,7 @@ import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ParamValidate;
 import com.qingstor.sdk.utils.QSStringUtil;
 import java.io.*;
+import java.net.URI;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvContext implements ParamValidate, Credentials {
@@ -35,15 +36,16 @@ public class EnvContext implements ParamValidate, Credentials {
         om.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
     }
 
-    private static String DEFAULT_HOST = "qingstor.com";
-    private static String DEFAULT_PROTOCOL = "https";
-    private static HttpConfig DEFAULT_HTTP_CONFIG = new HttpConfig();
+    private static final String DEFAULT_HOST = "qingstor.com";
+    private static final String DEFAULT_PROTOCOL = "https";
+    private static final HttpConfig DEFAULT_HTTP_CONFIG = new HttpConfig();
 
     private String accessKeyId;
 
     private String secretAccessKey;
 
     private String host = DEFAULT_HOST;
+    private boolean cnameSupport = false;
     private String port;
     private String protocol = DEFAULT_PROTOCOL;
     private String additionalUserAgent;
@@ -185,6 +187,15 @@ public class EnvContext implements ParamValidate, Credentials {
         this.protocol = protocol;
     }
 
+    public URI getEndpoint() {
+        String joinUrl = this.getProtocol() + "://" + this.getHost();
+        if (this.getPort() != null) {
+            joinUrl += ":" + this.getPort();
+        }
+        return URI.create(joinUrl);
+    }
+
+    /** @deprecated Use {@link #getEndpoint()} instead. */
     public String getRequestUrl() {
         String joinUrl = this.getProtocol() + "://" + this.getHost();
         if (this.getPort() != null) {
@@ -248,7 +259,7 @@ public class EnvContext implements ParamValidate, Credentials {
             return QSStringUtil.getParameterRequired("AccessKeyId", "EnvContext");
         }
 
-        if (QSStringUtil.isEmpty(getRequestUrl())) {
+        if (QSStringUtil.isEmpty(getEndpoint().toString())) {
             return QSStringUtil.getParameterRequired("host", "EnvContext");
         }
         if (!QSStringUtil.isEmpty(getAdditionalUserAgent())) {
@@ -262,6 +273,14 @@ public class EnvContext implements ParamValidate, Credentials {
             }
         }
         return null;
+    }
+
+    public boolean isCnameSupport() {
+        return cnameSupport;
+    }
+
+    public void setCnameSupport(boolean cnameSupport) {
+        this.cnameSupport = cnameSupport;
     }
 
     public static class HttpConfig {

@@ -28,7 +28,7 @@ public class EnvContextTest {
         ctx.setAdditionalUserAgent("\"");
         Assert.assertEquals(ctx.getAccessKeyId(), "testkey");
         Assert.assertEquals(ctx.getSecretAccessKey(), "test_asss");
-        Assert.assertEquals(ctx.getRequestUrl(), "https://qingstor.com");
+        Assert.assertEquals(ctx.getEndpoint().toString(), "https://qingstor.com");
         String validate = ctx.validateParam();
         Assert.assertNotNull(validate);
     }
@@ -56,7 +56,7 @@ public class EnvContextTest {
             EnvContext ctx = EnvContext.loadFromFile("/tmp/config.yaml");
             Assert.assertEquals(ctx.getAccessKeyId(), "testkey");
             Assert.assertEquals(ctx.getSecretAccessKey(), "test_asss");
-            Assert.assertEquals(ctx.getRequestUrl(), "https://qingcloud.com:443");
+            Assert.assertEquals(ctx.getEndpoint().toString(), "https://qingcloud.com:443");
             Assert.assertEquals(ctx.getAdditionalUserAgent(), "test/integration");
         }
     }

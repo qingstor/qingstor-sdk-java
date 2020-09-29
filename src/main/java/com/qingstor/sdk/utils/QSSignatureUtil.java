@@ -328,7 +328,7 @@ public class QSSignatureUtil {
             context.put("objectNameInput", objectName);
             long expiresTime = (new Date().getTime() / 1000 + expiresSecond);
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
-            String serviceUrl = envContext.getRequestUrl();
+            String serviceUrl = envContext.getEndpoint().toString();
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
             if (objectName.indexOf("?") > 0) {
                 return String.format(

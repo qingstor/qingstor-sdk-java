@@ -104,7 +104,8 @@ public class RequestHandler {
             EnvContext envContext = (EnvContext) this.opCtx.credentials();
             Request request = this.getRequest();
             QSOkHttpRequestClient.getInstance(envContext)
-                    .requestActionAsync(request, this.opCtx.isSafeOKHttp(), this.asyncCallback);
+                    .requestActionAsync(
+                            request, this.opCtx.clientCfg().isSafeOkHttp(), this.asyncCallback);
         }
     }
 
@@ -127,7 +128,7 @@ public class RequestHandler {
             Request request = this.getRequest();
 
             return QSOkHttpRequestClient.getInstance(envContext)
-                    .requestAction(request, this.opCtx.isSafeOKHttp(), outputClass);
+                    .requestAction(request, this.opCtx.clientCfg().isSafeOkHttp(), outputClass);
         }
     }
 
