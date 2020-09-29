@@ -3,7 +3,6 @@ plugins {
     `maven-publish`
     signing
     id("com.diffplug.spotless") version "5.1.1"
-    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 group = "com.yunify"
@@ -14,14 +13,6 @@ repositories {
 }
 
 java {
-    tasks.jar {
-        manifest {
-            attributes(
-                    mapOf("Implementation-Title" to project.name,
-                            "Implementation-Version" to project.version)
-            )
-        }
-    }
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -30,10 +21,13 @@ java {
 }
 
 tasks {
-    shadowJar {
-        archiveClassifier.set("")
-        val version = this.project.version.toString() + "-all-deps"
-        archiveVersion.set(version)
+    jar {
+        manifest {
+            attributes(
+                    mapOf("Implementation-Title" to project.name,
+                            "Implementation-Version" to project.version)
+            )
+        }
     }
     javadoc {
         if (JavaVersion.current().isJava9Compatible) {
@@ -41,17 +35,26 @@ tasks {
             (options as CoreJavadocOptions).addBooleanOption("html5", true)
         }
     }
+    val fatJar = register<Jar>("fatJar") {
+        archiveClassifier.set("all-deps")
+
+        from(sourceSets.main.get().output)
+
+        dependsOn(configurations.runtimeClasspath)
+        from({
+            configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+        })
+    }
     build {
-        dependsOn(shadowJar)
+        dependsOn(fatJar)
     }
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = "qingstor.sdk.java"  // this should be replaced near future.
-
             from(components["java"])
+            artifactId = "qingstor.sdk.java"  // this should be replaced near future.
 
             pom {
                 name.set(project.name)
@@ -79,7 +82,8 @@ publishing {
         }
     }
     repositories {
-        // local repo. For test usage.
+        // local repo for test usage, redirect output to this for verification before upload.
+        // or use ./gradlew publishToMavenLocal
         // maven {
         //     name = "myRepo"
         //     url = uri("file://${buildDir}/repo")
@@ -117,7 +121,7 @@ dependencies {
     testImplementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
-task("cucumber") {
+tasks.register("cucumber") {
     dependsOn(tasks.assemble, tasks.compileTestJava)
     doLast {
         javaexec {
