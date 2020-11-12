@@ -36,12 +36,13 @@
                 };
 
                 boolean {{$property.ID | camelCase | lowerFirst}}IsValid = false;
-                String value = this.get{{$property.ID | camelCase}}();
-                if (null == value || "".equals(value)) {
+                {{- $strValue := $property.ID | camelCase | lowerFirst -}}
+                String {{$strValue}} = this.get{{$property.ID | camelCase}}();
+                if (null == {{$strValue}} || "".equals({{$strValue}})) {
                     {{$property.ID | camelCase | lowerFirst}}IsValid = true;
                 } else {
                     for(String v : {{$property.ID | camelCase | lowerFirst}}ValidValues) {
-                        if(v.equals(value)){
+                        if(v.equals({{$strValue}})){
                             {{$property.ID | camelCase | lowerFirst}}IsValid = true;
                         }
                     }
