@@ -1430,12 +1430,12 @@ public class Bucket {
             String[] typeValidValues = {"website", "normal"};
 
             boolean typeIsValid = false;
-            String value = this.getType();
-            if (null == value || "".equals(value)) {
+            String type = this.getType();
+            if (null == type || "".equals(type)) {
                 typeIsValid = true;
             } else {
                 for (String v : typeValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(type)) {
                         typeIsValid = true;
                     }
                 }
@@ -3534,12 +3534,12 @@ public class Bucket {
             String[] typeValidValues = {"normal", "website"};
 
             boolean typeIsValid = false;
-            String value = this.getType();
-            if (null == value || "".equals(value)) {
+            String type = this.getType();
+            if (null == type || "".equals(type)) {
                 typeIsValid = true;
             } else {
                 for (String v : typeValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(type)) {
                         typeIsValid = true;
                     }
                 }
@@ -5061,12 +5061,12 @@ public class Bucket {
             String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
 
             boolean xQSStorageClassIsValid = false;
-            String value = this.getXQSStorageClass();
-            if (null == value || "".equals(value)) {
+            String xQSStorageClass = this.getXQSStorageClass();
+            if (null == xQSStorageClass || "".equals(xQSStorageClass)) {
                 xQSStorageClassIsValid = true;
             } else {
                 for (String v : xQSStorageClassValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(xQSStorageClass)) {
                         xQSStorageClassIsValid = true;
                     }
                 }
@@ -7032,12 +7032,12 @@ public class Bucket {
             String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
 
             boolean xQSStorageClassIsValid = false;
-            String value = this.getXQSStorageClass();
-            if (null == value || "".equals(value)) {
+            String xQSStorageClass = this.getXQSStorageClass();
+            if (null == xQSStorageClass || "".equals(xQSStorageClass)) {
                 xQSStorageClassIsValid = true;
             } else {
                 for (String v : xQSStorageClassValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(xQSStorageClass)) {
                         xQSStorageClassIsValid = true;
                     }
                 }
@@ -8056,12 +8056,12 @@ public class Bucket {
             String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
 
             boolean xQSStorageClassIsValid = false;
-            String value = this.getXQSStorageClass();
-            if (null == value || "".equals(value)) {
+            String xQSStorageClass = this.getXQSStorageClass();
+            if (null == xQSStorageClass || "".equals(xQSStorageClass)) {
                 xQSStorageClassIsValid = true;
             } else {
                 for (String v : xQSStorageClassValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(xQSStorageClass)) {
                         xQSStorageClassIsValid = true;
                     }
                 }

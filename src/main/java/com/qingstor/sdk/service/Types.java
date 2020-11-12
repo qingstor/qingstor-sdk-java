@@ -97,12 +97,12 @@ public class Types {
             String[] permissionValidValues = {"READ", "WRITE", "FULL_CONTROL"};
 
             boolean permissionIsValid = false;
-            String value = this.getPermission();
-            if (null == value || "".equals(value)) {
+            String permission = this.getPermission();
+            if (null == permission || "".equals(permission)) {
                 permissionIsValid = true;
             } else {
                 for (String v : permissionValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(permission)) {
                         permissionIsValid = true;
                     }
                 }
@@ -271,12 +271,12 @@ public class Types {
             String[] typeValidValues = {"normal", "website"};
 
             boolean typeIsValid = false;
-            String value = this.getType();
-            if (null == value || "".equals(value)) {
+            String type = this.getType();
+            if (null == type || "".equals(type)) {
                 typeIsValid = true;
             } else {
                 for (String v : typeValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(type)) {
                         typeIsValid = true;
                     }
                 }
@@ -340,12 +340,12 @@ public class Types {
             String[] typeValidValues = {"normal", "website"};
 
             boolean typeIsValid = false;
-            String value = this.getType();
-            if (null == value || "".equals(value)) {
+            String type = this.getType();
+            if (null == type || "".equals(type)) {
                 typeIsValid = true;
             } else {
                 for (String v : typeValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(type)) {
                         typeIsValid = true;
                     }
                 }
@@ -666,12 +666,12 @@ public class Types {
             String[] typeValidValues = {"user", "group"};
 
             boolean typeIsValid = false;
-            String value = this.getType();
-            if (null == value || "".equals(value)) {
+            String type = this.getType();
+            if (null == type || "".equals(type)) {
                 typeIsValid = true;
             } else {
                 for (String v : typeValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(type)) {
                         typeIsValid = true;
                     }
                 }
@@ -1023,12 +1023,12 @@ public class Types {
             String[] cloudfuncValidValues = {"tupu-porn", "notifier", "image"};
 
             boolean cloudfuncIsValid = false;
-            String value = this.getCloudfunc();
-            if (null == value || "".equals(value)) {
+            String cloudfunc = this.getCloudfunc();
+            if (null == cloudfunc || "".equals(cloudfunc)) {
                 cloudfuncIsValid = true;
             } else {
                 for (String v : cloudfuncValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(cloudfunc)) {
                         cloudfuncIsValid = true;
                     }
                 }
@@ -1251,12 +1251,12 @@ public class Types {
             String[] statusValidValues = {"enabled", "disabled"};
 
             boolean statusIsValid = false;
-            String value = this.getStatus();
-            if (null == value || "".equals(value)) {
+            String status = this.getStatus();
+            if (null == status || "".equals(status)) {
                 statusIsValid = true;
             } else {
                 for (String v : statusValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(status)) {
                         statusIsValid = true;
                     }
                 }
@@ -1363,12 +1363,12 @@ public class Types {
             String[] effectValidValues = {"allow", "deny"};
 
             boolean effectIsValid = false;
-            String value = this.getEffect();
-            if (null == value || "".equals(value)) {
+            String effect = this.getEffect();
+            if (null == effect || "".equals(effect)) {
                 effectIsValid = true;
             } else {
                 for (String v : effectValidValues) {
-                    if (v.equals(value)) {
+                    if (v.equals(effect)) {
                         effectIsValid = true;
                     }
                 }
