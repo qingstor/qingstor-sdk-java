@@ -947,6 +947,107 @@ public class Bucket {
     public static class DeleteBucketPolicyOutput extends OutputModel {}
 
     /**
+     * @throws QSException exception
+     * @return DeleteBucketReplicationOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public DeleteBucketReplicationOutput deleteReplication() throws QSException {
+        RequestHandler requestHandler = this.deleteReplicationRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (DeleteBucketReplicationOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteReplicationRequest() throws QSException {
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("DeleteBucketReplication")
+                .apiName("DeleteBucketReplication")
+                .serviceName("DELETE Bucket Replication")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?replication");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                QSRequest.getRequest(builder.build(), null, DeleteBucketReplicationOutput.class);
+
+        return requestHandler;
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void deleteReplicationAsync(ResponseCallBack<DeleteBucketReplicationOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.deleteReplicationAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler deleteReplicationAsyncRequest(
+            ResponseCallBack<DeleteBucketReplicationOutput> callback) throws QSException {
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("DeleteBucketReplication")
+                .apiName("DeleteBucketReplication")
+                .serviceName("DELETE Bucket Replication")
+                .reqMethod("DELETE")
+                .subSourcePath("/<bucket-name>?replication");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * DeleteBucketReplicationOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class DeleteBucketReplicationOutput extends OutputModel {}
+
+    /**
      * @param input input
      * @throws QSException exception
      * @return DeleteMultipleObjectsOutput output stream Documentation URL: <a
@@ -2174,6 +2275,120 @@ public class Bucket {
         @ParamAnnotation(paramType = "element", paramName = "statement")
         public List<StatementModel> getStatement() {
             return this.statement;
+        }
+    }
+
+    /**
+     * @throws QSException exception
+     * @return GetBucketReplicationOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public GetBucketReplicationOutput getReplication() throws QSException {
+        RequestHandler requestHandler = this.getReplicationRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (GetBucketReplicationOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getReplicationRequest() throws QSException {
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("GetBucketReplication")
+                .apiName("GetBucketReplication")
+                .serviceName("GET Bucket Replication")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?replication");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                QSRequest.getRequest(builder.build(), null, GetBucketReplicationOutput.class);
+
+        return requestHandler;
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getReplicationAsync(ResponseCallBack<GetBucketReplicationOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.getReplicationAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler getReplicationAsyncRequest(
+            ResponseCallBack<GetBucketReplicationOutput> callback) throws QSException {
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("GetBucketReplication")
+                .apiName("GetBucketReplication")
+                .serviceName("GET Bucket Replication")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?replication");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        return requestHandler;
+    }
+
+    /**
+     * GetBucketReplicationOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class GetBucketReplicationOutput extends OutputModel {
+
+        /** Bucket Replication rule */
+        private List<RulesModel> rules;
+
+        public void setRules(List<RulesModel> rules) {
+            this.rules = rules;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "rules")
+        public List<RulesModel> getRules() {
+            return this.rules;
         }
     }
 
@@ -4640,6 +4855,184 @@ public class Bucket {
      * field Statement Bucket policy statement <br>
      */
     public static class PutBucketPolicyOutput extends OutputModel {}
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketReplicationOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public PutBucketReplicationOutput putReplication(PutBucketReplicationInput input)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketReplicationInput();
+        }
+
+        RequestHandler requestHandler = this.putReplicationRequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (PutBucketReplicationOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putReplicationRequest(PutBucketReplicationInput input)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketReplicationInput();
+        }
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("PutBucketReplication")
+                .apiName("PutBucketReplication")
+                .serviceName("PUT Bucket Replication")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?replication");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler requestHandler =
+                QSRequest.getRequest(builder.build(), input, PutBucketReplicationOutput.class);
+
+        return requestHandler;
+    }
+
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void putReplicationAsync(
+            PutBucketReplicationInput input, ResponseCallBack<PutBucketReplicationOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketReplicationInput();
+        }
+
+        RequestHandler requestHandler = this.putReplicationAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler putReplicationAsyncRequest(
+            PutBucketReplicationInput input, ResponseCallBack<PutBucketReplicationOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketReplicationInput();
+        }
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("PutBucketReplication")
+                .apiName("PutBucketReplication")
+                .serviceName("PUT Bucket Replication")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?replication");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        return requestHandler;
+    }
+    /**
+     * PutBucketReplicationInput: an input stream of the bucket.<br>
+     * The following is the description of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Rules Bucket Replication rules <br>
+     */
+    public static class PutBucketReplicationInput extends RequestInputModel {
+
+        /** Bucket Replication rules Required */
+        private List<RulesModel> rules;
+
+        public void setRules(List<RulesModel> rules) {
+            this.rules = rules;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "rules")
+        public List<RulesModel> getRules() {
+            return this.rules;
+        }
+
+        /** The request body */
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
+
+            if (this.getRules() != null && this.getRules().size() > 0) {
+                for (int i = 0; i < this.getRules().size(); i++) {
+                    String vValidate = this.getRules().get(i).validateParam();
+                    if (!QSStringUtil.isEmpty(vValidate)) {
+                        return vValidate;
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+    /**
+     * PutBucketReplicationOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Rules Bucket Replication rules <br>
+     */
+    public static class PutBucketReplicationOutput extends OutputModel {}
 
     /**
      * @param objectName name of the object
@@ -7738,6 +8131,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMetaData User-defined metadata <br>
+     * field XQSMetadataDirective Use for modified metadata, valid (COPY/REPLACE) <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/'object-key') <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */
@@ -7973,6 +8367,20 @@ public class Bucket {
         public Map<String, String> getXQSMetaData() {
             return this.xQSMetaData;
         }
+        /**
+         * Use for modified metadata, valid (COPY/REPLACE) XQSMetadataDirective's available values:
+         * COPY, REPLACE
+         */
+        private String xQSMetadataDirective;
+
+        public void setXQSMetadataDirective(String xQSMetadataDirective) {
+            this.xQSMetadataDirective = xQSMetadataDirective;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-metadata-directive")
+        public String getXQSMetadataDirective() {
+            return this.xQSMetadataDirective;
+        }
         /** Move source, format (/<bucket-name>/<object-key>) */
         private String xQSMoveSource;
 
@@ -8053,6 +8461,26 @@ public class Bucket {
                 }
             }
 
+            String[] xQSMetadataDirectiveValidValues = {"COPY", "REPLACE"};
+
+            boolean xQSMetadataDirectiveIsValid = false;
+            String xQSMetadataDirective = this.getXQSMetadataDirective();
+            if (null == xQSMetadataDirective || "".equals(xQSMetadataDirective)) {
+                xQSMetadataDirectiveIsValid = true;
+            } else {
+                for (String v : xQSMetadataDirectiveValidValues) {
+                    if (v.equals(xQSMetadataDirective)) {
+                        xQSMetadataDirectiveIsValid = true;
+                    }
+                }
+            }
+
+            if (!xQSMetadataDirectiveIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "XQSMetadataDirective",
+                        this.getXQSMetadataDirective() + "",
+                        xQSMetadataDirectiveValidValues);
+            }
             String[] xQSStorageClassValidValues = {"STANDARD", "STANDARD_IA"};
 
             boolean xQSStorageClassIsValid = false;
@@ -8103,6 +8531,7 @@ public class Bucket {
      * field XQSFetchIfUnmodifiedSince Check whether fetch target object has not been modified <br>
      * field XQSFetchSource Fetch source, should be a valid url <br>
      * field XQSMetaData User-defined metadata <br>
+     * field XQSMetadataDirective Use for modified metadata, valid (COPY/REPLACE) <br>
      * field XQSMoveSource Move source, format (/'bucket-name'/'object-key') <br>
      * field XQSStorageClass Specify the storage class for object <br>
      */

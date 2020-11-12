@@ -572,6 +572,53 @@ public class Types {
         }
     }
 
+    /** DestinationModel represents Destination. */
+    public static class DestinationModel extends RequestInputModel {
+
+        /** dst bucket name Required */
+        private String bucket;
+
+        public void setBucket(String bucket) {
+            this.bucket = bucket;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "bucket")
+        public String getBucket() {
+            return this.bucket;
+        }
+        /** dst storage class */
+        private String storageClass;
+
+        public void setStorageClass(String storageClass) {
+            this.storageClass = storageClass;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "storage_class")
+        public String getStorageClass() {
+            return this.storageClass;
+        }
+        /** dst zone */
+        private String zone;
+
+        public void setZone(String zone) {
+            this.zone = zone;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "zone")
+        public String getZone() {
+            return this.zone;
+        }
+
+        /** validateParam validates the Destination. */
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getBucket())) {
+                return QSStringUtil.getParameterRequired("Bucket", "Destination");
+            }
+            return null;
+        }
+    }
+
     /** ExpirationModel represents Expiration. */
     public static class ExpirationModel extends RequestInputModel {
 
@@ -616,6 +663,29 @@ public class Types {
             if (QSStringUtil.isEmpty(this.getPrefix())) {
                 return QSStringUtil.getParameterRequired("Prefix", "Filter");
             }
+            return null;
+        }
+    }
+
+    /** FiltersModel represents Filters. */
+    public static class FiltersModel extends RequestInputModel {
+
+        /** Prefix matching */
+        private String prefix;
+
+        public void setPrefix(String prefix) {
+            this.prefix = prefix;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "prefix")
+        public String getPrefix() {
+            return this.prefix;
+        }
+
+        /** validateParam validates the Filters. */
+        @Override
+        public String validateParam() {
+
             return null;
         }
     }
@@ -1273,6 +1343,159 @@ public class Types {
                 }
             }
 
+            return null;
+        }
+    }
+
+    /** RulesModel represents Rules. */
+    public static class RulesModel extends RequestInputModel {
+
+        /** rule delete marker DeleteMarker's available values: enabled, disabled */
+        private String deleteMarker;
+
+        public void setDeleteMarker(String deleteMarker) {
+            this.deleteMarker = deleteMarker;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "delete_marker")
+        public String getDeleteMarker() {
+            return this.deleteMarker;
+        }
+        /** Required */
+        private DestinationModel destination;
+
+        public void setDestination(DestinationModel destination) {
+            this.destination = destination;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "destination")
+        public DestinationModel getDestination() {
+            return this.destination;
+        }
+        /** Required */
+        private FiltersModel filters;
+
+        public void setFilters(FiltersModel filters) {
+            this.filters = filters;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "filters")
+        public FiltersModel getFilters() {
+            return this.filters;
+        }
+        /** rule id Required */
+        private String iD;
+
+        public void setID(String iD) {
+            this.iD = iD;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "id")
+        public String getID() {
+            return this.iD;
+        }
+        /** rule status Status's available values: enabled, disabled */
+        private String status;
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "status")
+        public String getStatus() {
+            return this.status;
+        }
+        /** rule sync marker SyncMarker's available values: enabled, disabled */
+        private String syncMarker;
+
+        public void setSyncMarker(String syncMarker) {
+            this.syncMarker = syncMarker;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "sync_marker")
+        public String getSyncMarker() {
+            return this.syncMarker;
+        }
+
+        /** validateParam validates the Rules. */
+        @Override
+        public String validateParam() {
+
+            String[] deleteMarkerValidValues = {"enabled", "disabled"};
+
+            boolean deleteMarkerIsValid = false;
+            String deleteMarker = this.getDeleteMarker();
+            if (null == deleteMarker || "".equals(deleteMarker)) {
+                deleteMarkerIsValid = true;
+            } else {
+                for (String v : deleteMarkerValidValues) {
+                    if (v.equals(deleteMarker)) {
+                        deleteMarkerIsValid = true;
+                    }
+                }
+            }
+
+            if (!deleteMarkerIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "DeleteMarker", this.getDeleteMarker() + "", deleteMarkerValidValues);
+            }
+            if (this.getDestination() != null) {
+                String vValidate = this.getDestination().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+            if (this.getDestination() == null) {
+                return QSStringUtil.getParameterRequired("Destination", "Rules");
+            }
+            if (this.getFilters() != null) {
+                String vValidate = this.getFilters().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+            if (this.getFilters() == null) {
+                return QSStringUtil.getParameterRequired("Filters", "Rules");
+            }
+            if (QSStringUtil.isEmpty(this.getID())) {
+                return QSStringUtil.getParameterRequired("ID", "Rules");
+            }
+            String[] statusValidValues = {"enabled", "disabled"};
+
+            boolean statusIsValid = false;
+            String status = this.getStatus();
+            if (null == status || "".equals(status)) {
+                statusIsValid = true;
+            } else {
+                for (String v : statusValidValues) {
+                    if (v.equals(status)) {
+                        statusIsValid = true;
+                    }
+                }
+            }
+
+            if (!statusIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Status", this.getStatus() + "", statusValidValues);
+            }
+            String[] syncMarkerValidValues = {"enabled", "disabled"};
+
+            boolean syncMarkerIsValid = false;
+            String syncMarker = this.getSyncMarker();
+            if (null == syncMarker || "".equals(syncMarker)) {
+                syncMarkerIsValid = true;
+            } else {
+                for (String v : syncMarkerValidValues) {
+                    if (v.equals(syncMarker)) {
+                        syncMarkerIsValid = true;
+                    }
+                }
+            }
+
+            if (!syncMarkerIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "SyncMarker", this.getSyncMarker() + "", syncMarkerValidValues);
+            }
             return null;
         }
     }
