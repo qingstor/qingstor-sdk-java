@@ -1,0 +1,45 @@
+name: Unit Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  unit-test:
+    name: Unit Test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # ref: https://www.oracle.com/java/technologies/java-se-support-roadmap.html
+        java-version: [ "8", "11", "15" ]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+        # cache Gradle package to speed up future runs after a successful run.
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ matrix.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ matrix.os }}-gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        # gradle build process include test phase.
+      - name: Build with Gradle
+        run: ./gradlew build
+        # store the built packages as part of the workflow run.
+        # Allow us to download these artifacts and import to project to help local test.
+        # with matrix, Each job overwrites what was previously uploaded, but it's fine for us.
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Package
+          path: build/libs
+          retention-days: 7
