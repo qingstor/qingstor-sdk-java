@@ -21,6 +21,15 @@ java {
 }
 
 tasks {
+    compileJava.configure {
+        options.encoding = "UTF-8"
+    }
+    compileTestJava.configure {
+        options.encoding = "UTF-8"
+    }
+    javadoc.configure {
+        options.encoding = "UTF-8"
+    }
     jar {
         manifest {
             attributes(
