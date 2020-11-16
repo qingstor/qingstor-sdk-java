@@ -30,8 +30,11 @@ tasks {
         }
     }
     javadoc {
+        // see: https://github.com/gradle/gradle/pull/8321
         if (JavaVersion.current().isJava9Compatible) {
-            (options as CoreJavadocOptions).addBooleanOption("-no-module-directories", true)
+            if (JavaVersion.current().isJava11Compatible && !JavaVersion.current().isJava12Compatible) {
+                (options as CoreJavadocOptions).addBooleanOption("-no-module-directories", true)
+            }
             (options as CoreJavadocOptions).addBooleanOption("html5", true)
         }
     }
