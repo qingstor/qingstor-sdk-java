@@ -9,7 +9,7 @@ English | [中文](./docs/guide_zh.md)
 
 The official QingStor SDK for the Java programming language.
 
-You can see documents containing the complete package structure here: [github pages](https://yunify.github.io/qingstor-sdk-java/).
+You can see documents containing the complete package structure here: [javadoc](https://javadoc.io/doc/com.yunify/qingstor.sdk.java).
 
 ## Getting Started
 

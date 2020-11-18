@@ -2,7 +2,7 @@
 
 [English](../README.md) | 中文
 
-您可以在这里看到包含完整包结构的SDK文档：[github pages](https://yunify.github.io/qingstor-sdk-java/)。
+您可以在这里看到包含完整包结构的SDK文档：[javadoc](https://javadoc.io/doc/com.yunify/qingstor.sdk.java) 。
 
 在开始使用 SDK 之前，请确认您已经了解[青云 QingStor 对象存储基本概念](https://docs.qingcloud.com/qingstor/api/common/overview.html) ，如 Zone，Service，Bucket，Object 等。
 
