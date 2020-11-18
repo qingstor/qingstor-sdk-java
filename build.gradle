@@ -128,7 +128,7 @@ dependencies {
     implementation 'org.json:json:20200518'
     // it's library's consumer's responsibility to choose a log implementation(and set log_level.)
     implementation 'org.slf4j:slf4j-api:1.7.30'
-    testImplementation 'io.cucumber:cucumber-java:6.2.2'
+    testImplementation 'io.cucumber:cucumber-java:6.9.0'
     testImplementation 'io.cucumber:cucumber-junit:6.2.2'
     testImplementation 'ch.qos.logback:logback-classic:1.2.3'
 }
