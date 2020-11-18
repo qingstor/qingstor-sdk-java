@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 1
+    ignore:
+      - dependency-name: "com.fasterxml.jackson.core:jackson-databind"
+        # https://docs.gradle.org/current/userguide/single_versions.html
+        versions: ["[2.10,)"]
+      - dependency-name: "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml"
+        versions: ["[2.10,)"]
