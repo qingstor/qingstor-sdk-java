@@ -26,10 +26,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -47,70 +43,20 @@ public class QSOkHttpRequestClient {
 
     private static final Logger log = LoggerFactory.getLogger(QSOkHttpRequestClient.class);
 
-    private OkHttpClient client = null;
-    private OkHttpClient unsafeClient = null;
-
-    private int readTimeout;
-    private int writeTimeout;
-    private int connectionTimeout;
+    private final OkHttpClient client;
 
     private static volatile QSOkHttpRequestClient ins;
 
     protected QSOkHttpRequestClient(EnvContext ctx) {
-        readTimeout = ctx.getHttpConfig().getReadTimeout();
-        writeTimeout = ctx.getHttpConfig().getWriteTimeout();
-        connectionTimeout = ctx.getHttpConfig().getConnectionTimeout();
-    }
-
-    public OkHttpClient getSafetyClient() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(connectionTimeout, TimeUnit.SECONDS)
-                .readTimeout(readTimeout, TimeUnit.SECONDS)
-                .writeTimeout(writeTimeout, TimeUnit.SECONDS)
-                .build();
-    }
-
-    @Deprecated
-    private OkHttpClient getUnsafeOkHttpClient() {
-        try {
-            // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts =
-                    new TrustManager[] {
-                        new X509TrustManager() {
-                            @Override
-                            public void checkClientTrusted(
-                                    java.security.cert.X509Certificate[] chain, String authType) {}
-
-                            @Override
-                            public void checkServerTrusted(
-                                    java.security.cert.X509Certificate[] chain, String authType) {}
-
-                            @Override
-                            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                                return new java.security.cert.X509Certificate[] {};
-                            }
-                        }
-                    };
-
-            // Install the all-trusting trust manager
-            final SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-            // Create an ssl socket factory with our all-trusting manager
-            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-
-            OkHttpClient.Builder builder =
-                    new OkHttpClient.Builder()
-                            .connectTimeout(connectionTimeout, TimeUnit.SECONDS)
-                            .readTimeout(readTimeout, TimeUnit.SECONDS)
-                            .writeTimeout(writeTimeout, TimeUnit.SECONDS);
-            builder.sslSocketFactory(sslSocketFactory);
-            builder.hostnameVerifier((hostname, session) -> true);
-
-            return builder.build();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        int readTimeout = ctx.getHttpConfig().getReadTimeout();
+        int writeTimeout = ctx.getHttpConfig().getWriteTimeout();
+        int connectionTimeout = ctx.getHttpConfig().getConnectionTimeout();
+        client =
+                new OkHttpClient.Builder()
+                        .connectTimeout(connectionTimeout, TimeUnit.SECONDS)
+                        .readTimeout(readTimeout, TimeUnit.SECONDS)
+                        .writeTimeout(writeTimeout, TimeUnit.SECONDS)
+                        .build();
     }
 
     public static QSOkHttpRequestClient getInstance(EnvContext ctx) {
@@ -122,32 +68,10 @@ public class QSOkHttpRequestClient {
         return ins;
     }
 
-    private Call getRequestCall(boolean bSafe, Request request) {
-        if (bSafe) {
-            if (client == null) {
-                synchronized (QSOkHttpRequestClient.class) {
-                    if (client == null) {
-                        client = getSafetyClient();
-                    }
-                }
-            }
-            return client.newCall(request);
-        } else {
-            if (unsafeClient == null) {
-                synchronized (QSOkHttpRequestClient.class) {
-                    if (unsafeClient == null) {
-                        unsafeClient = getUnsafeOkHttpClient();
-                    }
-                }
-            }
-            return this.unsafeClient.newCall(request);
-        }
-    }
-
     public OutputModel requestAction(
             Request request, boolean bSafe, Class<? extends OutputModel> outputClass)
             throws QSException {
-        Call okhttpCall = getRequestCall(bSafe, request);
+        Call okhttpCall = client.newCall(request);
         okhttp3.Response response;
         OutputModel model = QSParamInvokeUtil.getOutputModel(outputClass);
         try {
@@ -167,20 +91,9 @@ public class QSOkHttpRequestClient {
         }
     }
 
-    /**
-     * @param signedUrl with singed parameter url
-     * @return a build request
-     */
-    @Deprecated
-    public static Request buildUrlRequest(final String signedUrl) {
-
-        // Execute the request and retrieve the response.
-        return new Request.Builder().url(signedUrl).build();
-    }
-
     public OutputModel requestActionAsync(
             Request request, boolean bSafe, final ResponseCallBack callBack) {
-        Call okhttpCall = getRequestCall(bSafe, request);
+        Call okhttpCall = client.newCall(request);
         okhttpCall.enqueue(
                 new Callback() {
                     @Override
@@ -221,6 +134,14 @@ public class QSOkHttpRequestClient {
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
+    }
+
+    public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {
+        Map<String, Object> errorMap = new HashMap<>();
+        errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);
+        errorMap.put(QSConstant.QC_MESSAGE_FIELD_NAME, content);
+
+        QSJSONUtil.jsonFillValue2Object(QSStringUtil.getObjectToJson(errorMap), model);
     }
 
     private void fillResponseValue2Object(okhttp3.Response response, OutputModel target)
@@ -272,11 +193,18 @@ public class QSOkHttpRequestClient {
         return builder.url(url).method(method, body).build();
     }
 
-    public static void fillResponseCallbackModel(int code, Object content, OutputModel model) {
-        Map<String, Object> errorMap = new HashMap<>();
-        errorMap.put(QSConstant.QC_CODE_FIELD_NAME, code);
-        errorMap.put(QSConstant.QC_MESSAGE_FIELD_NAME, content);
+    /**
+     * @param signedUrl with singed parameter url
+     * @return a build request
+     */
+    @Deprecated
+    public static Request buildUrlRequest(final String signedUrl) {
+        // Execute the request and retrieve the response.
+        return new Request.Builder().url(signedUrl).build();
+    }
 
-        QSJSONUtil.jsonFillValue2Object(QSStringUtil.getObjectToJson(errorMap), model);
+    @Deprecated
+    public OkHttpClient getSafetyClient() {
+        return client;
     }
 }
