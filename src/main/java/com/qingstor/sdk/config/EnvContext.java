@@ -15,7 +15,9 @@
  */
 package com.qingstor.sdk.config;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -53,6 +55,12 @@ public class EnvContext implements ParamValidate, Credentials {
     // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
     @Deprecated private String requestUrlStyle = "virtual_host_style";
 
+    /**
+     * virtual_host_enabled will also be supported in this minor version series. After that, it will
+     * be removed. Please use enable_virtual_host_style.
+     */
+    @JsonProperty("enable_virtual_host_style")
+    @JsonAlias("virtual_host_enabled")
     private boolean virtualHostEnabled = false;
 
     private HttpConfig httpConfig = DEFAULT_HTTP_CONFIG;

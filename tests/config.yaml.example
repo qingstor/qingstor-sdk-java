@@ -8,7 +8,7 @@ port: 443
 protocol: https
 
 # Valid request url styles are "virtual_host_style" and "path_style"(default).
-virtual_host_enabled: false
+enable_virtual_host_style: false
 
 # Additional User-Agent
 additional_user_agent: "test/integration"
