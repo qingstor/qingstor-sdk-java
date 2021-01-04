@@ -21,7 +21,8 @@ connection_retries: 3
 log_level: 'warn'
 
 # Valid request url styles are "virtual_host_style" and "path_style"(default).
-virtual_host_enabled: false
+# Also replace previous config item: virtual_host_enabled.
+enable_virtual_host_style: false
 
 # optional
 http_config:
