@@ -1,6 +1,22 @@
 # Change Log
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.5.0] - 2021-01-04
+
+### Added
+
+- Support bucket Replication api([#103](https://github.com/qingstor/qingstor-sdk-java/pull/103));
+
+### Changed
+
+- Migrate to github actions([#105](https://github.com/qingstor/qingstor-sdk-java/pull/105));
+- Replace `virtual_host_enabled` to `enable_virtual_host_style`([#119](https://github.com/qingstor/qingstor-sdk-java/pull/119));
+
+### Fixed
+
+- fix code template error when multiple fields in([#104](https://github.com/qingstor/qingstor-sdk-java/pull/104));
+- Error thrown during request when safeOkHttp configured as true([#117](https://github.com/qingstor/qingstor-sdk-java/pull/117));
+
 ## [v2.4.0] - 2020-09-28
 
 ### Added
