@@ -128,7 +128,7 @@ public class ClientConfiguration {
 
     public static class ClientConfigurationBuilder {
         private static final String DEFAULT_HOST = "qingstor.com";
-        private static final String DEFAULT_PROTOCOL = "http";
+        private static final String DEFAULT_PROTOCOL = "https";
         private static final int READ_TIMEOUT = 100;
         private static final int CONN_TIMEOUT = 60;
         private static final int WRITE_TIMEOUT = 100;
