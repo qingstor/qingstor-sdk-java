@@ -80,13 +80,13 @@ public class QSBuilder {
     private void initHeadersAndBody() throws QSException {
         this.httpMethod = opCtx.reqMethod();
         this.paramsHeaders = QSParamInvokeUtil.getRequestParams(this.paramsModel, ParamType.HEADER);
-
+        final String metaPrefix = "x-qs-meta-";
         if (this.paramsHeaders.containsKey(QSConstant.PARAM_KEY_METADATA)) {
             Object o = this.paramsHeaders.get(QSConstant.PARAM_KEY_METADATA);
             if (o != null) {
                 Map<String, String> map = (Map<String, String>) o;
                 for (Map.Entry<String, String> entry : map.entrySet()) {
-                    this.paramsHeaders.put(entry.getKey(), entry.getValue());
+                    this.paramsHeaders.put(metaPrefix + entry.getKey(), entry.getValue());
                 }
             }
             this.paramsHeaders.remove(QSConstant.PARAM_KEY_METADATA);

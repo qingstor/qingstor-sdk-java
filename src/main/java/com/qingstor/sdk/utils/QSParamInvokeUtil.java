@@ -182,21 +182,15 @@ public class QSParamInvokeUtil {
     }
 
     public static String metadataIsValid(Map<String, String> metadata) {
-        final String metaPrefix = "x-qs-meta-";
         boolean valid = true;
-        String errK = "", errV = "";
+        String errK = "", errV = "", cause = "";
         int kLen = 0;
         int vLen = 0;
-
+        validate:
         for (Map.Entry<String, String> e : metadata.entrySet()) {
             String k = e.getKey().toLowerCase();
             String v = e.getValue();
-            if (!k.startsWith(metaPrefix)) {
-                errK = k;
-                errV = v;
-                valid = false;
-            }
-            kLen += k.length() - 9; // not include `metaPrefix`
+            kLen += k.length();
             vLen += v.length();
             for (char ch : k.toCharArray()) { // check header field name
                 if (!(ch >= 65 && ch <= 90
@@ -207,7 +201,8 @@ public class QSParamInvokeUtil {
                     errK = k;
                     errV = v;
                     valid = false;
-                    break;
+                    cause = "key characters are not in the legal character set";
+                    break validate;
                 }
             }
             // is Ascii Printable
@@ -216,18 +211,20 @@ public class QSParamInvokeUtil {
                     errK = k;
                     errV = v;
                     valid = false;
-                    break;
+                    cause = "value has characters is not a printable ASCII character";
+                    break validate;
                 }
             }
             if (kLen > 512 || vLen > 2048) {
                 errK = k;
                 errV = v;
                 valid = false;
+                cause = "key/values size exceed the max size limit";
+                break;
             }
         }
         if (!valid) {
-            return QSStringUtil.getParameterValueNotAllowedError(
-                    errK, errV, new String[] {"x-qs-meta-*"});
+            return String.format("%s/%s is not allowed, reason: %s", errK, errV, cause);
         }
         return null;
     }
