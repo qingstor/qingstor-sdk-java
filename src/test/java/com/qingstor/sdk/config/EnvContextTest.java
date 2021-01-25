@@ -16,7 +16,10 @@
 package com.qingstor.sdk.config;
 
 import com.qingstor.sdk.exception.QSException;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,7 +42,6 @@ public class EnvContextTest {
                 "access_key_id: 'testkey'\n"
                         + "secret_access_key: 'test_asss'\n"
                         + "additional_user_agent: 'test/integration'\n"
-                        + "host: qingcloud.com\n"
                         + "port: 443\n"
                         + "protocol: https\n";
         File f = new File("/tmp/config.yaml");
@@ -56,8 +58,25 @@ public class EnvContextTest {
             EnvContext ctx = EnvContext.loadFromFile("/tmp/config.yaml");
             Assert.assertEquals(ctx.getAccessKeyId(), "testkey");
             Assert.assertEquals(ctx.getSecretAccessKey(), "test_asss");
-            Assert.assertEquals(ctx.getEndpoint().toString(), "https://qingcloud.com:443");
+            Assert.assertEquals(ctx.getEndpoint().toString(), "https://qingstor.com");
             Assert.assertEquals(ctx.getAdditionalUserAgent(), "test/integration");
+        }
+        String hostPart = "host: qingcloud.com\n";
+        config = config + hostPart;
+        bConf = false;
+        try {
+            OutputStream output = new FileOutputStream(f);
+            output.write(config.getBytes());
+            output.close();
+            bConf = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (bConf) {
+            EnvContext ctx = EnvContext.loadFromFile("/tmp/config.yaml");
+            Assert.assertEquals(ctx.getAccessKeyId(), "testkey");
+            Assert.assertEquals(ctx.getSecretAccessKey(), "test_asss");
+            Assert.assertEquals(ctx.getEndpoint().toString(), "https://qingcloud.com:443");
         }
     }
 }

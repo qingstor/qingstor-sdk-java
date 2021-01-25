@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Most of operations in qingstore can be found in this class.<br>
+ * Most of operations in qingstor can be found in this class.<br>
  * Usage:
  *
  * <pre>
@@ -46,6 +46,9 @@ import java.util.Map;
  * </pre>
  *
  * Now you can use the object bucket to do the operations.
+ *
+ * <p>Note: If your endpoint is configured as a raw ip or localhost, the zone parameter in
+ * constructor can be ignored.
  */
 public class Bucket {
     private String zone;
@@ -54,7 +57,10 @@ public class Bucket {
     private ClientConfiguration clientCfg;
 
     public Bucket(EnvContext envContext, String zone, String bucketName) {
-        this(envContext, ClientConfiguration.from(envContext), zone, bucketName);
+        this.cred = envContext;
+        this.clientCfg = ClientConfiguration.from(envContext);
+        this.zone = zone;
+        this.bucketName = bucketName;
     }
 
     // Provided for {@code QingStor#getBucket()} only currently.

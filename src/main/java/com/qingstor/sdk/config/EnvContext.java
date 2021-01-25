@@ -34,9 +34,15 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvContext implements ParamValidate, Credentials {
     private static final ObjectMapper om;
-    private static final String DEFAULT_HOST = "qingstor.com";
-    private static final String DEFAULT_PROTOCOL = "https";
     private static final HttpConfig DEFAULT_HTTP_CONFIG = new HttpConfig();
+    private static final String DEFAULT_ENDPOINT = "https://qingstor.com";
+    /**
+     * ******************************************************* Deprecated, remove in the future *
+     * *******************************************************
+     */
+    @Deprecated private static final String DEFAULT_HOST = "qingstor.com";
+
+    @Deprecated private static final String DEFAULT_PROTOCOL = "https";
 
     static {
         om = new ObjectMapper(new YAMLFactory());
@@ -44,18 +50,9 @@ public class EnvContext implements ParamValidate, Credentials {
     }
 
     private String accessKeyId;
-
     private String secretAccessKey;
-
-    private String host = DEFAULT_HOST;
-    private boolean cnameSupport = false;
-    private String port;
-    private String protocol = DEFAULT_PROTOCOL;
+    private String endpoint = DEFAULT_ENDPOINT;
     private String additionalUserAgent;
-
-    // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
-    @Deprecated private String requestUrlStyle = "virtual_host_style";
-
     /**
      * virtual_host_enabled will also be supported in this minor version series. After that, it will
      * be removed. Please use enable_virtual_host_style.
@@ -64,9 +61,14 @@ public class EnvContext implements ParamValidate, Credentials {
     @JsonAlias("virtual_host_enabled")
     private boolean virtualHostEnabled = false;
 
+    private boolean cnameSupport = false;
     private HttpConfig httpConfig = DEFAULT_HTTP_CONFIG;
-
-    private boolean safeOkHttp = true;
+    // default style, like this: https://bucket-name.zone-id.qingstor.com/object-name
+    @Deprecated private String requestUrlStyle = "virtual_host_style";
+    @Deprecated private String host = DEFAULT_HOST;
+    @Deprecated private String port;
+    @Deprecated private String protocol = DEFAULT_PROTOCOL;
+    @Deprecated private boolean safeOkHttp = true;
 
     private EnvContext() {}
 
@@ -143,51 +145,6 @@ public class EnvContext implements ParamValidate, Credentials {
         this.virtualHostEnabled = virtualHostEnabled;
     }
 
-    /**
-     * URL have two style: <br>
-     * 1. VIRTUAL_HOST_STYLE: <br>
-     * https://bucket-name.zone-id.qingstor.com/object-name <br>
-     * 2. PATH_STYLE: <br>
-     * https://zone-id.qingstor.com/bucket-name/object-name <br>
-     *
-     * @return request url style
-     * @deprecated Use {@link #isVirtualHostEnabled()} instead.
-     */
-    @Deprecated
-    public String getRequestUrlStyle() {
-        return requestUrlStyle;
-    }
-
-    /**
-     * You can use this method to change the url style. <br>
-     * URL have two style: <br>
-     * 1. VIRTUAL_HOST_STYLE: <br>
-     * https://bucket-name.zone-id.qingstor.com/object-name <br>
-     * 2. PATH_STYLE: <br>
-     * https://zone-id.qingstor.com/bucket-name/object-name <br>
-     *
-     * @param requestUrlStyle set QSConstant.PATH_STYLE or QSConstant.VIRTUAL_HOST_STYLE
-     * @deprecated Use {@link #setVirtualHostEnabled(boolean)} instead.
-     */
-    @Deprecated
-    public void setRequestUrlStyle(String requestUrlStyle) {
-        this.requestUrlStyle = requestUrlStyle;
-    }
-
-    public boolean isSafeOkHttp() {
-        return safeOkHttp;
-    }
-
-    /**
-     * This method will be deleted in subsequent releases
-     *
-     * @param safeOkHttp is safe okHttp or not
-     */
-    @Deprecated
-    public void setSafeOkHttp(boolean safeOkHttp) {
-        this.safeOkHttp = safeOkHttp;
-    }
-
     public String getAccessKeyId() {
         return accessKeyId;
     }
@@ -204,34 +161,20 @@ public class EnvContext implements ParamValidate, Credentials {
         this.secretAccessKey = secretAccessKey;
     }
 
-    public String getHost() {
-        return host;
-    }
-
-    /** @param host example: qingstor.com */
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    /** @param port example: 8080 */
-    public void setPort(String port) {
-        this.port = port;
-    }
-
-    public String getProtocol() {
-        return protocol;
-    }
-
-    /** @param protocol example: https or http */
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
+    /**
+     * getEndpoint returns the URI format of endpoint which convert from endpoint string.
+     *
+     * <p>We will gradually discard these config items: protocol/host/port, please use endpoint
+     * directly.
+     */
     public URI getEndpoint() {
+        boolean useOldCfg = false;
+        if (!this.getProtocol().equals(DEFAULT_PROTOCOL) || !this.getHost().equals(DEFAULT_HOST)) {
+            useOldCfg = true;
+        }
+        if (!useOldCfg) {
+            return URI.create(endpoint);
+        }
         String joinUrl = this.getProtocol() + "://" + this.getHost();
         if (this.getPort() != null) {
             joinUrl += ":" + this.getPort();
@@ -239,13 +182,8 @@ public class EnvContext implements ParamValidate, Credentials {
         return URI.create(joinUrl);
     }
 
-    /** @deprecated Use {@link #getEndpoint()} instead. */
-    public String getRequestUrl() {
-        String joinUrl = this.getProtocol() + "://" + this.getHost();
-        if (this.getPort() != null) {
-            joinUrl += ":" + this.getPort();
-        }
-        return joinUrl;
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 
     /** @return the additionalUserAgent */
@@ -258,12 +196,42 @@ public class EnvContext implements ParamValidate, Credentials {
         this.additionalUserAgent = additionalUserAgent;
     }
 
+    public boolean isCnameSupport() {
+        return cnameSupport;
+    }
+
+    public void setCnameSupport(boolean cnameSupport) {
+        this.cnameSupport = cnameSupport;
+    }
+
     public HttpConfig getHttpConfig() {
         return httpConfig;
     }
 
     public void setHttpConfig(HttpConfig httpConfig) {
         this.httpConfig = httpConfig;
+    }
+
+    @Override
+    public String validateParam() {
+        if (QSStringUtil.isEmpty(getAccessKeyId())) {
+            return QSStringUtil.getParameterRequired("AccessKeyId", "EnvContext");
+        }
+
+        if (QSStringUtil.isEmpty(getEndpoint().toString())) {
+            return QSStringUtil.getParameterRequired("host", "EnvContext");
+        }
+        if (!QSStringUtil.isEmpty(getAdditionalUserAgent())) {
+            for (int i = 0; i < getAdditionalUserAgent().length(); i++) {
+                char temp = getAdditionalUserAgent().charAt(i);
+                // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
+                if ((int) temp < 32 || (int) temp > 126 || (int) temp == 32 || (int) temp == 34) {
+                    return "Additional User-Agent contains characters that not allowed :"
+                            + getAdditionalUserAgent().charAt(i);
+                }
+            }
+        }
+        return null;
     }
 
     @Override
@@ -297,34 +265,95 @@ public class EnvContext implements ParamValidate, Credentials {
                 + '}';
     }
 
-    @Override
-    public String validateParam() {
-        if (QSStringUtil.isEmpty(getAccessKeyId())) {
-            return QSStringUtil.getParameterRequired("AccessKeyId", "EnvContext");
-        }
-
-        if (QSStringUtil.isEmpty(getEndpoint().toString())) {
-            return QSStringUtil.getParameterRequired("host", "EnvContext");
-        }
-        if (!QSStringUtil.isEmpty(getAdditionalUserAgent())) {
-            for (int i = 0; i < getAdditionalUserAgent().length(); i++) {
-                char temp = getAdditionalUserAgent().charAt(i);
-                // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
-                if ((int) temp < 32 || (int) temp > 126 || (int) temp == 32 || (int) temp == 34) {
-                    return "Additional User-Agent contains characters that not allowed :"
-                            + getAdditionalUserAgent().charAt(i);
-                }
-            }
-        }
-        return null;
+    @Deprecated
+    public String getHost() {
+        return host;
     }
 
-    public boolean isCnameSupport() {
-        return cnameSupport;
+    /**
+     * @param host example: qingstor.com
+     * @deprecated
+     */
+    @Deprecated
+    public void setHost(String host) {
+        this.host = host;
     }
 
-    public void setCnameSupport(boolean cnameSupport) {
-        this.cnameSupport = cnameSupport;
+    @Deprecated
+    public String getPort() {
+        return port;
+    }
+
+    /** @param port example: 8080 */
+    @Deprecated
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    @Deprecated
+    public String getProtocol() {
+        return protocol;
+    }
+
+    /** @param protocol example: https or http */
+    @Deprecated
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    /** @deprecated Use {@link #getEndpoint()} instead. */
+    public String getRequestUrl() {
+        String joinUrl = this.getProtocol() + "://" + this.getHost();
+        if (this.getPort() != null) {
+            joinUrl += ":" + this.getPort();
+        }
+        return joinUrl;
+    }
+
+    /**
+     * URL have two style: <br>
+     * 1. VIRTUAL_HOST_STYLE: <br>
+     * https://bucket-name.zone-id.qingstor.com/object-name <br>
+     * 2. PATH_STYLE: <br>
+     * https://zone-id.qingstor.com/bucket-name/object-name <br>
+     *
+     * @return request url style
+     * @deprecated Use {@link #isVirtualHostEnabled()} instead.
+     */
+    @Deprecated
+    public String getRequestUrlStyle() {
+        return requestUrlStyle;
+    }
+
+    /**
+     * You can use this method to change the url style. <br>
+     * URL have two style: <br>
+     * 1. VIRTUAL_HOST_STYLE: <br>
+     * https://bucket-name.zone-id.qingstor.com/object-name <br>
+     * 2. PATH_STYLE: <br>
+     * https://zone-id.qingstor.com/bucket-name/object-name <br>
+     *
+     * @param requestUrlStyle set QSConstant.PATH_STYLE or QSConstant.VIRTUAL_HOST_STYLE
+     * @deprecated Use {@link #setVirtualHostEnabled(boolean)} instead.
+     */
+    @Deprecated
+    public void setRequestUrlStyle(String requestUrlStyle) {
+        this.requestUrlStyle = requestUrlStyle;
+    }
+
+    @Deprecated
+    public boolean isSafeOkHttp() {
+        return safeOkHttp;
+    }
+
+    /**
+     * This method will be deleted in subsequent releases
+     *
+     * @param safeOkHttp is safe okHttp or not
+     */
+    @Deprecated
+    public void setSafeOkHttp(boolean safeOkHttp) {
+        this.safeOkHttp = safeOkHttp;
     }
 
     private enum Env {
