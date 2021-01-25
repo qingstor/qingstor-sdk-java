@@ -28,7 +28,7 @@ import com.qingstor.sdk.request.QSRequest;
 import com.qingstor.sdk.common.OperationContext;
 
 /**
- * Most of operations in qingstore can be found in this class.<br>
+ * Most of operations in qingstor can be found in this class.<br>
  * Usage:
  * <pre>
  * EnvContext env = new EnvContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
@@ -37,6 +37,8 @@ import com.qingstor.sdk.common.OperationContext;
  * Bucket bucket = new Bucket(env, zoneKey, bucketName);
  * </pre>
  * Now you can use the object bucket to do the operations.
+ *
+ * Note: If your endpoint is configured as a raw ip or localhost, the zone parameter in constructor can be ignored.
  */
 public class Bucket {
     private String zone;

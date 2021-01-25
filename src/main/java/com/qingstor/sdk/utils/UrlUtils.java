@@ -71,6 +71,9 @@ public class UrlUtils {
     private static String buildCanonicalHost(
             HttpUrl endpoint, String zone, String bucket, ClientConfiguration config) {
         String host = endpoint.host();
+        if (config.isRawHost()) { // must be path style, no zone info is inserted.
+            return host;
+        }
         if (config.isCnameSupport() && escapeFromExcluded(host, config.cnameExcludeSet())) {
             return host;
         }
