@@ -32,6 +32,7 @@ import org.json.JSONObject;
 public class QSJSONUtil {
 
     private static ObjectMapper om = new ObjectMapper();
+    private static final String CUSTOM_META_PREFIX = "x-qs-meta-";
 
     public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
         Map<String, Object> retMap = new HashMap<String, Object>();
@@ -409,8 +410,10 @@ public class QSJSONUtil {
                         map = om.readValue(o.toString(), HashMap.class);
                         for (Map.Entry<String, Object> entry : map.entrySet()) {
                             String k = entry.getKey().toLowerCase();
-                            if (k.startsWith("x-qs-meta-")) {
-                                metadatas.put(k, entry.getValue().toString());
+                            if (k.startsWith(CUSTOM_META_PREFIX)) {
+                                metadatas.put(
+                                        k.substring(CUSTOM_META_PREFIX.length()),
+                                        entry.getValue().toString());
                             }
                         }
 
@@ -457,7 +460,6 @@ public class QSJSONUtil {
                             if (data instanceof JSONArray) {
                                 JSONArray jsonData = (JSONArray) data;
                                 for (int i = 0; i < jsonData.length(); i++) {
-
                                     Object o = toObject(jsonData, i);
                                     invokeData.add(o);
                                 }

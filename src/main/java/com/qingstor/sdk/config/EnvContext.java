@@ -36,8 +36,9 @@ public class EnvContext implements ParamValidate, Credentials {
     private static final ObjectMapper om;
     private static final HttpConfig DEFAULT_HTTP_CONFIG = new HttpConfig();
     private static final String DEFAULT_ENDPOINT = "https://qingstor.com";
-    /**
-     * ******************************************************* Deprecated, remove in the future *
+    /*
+     * *******************************************************
+     * //        Deprecated, remove in the future           //
      * *******************************************************
      */
     @Deprecated private static final String DEFAULT_HOST = "qingstor.com";
