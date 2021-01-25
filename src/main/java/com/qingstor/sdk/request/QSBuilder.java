@@ -258,8 +258,10 @@ public class QSBuilder {
         this.paramsQuery.forEach(
                 (k, v) -> builder.addQueryParameter(k.toString(), v == null ? null : v.toString()));
         String expiresTime = opCtx.expires();
-        if (expiresTime != null) {
-            Credentials credentials = opCtx.credentials();
+        Credentials credentials = opCtx.credentials();
+        if (expiresTime != null
+                && !QSStringUtil.isEmpty(credentials.getAccessKeyId())
+                && !QSStringUtil.isEmpty(credentials.getSecretAccessKey())) {
             String expireAuth = this.getSignature();
             String ak = credentials.getAccessKeyId();
             builder.addQueryParameter("access_key_id", ak)
@@ -305,6 +307,10 @@ public class QSBuilder {
                 this.httpMethod, resourcePathForSign(), this.paramsQuery, this.paramsHeaders);
     }
 
+    /**
+     * Generate the signature by provided request info. If credentials is invalid(ak/sk is empty),
+     * null will be returns.
+     */
     private String getSignature() throws QSException {
         String signature =
                 String.valueOf(this.paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION));
@@ -313,6 +319,10 @@ public class QSBuilder {
         }
         String authSign;
         Credentials credentials = opCtx.credentials();
+        if (QSStringUtil.isEmpty(credentials.getAccessKeyId())
+                || QSStringUtil.isEmpty(credentials.getSecretAccessKey())) {
+            return null;
+        }
         try {
             if (this.checkExpiresParam()) {
                 authSign =
