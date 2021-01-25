@@ -25,22 +25,23 @@ import com.qingstor.sdk.common.auth.Credentials;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ParamValidate;
 import com.qingstor.sdk.utils.QSStringUtil;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
+import java.util.EnumMap;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvContext implements ParamValidate, Credentials {
-
     private static final ObjectMapper om;
+    private static final String DEFAULT_HOST = "qingstor.com";
+    private static final String DEFAULT_PROTOCOL = "https";
+    private static final HttpConfig DEFAULT_HTTP_CONFIG = new HttpConfig();
 
     static {
         om = new ObjectMapper(new YAMLFactory());
         om.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
     }
-
-    private static final String DEFAULT_HOST = "qingstor.com";
-    private static final String DEFAULT_PROTOCOL = "https";
-    private static final HttpConfig DEFAULT_HTTP_CONFIG = new HttpConfig();
 
     private String accessKeyId;
 
@@ -74,12 +75,47 @@ public class EnvContext implements ParamValidate, Credentials {
         this.setSecretAccessKey(accessSecret);
     }
 
-    public static EnvContext loadFromFile(String filePathName) throws QSException {
+    /**
+     * loadUserConfig tries to get the config file path by reading the environment variable. If it
+     * is not set, it looks for ~.config/qingstor.yaml. Then initialize EnvContext by reading the
+     * configuration file.
+     */
+    public static EnvContext loadUserConfig() throws QSException {
+        String configPath = System.getenv(Env.CONFIG_PATH.toString());
+        if (configPath == null) {
+            configPath = System.getProperty("user.home") + "/.config/qingstor.yaml";
+        }
+        return loadFromFile(configPath);
+    }
+
+    /**
+     * loadFromFile initialize EnvContext by reading the specified config filepath. Also tries to
+     * find ak/sk pair by retrieving env value of (QINGSTOR_ACCESS_KEY_ID,
+     * QINGSTOR_SECRET_ACCESS_KEY).
+     */
+    public static EnvContext loadFromFile(String filepath) throws QSException {
+        EnvContext envCtx;
         try {
-            return om.readValue(new File(filePathName), EnvContext.class);
+            envCtx = om.readValue(new File(filepath), EnvContext.class);
         } catch (IOException e) {
             throw new QSException(e.getMessage());
         }
+        Map<Env, String> envs = new EnumMap<>(Env.class);
+        for (Env env : Env.values()) {
+            String value = System.getenv(env.toString());
+            if (value != null) {
+                envs.put(env, value);
+            }
+        }
+        String ak = envs.get(Env.ACCESS_KEY_ID);
+        String sk = envs.get(Env.SECRET_ACCESS_KEY);
+        if (ak != null) {
+            envCtx.setAccessKeyId(ak);
+        }
+        if (sk != null) {
+            envCtx.setSecretAccessKey(sk);
+        }
+        return envCtx;
     }
 
     /**
@@ -289,6 +325,23 @@ public class EnvContext implements ParamValidate, Credentials {
 
     public void setCnameSupport(boolean cnameSupport) {
         this.cnameSupport = cnameSupport;
+    }
+
+    private enum Env {
+        CONFIG_PATH("QINGSTOR_CONFIG_PATH"),
+        ACCESS_KEY_ID("QINGSTOR_ACCESS_KEY_ID"),
+        SECRET_ACCESS_KEY("QINGSTOR_SECRET_ACCESS_KEY");
+
+        private final String env;
+
+        Env(String env) {
+            this.env = env;
+        }
+
+        @Override
+        public String toString() {
+            return env;
+        }
     }
 
     public static class HttpConfig {

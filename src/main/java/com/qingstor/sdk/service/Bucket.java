@@ -54,10 +54,7 @@ public class Bucket {
     private ClientConfiguration clientCfg;
 
     public Bucket(EnvContext envContext, String zone, String bucketName) {
-        this.cred = envContext;
-        this.clientCfg = ClientConfiguration.from(envContext);
-        this.zone = zone;
-        this.bucketName = bucketName;
+        this(envContext, ClientConfiguration.from(envContext), zone, bucketName);
     }
 
     // Provided for {@code QingStor#getBucket()} only currently.
