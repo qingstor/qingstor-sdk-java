@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can DELETE Bucket External Mirror
 
-
 ```java
     private void deleteBucketExternalMirror(Bucket bucket) {
         try {

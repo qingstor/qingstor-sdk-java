@@ -18,7 +18,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can put Bucket Policy
 
-
 ```java
     private void putBucketPolicy(Bucket bucket) {
         try {

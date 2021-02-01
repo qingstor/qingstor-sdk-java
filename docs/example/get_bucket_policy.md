@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can GET Bucket Policy
 
-
 ```java
     private void getBucketPolicy(Bucket bucket) {
         try {

@@ -213,7 +213,7 @@ Add a construction method of QingStor.java
     And add an example about how to do a image progress.
     Visit below links to get examples.
 
-    [English Version](docs/more-examples.md)
+    [English Version](docs/examples.md)
     [Chinese Version](docs/guide_zh.md)
 
 ## [v2.2.5] - 2018-01-25
@@ -254,7 +254,7 @@ Visit below links to know more.
 
     You can see the new examples here:
 
-    [English Version](docs/more-examples.md)
+    [English Version](docs/examples.md)
     [Chinese Version](docs/guide_zh.md)
 
 ## [v2.2.3] - 2018-01-05
@@ -271,7 +271,7 @@ Visit below links to know more.
 
     You can see the examples here:
 
-    [English Version](docs/more-examples.md)
+    [English Version](docs/examples.md)
     [Chinese Version](docs/guide_zh.md)
 
 ## [v2.2.2] - 2017-12-21

@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can GET Bucket External Mirror
 
-
 ```java
     private void getBucketExternalMirror(Bucket bucket) {
         try {

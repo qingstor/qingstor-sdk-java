@@ -75,6 +75,7 @@ if (putObjectOutput.getStatueCode() == 200 || putObjectOutput.getStatueCode() ==
 Then the Headers you defined will send to the server.
 
 #### Get Response Headers/Parameters
+
 Take HeadObject as an example, to get the Headers/Parameters above we defined：
 Step 1：Create a class with permission 'public'：MyHeadObjectOutput. Extends the correct Output class.<br>
 See the class you extended, and write correct parameters.
@@ -146,6 +147,7 @@ if (output.getStatueCode() == 200 || output.getStatueCode() == 201) {
 ```
 
 ### Define metadata
+
 To change the metadata of an Object existed, you can copy itself(PUT Object - Copy).
 Copy the object itself, as the same time put the http header "x-qs-metadata-directive: replace" into the request.
 Then put headers(metadata) you need into the request, you'll get it.
@@ -201,6 +203,7 @@ public class MyPutObjectInput extends Bucket.PutObjectInput {
 ```
 
 Step 2：Set current request headers and send the request:
+
 ```java
 MyPutObjectInput copyInput = new MyPutObjectInput();
 String fileName = "copySelf.png";

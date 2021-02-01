@@ -37,7 +37,7 @@ private static void append(Bucket bucket, String objKey) throws QSException {
     long position = 0L;
     for (int i = 0; i < 4; i++) {
         Bucket.AppendObjectInput input = new Bucket.AppendObjectInput();
-        // According to your needs, set the inputStream source to the implementation that meets your needs. 
+        // According to your needs, set the inputStream source to the implementation that meets your needs.
         // Here is an example, simply set string => bytes.
         ByteArrayInputStream ins = new ByteArrayInputStream(line.getBytes());
         input.setBodyInputStream(ins);
@@ -51,10 +51,9 @@ private static void append(Bucket bucket, String objKey) throws QSException {
 }
 ```
 
-
-Note: append object has the concept of next write position, which is the starting position when you write data next time. 
+Note: append object has the concept of next write position, which is the starting position when you write data next time.
 It needs to be set explicitly and must be equal to the current size of the object, and cannot be greater or less than.
 
-If no exception is thrown, it means that the append is successful. 
-You can check the object with the corresponding name in your bucket, 
+If no exception is thrown, it means that the append is successful.
+You can check the object with the corresponding name in your bucket,
 and its content will be 4 lines of append a new line obtained by 4 additional writes.

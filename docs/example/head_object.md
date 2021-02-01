@@ -2,7 +2,7 @@
 
 Initialize the Bucket service with access-key-id and secret-access-key
 
-``` java
+```java
 import com.qingstor.sdk.config.EnvContext;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.service.*;
@@ -16,11 +16,12 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 Objects in above codes：
+
 - bucket: An Object to operate Bucket. You can use all of the API with level Bucket and Object with the object.
 
 After created the object, we need perform the action to head object：
 
-``` java
+```java
     /**
      * Head Object
      *
@@ -61,6 +62,7 @@ After created the object, we need perform the action to head object：
 ```
 
 Methods in above codes：
+
 - bucket.headObject(objectName, input) get the object which the key is objectName 的 Object
-	- objectName is the key of the Object. Object's Key is the Object's unique identifier in QingStor Object Storage's bucket, equals to the file name in local storage system.
-	- input Used to set the property of the Object, to get the object more accurately.
+  - objectName is the key of the Object. Object's Key is the Object's unique identifier in QingStor Object Storage's bucket, equals to the file name in local storage system.
+  - input Used to set the property of the Object, to get the object more accurately.

@@ -2,7 +2,7 @@
 
 Initialize the Bucket service with access-key-id and secret-access-key
 
-``` java
+```java
 EnvContext env = new EnvContext("ACCESS_KEY_ID_EXAMPLE", "SECRET_ACCESS_KEY_EXAMPLE");
 String zoneName = "pek3a";
 String bucketName = "testBucketName";
@@ -10,8 +10,8 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 Objects in above codes：
-- bucket: An Object to operate Bucket. You can use all of the API with level Bucket and Object with the object.
 
+- bucket: An Object to operate Bucket. You can use all of the API with level Bucket and Object with the object.
 
 After created the object, we need perform the action to GET Bucket Notification：
 
