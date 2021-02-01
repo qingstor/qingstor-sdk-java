@@ -15,9 +15,12 @@
  */
 package com.qingstor.sdk.constants;
 
+import java.io.IOException;
+import java.util.Properties;
+
 public class QSConstant {
 
-    public static String SDK_VERSION = "2.5.0";
+    public static String SDK_VERSION = initVersion();
     public static String SDK_NAME = "qingstor-sdk-java";
 
     public static String QC_CODE_FIELD_NAME = "statue_code";
@@ -60,10 +63,6 @@ public class QSConstant {
 
     public static final String ENV_CONTEXT_KEY = "envContext";
 
-    public static final String SDK_TYPE_IAAS = "qingcloud_iaas";
-
-    public static final String SDK_TYPE_STOR = "qingcloud_stor";
-
     public static final String HEADER_PARAM_KEY_DATE = "Date";
 
     public static final String HEADER_PARAM_KEY_EXPIRES = "Expires";
@@ -77,13 +76,28 @@ public class QSConstant {
     public static final int REQUEST_ERROR_CODE = 10000;
     public static final int REQUEST_ERROR_CANCELLED = 20000;
 
-    public static int HTTPCLIENT_CONNECTION_TIME_OUT = 60; // Seconds
-    public static int HTTPCLIENT_READ_TIME_OUT = 100; // Seconds
-    public static int HTTPCLIENT_WRITE_TIME_OUT = 100; // Seconds
+    @Deprecated public static int HTTPCLIENT_CONNECTION_TIME_OUT = 60; // Seconds
+    @Deprecated public static int HTTPCLIENT_READ_TIME_OUT = 100; // Seconds
+    @Deprecated public static int HTTPCLIENT_WRITE_TIME_OUT = 100; // Seconds
 
     /** default url style, like this: https://bucket-name.zone-id.qingstor.com/object-name */
-    public static final String VIRTUAL_HOST_STYLE = "virtual_host_style";
+    @Deprecated public static final String VIRTUAL_HOST_STYLE = "virtual_host_style";
 
     /** https://zone-id.qingstor.com/bucket-name/object-name */
-    public static final String PATH_STYLE = "path_style";
+    @Deprecated public static final String PATH_STYLE = "path_style";
+
+    @Deprecated public static final String SDK_TYPE_IAAS = "qingcloud_iaas";
+
+    @Deprecated public static final String SDK_TYPE_STOR = "qingcloud_stor";
+
+    private static String initVersion() {
+        final String versionFile = "version.properties";
+        Properties info = new Properties();
+        try {
+            info.load(QSConstant.class.getClassLoader().getResourceAsStream(versionFile));
+            return info.getProperty("version");
+        } catch (IOException e) {
+            return "unspecified";
+        }
+    }
 }
