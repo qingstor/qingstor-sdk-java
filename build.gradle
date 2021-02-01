@@ -6,7 +6,8 @@ plugins {
 }
 
 group = 'com.yunify'
-version = '2.5.0'
+// Pass command-line option: -Psdk_version=x.x.x if you want build a different version.
+version = findProperty('sdk_version') ?: '2.5.1'
 
 repositories {
     mavenCentral()
@@ -20,6 +21,11 @@ java {
     withSourcesJar()
 }
 
+ext.sharedManifest = manifest {
+    attributes("Implementation-Title": project.name,
+            "Implementation-Version": project.version)
+}
+
 tasks {
     compileJava {
         configure options.encoding("UTF-8")
@@ -28,10 +34,8 @@ tasks {
         configure options.encoding("UTF-8")
     }
     jar {
-        manifest {
-            attributes("Implementation-Title": project.name,
-                            "Implementation-Version": project.version
-            )
+        manifest = project.manifest {
+            from sharedManifest
         }
     }
     javadoc {
@@ -45,14 +49,29 @@ tasks {
         }
     }
     task fatJar(type: Jar) {
+        manifest = project.manifest {
+            from sharedManifest
+        }
         archiveClassifier.set('all-deps')
-
         from sourceSets.main.output
-
         dependsOn configurations.runtimeClasspath
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         from {
             configurations.runtimeClasspath.findAll { it.name.endsWith("jar") }.collect { zipTree(it) }
         }
+    }
+    task versionProperties {
+        doLast {
+            mkdir "$buildDir/resources/main"
+            new File("$buildDir/resources/main/version.properties").withWriter { w ->
+                Properties p = new Properties()
+                p['version'] = project.version.toString()
+                p.store w, null
+            }
+        }
+    }
+    classes {
+        dependsOn versionProperties
     }
     build {
         dependsOn fatJar

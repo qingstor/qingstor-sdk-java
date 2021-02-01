@@ -15,7 +15,6 @@
  */
 package com.qingstor.sdk.utils;
 
-import com.qingstor.sdk.constants.QSConstant;
 import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONObject;
@@ -35,13 +34,6 @@ public class QSStringUtilTest {
         String[] values = {"2", "3"};
         String req = QSStringUtil.getParameterValueNotAllowedError("colume", "key", values);
         Assert.assertEquals(req, "colume value key is not allowed, should be one of 2,3 ");
-    }
-
-    @Test
-    public void testUserAgentString() {
-        String req = QSStringUtil.getUserAgent();
-        Assert.assertEquals(req.indexOf(QSConstant.SDK_VERSION) > 0, true);
-        Assert.assertEquals(req.indexOf(QSConstant.SDK_NAME) == 0, true);
     }
 
     @Test
