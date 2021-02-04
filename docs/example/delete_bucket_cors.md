@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can DELETE Bucket CORS
 
-
 ```java
     private void deleteBucketCORS(Bucket bucket) {
         try {

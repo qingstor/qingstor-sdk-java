@@ -2,9 +2,9 @@
 
 ### Request Elements
 
-|Name|Type|Description|Required|
-|:--:|:--:|:--|:--:|
-|source_site|String|Source site of external mirror source. Source site is like this: `<protocol>://<host>[:port]/[path]` . Valid values of protocol: “http” or “https”, default “http”. Port defaults to the port corresponding to the protocol. Path can be empty. If the storage space has multiple source sites for many times, the source site of the storage space will use the last setting value.|Yes|
+|    Name     |  Type  | Description                                                                                                                                                                                                                                                                                                                                                                          | Required |
+| :---------: | :----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
+| source_site | String | Source site of external mirror source. Source site is like this: `<protocol>://<host>[:port]/[path]` . Valid values of protocol: “http” or “https”, default “http”. Port defaults to the port corresponding to the protocol. Path can be empty. If the storage space has multiple source sites for many times, the source site of the storage space will use the last setting value. |   Yes    |
 
 See [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html) for more information about request elements.
 
@@ -21,7 +21,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 then you can PUT Bucket External Mirror
-
 
 ```java
     private void putBucketExternalMirror(Bucket bucket) {

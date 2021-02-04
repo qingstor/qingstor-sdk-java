@@ -14,13 +14,13 @@ You can add some options when list multipart uploads.
 
 You can set options below in ListMultipartUploadsInput. See controlled [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html).
 
-|Parameter name|Type|Description|Required|
-|:--:|:--:|:--|:--:|
-|prefix|String|Limits the response to keys that begin with the specified prefix.|	No|
-|delimiter|Char|A delimiter is a character you use to group keys.<br/>If you specify a prefix, all keys that contain the same string between the prefix and the first occurrence of the delimiter after the prefix are grouped under a single result element called CommonPrefixes.|	No|
-|key_marker|String|Together with upload-id-marker, this parameter specifies the multipart upload after which listing should begin.<br>If upload-id-marker is not specified, only the keys lexicographically greater than the specified key-marker will be included in the list.<br>If upload-id-marker is specified, any multipart uploads for a key equal to the key-marker might also be included, provided those multipart uploads have upload IDs lexicographically greater than the specified upload-id-marker.|No|
-|upload_id_marker|String|Together with key-marker, specifies the multipart upload after which listing should begin. If key-marker is not specified, the upload-id-marker parameter is ignored. Otherwise, any multipart uploads for a key equal to the key-marker might be included in the list only if they have an upload ID lexicographically greater than the specified upload-id-marker.|No|
-|limit|Integer|Sets the maximum number of objects returned in the response body. Default is 200, maximum is 1000.|	No|
+|  Parameter name  |  Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Required |
+| :--------------: | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------: |
+|      prefix      | String  | Limits the response to keys that begin with the specified prefix.                                                                                                                                                                                                                                                                                                                                                                                                                                 |    No    |
+|    delimiter     |  Char   | A delimiter is a character you use to group keys.<br/>If you specify a prefix, all keys that contain the same string between the prefix and the first occurrence of the delimiter after the prefix are grouped under a single result element called CommonPrefixes.                                                                                                                                                                                                                               |    No    |
+|    key_marker    | String  | Together with upload-id-marker, this parameter specifies the multipart upload after which listing should begin.<br>If upload-id-marker is not specified, only the keys lexicographically greater than the specified key-marker will be included in the list.<br>If upload-id-marker is specified, any multipart uploads for a key equal to the key-marker might also be included, provided those multipart uploads have upload IDs lexicographically greater than the specified upload-id-marker. |    No    |
+| upload_id_marker | String  | Together with key-marker, specifies the multipart upload after which listing should begin. If key-marker is not specified, the upload-id-marker parameter is ignored. Otherwise, any multipart uploads for a key equal to the key-marker might be included in the list only if they have an upload ID lexicographically greater than the specified upload-id-marker.                                                                                                                              |    No    |
+|      limit       | Integer | Sets the maximum number of objects returned in the response body. Default is 200, maximum is 1000.                                                                                                                                                                                                                                                                                                                                                                                                |    No    |
 
 ### Code Snippet
 
@@ -34,8 +34,8 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 Objects in above codes：
-- bucket: An Object to operate Bucket. You can use all of the API with level Bucket and Object with the object.
 
+- bucket: An Object to operate Bucket. You can use all of the API with level Bucket and Object with the object.
 
 After created the object, we need perform the action to list multipart uploads：
 

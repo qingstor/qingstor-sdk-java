@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can DELETE Bucket Lifecycle
 
-
 ```java
     private void deleteBucketLifecycle(Bucket bucket) {
         try {

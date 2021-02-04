@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can DELETE Bucket Notification
 
-
 ```java
     private void deleteBucketNotification(Bucket bucket) {
         try {

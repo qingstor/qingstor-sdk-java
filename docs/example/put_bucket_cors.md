@@ -2,14 +2,14 @@
 
 ### Request Elements
 
-|Name|Type|Description|Required|
-|:--:|:--:|:--|:--:|
-|cors_rules|Array|A set of origins and methods (cross-origin access that you want to allow). The elements in each set of configuration items are explained as follows.|	Yes|
-|allowed_origin|String|An origin that you want to allow cross-domain requests from. This can contain at most one * wild character.|Yes|
-|allowed_methods|Array|An HTTP method that you want to allow the origin to execute. A combination of the following values can be specified: “GET”, “PUT”, “POST”, “DELETE”, “HEAD”, or use ‘*’ to set up.|Yes|
-|allowed_headers|Array|An HTTP header that you want to allow the origin to execute. This can contain at most one * wild character.|No|
-|expose_headers|Array|One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript XMLHttpRequest object).|No|
-|max_age_seconds|Integer|The time in seconds that your browser is to cache the preflight response for the specified resource.(seconds)|No|
+|      Name       |  Type   | Description                                                                                                                                                                         | Required |
+| :-------------: | :-----: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
+|   cors_rules    |  Array  | A set of origins and methods (cross-origin access that you want to allow). The elements in each set of configuration items are explained as follows.                                |   Yes    |
+| allowed_origin  | String  | An origin that you want to allow cross-domain requests from. This can contain at most one \* wild character.                                                                        |   Yes    |
+| allowed_methods |  Array  | An HTTP method that you want to allow the origin to execute. A combination of the following values can be specified: “GET”, “PUT”, “POST”, “DELETE”, “HEAD”, or use ‘\*’ to set up. |   Yes    |
+| allowed_headers |  Array  | An HTTP header that you want to allow the origin to execute. This can contain at most one \* wild character.                                                                        |    No    |
+| expose_headers  |  Array  | One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript XMLHttpRequest object).                    |    No    |
+| max_age_seconds | Integer | The time in seconds that your browser is to cache the preflight response for the specified resource.(seconds)                                                                       |    No    |
 
 See [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html) for more information about request elements.
 
@@ -26,7 +26,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 then you can PUT Bucket CORS
-
 
 ```java
     private void putBucketCORS(Bucket bucket) {

@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can DELETE Bucket Policy
 
-
 ```java
     private void deleteBucketPolicy(Bucket bucket) {
         try {

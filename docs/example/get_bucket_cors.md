@@ -14,7 +14,6 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can GET Bucket CORS
 
-
 ```java
     private void getBucketCORS(Bucket bucket) {
         try {

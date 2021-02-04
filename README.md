@@ -5,50 +5,37 @@
 [![API Reference](http://img.shields.io/badge/api-reference-green.svg)](http://docs.qingcloud.com)
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
 
-English | [中文](./docs/guide_zh.md)
+English | [中文](README_zh-CN.md)
 
 The official QingStor SDK for the Java programming language.
+
+Before you start using the SDK, make sure you have a basic understanding of the concepts of [QingStor object storage](https://docs.qingcloud.com/qingstor/api/common/overview.html) (such as Zone, Service, Bucket, Object, etc.).
+
+This SDK try to keep a one-to-one correspondence with the methods on the [QingCloud QingStor object storage documentation](https://docs.qingcloud.com/qingstor/api/). For details of each method, please refer to the corresponding chapter in the link.
 
 You can see documents containing the complete package structure here: [javadoc](https://javadoc.io/doc/com.yunify/qingstor.sdk.java).
 
 ## Getting Started
 
-### Installation
-
-Refer to the [Installation Guide](docs/installation.md), and have this SDK installed.
-
-
-### Preparation
-
-Before your start, please login [QingCloud Console](https://console.qingcloud.com/access_keys/) to create a pair of QingCloud API AccessKey.
-
-___API AccessKey Example:___
-
-``` yaml
-access_key_id: ACCESS_KEY_ID_EXAMPLE
-secret_access_key: SECRET_ACCESS_KEY_EXAMPLE
-```
-
-### Usage
-
 Now you are ready to code. You can read the detailed guides in the list below to have a clear understanding.
 
-- [Configuration Guide](docs/configuration.md)
-- [QingStor Service Usage Guide](docs/qingstor_service_usage.md)
-- [Signature Server Guide](docs/qingstor_signature_server_example.md)
-- [Demo](docs/example/demo.md)
-- [More examples](docs/more-examples.md)
+- [Preparation](./docs/prepare.md)
+- [Installation](./docs/install.md)
+- [Configuration](./docs/config.md)
+- [Service Initialization](./docs/service.md)
+- [Code Examples](./docs/examples.md)
 
-Checkout our [releases](https://github.com/yunify/qingstor-sdk-java/releases) and [change logs](./CHANGELOG.md) for information about the latest features, bug fixes and new ideas.
+Checkout our [releases](https://github.com/qingstor/qingstor-sdk-java/releases) and [change log](./CHANGELOG.md) for information about the latest features, bug fixes and new ideas.
 
 ## Reference Documentations
 
-- [QingCloud Documentation Overview](https://docs.qingcloud.com)
+- [QingStor Documentation](https://docs.qingcloud.com/qingstor/index.html)
+- [QingStor Guide](https://docs.qingcloud.com/qingstor/guide/index.html)
 - [QingStor APIs](https://docs.qingcloud.com/qingstor/api/index.html)
 
 ## Contributing
 
-1. Fork it ( https://github.com/yunify/qingstor-sdk-java/fork )
+1. Fork it ( https://github.com/qingstor/qingstor-sdk-java/fork )
 2. Create your feature branch (`git checkout -b new-feature`)
 3. Commit your changes (`git commit -asm 'Add some feature'`)
 4. Push to the branch (`git push origin new-feature`)

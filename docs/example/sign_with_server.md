@@ -1,5 +1,7 @@
 ## Sign With Server
 
+A simple introduction to the signature server can refer to: [Signature Server Guide](../qingstor_signature_server_example.md).
+
 ### The Local Time Is Incorrect
 
 If the local time of user's clients are not synchronized with the network time.
@@ -13,17 +15,17 @@ String gmtTime = QSSignatureUtil.formatGmtDate(new Date());
 return gmtTime;
 ```
 
-After you get the time form the server, set the time before you call ``` requestHandler1.send(); ```.
+After you get the time form the server, set the time before you call `requestHandler1.send();`.
 
 ```java
 reqHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
 reqHandler.sendAsync();
 ```
 
-
 ### Code Snippet
 
 Take uploading object for example:
+
 ```
 try {
     // Step 1: new EnvContext and set zone and bucket
@@ -49,11 +51,14 @@ try {
                 System.out.println("Url = " + output.getUrl());
                 }
             });
-            
-    // Step 3: get the strToSignature. Send this string to the server.
+
+    // Step 3: get the strToSignature.
+    // Please send this strToSignature to the appropriate api of your self-built signature server.
     String strToSignature = reqHandler.getStringToSignature();
 
-    // Step 4: serverAuthorization. Get response from server. We just sign in local here.
+    // Step 4: serverAuthorization.
+    // The server side processes the returned information, and the processing after the server side receives strToSignature
+    // can refer to the following code (note that it is not a local call!!!):
     String serverAuthorization = QSSignatureUtil.generateSignature("secretKey",
         strToSignature);
 
@@ -64,9 +69,9 @@ try {
     // You can send strToSignature to the server to get the server's signature time.
     // The concrete server example refers to the "The Local Time Is Incorrect".
     reqHandler.getBuilder().setHeader(QSConstant.HEADER_PARAM_KEY_DATE, gmtTime);
-    
+
     reqHandler.setSignature("accessKey", serverAuthorization);
-    
+
     // Step 6: send request. Async requests use the method sendAsync(), sync requests use the method send().
     reqHandler.sendAsync();
 
