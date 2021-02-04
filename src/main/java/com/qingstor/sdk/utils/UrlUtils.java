@@ -78,10 +78,11 @@ public class UrlUtils {
             return host;
         }
         StringBuilder canonicalHost = new StringBuilder();
-        if (bucket != null && config.isVirtualHostEnabled()) {
-            canonicalHost.append(bucket).append(".").append(zone).append(".");
-        } else {
+        if (zone != null) { // e.g: like list-buckets from global.
             canonicalHost.append(zone).append(".");
+        }
+        if (bucket != null && config.isVirtualHostEnabled()) {
+            canonicalHost.append(bucket).append(".");
         }
 
         return canonicalHost.append(host).toString();
