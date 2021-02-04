@@ -64,6 +64,7 @@ and the Output holds the HTTP status code, response headers, response elements a
     - Complete Multipart Upload
 
 - Others
+  - [custom metadata](./example/custom_metadata.md)
   - [HTTP Headers/Parameters](./example/get_set_http_headers.md)
     - Get HTTP Headers/Parameters
     - Set HTTP Headers/Parameters
