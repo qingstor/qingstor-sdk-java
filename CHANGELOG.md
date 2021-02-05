@@ -2,6 +2,12 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.5.2] - 2021-07-25
+
+### Fixed
+
+- Ensure bucket is append before optional zone when `enable_virtual_host_style`(bug introduced in v2.5.1);
+
 ## [v2.5.1] - 2021-02-04
 
 ### Added

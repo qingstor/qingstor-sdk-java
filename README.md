@@ -1,9 +1,9 @@
 # QingStor SDK for Java
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java/)
-[![Build Status](https://travis-ci.org/yunify/qingstor-sdk-java.svg?branch=master)](https://travis-ci.org/yunify/qingstor-sdk-java)
-[![API Reference](http://img.shields.io/badge/api-reference-green.svg)](http://docs.qingcloud.com)
-[![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java)
+![Build Status](https://github.com/qingstor/qingstor-sdk-java/workflows/Unit%20Test/badge.svg)
+[![API Reference](https://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com)
+[![License](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
 
 English | [中文](README_zh-CN.md)
 
