@@ -144,7 +144,7 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.10'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.10.8'
-    implementation 'org.json:json:20201115'
+    implementation 'org.json:json:20210307'
     // it's library's consumer's responsibility to choose a log implementation(and set log_level.)
     implementation 'org.slf4j:slf4j-api:1.7.30'
     testImplementation 'io.cucumber:cucumber-java:6.10.1'
