@@ -149,7 +149,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.32'
     testImplementation 'io.cucumber:cucumber-java:6.10.4'
     testImplementation 'io.cucumber:cucumber-junit:6.10.4'
-    testImplementation 'ch.qos.logback:logback-classic:1.2.4'
+    testImplementation 'ch.qos.logback:logback-classic:1.2.5'
 }
 
 task cucumber() {
