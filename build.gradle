@@ -140,7 +140,7 @@ configurations {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    api 'com.squareup.okhttp3:okhttp:4.9.1'
+    api 'com.squareup.okhttp3:okhttp:4.9.2'
 
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.10'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.10.8'
