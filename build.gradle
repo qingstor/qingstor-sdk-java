@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
-    id("com.diffplug.spotless") version "5.15.2"
+    id("com.diffplug.spotless") version "5.16.0"
 }
 
 group = 'com.yunify'
@@ -147,7 +147,7 @@ dependencies {
     implementation 'org.json:json:20210307'
     // it's library's consumer's responsibility to choose a log implementation(and set log_level.)
     implementation 'org.slf4j:slf4j-api:1.7.32'
-    testImplementation 'io.cucumber:cucumber-java:6.11.0'
+    testImplementation 'io.cucumber:cucumber-java:7.0.0'
     testImplementation 'io.cucumber:cucumber-junit:6.11.0'
     testImplementation 'ch.qos.logback:logback-classic:1.2.6'
 }
