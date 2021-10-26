@@ -3514,7 +3514,7 @@ public class Bucket {
      */
     public static class PutBucketACLInput extends RequestInputModel {
 
-        /** Bucket ACL rules Required */
+        /** Bucket ACL rules */
         private List<ACLModel> aCL;
 
         public void setACL(List<ACLModel> aCL) {

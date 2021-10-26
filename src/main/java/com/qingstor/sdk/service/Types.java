@@ -1668,24 +1668,41 @@ public class Types {
         public Integer getDays() {
             return this.days;
         }
-        /** storage class Required */
-        private Integer storageClass;
+        /** storage class StorageClass's available values: STANDARD_IA, STANDARD Required */
+        private String storageClass;
 
-        public void setStorageClass(Integer storageClass) {
+        public void setStorageClass(String storageClass) {
             this.storageClass = storageClass;
         }
 
         @ParamAnnotation(paramType = "", paramName = "storage_class")
-        public Integer getStorageClass() {
+        public String getStorageClass() {
             return this.storageClass;
         }
 
         /** validateParam validates the Transition. */
         @Override
         public String validateParam() {
-
-            if (this.getStorageClass() < 0) {
+            if (QSStringUtil.isEmpty(this.getStorageClass())) {
                 return QSStringUtil.getParameterRequired("StorageClass", "Transition");
+            }
+            String[] storageClassValidValues = {"STANDARD_IA", "STANDARD"};
+
+            boolean storageClassIsValid = false;
+            String storageClass = this.getStorageClass();
+            if (null == storageClass || "".equals(storageClass)) {
+                storageClassIsValid = true;
+            } else {
+                for (String v : storageClassValidValues) {
+                    if (v.equals(storageClass)) {
+                        storageClassIsValid = true;
+                    }
+                }
+            }
+
+            if (!storageClassIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "StorageClass", this.getStorageClass() + "", storageClassValidValues);
             }
             return null;
         }
