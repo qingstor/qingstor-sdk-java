@@ -6,18 +6,16 @@
 
 用 access-key-id 和 secret-access-key 初始化 Bucket 服务。
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
 Bucket bucket = new Bucket(env, zoneKey, bucketName);
-
 ```
 
 然后您可以分段上传对象：
 
-```
-
+```java
 String objectName = "your_object_name";
 
 Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUploadInput();
@@ -65,7 +63,7 @@ bucket.completeMultipartUpload(objectKey, completeMultipartUploadInput);
 
 #### 如果您本地已存在一个文件的多个分段，您可以参考如下方法:
 
-```
+```java
     private void multipartUpload(Bucket bucket, List<File> files, String objectKey) throws QSException {
         if (files == null || files.size() < 1)
             throw new QSException("Files' counts can not be less than one!!");
@@ -105,7 +103,7 @@ bucket.completeMultipartUpload(objectKey, completeMultipartUploadInput);
 故同一个流只能使用一次。请勿将同一个流二次设置。
 如下示例仅供您参考解决多个流分段上传的问题。
 
-```
+```java
     String objectName = "your-object-name";
 
     Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUploadInput();
