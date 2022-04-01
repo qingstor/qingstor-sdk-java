@@ -63,6 +63,7 @@ Input 对象由请求参数, 请求头和请求体构成, Output 对象包含 HT
     - Complete Multipart Upload
 
 - 其他
+  - [并发分段上传示例](./example/concurrent_multi_upload.md)
   - [自定义元数据](./example/custom_metadata_zh-CN.md)
   - [HTTP Headers/Parameters](./example/get_set_http_headers_zh-CN.md)
     - 获取 HTTP Headers/Parameters
