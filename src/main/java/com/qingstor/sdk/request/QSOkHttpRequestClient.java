@@ -26,14 +26,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import okhttp3.internal.Util;
+import okhttp3.*;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,10 +65,8 @@ public class QSOkHttpRequestClient {
             Request request, boolean bSafe, Class<? extends OutputModel> outputClass)
             throws QSException {
         Call okhttpCall = client.newCall(request);
-        okhttp3.Response response;
         OutputModel model = QSParamInvokeUtil.getOutputModel(outputClass);
-        try {
-            response = okhttpCall.execute();
+        try (Response response = okhttpCall.execute()) {
             fillResponseValue2Object(response, model);
             return model;
         } catch (Exception e) {
@@ -102,8 +93,8 @@ public class QSOkHttpRequestClient {
                     }
 
                     @Override
-                    public void onResponse(Call call, okhttp3.Response response) {
-                        try {
+                    public void onResponse(Call call, Response response) {
+                        try (ResponseBody body = response.body()) {
                             if (callBack != null) {
                                 OutputModel m = QSParamInvokeUtil.getOutputModel(callBack);
                                 fillResponseValue2Object(response, m);
@@ -112,8 +103,6 @@ public class QSOkHttpRequestClient {
                         } catch (Exception e) {
                             log.error(e.getMessage());
                             onOkhttpFailure(e, callBack);
-                        } finally {
-                            Util.closeQuietly(response.body().source());
                         }
                     }
                 });
