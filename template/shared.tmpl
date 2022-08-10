@@ -393,7 +393,7 @@
     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public RequestHandler
+    public RequestHandler<{{$opID}}Output>
     {{if eq $belongs "Bucket" -}}
         {{$methodPrefix := replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
         {{$methodPrefix}}
@@ -442,7 +442,7 @@
             }
         {{- end}}
 
-        RequestHandler requestHandler =
+        RequestHandler<{{$opID}}Output> requestHandler =
             QSRequest.getRequest(builder.build(),
             {{- if $hasInput}}
                 input
@@ -514,7 +514,7 @@
     * Documentation URL: <a href="{{$operation.DocumentationURL}}">{{$operation.DocumentationURL}}</a>
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public RequestHandler
+    public RequestHandler<{{$opID}}Output>
     {{if eq $belongs "Bucket" -}}
         {{$methodPrefix := replace $opID "Bucket" "" -1 | camelCase | lowerFirst }}
         {{$methodPrefix}}
@@ -567,12 +567,12 @@
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(),
+        RequestHandler<{{$opID}}Output> requestHandler = QSRequest.getRequestAsync(builder.build(),
         {{- if $hasInput}}
             input
         {{ else }}
             null
-        {{end}},callback);
+        {{end}},callback, {{$opID}}Output.class);
         return requestHandler;
     }
 

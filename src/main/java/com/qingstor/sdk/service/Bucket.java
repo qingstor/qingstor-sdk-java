@@ -94,7 +94,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteRequest() throws QSException {
+    public RequestHandler<DeleteBucketOutput> deleteRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -111,7 +111,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketOutput.class);
 
         return requestHandler;
@@ -138,8 +138,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteAsyncRequest(ResponseCallBack<DeleteBucketOutput> callback)
-            throws QSException {
+    public RequestHandler<DeleteBucketOutput> deleteAsyncRequest(
+            ResponseCallBack<DeleteBucketOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -160,7 +160,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketOutput.class);
         return requestHandler;
     }
 
@@ -200,7 +202,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteCNAMERequest(DeleteBucketCNAMEInput input) throws QSException {
+    public RequestHandler<DeleteBucketCNAMEOutput> deleteCNAMERequest(DeleteBucketCNAMEInput input)
+            throws QSException {
         if (input == null) {
             input = new DeleteBucketCNAMEInput();
         }
@@ -220,7 +223,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketCNAMEOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, DeleteBucketCNAMEOutput.class);
 
         return requestHandler;
@@ -254,7 +257,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteCNAMEAsyncRequest(
+    public RequestHandler<DeleteBucketCNAMEOutput> deleteCNAMEAsyncRequest(
             DeleteBucketCNAMEInput input, ResponseCallBack<DeleteBucketCNAMEOutput> callback)
             throws QSException {
         if (input == null) {
@@ -280,7 +283,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<DeleteBucketCNAMEOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, DeleteBucketCNAMEOutput.class);
         return requestHandler;
     }
     /**
@@ -365,7 +370,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteCORSRequest() throws QSException {
+    public RequestHandler<DeleteBucketCORSOutput> deleteCORSRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -382,7 +387,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketCORSOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketCORSOutput.class);
 
         return requestHandler;
@@ -410,8 +415,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteCORSAsyncRequest(ResponseCallBack<DeleteBucketCORSOutput> callback)
-            throws QSException {
+    public RequestHandler<DeleteBucketCORSOutput> deleteCORSAsyncRequest(
+            ResponseCallBack<DeleteBucketCORSOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -432,7 +437,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketCORSOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketCORSOutput.class);
         return requestHandler;
     }
 
@@ -467,7 +474,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteExternalMirrorRequest() throws QSException {
+    public RequestHandler<DeleteBucketExternalMirrorOutput> deleteExternalMirrorRequest()
+            throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -484,7 +492,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketExternalMirrorOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketExternalMirrorOutput.class);
 
         return requestHandler;
@@ -512,7 +520,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteExternalMirrorAsyncRequest(
+    public RequestHandler<DeleteBucketExternalMirrorOutput> deleteExternalMirrorAsyncRequest(
             ResponseCallBack<DeleteBucketExternalMirrorOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -534,7 +542,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketExternalMirrorOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketExternalMirrorOutput.class);
         return requestHandler;
     }
 
@@ -568,7 +578,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteLifecycleRequest() throws QSException {
+    public RequestHandler<DeleteBucketLifecycleOutput> deleteLifecycleRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -585,7 +595,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketLifecycleOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketLifecycleOutput.class);
 
         return requestHandler;
@@ -613,7 +623,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteLifecycleAsyncRequest(
+    public RequestHandler<DeleteBucketLifecycleOutput> deleteLifecycleAsyncRequest(
             ResponseCallBack<DeleteBucketLifecycleOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -635,7 +645,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketLifecycleOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketLifecycleOutput.class);
         return requestHandler;
     }
 
@@ -669,7 +681,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteLoggingRequest() throws QSException {
+    public RequestHandler<DeleteBucketLoggingOutput> deleteLoggingRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -686,7 +698,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketLoggingOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketLoggingOutput.class);
 
         return requestHandler;
@@ -714,7 +726,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteLoggingAsyncRequest(
+    public RequestHandler<DeleteBucketLoggingOutput> deleteLoggingAsyncRequest(
             ResponseCallBack<DeleteBucketLoggingOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -736,7 +748,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketLoggingOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketLoggingOutput.class);
         return requestHandler;
     }
 
@@ -770,7 +784,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteNotificationRequest() throws QSException {
+    public RequestHandler<DeleteBucketNotificationOutput> deleteNotificationRequest()
+            throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -787,7 +802,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketNotificationOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketNotificationOutput.class);
 
         return requestHandler;
@@ -815,7 +830,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteNotificationAsyncRequest(
+    public RequestHandler<DeleteBucketNotificationOutput> deleteNotificationAsyncRequest(
             ResponseCallBack<DeleteBucketNotificationOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -837,7 +852,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketNotificationOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketNotificationOutput.class);
         return requestHandler;
     }
 
@@ -871,7 +888,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deletePolicyRequest() throws QSException {
+    public RequestHandler<DeleteBucketPolicyOutput> deletePolicyRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -888,7 +905,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketPolicyOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketPolicyOutput.class);
 
         return requestHandler;
@@ -916,7 +933,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deletePolicyAsyncRequest(
+    public RequestHandler<DeleteBucketPolicyOutput> deletePolicyAsyncRequest(
             ResponseCallBack<DeleteBucketPolicyOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -938,7 +955,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketPolicyOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketPolicyOutput.class);
         return requestHandler;
     }
 
@@ -972,7 +991,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteReplicationRequest() throws QSException {
+    public RequestHandler<DeleteBucketReplicationOutput> deleteReplicationRequest()
+            throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -989,7 +1009,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteBucketReplicationOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteBucketReplicationOutput.class);
 
         return requestHandler;
@@ -1017,7 +1037,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteReplicationAsyncRequest(
+    public RequestHandler<DeleteBucketReplicationOutput> deleteReplicationAsyncRequest(
             ResponseCallBack<DeleteBucketReplicationOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -1039,7 +1059,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteBucketReplicationOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteBucketReplicationOutput.class);
         return requestHandler;
     }
 
@@ -1080,8 +1102,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteMultipleObjectsRequest(DeleteMultipleObjectsInput input)
-            throws QSException {
+    public RequestHandler<DeleteMultipleObjectsOutput> deleteMultipleObjectsRequest(
+            DeleteMultipleObjectsInput input) throws QSException {
         if (input == null) {
             input = new DeleteMultipleObjectsInput();
         }
@@ -1101,7 +1123,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteMultipleObjectsOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, DeleteMultipleObjectsOutput.class);
 
         return requestHandler;
@@ -1136,7 +1158,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteMultipleObjectsAsyncRequest(
+    public RequestHandler<DeleteMultipleObjectsOutput> deleteMultipleObjectsAsyncRequest(
             DeleteMultipleObjectsInput input,
             ResponseCallBack<DeleteMultipleObjectsOutput> callback)
             throws QSException {
@@ -1163,7 +1185,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<DeleteMultipleObjectsOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, DeleteMultipleObjectsOutput.class);
         return requestHandler;
     }
     /**
@@ -1292,7 +1316,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getACLRequest() throws QSException {
+    public RequestHandler<GetBucketACLOutput> getACLRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -1309,7 +1333,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketACLOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketACLOutput.class);
 
         return requestHandler;
@@ -1336,8 +1360,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getACLAsyncRequest(ResponseCallBack<GetBucketACLOutput> callback)
-            throws QSException {
+    public RequestHandler<GetBucketACLOutput> getACLAsyncRequest(
+            ResponseCallBack<GetBucketACLOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -1358,7 +1382,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketACLOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketACLOutput.class);
         return requestHandler;
     }
 
@@ -1422,7 +1448,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getCNAMERequest(GetBucketCNAMEInput input) throws QSException {
+    public RequestHandler<GetBucketCNAMEOutput> getCNAMERequest(GetBucketCNAMEInput input)
+            throws QSException {
         if (input == null) {
             input = new GetBucketCNAMEInput();
         }
@@ -1442,7 +1469,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketCNAMEOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, GetBucketCNAMEOutput.class);
 
         return requestHandler;
@@ -1476,7 +1503,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getCNAMEAsyncRequest(
+    public RequestHandler<GetBucketCNAMEOutput> getCNAMEAsyncRequest(
             GetBucketCNAMEInput input, ResponseCallBack<GetBucketCNAMEOutput> callback)
             throws QSException {
         if (input == null) {
@@ -1502,7 +1529,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<GetBucketCNAMEOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, GetBucketCNAMEOutput.class);
         return requestHandler;
     }
     /**
@@ -1609,7 +1638,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getCORSRequest() throws QSException {
+    public RequestHandler<GetBucketCORSOutput> getCORSRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -1626,7 +1655,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketCORSOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketCORSOutput.class);
 
         return requestHandler;
@@ -1653,8 +1682,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getCORSAsyncRequest(ResponseCallBack<GetBucketCORSOutput> callback)
-            throws QSException {
+    public RequestHandler<GetBucketCORSOutput> getCORSAsyncRequest(
+            ResponseCallBack<GetBucketCORSOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -1675,7 +1704,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketCORSOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketCORSOutput.class);
         return requestHandler;
     }
 
@@ -1723,7 +1754,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getExternalMirrorRequest() throws QSException {
+    public RequestHandler<GetBucketExternalMirrorOutput> getExternalMirrorRequest()
+            throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -1740,7 +1772,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketExternalMirrorOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketExternalMirrorOutput.class);
 
         return requestHandler;
@@ -1768,7 +1800,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getExternalMirrorAsyncRequest(
+    public RequestHandler<GetBucketExternalMirrorOutput> getExternalMirrorAsyncRequest(
             ResponseCallBack<GetBucketExternalMirrorOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -1790,7 +1822,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketExternalMirrorOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketExternalMirrorOutput.class);
         return requestHandler;
     }
 
@@ -1837,7 +1871,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getLifecycleRequest() throws QSException {
+    public RequestHandler<GetBucketLifecycleOutput> getLifecycleRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -1854,7 +1888,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketLifecycleOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketLifecycleOutput.class);
 
         return requestHandler;
@@ -1882,7 +1916,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getLifecycleAsyncRequest(
+    public RequestHandler<GetBucketLifecycleOutput> getLifecycleAsyncRequest(
             ResponseCallBack<GetBucketLifecycleOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -1904,7 +1938,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketLifecycleOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketLifecycleOutput.class);
         return requestHandler;
     }
 
@@ -1951,7 +1987,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getLoggingRequest() throws QSException {
+    public RequestHandler<GetBucketLoggingOutput> getLoggingRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -1968,7 +2004,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketLoggingOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketLoggingOutput.class);
 
         return requestHandler;
@@ -1996,8 +2032,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getLoggingAsyncRequest(ResponseCallBack<GetBucketLoggingOutput> callback)
-            throws QSException {
+    public RequestHandler<GetBucketLoggingOutput> getLoggingAsyncRequest(
+            ResponseCallBack<GetBucketLoggingOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2018,7 +2054,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketLoggingOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketLoggingOutput.class);
         return requestHandler;
     }
 
@@ -2076,7 +2114,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getNotificationRequest() throws QSException {
+    public RequestHandler<GetBucketNotificationOutput> getNotificationRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2093,7 +2131,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketNotificationOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketNotificationOutput.class);
 
         return requestHandler;
@@ -2121,7 +2159,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getNotificationAsyncRequest(
+    public RequestHandler<GetBucketNotificationOutput> getNotificationAsyncRequest(
             ResponseCallBack<GetBucketNotificationOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -2143,7 +2181,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketNotificationOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketNotificationOutput.class);
         return requestHandler;
     }
 
@@ -2190,7 +2230,7 @@ public class Bucket {
      *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getPolicyRequest() throws QSException {
+    public RequestHandler<GetBucketPolicyOutput> getPolicyRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2207,7 +2247,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketPolicyOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketPolicyOutput.class);
 
         return requestHandler;
@@ -2235,8 +2275,8 @@ public class Bucket {
      *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getPolicyAsyncRequest(ResponseCallBack<GetBucketPolicyOutput> callback)
-            throws QSException {
+    public RequestHandler<GetBucketPolicyOutput> getPolicyAsyncRequest(
+            ResponseCallBack<GetBucketPolicyOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2257,7 +2297,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketPolicyOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketPolicyOutput.class);
         return requestHandler;
     }
 
@@ -2304,7 +2346,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getReplicationRequest() throws QSException {
+    public RequestHandler<GetBucketReplicationOutput> getReplicationRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2321,7 +2363,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketReplicationOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketReplicationOutput.class);
 
         return requestHandler;
@@ -2349,7 +2391,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getReplicationAsyncRequest(
+    public RequestHandler<GetBucketReplicationOutput> getReplicationAsyncRequest(
             ResponseCallBack<GetBucketReplicationOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -2371,7 +2413,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketReplicationOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketReplicationOutput.class);
         return requestHandler;
     }
 
@@ -2418,7 +2462,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getStatisticsRequest() throws QSException {
+    public RequestHandler<GetBucketStatisticsOutput> getStatisticsRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2435,7 +2479,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetBucketStatisticsOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, GetBucketStatisticsOutput.class);
 
         return requestHandler;
@@ -2463,7 +2507,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getStatisticsAsyncRequest(
+    public RequestHandler<GetBucketStatisticsOutput> getStatisticsAsyncRequest(
             ResponseCallBack<GetBucketStatisticsOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -2485,7 +2529,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<GetBucketStatisticsOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketStatisticsOutput.class);
         return requestHandler;
     }
 
@@ -2598,7 +2644,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler headRequest() throws QSException {
+    public RequestHandler<HeadBucketOutput> headRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2615,7 +2661,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<HeadBucketOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, HeadBucketOutput.class);
 
         return requestHandler;
@@ -2642,8 +2688,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler headAsyncRequest(ResponseCallBack<HeadBucketOutput> callback)
-            throws QSException {
+    public RequestHandler<HeadBucketOutput> headAsyncRequest(
+            ResponseCallBack<HeadBucketOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -2664,7 +2710,8 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<HeadBucketOutput> requestHandler =
+                QSRequest.getRequestAsync(builder.build(), null, callback, HeadBucketOutput.class);
         return requestHandler;
     }
 
@@ -2705,8 +2752,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listMultipartUploadsRequest(ListMultipartUploadsInput input)
-            throws QSException {
+    public RequestHandler<ListMultipartUploadsOutput> listMultipartUploadsRequest(
+            ListMultipartUploadsInput input) throws QSException {
         if (input == null) {
             input = new ListMultipartUploadsInput();
         }
@@ -2726,7 +2773,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<ListMultipartUploadsOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, ListMultipartUploadsOutput.class);
 
         return requestHandler;
@@ -2760,7 +2807,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listMultipartUploadsAsyncRequest(
+    public RequestHandler<ListMultipartUploadsOutput> listMultipartUploadsAsyncRequest(
             ListMultipartUploadsInput input, ResponseCallBack<ListMultipartUploadsOutput> callback)
             throws QSException {
         if (input == null) {
@@ -2786,7 +2833,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<ListMultipartUploadsOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, ListMultipartUploadsOutput.class);
         return requestHandler;
     }
     /**
@@ -3026,7 +3075,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listObjectsRequest(ListObjectsInput input) throws QSException {
+    public RequestHandler<ListObjectsOutput> listObjectsRequest(ListObjectsInput input)
+            throws QSException {
         if (input == null) {
             input = new ListObjectsInput();
         }
@@ -3046,7 +3096,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<ListObjectsOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, ListObjectsOutput.class);
 
         return requestHandler;
@@ -3080,7 +3130,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listObjectsAsyncRequest(
+    public RequestHandler<ListObjectsOutput> listObjectsAsyncRequest(
             ListObjectsInput input, ResponseCallBack<ListObjectsOutput> callback)
             throws QSException {
         if (input == null) {
@@ -3106,7 +3156,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<ListObjectsOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, ListObjectsOutput.class);
         return requestHandler;
     }
     /**
@@ -3318,7 +3370,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putRequest() throws QSException {
+    public RequestHandler<PutBucketOutput> putRequest() throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -3335,7 +3387,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, PutBucketOutput.class);
 
         return requestHandler;
@@ -3362,8 +3414,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putAsyncRequest(ResponseCallBack<PutBucketOutput> callback)
-            throws QSException {
+    public RequestHandler<PutBucketOutput> putAsyncRequest(
+            ResponseCallBack<PutBucketOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -3384,7 +3436,8 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<PutBucketOutput> requestHandler =
+                QSRequest.getRequestAsync(builder.build(), null, callback, PutBucketOutput.class);
         return requestHandler;
     }
 
@@ -3424,7 +3477,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putACLRequest(PutBucketACLInput input) throws QSException {
+    public RequestHandler<PutBucketACLOutput> putACLRequest(PutBucketACLInput input)
+            throws QSException {
         if (input == null) {
             input = new PutBucketACLInput();
         }
@@ -3444,7 +3498,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketACLOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketACLOutput.class);
 
         return requestHandler;
@@ -3477,7 +3531,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putACLAsyncRequest(
+    public RequestHandler<PutBucketACLOutput> putACLAsyncRequest(
             PutBucketACLInput input, ResponseCallBack<PutBucketACLOutput> callback)
             throws QSException {
         if (input == null) {
@@ -3503,7 +3557,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketACLOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketACLOutput.class);
         return requestHandler;
     }
     /**
@@ -3599,7 +3655,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putCNAMERequest(PutBucketCNAMEInput input) throws QSException {
+    public RequestHandler<PutBucketCNAMEOutput> putCNAMERequest(PutBucketCNAMEInput input)
+            throws QSException {
         if (input == null) {
             input = new PutBucketCNAMEInput();
         }
@@ -3619,7 +3676,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketCNAMEOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketCNAMEOutput.class);
 
         return requestHandler;
@@ -3653,7 +3710,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putCNAMEAsyncRequest(
+    public RequestHandler<PutBucketCNAMEOutput> putCNAMEAsyncRequest(
             PutBucketCNAMEInput input, ResponseCallBack<PutBucketCNAMEOutput> callback)
             throws QSException {
         if (input == null) {
@@ -3679,7 +3736,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketCNAMEOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketCNAMEOutput.class);
         return requestHandler;
     }
     /**
@@ -3811,7 +3870,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putCORSRequest(PutBucketCORSInput input) throws QSException {
+    public RequestHandler<PutBucketCORSOutput> putCORSRequest(PutBucketCORSInput input)
+            throws QSException {
         if (input == null) {
             input = new PutBucketCORSInput();
         }
@@ -3831,7 +3891,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketCORSOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketCORSOutput.class);
 
         return requestHandler;
@@ -3865,7 +3925,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putCORSAsyncRequest(
+    public RequestHandler<PutBucketCORSOutput> putCORSAsyncRequest(
             PutBucketCORSInput input, ResponseCallBack<PutBucketCORSOutput> callback)
             throws QSException {
         if (input == null) {
@@ -3891,7 +3951,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketCORSOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketCORSOutput.class);
         return requestHandler;
     }
     /**
@@ -3989,8 +4051,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putExternalMirrorRequest(PutBucketExternalMirrorInput input)
-            throws QSException {
+    public RequestHandler<PutBucketExternalMirrorOutput> putExternalMirrorRequest(
+            PutBucketExternalMirrorInput input) throws QSException {
         if (input == null) {
             input = new PutBucketExternalMirrorInput();
         }
@@ -4010,7 +4072,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketExternalMirrorOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketExternalMirrorOutput.class);
 
         return requestHandler;
@@ -4045,7 +4107,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putExternalMirrorAsyncRequest(
+    public RequestHandler<PutBucketExternalMirrorOutput> putExternalMirrorAsyncRequest(
             PutBucketExternalMirrorInput input,
             ResponseCallBack<PutBucketExternalMirrorOutput> callback)
             throws QSException {
@@ -4072,7 +4134,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketExternalMirrorOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketExternalMirrorOutput.class);
         return requestHandler;
     }
     /**
@@ -4164,7 +4228,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putLifecycleRequest(PutBucketLifecycleInput input) throws QSException {
+    public RequestHandler<PutBucketLifecycleOutput> putLifecycleRequest(
+            PutBucketLifecycleInput input) throws QSException {
         if (input == null) {
             input = new PutBucketLifecycleInput();
         }
@@ -4184,7 +4249,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketLifecycleOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketLifecycleOutput.class);
 
         return requestHandler;
@@ -4218,7 +4283,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putLifecycleAsyncRequest(
+    public RequestHandler<PutBucketLifecycleOutput> putLifecycleAsyncRequest(
             PutBucketLifecycleInput input, ResponseCallBack<PutBucketLifecycleOutput> callback)
             throws QSException {
         if (input == null) {
@@ -4244,7 +4309,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketLifecycleOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketLifecycleOutput.class);
         return requestHandler;
     }
     /**
@@ -4340,7 +4407,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putLoggingRequest(PutBucketLoggingInput input) throws QSException {
+    public RequestHandler<PutBucketLoggingOutput> putLoggingRequest(PutBucketLoggingInput input)
+            throws QSException {
         if (input == null) {
             input = new PutBucketLoggingInput();
         }
@@ -4360,7 +4428,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketLoggingOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketLoggingOutput.class);
 
         return requestHandler;
@@ -4394,7 +4462,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putLoggingAsyncRequest(
+    public RequestHandler<PutBucketLoggingOutput> putLoggingAsyncRequest(
             PutBucketLoggingInput input, ResponseCallBack<PutBucketLoggingOutput> callback)
             throws QSException {
         if (input == null) {
@@ -4420,7 +4488,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketLoggingOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketLoggingOutput.class);
         return requestHandler;
     }
     /**
@@ -4533,8 +4603,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putNotificationRequest(PutBucketNotificationInput input)
-            throws QSException {
+    public RequestHandler<PutBucketNotificationOutput> putNotificationRequest(
+            PutBucketNotificationInput input) throws QSException {
         if (input == null) {
             input = new PutBucketNotificationInput();
         }
@@ -4554,7 +4624,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketNotificationOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketNotificationOutput.class);
 
         return requestHandler;
@@ -4589,7 +4659,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putNotificationAsyncRequest(
+    public RequestHandler<PutBucketNotificationOutput> putNotificationAsyncRequest(
             PutBucketNotificationInput input,
             ResponseCallBack<PutBucketNotificationOutput> callback)
             throws QSException {
@@ -4616,7 +4686,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketNotificationOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketNotificationOutput.class);
         return requestHandler;
     }
     /**
@@ -4712,7 +4784,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putPolicyRequest(PutBucketPolicyInput input) throws QSException {
+    public RequestHandler<PutBucketPolicyOutput> putPolicyRequest(PutBucketPolicyInput input)
+            throws QSException {
         if (input == null) {
             input = new PutBucketPolicyInput();
         }
@@ -4732,7 +4805,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketPolicyOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketPolicyOutput.class);
 
         return requestHandler;
@@ -4766,7 +4839,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putPolicyAsyncRequest(
+    public RequestHandler<PutBucketPolicyOutput> putPolicyAsyncRequest(
             PutBucketPolicyInput input, ResponseCallBack<PutBucketPolicyOutput> callback)
             throws QSException {
         if (input == null) {
@@ -4792,7 +4865,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketPolicyOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketPolicyOutput.class);
         return requestHandler;
     }
     /**
@@ -4889,8 +4964,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putReplicationRequest(PutBucketReplicationInput input)
-            throws QSException {
+    public RequestHandler<PutBucketReplicationOutput> putReplicationRequest(
+            PutBucketReplicationInput input) throws QSException {
         if (input == null) {
             input = new PutBucketReplicationInput();
         }
@@ -4910,7 +4985,7 @@ public class Bucket {
             throw new QSException("bucketName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutBucketReplicationOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutBucketReplicationOutput.class);
 
         return requestHandler;
@@ -4944,7 +5019,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putReplicationAsyncRequest(
+    public RequestHandler<PutBucketReplicationOutput> putReplicationAsyncRequest(
             PutBucketReplicationInput input, ResponseCallBack<PutBucketReplicationOutput> callback)
             throws QSException {
         if (input == null) {
@@ -4970,7 +5045,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutBucketReplicationOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketReplicationOutput.class);
         return requestHandler;
     }
     /**
@@ -5069,7 +5146,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler abortMultipartUploadRequest(
+    public RequestHandler<AbortMultipartUploadOutput> abortMultipartUploadRequest(
             String objectName, AbortMultipartUploadInput input) throws QSException {
         if (input == null) {
             input = new AbortMultipartUploadInput();
@@ -5094,7 +5171,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<AbortMultipartUploadOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, AbortMultipartUploadOutput.class);
 
         return requestHandler;
@@ -5133,7 +5210,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler abortMultipartUploadAsyncRequest(
+    public RequestHandler<AbortMultipartUploadOutput> abortMultipartUploadAsyncRequest(
             String objectName,
             AbortMultipartUploadInput input,
             ResponseCallBack<AbortMultipartUploadOutput> callback)
@@ -5165,7 +5242,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<AbortMultipartUploadOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, AbortMultipartUploadOutput.class);
         return requestHandler;
     }
     /**
@@ -5238,8 +5317,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler appendObjectRequest(String objectName, AppendObjectInput input)
-            throws QSException {
+    public RequestHandler<AppendObjectOutput> appendObjectRequest(
+            String objectName, AppendObjectInput input) throws QSException {
         if (input == null) {
             input = new AppendObjectInput();
         }
@@ -5263,7 +5342,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<AppendObjectOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, AppendObjectOutput.class);
 
         return requestHandler;
@@ -5301,7 +5380,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler appendObjectAsyncRequest(
+    public RequestHandler<AppendObjectOutput> appendObjectAsyncRequest(
             String objectName,
             AppendObjectInput input,
             ResponseCallBack<AppendObjectOutput> callback)
@@ -5333,7 +5412,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<AppendObjectOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, AppendObjectOutput.class);
         return requestHandler;
     }
     /**
@@ -5536,7 +5617,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler completeMultipartUploadRequest(
+    public RequestHandler<CompleteMultipartUploadOutput> completeMultipartUploadRequest(
             String objectName, CompleteMultipartUploadInput input) throws QSException {
         if (input == null) {
             input = new CompleteMultipartUploadInput();
@@ -5561,7 +5642,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<CompleteMultipartUploadOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, CompleteMultipartUploadOutput.class);
 
         return requestHandler;
@@ -5600,7 +5681,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler completeMultipartUploadAsyncRequest(
+    public RequestHandler<CompleteMultipartUploadOutput> completeMultipartUploadAsyncRequest(
             String objectName,
             CompleteMultipartUploadInput input,
             ResponseCallBack<CompleteMultipartUploadOutput> callback)
@@ -5632,7 +5713,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<CompleteMultipartUploadOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, CompleteMultipartUploadOutput.class);
         return requestHandler;
     }
     /**
@@ -5844,7 +5927,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteObjectRequest(String objectName) throws QSException {
+    public RequestHandler<DeleteObjectOutput> deleteObjectRequest(String objectName)
+            throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -5865,7 +5949,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<DeleteObjectOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), null, DeleteObjectOutput.class);
 
         return requestHandler;
@@ -5895,7 +5979,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler deleteObjectAsyncRequest(
+    public RequestHandler<DeleteObjectOutput> deleteObjectAsyncRequest(
             String objectName, ResponseCallBack<DeleteObjectOutput> callback) throws QSException {
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
@@ -5921,7 +6005,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), null, callback);
+        RequestHandler<DeleteObjectOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, DeleteObjectOutput.class);
         return requestHandler;
     }
 
@@ -5963,7 +6049,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getObjectRequest(String objectName, GetObjectInput input)
+    public RequestHandler<GetObjectOutput> getObjectRequest(String objectName, GetObjectInput input)
             throws QSException {
         if (input == null) {
             input = new GetObjectInput();
@@ -5988,7 +6074,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<GetObjectOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, GetObjectOutput.class);
 
         return requestHandler;
@@ -6024,7 +6110,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler getObjectAsyncRequest(
+    public RequestHandler<GetObjectOutput> getObjectAsyncRequest(
             String objectName, GetObjectInput input, ResponseCallBack<GetObjectOutput> callback)
             throws QSException {
         if (input == null) {
@@ -6054,7 +6140,8 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<GetObjectOutput> requestHandler =
+                QSRequest.getRequestAsync(builder.build(), input, callback, GetObjectOutput.class);
         return requestHandler;
     }
     /**
@@ -6594,8 +6681,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler headObjectRequest(String objectName, HeadObjectInput input)
-            throws QSException {
+    public RequestHandler<HeadObjectOutput> headObjectRequest(
+            String objectName, HeadObjectInput input) throws QSException {
         if (input == null) {
             input = new HeadObjectInput();
         }
@@ -6619,7 +6706,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<HeadObjectOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, HeadObjectOutput.class);
 
         return requestHandler;
@@ -6655,7 +6742,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler headObjectAsyncRequest(
+    public RequestHandler<HeadObjectOutput> headObjectAsyncRequest(
             String objectName, HeadObjectInput input, ResponseCallBack<HeadObjectOutput> callback)
             throws QSException {
         if (input == null) {
@@ -6685,7 +6772,8 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<HeadObjectOutput> requestHandler =
+                QSRequest.getRequestAsync(builder.build(), input, callback, HeadObjectOutput.class);
         return requestHandler;
     }
     /**
@@ -6937,8 +7025,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler imageProcessRequest(String objectName, ImageProcessInput input)
-            throws QSException {
+    public RequestHandler<ImageProcessOutput> imageProcessRequest(
+            String objectName, ImageProcessInput input) throws QSException {
         if (input == null) {
             input = new ImageProcessInput();
         }
@@ -6962,7 +7050,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<ImageProcessOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, ImageProcessOutput.class);
 
         return requestHandler;
@@ -7000,7 +7088,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler imageProcessAsyncRequest(
+    public RequestHandler<ImageProcessOutput> imageProcessAsyncRequest(
             String objectName,
             ImageProcessInput input,
             ResponseCallBack<ImageProcessOutput> callback)
@@ -7032,7 +7120,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<ImageProcessOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, ImageProcessOutput.class);
         return requestHandler;
     }
     /**
@@ -7232,7 +7322,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler initiateMultipartUploadRequest(
+    public RequestHandler<InitiateMultipartUploadOutput> initiateMultipartUploadRequest(
             String objectName, InitiateMultipartUploadInput input) throws QSException {
         if (input == null) {
             input = new InitiateMultipartUploadInput();
@@ -7257,7 +7347,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<InitiateMultipartUploadOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, InitiateMultipartUploadOutput.class);
 
         return requestHandler;
@@ -7296,7 +7386,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler initiateMultipartUploadAsyncRequest(
+    public RequestHandler<InitiateMultipartUploadOutput> initiateMultipartUploadAsyncRequest(
             String objectName,
             InitiateMultipartUploadInput input,
             ResponseCallBack<InitiateMultipartUploadOutput> callback)
@@ -7328,7 +7418,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<InitiateMultipartUploadOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, InitiateMultipartUploadOutput.class);
         return requestHandler;
     }
     /**
@@ -7542,8 +7634,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listMultipartRequest(String objectName, ListMultipartInput input)
-            throws QSException {
+    public RequestHandler<ListMultipartOutput> listMultipartRequest(
+            String objectName, ListMultipartInput input) throws QSException {
         if (input == null) {
             input = new ListMultipartInput();
         }
@@ -7567,7 +7659,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<ListMultipartOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, ListMultipartOutput.class);
 
         return requestHandler;
@@ -7605,7 +7697,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listMultipartAsyncRequest(
+    public RequestHandler<ListMultipartOutput> listMultipartAsyncRequest(
             String objectName,
             ListMultipartInput input,
             ResponseCallBack<ListMultipartOutput> callback)
@@ -7637,7 +7729,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<ListMultipartOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, ListMultipartOutput.class);
         return requestHandler;
     }
     /**
@@ -7760,8 +7854,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler optionsObjectRequest(String objectName, OptionsObjectInput input)
-            throws QSException {
+    public RequestHandler<OptionsObjectOutput> optionsObjectRequest(
+            String objectName, OptionsObjectInput input) throws QSException {
         if (input == null) {
             input = new OptionsObjectInput();
         }
@@ -7785,7 +7879,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<OptionsObjectOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, OptionsObjectOutput.class);
 
         return requestHandler;
@@ -7823,7 +7917,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler optionsObjectAsyncRequest(
+    public RequestHandler<OptionsObjectOutput> optionsObjectAsyncRequest(
             String objectName,
             OptionsObjectInput input,
             ResponseCallBack<OptionsObjectOutput> callback)
@@ -7855,7 +7949,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<OptionsObjectOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, OptionsObjectOutput.class);
         return requestHandler;
     }
     /**
@@ -8015,7 +8111,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putObjectRequest(String objectName, PutObjectInput input)
+    public RequestHandler<PutObjectOutput> putObjectRequest(String objectName, PutObjectInput input)
             throws QSException {
         if (input == null) {
             input = new PutObjectInput();
@@ -8040,7 +8136,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<PutObjectOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, PutObjectOutput.class);
 
         return requestHandler;
@@ -8076,7 +8172,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler putObjectAsyncRequest(
+    public RequestHandler<PutObjectOutput> putObjectAsyncRequest(
             String objectName, PutObjectInput input, ResponseCallBack<PutObjectOutput> callback)
             throws QSException {
         if (input == null) {
@@ -8106,7 +8202,8 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<PutObjectOutput> requestHandler =
+                QSRequest.getRequestAsync(builder.build(), input, callback, PutObjectOutput.class);
         return requestHandler;
     }
     /**
@@ -8596,8 +8693,8 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler uploadMultipartRequest(String objectName, UploadMultipartInput input)
-            throws QSException {
+    public RequestHandler<UploadMultipartOutput> uploadMultipartRequest(
+            String objectName, UploadMultipartInput input) throws QSException {
         if (input == null) {
             input = new UploadMultipartInput();
         }
@@ -8621,7 +8718,7 @@ public class Bucket {
             throw new QSException("objectName can't be empty!");
         }
 
-        RequestHandler requestHandler =
+        RequestHandler<UploadMultipartOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, UploadMultipartOutput.class);
 
         return requestHandler;
@@ -8660,7 +8757,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler uploadMultipartAsyncRequest(
+    public RequestHandler<UploadMultipartOutput> uploadMultipartAsyncRequest(
             String objectName,
             UploadMultipartInput input,
             ResponseCallBack<UploadMultipartOutput> callback)
@@ -8692,7 +8789,9 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<UploadMultipartOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, UploadMultipartOutput.class);
         return requestHandler;
     }
     /**
@@ -9177,7 +9276,8 @@ public class Bucket {
             throw new QSException("callback can't be null");
         }
 
-        QSRequest.sendApiRequestAsync(signaturedRequest, builder.build(), callback);
+        QSRequest.sendApiRequestAsync(
+                signaturedRequest, builder.build(), callback, GetObjectOutput.class);
     }
 
     /**
@@ -9189,7 +9289,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler imageProcessExpiredUrlRequest(
+    public RequestHandler<ImageProcessOutput> imageProcessExpiredUrlRequest(
             String objectName, ImageProcessInput input, long expires) throws QSException {
 
         if (input == null) {

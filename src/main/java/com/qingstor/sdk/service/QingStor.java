@@ -83,7 +83,8 @@ public class QingStor {
      *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listBucketsRequest(ListBucketsInput input) throws QSException {
+    public RequestHandler<ListBucketsOutput> listBucketsRequest(ListBucketsInput input)
+            throws QSException {
         if (input == null) {
             input = new ListBucketsInput();
         }
@@ -98,7 +99,7 @@ public class QingStor {
                 .reqMethod("GET")
                 .subSourcePath("/");
 
-        RequestHandler requestHandler =
+        RequestHandler<ListBucketsOutput> requestHandler =
                 QSRequest.getRequest(builder.build(), input, ListBucketsOutput.class);
 
         return requestHandler;
@@ -132,7 +133,7 @@ public class QingStor {
      *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler listBucketsAsyncRequest(
+    public RequestHandler<ListBucketsOutput> listBucketsAsyncRequest(
             ListBucketsInput input, ResponseCallBack<ListBucketsOutput> callback)
             throws QSException {
         if (input == null) {
@@ -153,7 +154,9 @@ public class QingStor {
             throw new QSException("callback can't be null");
         }
 
-        RequestHandler requestHandler = QSRequest.getRequestAsync(builder.build(), input, callback);
+        RequestHandler<ListBucketsOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, ListBucketsOutput.class);
         return requestHandler;
     }
     /**

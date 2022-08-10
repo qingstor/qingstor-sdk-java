@@ -26,14 +26,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import okhttp3.internal.Util;
+import okhttp3.*;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,14 +61,12 @@ public class QSOkHttpRequestClient {
         return ins;
     }
 
-    public OutputModel requestAction(
-            Request request, boolean bSafe, Class<? extends OutputModel> outputClass)
-            throws QSException {
+    public <T extends OutputModel> T requestAction(
+            Request request, boolean bSafe, Class<T> outputClass) throws QSException {
         Call okhttpCall = client.newCall(request);
-        okhttp3.Response response;
-        OutputModel model = QSParamInvokeUtil.getOutputModel(outputClass);
+        T model = QSParamInvokeUtil.getOutputModel(outputClass);
         try {
-            response = okhttpCall.execute();
+            Response response = okhttpCall.execute();
             fillResponseValue2Object(response, model);
             return model;
         } catch (Exception e) {
@@ -91,43 +82,49 @@ public class QSOkHttpRequestClient {
         }
     }
 
-    public OutputModel requestActionAsync(
-            Request request, boolean bSafe, final ResponseCallBack callBack) {
+    public <T extends OutputModel> void requestActionAsync(
+            Request request,
+            boolean bSafe,
+            final ResponseCallBack<T> callBack,
+            Class<T> outputClass) {
         Call okhttpCall = client.newCall(request);
         okhttpCall.enqueue(
                 new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        onOkhttpFailure(e, callBack);
+                        onOkhttpFailure(e, callBack, outputClass);
                     }
 
                     @Override
-                    public void onResponse(Call call, okhttp3.Response response) {
+                    public void onResponse(Call call, Response response) {
                         try {
+                            ResponseBody body = response.body();
                             if (callBack != null) {
-                                OutputModel m = QSParamInvokeUtil.getOutputModel(callBack);
+                                T m = QSParamInvokeUtil.getOutputModel(outputClass);
+                                log.debug("class name: " + m.getClass().getName());
                                 fillResponseValue2Object(response, m);
                                 callBack.onAPIResponse(m);
                             }
                         } catch (Exception e) {
                             log.error(e.getMessage());
-                            onOkhttpFailure(e, callBack);
+                            onOkhttpFailure(e, callBack, outputClass);
                         } finally {
-                            Util.closeQuietly(response.body().source());
+                            response.close();
                         }
                     }
                 });
-        return null;
     }
 
-    private void onOkhttpFailure(Exception e, ResponseCallBack callBack) {
+    private <T extends OutputModel> void onOkhttpFailure(
+            Exception e, ResponseCallBack<T> callBack, Class<T> outputClass) {
+        log.debug("enter onOkhttpFailure");
         try {
             if (callBack != null) {
                 // Check error code here.
                 int errorCode = QSConstant.REQUEST_ERROR_CODE;
                 if (e instanceof CancellationHandler.CancellationException)
                     errorCode = QSConstant.REQUEST_ERROR_CANCELLED; // Cancelled by users.
-                OutputModel m = QSParamInvokeUtil.getOutputModel(callBack);
+                T m = QSParamInvokeUtil.getOutputModel(outputClass);
                 fillResponseCallbackModel(errorCode, e.getMessage(), m);
                 callBack.onAPIResponse(m);
             }

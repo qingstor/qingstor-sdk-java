@@ -170,7 +170,7 @@ public class Bucket {
             }
 
             QSRequest
-                    .sendApiRequestAsync(signaturedRequest, builder.build(), callback);
+                    .sendApiRequestAsync(signaturedRequest, builder.build(), callback, GetObjectOutput.class);
         }
       {{end}}
     {{end}}
@@ -184,7 +184,7 @@ public class Bucket {
      *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
      */
      @SuppressWarnings({"rawtypes", "unchecked"})
-     public RequestHandler imageProcessExpiredUrlRequest(String objectName, ImageProcessInput input, long expires)
+     public RequestHandler<ImageProcessOutput> imageProcessExpiredUrlRequest(String objectName, ImageProcessInput input, long expires)
             throws QSException {
 
         if (input == null) {
