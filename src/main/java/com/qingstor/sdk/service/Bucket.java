@@ -2623,6 +2623,122 @@ public class Bucket {
 
     /**
      * @throws QSException exception
+     * @return GetBucketVersioningOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public GetBucketVersioningOutput getVersioning() throws QSException {
+        RequestHandler requestHandler = this.getVersioningRequest();
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (GetBucketVersioningOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler<GetBucketVersioningOutput> getVersioningRequest() throws QSException {
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("GetBucketVersioning")
+                .apiName("GetBucketVersioning")
+                .serviceName("GET Bucket Versioning")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?versioning");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler<GetBucketVersioningOutput> requestHandler =
+                QSRequest.getRequest(builder.build(), null, GetBucketVersioningOutput.class);
+
+        return requestHandler;
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getVersioningAsync(ResponseCallBack<GetBucketVersioningOutput> callback)
+            throws QSException {
+
+        RequestHandler requestHandler = this.getVersioningAsyncRequest(callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler<GetBucketVersioningOutput> getVersioningAsyncRequest(
+            ResponseCallBack<GetBucketVersioningOutput> callback) throws QSException {
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("GetBucketVersioning")
+                .apiName("GetBucketVersioning")
+                .serviceName("GET Bucket Versioning")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?versioning");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler<GetBucketVersioningOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), null, callback, GetBucketVersioningOutput.class);
+        return requestHandler;
+    }
+
+    /**
+     * GetBucketVersioningOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     */
+    public static class GetBucketVersioningOutput extends OutputModel {
+
+        /** versioning status Status's available values: DISABLED, ENABLED, SUSPENDED */
+        private String status;
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "status")
+        public String getStatus() {
+            return this.status;
+        }
+    }
+
+    /**
+     * @throws QSException exception
      * @return HeadBucketOutput output stream Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">
      *     https://docs.qingcloud.com/qingstor/api/bucket/head.html </a>
@@ -3043,6 +3159,349 @@ public class Bucket {
         @ParamAnnotation(paramType = "element", paramName = "uploads")
         public List<UploadsModel> getUploads() {
             return this.uploads;
+        }
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return ListObjectVersionsOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/versions.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public ListObjectVersionsOutput listObjectVersions(ListObjectVersionsInput input)
+            throws QSException {
+        if (input == null) {
+            input = new ListObjectVersionsInput();
+        }
+
+        RequestHandler requestHandler = this.listObjectVersionsRequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (ListObjectVersionsOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">https://docs.qingcloud.com/qingstor/api/bucket/versions.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler<ListObjectVersionsOutput> listObjectVersionsRequest(
+            ListObjectVersionsInput input) throws QSException {
+        if (input == null) {
+            input = new ListObjectVersionsInput();
+        }
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("ListObjectVersions")
+                .apiName("ListObjectVersions")
+                .serviceName("List Object Versions")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?versions");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler<ListObjectVersionsOutput> requestHandler =
+                QSRequest.getRequest(builder.build(), input, ListObjectVersionsOutput.class);
+
+        return requestHandler;
+    }
+
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">https://docs.qingcloud.com/qingstor/api/bucket/versions.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void listObjectVersionsAsync(
+            ListObjectVersionsInput input, ResponseCallBack<ListObjectVersionsOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new ListObjectVersionsInput();
+        }
+
+        RequestHandler requestHandler = this.listObjectVersionsAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">https://docs.qingcloud.com/qingstor/api/bucket/versions.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler<ListObjectVersionsOutput> listObjectVersionsAsyncRequest(
+            ListObjectVersionsInput input, ResponseCallBack<ListObjectVersionsOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new ListObjectVersionsInput();
+        }
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("ListObjectVersions")
+                .apiName("ListObjectVersions")
+                .serviceName("List Object Versions")
+                .reqMethod("GET")
+                .subSourcePath("/<bucket-name>?versions");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler<ListObjectVersionsOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, ListObjectVersionsOutput.class);
+        return requestHandler;
+    }
+    /**
+     * ListObjectVersionsInput: an input stream of the bucket.<br>
+     * The following is the description of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Delimiter Put all keys that share a common prefix into a list <br>
+     * field KeyMarker Limit results to keys that start at this key_marker <br>
+     * field Limit Results count limit <br>
+     * field Prefix Limits results to keys that begin with the prefix <br>
+     * field VersionIDMarker Specifies the object version you want to start listing from. <br>
+     */
+    public static class ListObjectVersionsInput extends RequestInputModel {
+
+        /** Put all keys that share a common prefix into a list */
+        private String delimiter;
+
+        public void setDelimiter(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "delimiter")
+        public String getDelimiter() {
+            return this.delimiter;
+        }
+        /** Limit results to keys that start at this key_marker */
+        private String keyMarker;
+
+        public void setKeyMarker(String keyMarker) {
+            this.keyMarker = keyMarker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "key_marker")
+        public String getKeyMarker() {
+            return this.keyMarker;
+        }
+        /** Results count limit */
+        private Integer limit;
+
+        public void setLimit(Integer limit) {
+            this.limit = limit;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "limit")
+        public Integer getLimit() {
+            return this.limit;
+        }
+        /** Limits results to keys that begin with the prefix */
+        private String prefix;
+
+        public void setPrefix(String prefix) {
+            this.prefix = prefix;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "prefix")
+        public String getPrefix() {
+            return this.prefix;
+        }
+        /** Specifies the object version you want to start listing from. */
+        private String versionIDMarker;
+
+        public void setVersionIDMarker(String versionIDMarker) {
+            this.versionIDMarker = versionIDMarker;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "version_id_marker")
+        public String getVersionIDMarker() {
+            return this.versionIDMarker;
+        }
+
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
+    /**
+     * ListObjectVersionsOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Delimiter Put all keys that share a common prefix into a list <br>
+     * field KeyMarker Limit results to keys that start at this key_marker <br>
+     * field Limit Results count limit <br>
+     * field Prefix Limits results to keys that begin with the prefix <br>
+     * field VersionIDMarker Specifies the object version you want to start listing from. <br>
+     */
+    public static class ListObjectVersionsOutput extends OutputModel {
+
+        /** Other object keys that share common prefixes */
+        private List<String> commonPrefixes;
+
+        public void setCommonPrefixes(List<String> commonPrefixes) {
+            this.commonPrefixes = commonPrefixes;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "common_prefixes")
+        public List<String> getCommonPrefixes() {
+            return this.commonPrefixes;
+        }
+        /** Delimiter that specified in request parameters */
+        private String delimiter;
+
+        public void setDelimiter(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "delimiter")
+        public String getDelimiter() {
+            return this.delimiter;
+        }
+        /** Indicate if these are more results in the next page */
+        private Boolean hasMore;
+
+        public void setHasMore(Boolean hasMore) {
+            this.hasMore = hasMore;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "has_more")
+        public Boolean getHasMore() {
+            return this.hasMore;
+        }
+        /** key_marker that specified in request parameters */
+        private String keyMarker;
+
+        public void setKeyMarker(String keyMarker) {
+            this.keyMarker = keyMarker;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "key_marker")
+        public String getKeyMarker() {
+            return this.keyMarker;
+        }
+        /** Object keys */
+        private List<VersionKeyModel> keys;
+
+        public void setKeys(List<VersionKeyModel> keys) {
+            this.keys = keys;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "keys")
+        public List<VersionKeyModel> getKeys() {
+            return this.keys;
+        }
+        /** Limit that specified in request parameters */
+        private Integer limit;
+
+        public void setLimit(Integer limit) {
+            this.limit = limit;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "limit")
+        public Integer getLimit() {
+            return this.limit;
+        }
+        /** Bucket name */
+        private String name;
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "name")
+        public String getName() {
+            return this.name;
+        }
+        /**
+         * The last key in keys list, use this value for the key_marker request parameter in a
+         * subsequent request.
+         */
+        private String nextKeyMarker;
+
+        public void setNextKeyMarker(String nextKeyMarker) {
+            this.nextKeyMarker = nextKeyMarker;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "next_key_marker")
+        public String getNextKeyMarker() {
+            return this.nextKeyMarker;
+        }
+        /**
+         * The last version_id of the last key in keys list, use this value for the
+         * version_id_marker request parameter in a subsequent request.
+         */
+        private String nextVersionIDMarker;
+
+        public void setNextVersionIDMarker(String nextVersionIDMarker) {
+            this.nextVersionIDMarker = nextVersionIDMarker;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "next_version_id_marker")
+        public String getNextVersionIDMarker() {
+            return this.nextVersionIDMarker;
+        }
+        /** Bucket owner */
+        private OwnerModel owner;
+
+        public void setOwner(OwnerModel owner) {
+            this.owner = owner;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "owner")
+        public OwnerModel getOwner() {
+            return this.owner;
+        }
+        /** Prefix that specified in request parameters */
+        private String prefix;
+
+        public void setPrefix(String prefix) {
+            this.prefix = prefix;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "prefix")
+        public String getPrefix() {
+            return this.prefix;
+        }
+        /** version_id_marker that specified in request parameters */
+        private String versionIDMarker;
+
+        public void setVersionIDMarker(String versionIDMarker) {
+            this.versionIDMarker = versionIDMarker;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "version_id_marker")
+        public String getVersionIDMarker() {
+            return this.versionIDMarker;
         }
     }
 
@@ -5115,6 +5574,196 @@ public class Bucket {
     public static class PutBucketReplicationOutput extends OutputModel {}
 
     /**
+     * @param input input
+     * @throws QSException exception
+     * @return PutBucketVersioningOutput output stream Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">
+     *     https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html </a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public PutBucketVersioningOutput putVersioning(PutBucketVersioningInput input)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketVersioningInput();
+        }
+
+        RequestHandler requestHandler = this.putVersioningRequest(input);
+
+        OutputModel backModel = requestHandler.send();
+        if (backModel != null) {
+            return (PutBucketVersioningOutput) backModel;
+        }
+        return null;
+    }
+
+    /**
+     * @param input input
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler<PutBucketVersioningOutput> putVersioningRequest(
+            PutBucketVersioningInput input) throws QSException {
+        if (input == null) {
+            input = new PutBucketVersioningInput();
+        }
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("PutBucketVersioning")
+                .apiName("PutBucketVersioning")
+                .serviceName("PUT Bucket Versioning")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?versioning");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        RequestHandler<PutBucketVersioningOutput> requestHandler =
+                QSRequest.getRequest(builder.build(), input, PutBucketVersioningOutput.class);
+
+        return requestHandler;
+    }
+
+    /**
+     * @param input input
+     * @param callback response callback
+     * @throws QSException exception
+     *     <p>Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void putVersioningAsync(
+            PutBucketVersioningInput input, ResponseCallBack<PutBucketVersioningOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketVersioningInput();
+        }
+
+        RequestHandler requestHandler = this.putVersioningAsyncRequest(input, callback);
+
+        requestHandler.sendAsync();
+    }
+
+    /**
+     * @param input the input
+     * @param callback response callback
+     * @throws QSException exception
+     * @return RequestHandler http request handler Documentation URL: <a
+     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html</a>
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public RequestHandler<PutBucketVersioningOutput> putVersioningAsyncRequest(
+            PutBucketVersioningInput input, ResponseCallBack<PutBucketVersioningOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new PutBucketVersioningInput();
+        }
+
+        OperationContext.OperationContextBuilder builder = OperationContext.builder();
+        builder.clientCfg(this.clientCfg)
+                .zone(this.zone)
+                .credentials(this.cred)
+                .operationName("PutBucketVersioning")
+                .apiName("PutBucketVersioning")
+                .serviceName("PUT Bucket Versioning")
+                .reqMethod("PUT")
+                .subSourcePath("/<bucket-name>?versioning");
+
+        builder.bucketName(this.bucketName);
+        if (QSStringUtil.isEmpty(bucketName)) {
+            throw new QSException("bucketName can't be empty!");
+        }
+
+        if (callback == null) {
+            throw new QSException("callback can't be null");
+        }
+
+        RequestHandler<PutBucketVersioningOutput> requestHandler =
+                QSRequest.getRequestAsync(
+                        builder.build(), input, callback, PutBucketVersioningOutput.class);
+        return requestHandler;
+    }
+    /**
+     * PutBucketVersioningInput: an input stream of the bucket.<br>
+     * The following is the description of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Status versioning status <br>
+     */
+    public static class PutBucketVersioningInput extends RequestInputModel {
+
+        /** versioning status Status's available values: DISABLED, ENABLED, SUSPENDED */
+        private String status;
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        @ParamAnnotation(paramType = "element", paramName = "status")
+        public String getStatus() {
+            return this.status;
+        }
+
+        /** versioning status will apply to a specific bucket. */
+        private String bodyInput;
+
+        @ParamAnnotation(paramType = "body", paramName = "BodyInput")
+        public String getBodyInput() {
+            return bodyInput;
+        }
+        /**
+         * Set body with raw json string, After setting this field, SDK will give priority to using
+         * this field as the payload, at this time you can ignore the settings of other fields.
+         *
+         * @param bodyInput body payload
+         */
+        public void setBodyInput(String bodyInput) {
+            this.bodyInput = bodyInput;
+        }
+
+        @Override
+        public String validateParam() {
+
+            if (!QSStringUtil.isEmpty(this.getBodyInput())) {
+                return null;
+            }
+
+            String[] statusValidValues = {"DISABLED", "ENABLED", "SUSPENDED"};
+
+            boolean statusIsValid = false;
+            String status = this.getStatus();
+            if (null == status || "".equals(status)) {
+                statusIsValid = true;
+            } else {
+                for (String v : statusValidValues) {
+                    if (v.equals(status)) {
+                        statusIsValid = true;
+                    }
+                }
+            }
+
+            if (!statusIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Status", this.getStatus() + "", statusValidValues);
+            }
+            return null;
+        }
+    }
+
+    /**
+     * PutBucketVersioningOutput: an output stream of the bucket.<br>
+     * The following is the desc of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field Status versioning status <br>
+     */
+    public static class PutBucketVersioningOutput extends OutputModel {}
+
+    /**
      * @param objectName name of the object
      * @param input input
      * @throws QSException exception
@@ -5904,14 +6553,20 @@ public class Bucket {
 
     /**
      * @param objectName name of the object
+     * @param input input
      * @throws QSException exception
      * @return DeleteObjectOutput output stream Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">
      *     https://docs.qingcloud.com/qingstor/api/object/delete.html </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public DeleteObjectOutput deleteObject(String objectName) throws QSException {
-        RequestHandler requestHandler = this.deleteObjectRequest(objectName);
+    public DeleteObjectOutput deleteObject(String objectName, DeleteObjectInput input)
+            throws QSException {
+        if (input == null) {
+            input = new DeleteObjectInput();
+        }
+
+        RequestHandler requestHandler = this.deleteObjectRequest(objectName, input);
 
         OutputModel backModel = requestHandler.send();
         if (backModel != null) {
@@ -5922,13 +6577,17 @@ public class Bucket {
 
     /**
      * @param objectName name of the object
+     * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public RequestHandler<DeleteObjectOutput> deleteObjectRequest(String objectName)
-            throws QSException {
+    public RequestHandler<DeleteObjectOutput> deleteObjectRequest(
+            String objectName, DeleteObjectInput input) throws QSException {
+        if (input == null) {
+            input = new DeleteObjectInput();
+        }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -5950,29 +6609,37 @@ public class Bucket {
         }
 
         RequestHandler<DeleteObjectOutput> requestHandler =
-                QSRequest.getRequest(builder.build(), null, DeleteObjectOutput.class);
+                QSRequest.getRequest(builder.build(), input, DeleteObjectOutput.class);
 
         return requestHandler;
     }
 
     /**
      * @param objectName name of the object
+     * @param input input
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
      *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public void deleteObjectAsync(String objectName, ResponseCallBack<DeleteObjectOutput> callback)
+    public void deleteObjectAsync(
+            String objectName,
+            DeleteObjectInput input,
+            ResponseCallBack<DeleteObjectOutput> callback)
             throws QSException {
+        if (input == null) {
+            input = new DeleteObjectInput();
+        }
 
-        RequestHandler requestHandler = this.deleteObjectAsyncRequest(objectName, callback);
+        RequestHandler requestHandler = this.deleteObjectAsyncRequest(objectName, input, callback);
 
         requestHandler.sendAsync();
     }
 
     /**
      * @param objectName name of the object
+     * @param input the input
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
@@ -5980,7 +6647,13 @@ public class Bucket {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteObjectOutput> deleteObjectAsyncRequest(
-            String objectName, ResponseCallBack<DeleteObjectOutput> callback) throws QSException {
+            String objectName,
+            DeleteObjectInput input,
+            ResponseCallBack<DeleteObjectOutput> callback)
+            throws QSException {
+        if (input == null) {
+            input = new DeleteObjectInput();
+        }
 
         OperationContext.OperationContextBuilder builder = OperationContext.builder();
         builder.clientCfg(this.clientCfg)
@@ -6007,16 +6680,72 @@ public class Bucket {
 
         RequestHandler<DeleteObjectOutput> requestHandler =
                 QSRequest.getRequestAsync(
-                        builder.build(), null, callback, DeleteObjectOutput.class);
+                        builder.build(), input, callback, DeleteObjectOutput.class);
         return requestHandler;
+    }
+    /**
+     * DeleteObjectInput: an input stream of the bucket.<br>
+     * The following is the description of fields.<br>
+     * These fields are headers or bodies of the http request.<br>
+     * field VersionID Object version id <br>
+     */
+    public static class DeleteObjectInput extends RequestInputModel {
+
+        /** Object version id */
+        private String versionID;
+
+        public void setVersionID(String versionID) {
+            this.versionID = versionID;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "version_id")
+        public String getVersionID() {
+            return this.versionID;
+        }
+
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
     }
 
     /**
      * DeleteObjectOutput: an output stream of the bucket.<br>
      * The following is the desc of fields.<br>
      * These fields are headers or bodies of the http request.<br>
+     * field VersionID Object version id <br>
      */
-    public static class DeleteObjectOutput extends OutputModel {}
+    public static class DeleteObjectOutput extends OutputModel {
+
+        /**
+         * with version_id in query, this indicates if the version deleted is a delete-marker,
+         * without version_id, this indicates if the old-object you deleted is a delete-marker
+         */
+        private Boolean xQSDeleteMarker;
+
+        public void setXQSDeleteMarker(Boolean xQSDeleteMarker) {
+            this.xQSDeleteMarker = xQSDeleteMarker;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-delete-marker")
+        public Boolean getXQSDeleteMarker() {
+            return this.xQSDeleteMarker;
+        }
+        /**
+         * version id of the new created delete-marker during this delete when bucket is versioned
+         */
+        private String xQSVersionId;
+
+        public void setXQSVersionId(String xQSVersionId) {
+            this.xQSVersionId = xQSVersionId;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-version-id")
+        public String getXQSVersionId() {
+            return this.xQSVersionId;
+        }
+    }
 
     /**
      * @param objectName name of the object
@@ -6162,6 +6891,7 @@ public class Bucket {
      * field ResponseContentLanguage Specified the Content-Language response header <br>
      * field ResponseContentType Specified the Content-Type response header <br>
      * field ResponseExpires Specified the Expires response header <br>
+     * field VersionID Object version id <br>
      */
     public static class GetObjectInput extends RequestInputModel {
 
@@ -6230,6 +6960,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "query", paramName = "response-expires")
         public String getResponseExpires() {
             return this.responseExpires;
+        }
+        /** Object version id */
+        private String versionID;
+
+        public void setVersionID(String versionID) {
+            this.versionID = versionID;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "version_id")
+        public String getVersionID() {
+            return this.versionID;
         }
 
         /** Check whether the ETag matches */
@@ -6346,6 +7087,7 @@ public class Bucket {
      * field ResponseContentLanguage Specified the Content-Language response header <br>
      * field ResponseContentType Specified the Content-Type response header <br>
      * field ResponseExpires Specified the Expires response header <br>
+     * field VersionID Object version id <br>
      */
     public static class GetObjectOutput extends OutputModel {
 
@@ -6614,6 +7356,17 @@ public class Bucket {
         public String getLastModified() {
             return this.lastModified;
         }
+        /** the object you get is a delete marker or not */
+        private Boolean xQSDeleteMarker;
+
+        public void setXQSDeleteMarker(Boolean xQSDeleteMarker) {
+            this.xQSDeleteMarker = xQSDeleteMarker;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-delete-marker")
+        public Boolean getXQSDeleteMarker() {
+            return this.xQSDeleteMarker;
+        }
         /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
 
@@ -6646,6 +7399,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-storage-class")
         public String getXQSStorageClass() {
             return this.xQSStorageClass;
+        }
+        /** version id of the object you get */
+        private String xQSVersionId;
+
+        public void setXQSVersionId(String xQSVersionId) {
+            this.xQSVersionId = xQSVersionId;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-version-id")
+        public String getXQSVersionId() {
+            return this.xQSVersionId;
         }
     }
 
@@ -6787,8 +7551,21 @@ public class Bucket {
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSEncryptionCustomerKey Encryption key of the object <br>
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field VersionID Object version id <br>
      */
     public static class HeadObjectInput extends RequestInputModel {
+
+        /** Object version id */
+        private String versionID;
+
+        public void setVersionID(String versionID) {
+            this.versionID = versionID;
+        }
+
+        @ParamAnnotation(paramType = "query", paramName = "version_id")
+        public String getVersionID() {
+            return this.versionID;
+        }
 
         /** Check whether the ETag matches */
         private String ifMatch;
@@ -6886,6 +7663,7 @@ public class Bucket {
      * field XQSEncryptionCustomerAlgorithm Encryption algorithm of the object <br>
      * field XQSEncryptionCustomerKey Encryption key of the object <br>
      * field XQSEncryptionCustomerKeyMD5 MD5sum of encryption key <br>
+     * field VersionID Object version id <br>
      */
     public static class HeadObjectOutput extends OutputModel {
 
@@ -6932,6 +7710,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "last-modified")
         public String getLastModified() {
             return this.lastModified;
+        }
+        /** the object you head is a delete marker or not */
+        private Boolean xQSDeleteMarker;
+
+        public void setXQSDeleteMarker(Boolean xQSDeleteMarker) {
+            this.xQSDeleteMarker = xQSDeleteMarker;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-delete-marker")
+        public Boolean getXQSDeleteMarker() {
+            return this.xQSDeleteMarker;
         }
         /** Encryption algorithm of the object */
         private String xQSEncryptionCustomerAlgorithm;
@@ -6990,6 +7779,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-storage-class")
         public String getXQSStorageClass() {
             return this.xQSStorageClass;
+        }
+        /** version id of the object you head */
+        private String xQSVersionId;
+
+        public void setXQSVersionId(String xQSVersionId) {
+            this.xQSVersionId = xQSVersionId;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-version-id")
+        public String getXQSVersionId() {
+            return this.xQSVersionId;
         }
     }
 
@@ -8658,6 +9458,17 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "x-qs-encryption-customer-algorithm")
         public String getXQSEncryptionCustomerAlgorithm() {
             return this.xQSEncryptionCustomerAlgorithm;
+        }
+        /** version id of the object you created */
+        private String xQSVersionId;
+
+        public void setXQSVersionId(String xQSVersionId) {
+            this.xQSVersionId = xQSVersionId;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "x-qs-version-id")
+        public String getXQSVersionId() {
+            return this.xQSVersionId;
         }
     }
 

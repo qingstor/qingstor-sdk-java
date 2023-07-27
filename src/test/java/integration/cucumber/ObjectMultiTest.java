@@ -221,7 +221,7 @@ public class ObjectMultiTest {
 
     @When("^delete the multipart object with key \"([^\"]*)\"$")
     public void delete_the_multipart_object(String objectKey) throws Throwable {
-        deleteObjectOutput = testBucket.deleteObject(objectKey);
+        deleteObjectOutput = testBucket.deleteObject(objectKey, null);
     }
 
     @Then("^delete the multipart object status code is (\\d+)$")

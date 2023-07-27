@@ -279,7 +279,10 @@ public class QSSignatureUtil {
                             "response-content-type",
                             "response-content-language",
                             "response-content-encoding",
-                            "response-content-disposition"));
+                            "response-content-disposition",
+                            "versioning",
+                            "version_id",
+                            "versions"));
         }
         return subSources.contains(key);
     }
