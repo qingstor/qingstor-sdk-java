@@ -2,6 +2,12 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.0] - 2022-09-10
+
+### Fixed
+
+- Make Async-request + callback works as expected;
+
 ## [v2.5.2] - 2021-07-25
 
 ### Fixed
