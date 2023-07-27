@@ -2,6 +2,21 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.1] - 2023-07-28
+
+### Added
+
+- versioning-related api to support qingstor version-control feature.
+
+### Fixed
+
+- Prefix field in Lifecycle rule filter is not required.
+- Return Cache-Control, Expires etc header when HEAD object.
+
+### Deps
+
+- Update org.json to address CVE-2022-45688.
+
 ## [v2.6.0] - 2022-09-10
 
 ### Fixed
