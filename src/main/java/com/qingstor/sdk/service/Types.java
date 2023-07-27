@@ -645,7 +645,7 @@ public class Types {
     /** FilterModel represents Filter. */
     public static class FilterModel extends RequestInputModel {
 
-        /** Prefix matching Required */
+        /** Prefix matching */
         private String prefix;
 
         public void setPrefix(String prefix) {
@@ -660,9 +660,7 @@ public class Types {
         /** validateParam validates the Filter. */
         @Override
         public String validateParam() {
-            if (QSStringUtil.isEmpty(this.getPrefix())) {
-                return QSStringUtil.getParameterRequired("Prefix", "Filter");
-            }
+
             return null;
         }
     }
