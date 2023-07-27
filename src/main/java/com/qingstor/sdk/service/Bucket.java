@@ -7667,6 +7667,60 @@ public class Bucket {
      */
     public static class HeadObjectOutput extends OutputModel {
 
+        /**
+         * The Cache-Control general-header field is used to specify directives for caching
+         * mechanisms in both requests and responses.
+         */
+        private String cacheControl;
+
+        public void setCacheControl(String cacheControl) {
+            this.cacheControl = cacheControl;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "cache-control")
+        public String getCacheControl() {
+            return this.cacheControl;
+        }
+        /**
+         * In a multipart/form-data body, the HTTP Content-Disposition general header is a header
+         * that can be used on the subpart of a multipart body to give information about the field
+         * it applies to.
+         */
+        private String contentDisposition;
+
+        public void setContentDisposition(String contentDisposition) {
+            this.contentDisposition = contentDisposition;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-disposition")
+        public String getContentDisposition() {
+            return this.contentDisposition;
+        }
+        /** The Content-Encoding entity header is used to compress the media-type. */
+        private String contentEncoding;
+
+        public void setContentEncoding(String contentEncoding) {
+            this.contentEncoding = contentEncoding;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-encoding")
+        public String getContentEncoding() {
+            return this.contentEncoding;
+        }
+        /**
+         * The Content-Language entity header is used to describe the language(s) intended for the
+         * audience.
+         */
+        private String contentLanguage;
+
+        public void setContentLanguage(String contentLanguage) {
+            this.contentLanguage = contentLanguage;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "content-language")
+        public String getContentLanguage() {
+            return this.contentLanguage;
+        }
         /** Object content length */
         private Long contentLength;
 
@@ -7699,6 +7753,19 @@ public class Bucket {
         @ParamAnnotation(paramType = "header", paramName = "etag")
         public String getETag() {
             return this.eTag;
+        }
+        /**
+         * The Expires header contains the date/time after which the response is considered stale.
+         */
+        private String expires;
+
+        public void setExpires(String expires) {
+            this.expires = expires;
+        }
+
+        @ParamAnnotation(paramType = "header", paramName = "expires")
+        public String getExpires() {
+            return this.expires;
         }
         /** */
         private String lastModified;
