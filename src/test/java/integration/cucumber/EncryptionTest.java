@@ -171,7 +171,7 @@ public class EncryptionTest {
     @When("^delete encryption object \"([^\"]*)\"$")
     public void delete_encryption_object(String objectName) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        deleteObjectOutput = testBucket.deleteObject(objectName);
+        deleteObjectOutput = testBucket.deleteObject(objectName, null);
     }
 
     @Then("^delete encryption object status code is (\\d+)$")
@@ -183,7 +183,7 @@ public class EncryptionTest {
     @When("^delete encryption the move object \"([^\"]*)\"$")
     public void delete_encryption_the_move_object(String objectName) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        deleteObjectOutput2 = testBucket.deleteObject(objectName + "move");
+        deleteObjectOutput2 = testBucket.deleteObject(objectName + "move", null);
     }
 
     @Then("^delete encryption the move object status code is (\\d+)$")
