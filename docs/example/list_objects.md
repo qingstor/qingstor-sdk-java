@@ -4,7 +4,7 @@
 
 Initialize the Bucket service with access-key-id and secret-access-key
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
@@ -14,7 +14,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can list objects
 
-```
+```java
 
 Bucket.ListObjectsInput input = new Bucket.ListObjectsInput();
 input.setLimit(20);

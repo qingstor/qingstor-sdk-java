@@ -4,7 +4,7 @@
 
 首先我们需要初始化一个 Bucket 对象来对 Bucket 进行操作：
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
@@ -14,7 +14,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 然后您可以拷贝对象
 
-```
+```java
     private void putObjectCopy(Bucket bucket, String copySource, String newObjectKey) {
         try {
             Bucket.PutObjectInput input = new Bucket.PutObjectInput();

@@ -4,7 +4,7 @@
 
 Initialize the Bucket service with access-key-id and secret-access-key
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
@@ -14,7 +14,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can move objects
 
-```
+```java
     private void putObjectMove(Bucket bucket, String moveSource, String newObjectKey) {
         try {
             Bucket.PutObjectInput input = new Bucket.PutObjectInput();

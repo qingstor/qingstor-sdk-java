@@ -26,7 +26,7 @@ reqHandler.sendAsync();
 
 Take uploading object for example:
 
-```
+```java
 try {
     // Step 1: new EnvContext and set zone and bucket
     EnvContext env = new EnvContext("", "");

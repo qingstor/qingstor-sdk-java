@@ -10,7 +10,7 @@ But you can set any one of the header and body params by the methods below.
 
 Extends the correct Input class.Take putting object for example to add ContentDisposition:
 
-```
+```java
 import com.qingstor.sdk.annotation.ParamAnnotation;
 
 /**
@@ -32,7 +32,7 @@ public class MyPutObjectInput extends Bucket.PutObjectInput{
 
 Use these codes when uploading:
 
-```
+```java
 EnvContext env = new EnvContext("key","secret");
 env.setLog_level(QSConstant.LOGGER_INFO);
 Bucket bucket = new Bucket(env, testZone, "chengww-test");
@@ -50,7 +50,7 @@ try {
 
 Now you can rename the objects(files) when downloading:
 
-```
+```java
 //...Omit creating the bucket
 Bucket.GetObjectOutput output2 = bucket.getObject("1234.csv", null);
 if (output2.getBodyInputStream() != null && output2.getStatueCode() == 200) {
@@ -71,7 +71,7 @@ You can get the object url for downloading.
 
 There will be the current name you set when uploading.
 
-```
+```java
 RequestHandler requestHandler = bucket.GetObjectBySignatureUrlRequest("12344.csv", null, System.currentTimeMillis()/1000 + 60*60);
 System.out.println(requestHandler.getExpiresRequestUrl());
 

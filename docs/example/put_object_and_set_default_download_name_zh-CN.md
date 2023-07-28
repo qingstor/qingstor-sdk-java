@@ -8,7 +8,7 @@
 
 继承相应 Input 类，以上传文件为例，添加 ContentDisposition ：
 
-```
+```java
 import com.qingstor.sdk.annotation.ParamAnnotation;
 
 /**
@@ -30,7 +30,7 @@ public class MyPutObjectInput extends Bucket.PutObjectInput{
 
 在上传文件时使用：
 
-```
+```java
 EnvContext env = new EnvContext("key","secret");
 env.setLog_level(QSConstant.LOGGER_INFO);
 Bucket bucket = new Bucket(env, testZone, "chengww-test");
@@ -48,7 +48,7 @@ try {
 
 现在您可以在下载文件时重命名:
 
-```
+```java
 //...省略Bucket创建
 Bucket.GetObjectOutput output2 = bucket.getObject("1234.csv", null);
 if (output2.getBodyInputStream() != null && output2.getStatueCode() == 200) {
@@ -67,7 +67,7 @@ output2.getBodyInputStream().close();
 
 或获取下载链接，直接浏览器打开即可自动下载并处理文件名称
 
-```
+```java
 RequestHandler requestHandler = bucket.GetObjectBySignatureUrlRequest("12344.csv", null, System.currentTimeMillis()/1000 + 60*60);
 System.out.println(requestHandler.getExpiresRequestUrl());
 

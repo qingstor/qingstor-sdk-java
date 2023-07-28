@@ -24,7 +24,7 @@ UploadManagerCallback 的默认方法 (Default methods) 说明：
 
 ### 代码片段
 
-```
+```java
 FileRecorder recorder = null;
 try {
     recorder = new FileRecorder("records kept path");

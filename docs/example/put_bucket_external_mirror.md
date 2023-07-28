@@ -12,7 +12,7 @@ See [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/pu
 
 Initialize the Bucket service with access-key-id and secret-access-key
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";

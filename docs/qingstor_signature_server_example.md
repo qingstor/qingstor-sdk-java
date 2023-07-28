@@ -38,7 +38,7 @@ Here's a diagram describes the data flow:
 
 _Client Example:_
 
-```http
+```java
 
     Bucket.PutObjectInput putObjectInput = new Bucket.PutObjectInput();
     File uploadFile = new File("/tmp/test.video");
@@ -67,7 +67,7 @@ _Client Example:_
 
 _Server Example:_
 
-```http
+```java
 
 	String strToSignature = request.getParameter("strToSignature");
 	String serverSignature = QSServerSignatureUtil.generateSignature(
@@ -78,7 +78,7 @@ _Server Example:_
 
 _Client Async Example:_
 
-```http
+```java
 
     Bucket.PutObjectInput putObjectInput = new Bucket.PutObjectInput();
     File uploadFile = new File("/tmp/test.video");

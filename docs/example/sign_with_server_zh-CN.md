@@ -24,7 +24,7 @@ reqHandler.sendAsync();
 
 以上传文件为例：
 
-```
+```java
 try {
     // 第一步: 创建 EnvContext 并设置 zone 和 bucket
     EnvContext env = new EnvContext("", "");
