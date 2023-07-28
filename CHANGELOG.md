@@ -2,6 +2,12 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.2] - 2023-07-28
+
+### Fixed
+
+- Fix race condition when build request signature.
+
 ## [v2.6.1] - 2023-07-28
 
 ### Added
