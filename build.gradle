@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.yunify'
 // Pass command-line option: -Psdk_version=x.x.x if you want build a different version.
-version = findProperty('sdk_version') ?: '2.6.0'
+version = findProperty('sdk_version') ?: '2.6.1'
 
 repositories {
     mavenCentral()
