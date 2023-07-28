@@ -4,7 +4,7 @@
 
 Initialize the Bucket service with access-key-id and secret-access-key
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
@@ -14,7 +14,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 then you can delete objects
 
-```
+```java
     /**
      * Delete Object
      *
@@ -24,7 +24,7 @@ then you can delete objects
      */
     private void deleteObject(Bucket bucket, String objectKey) {
         try {
-            Bucket.DeleteObjectOutput output = bucket.deleteObject(objectKey);
+            Bucket.DeleteObjectOutput output = bucket.deleteObject(objectKey, null);
             if (output.getStatueCode() == 204) {
                 // Deleted
                 System.out.println("Delete Object: Deleted. ");

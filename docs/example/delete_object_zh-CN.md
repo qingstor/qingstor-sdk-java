@@ -32,7 +32,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
      */
     private void deleteObject(Bucket bucket, String objectKey) {
         try {
-            Bucket.DeleteObjectOutput output = bucket.deleteObject(objectKey);
+            Bucket.DeleteObjectOutput output = bucket.deleteObject(objectKey, null);
             if (output.getStatueCode() == 204) {
                 // Deleted
                 System.out.println("Delete Object: Deleted. ");
@@ -54,9 +54,9 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 上面代码中出现的函数：
 
-- bucket.deleteObject(objectName) 删除 key 为 objectName 的 Object
+- bucket.deleteObject(objectName, null) 删除 key 为 objectName 的 Object
   - objectName 表示 Object 的 Key，Object Key 是该 Object 在 QingStor 对象存储系统对应 Bucket 中具有唯一性的标识，相当于本地存储系统中的文件名。
 
 上面代码中出现的对象：
 
-- output 是 bucket.deleteObject(objectName) 返回的实体。
+- output 是 bucket.deleteObject(objectName, null) 返回的实体。

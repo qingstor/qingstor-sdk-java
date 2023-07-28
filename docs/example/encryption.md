@@ -8,7 +8,7 @@ To understand the process of encryption better, visit the link [https://docs.qin
 
 #### Encryption Example Of Uploading
 
-```
+```java
 Bucket.PutObjectInput putObjectInput = new Bucket.PutObjectInput();
 
 putObjectInput.setXQSEncryptionCustomerAlgorithm("AES256");
@@ -22,7 +22,7 @@ putObjectInput.setBodyInputFile(new File("file path"));
 
 When download the file has been encrypted, you need decipher it like the codes below.
 
-```
+```java
 Bucket.GetObjectInput putObjectInput = new Bucket.GetObjectInput();
 
 putObjectInput.setXQSEncryptionCustomerAlgorithm("AES256");
