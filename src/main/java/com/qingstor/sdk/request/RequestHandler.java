@@ -33,7 +33,7 @@ import okhttp3.RequestBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RequestHandler {
+public class RequestHandler<T extends OutputModel> {
 
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
@@ -41,9 +41,9 @@ public class RequestHandler {
 
     private final RequestInputModel paramBean;
 
-    private Class<? extends OutputModel> outputClass;
+    private Class<T> outputClass;
 
-    private ResponseCallBack asyncCallback;
+    private ResponseCallBack<T> asyncCallback;
 
     private QSBuilder builder;
 
@@ -55,17 +55,12 @@ public class RequestHandler {
 
     @Deprecated
     public RequestHandler(
-            Map<String, Object> operationCtx,
-            RequestInputModel paramBean,
-            Class<? extends OutputModel> outputClass)
+            Map<String, Object> operationCtx, RequestInputModel paramBean, Class<T> outputClass)
             throws QSException {
         this(OperationContext.from(operationCtx), paramBean, outputClass);
     }
 
-    public RequestHandler(
-            OperationContext opCtx,
-            RequestInputModel paramBean,
-            Class<? extends OutputModel> outputClass)
+    public RequestHandler(OperationContext opCtx, RequestInputModel paramBean, Class<T> outputClass)
             throws QSException {
         this.opCtx = opCtx;
         this.paramBean = paramBean;
@@ -77,44 +72,53 @@ public class RequestHandler {
     public RequestHandler(
             Map<String, Object> context,
             RequestInputModel paramBean,
-            ResponseCallBack<? extends OutputModel> asyncCallback)
+            ResponseCallBack<T> asyncCallback,
+            Class<T> outputClass)
             throws QSException {
-        this(OperationContext.from(context), paramBean, asyncCallback);
+        this(OperationContext.from(context), paramBean, asyncCallback, outputClass);
     }
 
     public RequestHandler(
             OperationContext context,
             RequestInputModel paramBean,
-            ResponseCallBack<? extends OutputModel> asyncCallback)
+            ResponseCallBack<T> asyncCallback,
+            Class<T> outputClass)
             throws QSException {
         this.opCtx = context;
         this.paramBean = paramBean;
         this.asyncCallback = asyncCallback;
+        this.outputClass = outputClass;
         this.builder = new QSBuilder(context, paramBean);
     }
 
     public void sendAsync() throws QSException {
         String validate = this.check();
         if (!QSStringUtil.isEmpty(validate)) {
-            OutputModel out = QSParamInvokeUtil.getOutputModel(this.asyncCallback);
-            QSOkHttpRequestClient.fillResponseCallbackModel(
-                    QSConstant.REQUEST_ERROR_CODE, validate, out);
-            this.asyncCallback.onAPIResponse(out);
+            fillClientErr(validate);
         } else {
             EnvContext envContext = (EnvContext) this.opCtx.credentials();
             Request request = this.getRequest();
             QSOkHttpRequestClient.getInstance(envContext)
                     .requestActionAsync(
-                            request, this.opCtx.clientCfg().isSafeOkHttp(), this.asyncCallback);
+                            request,
+                            this.opCtx.clientCfg().isSafeOkHttp(),
+                            this.asyncCallback,
+                            this.outputClass);
         }
     }
 
-    public OutputModel send() throws QSException {
+    private void fillClientErr(String msg) throws QSException {
+        T out = QSParamInvokeUtil.getOutputModel(outputClass);
+        QSOkHttpRequestClient.fillResponseCallbackModel(QSConstant.REQUEST_ERROR_CODE, msg, out);
+        this.asyncCallback.onAPIResponse(out);
+    }
+
+    public T send() throws QSException {
 
         String validate = this.check();
         if (!QSStringUtil.isEmpty(validate)) {
             try {
-                OutputModel model = outputClass.getDeclaredConstructor().newInstance();
+                T model = QSParamInvokeUtil.getOutputModel(outputClass);
                 QSOkHttpRequestClient.fillResponseCallbackModel(
                         QSConstant.REQUEST_ERROR_CODE, validate, model);
                 return model;

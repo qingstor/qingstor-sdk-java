@@ -4,7 +4,7 @@
 
 Initialize the EnvContext with access-key-id and secret-access-key
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 

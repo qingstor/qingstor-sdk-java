@@ -645,7 +645,7 @@ public class Types {
     /** FilterModel represents Filter. */
     public static class FilterModel extends RequestInputModel {
 
-        /** Prefix matching Required */
+        /** Prefix matching */
         private String prefix;
 
         public void setPrefix(String prefix) {
@@ -660,9 +660,7 @@ public class Types {
         /** validateParam validates the Filter. */
         @Override
         public String validateParam() {
-            if (QSStringUtil.isEmpty(this.getPrefix())) {
-                return QSStringUtil.getParameterRequired("Prefix", "Filter");
-            }
+
             return null;
         }
     }
@@ -988,6 +986,84 @@ public class Types {
         }
     }
 
+    /** NoncurrentVersionExpirationModel represents NoncurrentVersionExpiration. */
+    public static class NoncurrentVersionExpirationModel extends RequestInputModel {
+
+        /** days */
+        private Integer days;
+
+        public void setDays(Integer days) {
+            this.days = days;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "days")
+        public Integer getDays() {
+            return this.days;
+        }
+
+        /** validateParam validates the NoncurrentVersionExpiration. */
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
+    /** NoncurrentVersionTransitionModel represents NoncurrentVersionTransition. */
+    public static class NoncurrentVersionTransitionModel extends RequestInputModel {
+
+        /** days */
+        private Integer days;
+
+        public void setDays(Integer days) {
+            this.days = days;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "days")
+        public Integer getDays() {
+            return this.days;
+        }
+        /** storage class StorageClass's available values: STANDARD_IA, STANDARD Required */
+        private String storageClass;
+
+        public void setStorageClass(String storageClass) {
+            this.storageClass = storageClass;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "storage_class")
+        public String getStorageClass() {
+            return this.storageClass;
+        }
+
+        /** validateParam validates the NoncurrentVersionTransition. */
+        @Override
+        public String validateParam() {
+            if (QSStringUtil.isEmpty(this.getStorageClass())) {
+                return QSStringUtil.getParameterRequired(
+                        "StorageClass", "NoncurrentVersionTransition");
+            }
+            String[] storageClassValidValues = {"STANDARD_IA", "STANDARD"};
+
+            boolean storageClassIsValid = false;
+            String storageClass = this.getStorageClass();
+            if (null == storageClass || "".equals(storageClass)) {
+                storageClassIsValid = true;
+            } else {
+                for (String v : storageClassValidValues) {
+                    if (v.equals(storageClass)) {
+                        storageClassIsValid = true;
+                    }
+                }
+            }
+
+            if (!storageClassIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "StorageClass", this.getStorageClass() + "", storageClassValidValues);
+            }
+            return null;
+        }
+    }
+
     /** NotIPAddressModel represents NotIPAddress. */
     public static class NotIPAddressModel extends RequestInputModel {
 
@@ -1262,6 +1338,30 @@ public class Types {
         public String getID() {
             return this.iD;
         }
+        /** */
+        private NoncurrentVersionExpirationModel noncurrentVersionExpiration;
+
+        public void setNoncurrentVersionExpiration(
+                NoncurrentVersionExpirationModel noncurrentVersionExpiration) {
+            this.noncurrentVersionExpiration = noncurrentVersionExpiration;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "noncurrent_version_expiration")
+        public NoncurrentVersionExpirationModel getNoncurrentVersionExpiration() {
+            return this.noncurrentVersionExpiration;
+        }
+        /** */
+        private NoncurrentVersionTransitionModel noncurrentVersionTransition;
+
+        public void setNoncurrentVersionTransition(
+                NoncurrentVersionTransitionModel noncurrentVersionTransition) {
+            this.noncurrentVersionTransition = noncurrentVersionTransition;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "noncurrent_version_transition")
+        public NoncurrentVersionTransitionModel getNoncurrentVersionTransition() {
+            return this.noncurrentVersionTransition;
+        }
         /** rule status Status's available values: enabled, disabled Required */
         private String status;
 
@@ -1314,6 +1414,19 @@ public class Types {
             }
             if (QSStringUtil.isEmpty(this.getID())) {
                 return QSStringUtil.getParameterRequired("ID", "Rule");
+            }
+            if (this.getNoncurrentVersionExpiration() != null) {
+                String vValidate = this.getNoncurrentVersionExpiration().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
+            }
+
+            if (this.getNoncurrentVersionTransition() != null) {
+                String vValidate = this.getNoncurrentVersionTransition().validateParam();
+                if (!QSStringUtil.isEmpty(vValidate)) {
+                    return vValidate;
+                }
             }
             if (QSStringUtil.isEmpty(this.getStatus())) {
                 return QSStringUtil.getParameterRequired("Status", "Rule");
@@ -1749,6 +1862,180 @@ public class Types {
         @Override
         public String validateParam() {
 
+            return null;
+        }
+    }
+
+    /** VersionKeyModel represents VersionKey. */
+    public static class VersionKeyModel extends RequestInputModel {
+
+        /** Object created time */
+        private String created;
+
+        public void setCreated(String created) {
+            this.created = created;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "created")
+        public String getCreated() {
+            return this.created;
+        }
+        /** Whether this version is a delete marker */
+        private Boolean deleteMarker;
+
+        public void setDeleteMarker(Boolean deleteMarker) {
+            this.deleteMarker = deleteMarker;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "delete_marker")
+        public Boolean getDeleteMarker() {
+            return this.deleteMarker;
+        }
+        /** Whether this key is encrypted */
+        private Boolean encrypted;
+
+        public void setEncrypted(Boolean encrypted) {
+            this.encrypted = encrypted;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "encrypted")
+        public Boolean getEncrypted() {
+            return this.encrypted;
+        }
+        /** MD5sum of the object */
+        private String etag;
+
+        public void setEtag(String etag) {
+            this.etag = etag;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "etag")
+        public String getEtag() {
+            return this.etag;
+        }
+        /** Whether this version is the latest object */
+        private Boolean isLatest;
+
+        public void setIsLatest(Boolean isLatest) {
+            this.isLatest = isLatest;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "is_latest")
+        public Boolean getIsLatest() {
+            return this.isLatest;
+        }
+        /** Object key */
+        private String key;
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "key")
+        public String getKey() {
+            return this.key;
+        }
+        /** MIME type of the object */
+        private String mimeType;
+
+        public void setMimeType(String mimeType) {
+            this.mimeType = mimeType;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "mime_type")
+        public String getMimeType() {
+            return this.mimeType;
+        }
+        /** Last modified time */
+        private String modified;
+
+        public void setModified(String modified) {
+            this.modified = modified;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "modified")
+        public String getModified() {
+            return this.modified;
+        }
+        /** Object content size */
+        private Long size;
+
+        public void setSize(Long size) {
+            this.size = size;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "size")
+        public Long getSize() {
+            return this.size;
+        }
+        /** Object storage class */
+        private String storageClass;
+
+        public void setStorageClass(String storageClass) {
+            this.storageClass = storageClass;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "storage_class")
+        public String getStorageClass() {
+            return this.storageClass;
+        }
+        /** version_id of the object */
+        private String versionID;
+
+        public void setVersionID(String versionID) {
+            this.versionID = versionID;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "version_id")
+        public String getVersionID() {
+            return this.versionID;
+        }
+
+        /** validateParam validates the VersionKey. */
+        @Override
+        public String validateParam() {
+
+            return null;
+        }
+    }
+
+    /** VersioningModel represents Versioning. */
+    public static class VersioningModel extends RequestInputModel {
+
+        /** versioning status Status's available values: DISABLED, ENABLED, SUSPENDED */
+        private String status;
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        @ParamAnnotation(paramType = "", paramName = "status")
+        public String getStatus() {
+            return this.status;
+        }
+
+        /** validateParam validates the Versioning. */
+        @Override
+        public String validateParam() {
+
+            String[] statusValidValues = {"DISABLED", "ENABLED", "SUSPENDED"};
+
+            boolean statusIsValid = false;
+            String status = this.getStatus();
+            if (null == status || "".equals(status)) {
+                statusIsValid = true;
+            } else {
+                for (String v : statusValidValues) {
+                    if (v.equals(status)) {
+                        statusIsValid = true;
+                    }
+                }
+            }
+
+            if (!statusIsValid) {
+                return QSStringUtil.getParameterValueNotAllowedError(
+                        "Status", this.getStatus() + "", statusValidValues);
+            }
             return null;
         }
     }

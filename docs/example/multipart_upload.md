@@ -4,7 +4,7 @@
 
 Initialize the Bucket service with access-key-id and secret-access-key
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
@@ -14,7 +14,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 Then you can upload multipart object.
 
-```
+```java
 
 String objectName = "your_object_name";
 
@@ -67,7 +67,7 @@ long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
 
 #### If a large file has been stored as separate parts on disk, you can use the method below.
 
-```
+```java
     private void multipartUpload(Bucket bucket, List<File> files, String objectKey) throws QSException {
         if (files == null || files.size() < 1)
             throw new QSException("Files' counts can not be less than one!!");
@@ -109,7 +109,7 @@ So a same stream can be used for once.
 Do not set a same stream twice please.
 Attention: the example below is just to show you how to resolve some streams to multipart upload.
 
-```
+```java
     String objectName = "your-object-name";
 
     Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUploadInput();

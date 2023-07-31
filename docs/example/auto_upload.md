@@ -27,7 +27,7 @@ You can also [visit here](https://github.com/chengwwYunify/qingstor-upload-test)
 
 ### Code Snippet
 
-```
+```java
 FileRecorder recorder = null;
 try {
     recorder = new FileRecorder("records kept path");

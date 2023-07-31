@@ -46,7 +46,37 @@ public class QSSignatureUtil {
     private static final DateTimeFormatter timeFormatter =
             DateTimeFormatter.ofPattern(GMT_DATE_FORMAT, Locale.US).withZone(ZoneId.of("GMT"));
 
-    private static Set<String> subSources;
+    private static Set<String> subSources = new HashSet<>();
+
+    static {
+        subSources.addAll(
+                Arrays.asList(
+                        "acl",
+                        "cors",
+                        "delete",
+                        "mirror",
+                        "part_number",
+                        "policy",
+                        "stats",
+                        "upload_id",
+                        "uploads",
+                        "image",
+                        "append",
+                        "position",
+                        "notification",
+                        "lifecycle",
+                        "logging",
+                        "cname",
+                        "response-expires",
+                        "response-cache-control",
+                        "response-content-type",
+                        "response-content-language",
+                        "response-content-encoding",
+                        "response-content-disposition",
+                        "versioning",
+                        "version_id",
+                        "versions"));
+    }
 
     /**
      * @param parameters parameters to sign
@@ -254,33 +284,6 @@ public class QSSignatureUtil {
     }
 
     public static boolean isSubSource(String key) {
-        if (subSources == null) {
-            subSources = new HashSet<>();
-            subSources.addAll(
-                    Arrays.asList(
-                            "acl",
-                            "cors",
-                            "delete",
-                            "mirror",
-                            "part_number",
-                            "policy",
-                            "stats",
-                            "upload_id",
-                            "uploads",
-                            "image",
-                            "append",
-                            "position",
-                            "notification",
-                            "lifecycle",
-                            "logging",
-                            "cname",
-                            "response-expires",
-                            "response-cache-control",
-                            "response-content-type",
-                            "response-content-language",
-                            "response-content-encoding",
-                            "response-content-disposition"));
-        }
         return subSources.contains(key);
     }
 

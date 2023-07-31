@@ -4,7 +4,7 @@
 
 用 access-key-id 和 secret-access-key 初始化 Bucket 服务。
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";

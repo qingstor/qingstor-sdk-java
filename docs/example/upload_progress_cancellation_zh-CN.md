@@ -6,7 +6,7 @@
 
 获取 request handler 来设置进度监听.
 
-```
+```java
 // 同步请求
 RequestHandler requestHandler = bucket.putObjectRequest(objectKey, input);
 // 进度监听
@@ -30,7 +30,7 @@ requestHandler.sendAsync();
 在 CancellationHandler 这个接口中, 当方法 'isCancelled()' 返回 true 时,
 上传将被取消。
 
-```
+```java
 // Cancellation handler.
 requestHandler.setCancellationHandler(cancellationHandler);
 

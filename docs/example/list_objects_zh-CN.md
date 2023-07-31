@@ -4,7 +4,7 @@
 
 用 access-key-id 和 secret-access-key 初始化 Bucket 服务。
 
-```
+```java
 EnvContext env = new EnvContext(accessKey,accessSecret);
 String zoneKey = "pek3a";
 String bucketName = "testBucketName";
@@ -14,7 +14,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 
 然后您可以展示 Bucket 所有对象
 
-```
+```java
 
 Bucket.ListObjectsInput input = new Bucket.ListObjectsInput();
 input.setLimit(20);
