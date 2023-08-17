@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id("com.diffplug.spotless") version "6.17.0"
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'com.yunify'
@@ -21,9 +22,20 @@ java {
     withSourcesJar()
 }
 
-ext.sharedManifest = manifest {
+def sharedManifest = java.manifest {
     attributes("Implementation-Title": project.name,
-            "Implementation-Version": project.version)
+        "Implementation-Version": project.version)
+}
+
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+tasks.named('shadowJar', ShadowJar) {
+    archiveClassifier.set('all-deps')
+    archiveVersion.set(project.version.toString())
+
+    enableRelocation true
+    relocationPrefix "qingstor"
+
 }
 
 tasks {
@@ -34,7 +46,7 @@ tasks {
         configure options.encoding("UTF-8")
     }
     jar {
-        manifest = project.manifest {
+        manifest = java.manifest {
             from sharedManifest
         }
     }
@@ -48,19 +60,7 @@ tasks {
             options.addBooleanOption('html5', true)
         }
     }
-    task fatJar(type: Jar) {
-        manifest = project.manifest {
-            from sharedManifest
-        }
-        archiveClassifier.set('all-deps')
-        from sourceSets.main.output
-        dependsOn configurations.runtimeClasspath
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        from {
-            configurations.runtimeClasspath.findAll { it.name.endsWith("jar") }.collect { zipTree(it) }
-        }
-    }
-    task versionProperties {
+    tasks.register('versionProperties') {
         doLast {
             mkdir "$buildDir/resources/main"
             new File("$buildDir/resources/main/version.properties").withWriter { w ->
@@ -74,8 +74,13 @@ tasks {
         dependsOn versionProperties
     }
     build {
-        dependsOn fatJar
+        dependsOn shadowJar
     }
+}
+
+// publish only unshadowed artifacts
+components.java.withVariantsFromConfiguration(configurations.shadowRuntimeElements) {
+    skip()
 }
 
 publishing {
