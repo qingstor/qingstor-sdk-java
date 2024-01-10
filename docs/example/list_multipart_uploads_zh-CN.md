@@ -4,13 +4,13 @@
 
 与 GET Bucket (List Objects) 接口类似，用户可以通过传递 prefix, delimiter 请求参数，指定获取某个目录下面正在进行的分段上传。列表按照对象名称的 alphanumeric 顺序从小到大排序。如果同名对象有多个分段上传，翻页被截断后只显示了一部分，下次翻页可通过 upload_id_marker 参数，获取该 upload_id 往后按创建时间排序后剩下的分段上传。
 
-如果用户只想获取某个对象已经上传的分段，请查阅 [API Docs](https://docs.qingcloud.com/qingstor/api/object/multipart/list_multipart.html#object-storage-api-list-multipart).
+如果用户只想获取某个对象已经上传的分段，请查阅 [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/).
 
 ### 请求参数
 
 在 List Bucket Objects 时添加筛选条件
 
-参考[对应的 API 文档](https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html)，您可以在对应的 Input 设置并添加如下筛选条件：
+参考[对应的 API 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/)，您可以在对应的 Input 设置并添加如下筛选条件：
 
 |      参数名      |  类型   | 描述                                                                                                | 是否必要 |
 | :--------------: | :-----: | :-------------------------------------------------------------------------------------------------- | :------: |

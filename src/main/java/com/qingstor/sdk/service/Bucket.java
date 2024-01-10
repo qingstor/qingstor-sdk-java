@@ -74,8 +74,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/delete.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketOutput delete() throws QSException {
@@ -91,7 +91,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketOutput> deleteRequest() throws QSException {
@@ -121,7 +121,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteAsync(ResponseCallBack<DeleteBucketOutput> callback) throws QSException {
@@ -135,7 +135,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete.html">https://docs.qingcloud.com/qingstor/api/bucket/delete.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketOutput> deleteAsyncRequest(
@@ -177,8 +177,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return DeleteBucketCNAMEOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketCNAMEOutput deleteCNAME(DeleteBucketCNAMEInput input) throws QSException {
@@ -199,7 +199,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketCNAMEOutput> deleteCNAMERequest(DeleteBucketCNAMEInput input)
@@ -234,7 +234,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteCNAMEAsync(
@@ -254,7 +254,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketCNAMEOutput> deleteCNAMEAsyncRequest(
@@ -350,8 +350,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketCORSOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketCORSOutput deleteCORS() throws QSException {
@@ -367,7 +367,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketCORSOutput> deleteCORSRequest() throws QSException {
@@ -397,7 +397,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteCORSAsync(ResponseCallBack<DeleteBucketCORSOutput> callback)
@@ -412,7 +412,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketCORSOutput> deleteCORSAsyncRequest(
@@ -453,8 +453,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketExternalMirrorOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/
      *     </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -471,7 +471,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketExternalMirrorOutput> deleteExternalMirrorRequest()
@@ -502,7 +502,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteExternalMirrorAsync(
@@ -517,7 +517,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketExternalMirrorOutput> deleteExternalMirrorAsyncRequest(
@@ -558,8 +558,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketLifecycleOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketLifecycleOutput deleteLifecycle() throws QSException {
@@ -575,7 +575,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketLifecycleOutput> deleteLifecycleRequest() throws QSException {
@@ -605,7 +605,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteLifecycleAsync(ResponseCallBack<DeleteBucketLifecycleOutput> callback)
@@ -620,7 +620,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketLifecycleOutput> deleteLifecycleAsyncRequest(
@@ -661,8 +661,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketLoggingOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketLoggingOutput deleteLogging() throws QSException {
@@ -678,7 +678,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketLoggingOutput> deleteLoggingRequest() throws QSException {
@@ -708,7 +708,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteLoggingAsync(ResponseCallBack<DeleteBucketLoggingOutput> callback)
@@ -723,7 +723,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketLoggingOutput> deleteLoggingAsyncRequest(
@@ -764,8 +764,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketNotificationOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketNotificationOutput deleteNotification() throws QSException {
@@ -781,7 +781,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketNotificationOutput> deleteNotificationRequest()
@@ -812,7 +812,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteNotificationAsync(ResponseCallBack<DeleteBucketNotificationOutput> callback)
@@ -827,7 +827,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketNotificationOutput> deleteNotificationAsyncRequest(
@@ -868,8 +868,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketPolicyOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketPolicyOutput deletePolicy() throws QSException {
@@ -885,7 +885,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketPolicyOutput> deletePolicyRequest() throws QSException {
@@ -915,7 +915,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deletePolicyAsync(ResponseCallBack<DeleteBucketPolicyOutput> callback)
@@ -930,7 +930,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketPolicyOutput> deletePolicyAsyncRequest(
@@ -971,8 +971,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return DeleteBucketReplicationOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteBucketReplicationOutput deleteReplication() throws QSException {
@@ -988,7 +988,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketReplicationOutput> deleteReplicationRequest()
@@ -1019,7 +1019,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteReplicationAsync(ResponseCallBack<DeleteBucketReplicationOutput> callback)
@@ -1034,7 +1034,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteBucketReplicationOutput> deleteReplicationAsyncRequest(
@@ -1076,8 +1076,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return DeleteMultipleObjectsOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteMultipleObjectsOutput deleteMultipleObjects(DeleteMultipleObjectsInput input)
@@ -1099,7 +1099,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteMultipleObjectsOutput> deleteMultipleObjectsRequest(
@@ -1134,7 +1134,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteMultipleObjectsAsync(
@@ -1155,7 +1155,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html">https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteMultipleObjectsOutput> deleteMultipleObjectsAsyncRequest(
@@ -1296,8 +1296,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketACLOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketACLOutput getACL() throws QSException {
@@ -1313,7 +1313,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketACLOutput> getACLRequest() throws QSException {
@@ -1343,7 +1343,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getACLAsync(ResponseCallBack<GetBucketACLOutput> callback) throws QSException {
@@ -1357,7 +1357,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/get_acl/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketACLOutput> getACLAsyncRequest(
@@ -1423,8 +1423,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return GetBucketCNAMEOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketCNAMEOutput getCNAME(GetBucketCNAMEInput input) throws QSException {
@@ -1445,7 +1445,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketCNAMEOutput> getCNAMERequest(GetBucketCNAMEInput input)
@@ -1480,7 +1480,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getCNAMEAsync(
@@ -1500,7 +1500,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketCNAMEOutput> getCNAMEAsyncRequest(
@@ -1618,8 +1618,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketCORSOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketCORSOutput getCORS() throws QSException {
@@ -1635,7 +1635,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketCORSOutput> getCORSRequest() throws QSException {
@@ -1665,7 +1665,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getCORSAsync(ResponseCallBack<GetBucketCORSOutput> callback) throws QSException {
@@ -1679,7 +1679,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketCORSOutput> getCORSAsyncRequest(
@@ -1733,8 +1733,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketExternalMirrorOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/
      *     </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -1751,7 +1751,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketExternalMirrorOutput> getExternalMirrorRequest()
@@ -1782,7 +1782,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getExternalMirrorAsync(ResponseCallBack<GetBucketExternalMirrorOutput> callback)
@@ -1797,7 +1797,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketExternalMirrorOutput> getExternalMirrorAsyncRequest(
@@ -1851,8 +1851,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketLifecycleOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketLifecycleOutput getLifecycle() throws QSException {
@@ -1868,7 +1868,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketLifecycleOutput> getLifecycleRequest() throws QSException {
@@ -1898,7 +1898,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getLifecycleAsync(ResponseCallBack<GetBucketLifecycleOutput> callback)
@@ -1913,7 +1913,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketLifecycleOutput> getLifecycleAsyncRequest(
@@ -1967,8 +1967,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketLoggingOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketLoggingOutput getLogging() throws QSException {
@@ -1984,7 +1984,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketLoggingOutput> getLoggingRequest() throws QSException {
@@ -2014,7 +2014,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getLoggingAsync(ResponseCallBack<GetBucketLoggingOutput> callback)
@@ -2029,7 +2029,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketLoggingOutput> getLoggingAsyncRequest(
@@ -2094,8 +2094,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketNotificationOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketNotificationOutput getNotification() throws QSException {
@@ -2111,7 +2111,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketNotificationOutput> getNotificationRequest() throws QSException {
@@ -2141,7 +2141,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getNotificationAsync(ResponseCallBack<GetBucketNotificationOutput> callback)
@@ -2156,7 +2156,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketNotificationOutput> getNotificationAsyncRequest(
@@ -2210,8 +2210,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketPolicyOutput output stream Documentation URL: <a
-     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">
-     *     https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketPolicyOutput getPolicy() throws QSException {
@@ -2227,7 +2227,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketPolicyOutput> getPolicyRequest() throws QSException {
@@ -2257,7 +2257,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getPolicyAsync(ResponseCallBack<GetBucketPolicyOutput> callback)
@@ -2272,7 +2272,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html">https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketPolicyOutput> getPolicyAsyncRequest(
@@ -2326,8 +2326,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketReplicationOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketReplicationOutput getReplication() throws QSException {
@@ -2343,7 +2343,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketReplicationOutput> getReplicationRequest() throws QSException {
@@ -2373,7 +2373,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getReplicationAsync(ResponseCallBack<GetBucketReplicationOutput> callback)
@@ -2388,7 +2388,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketReplicationOutput> getReplicationAsyncRequest(
@@ -2442,8 +2442,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketStatisticsOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketStatisticsOutput getStatistics() throws QSException {
@@ -2459,7 +2459,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketStatisticsOutput> getStatisticsRequest() throws QSException {
@@ -2489,7 +2489,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getStatisticsAsync(ResponseCallBack<GetBucketStatisticsOutput> callback)
@@ -2504,7 +2504,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html">https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketStatisticsOutput> getStatisticsAsyncRequest(
@@ -2624,8 +2624,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return GetBucketVersioningOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetBucketVersioningOutput getVersioning() throws QSException {
@@ -2641,7 +2641,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketVersioningOutput> getVersioningRequest() throws QSException {
@@ -2671,7 +2671,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getVersioningAsync(ResponseCallBack<GetBucketVersioningOutput> callback)
@@ -2686,7 +2686,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/get_versioning.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/get_version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetBucketVersioningOutput> getVersioningAsyncRequest(
@@ -2740,8 +2740,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return HeadBucketOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/head.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public HeadBucketOutput head() throws QSException {
@@ -2757,7 +2757,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<HeadBucketOutput> headRequest() throws QSException {
@@ -2787,7 +2787,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void headAsync(ResponseCallBack<HeadBucketOutput> callback) throws QSException {
@@ -2801,7 +2801,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/head.html">https://docs.qingcloud.com/qingstor/api/bucket/head.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<HeadBucketOutput> headAsyncRequest(
@@ -2842,8 +2842,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return ListMultipartUploadsOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListMultipartUploadsOutput listMultipartUploads(ListMultipartUploadsInput input)
@@ -2865,7 +2865,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListMultipartUploadsOutput> listMultipartUploadsRequest(
@@ -2900,7 +2900,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listMultipartUploadsAsync(
@@ -2920,7 +2920,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html">https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListMultipartUploadsOutput> listMultipartUploadsAsyncRequest(
@@ -3166,8 +3166,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return ListObjectVersionsOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/versions.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListObjectVersionsOutput listObjectVersions(ListObjectVersionsInput input)
@@ -3189,7 +3189,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">https://docs.qingcloud.com/qingstor/api/bucket/versions.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListObjectVersionsOutput> listObjectVersionsRequest(
@@ -3224,7 +3224,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">https://docs.qingcloud.com/qingstor/api/bucket/versions.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listObjectVersionsAsync(
@@ -3244,7 +3244,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/versions.html">https://docs.qingcloud.com/qingstor/api/bucket/versions.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListObjectVersionsOutput> listObjectVersionsAsyncRequest(
@@ -3509,8 +3509,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return ListObjectsOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/get.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListObjectsOutput listObjects(ListObjectsInput input) throws QSException {
@@ -3531,7 +3531,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListObjectsOutput> listObjectsRequest(ListObjectsInput input)
@@ -3566,7 +3566,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listObjectsAsync(
@@ -3586,7 +3586,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/get.html">https://docs.qingcloud.com/qingstor/api/bucket/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListObjectsOutput> listObjectsAsyncRequest(
@@ -3809,8 +3809,8 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return PutBucketOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/put.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketOutput put() throws QSException {
@@ -3826,7 +3826,7 @@ public class Bucket {
     /**
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketOutput> putRequest() throws QSException {
@@ -3856,7 +3856,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putAsync(ResponseCallBack<PutBucketOutput> callback) throws QSException {
@@ -3870,7 +3870,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put.html">https://docs.qingcloud.com/qingstor/api/bucket/put.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketOutput> putAsyncRequest(
@@ -3911,8 +3911,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketACLOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketACLOutput putACL(PutBucketACLInput input) throws QSException {
@@ -3933,7 +3933,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketACLOutput> putACLRequest(PutBucketACLInput input)
@@ -3968,7 +3968,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putACLAsync(PutBucketACLInput input, ResponseCallBack<PutBucketACLOutput> callback)
@@ -3987,7 +3987,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html">https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketACLOutput> putACLAsyncRequest(
@@ -4089,8 +4089,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketCNAMEOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketCNAMEOutput putCNAME(PutBucketCNAMEInput input) throws QSException {
@@ -4111,7 +4111,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketCNAMEOutput> putCNAMERequest(PutBucketCNAMEInput input)
@@ -4146,7 +4146,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putCNAMEAsync(
@@ -4166,7 +4166,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html">https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketCNAMEOutput> putCNAMEAsyncRequest(
@@ -4304,8 +4304,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketCORSOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketCORSOutput putCORS(PutBucketCORSInput input) throws QSException {
@@ -4326,7 +4326,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketCORSOutput> putCORSRequest(PutBucketCORSInput input)
@@ -4361,7 +4361,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putCORSAsync(
@@ -4381,7 +4381,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html">https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketCORSOutput> putCORSAsyncRequest(
@@ -4483,8 +4483,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketExternalMirrorOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/
      *     </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -4507,7 +4507,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketExternalMirrorOutput> putExternalMirrorRequest(
@@ -4542,7 +4542,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putExternalMirrorAsync(
@@ -4563,7 +4563,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html">https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketExternalMirrorOutput> putExternalMirrorAsyncRequest(
@@ -4662,8 +4662,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketLifecycleOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketLifecycleOutput putLifecycle(PutBucketLifecycleInput input) throws QSException {
@@ -4684,7 +4684,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketLifecycleOutput> putLifecycleRequest(
@@ -4719,7 +4719,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putLifecycleAsync(
@@ -4739,7 +4739,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html">https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketLifecycleOutput> putLifecycleAsyncRequest(
@@ -4841,8 +4841,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketLoggingOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketLoggingOutput putLogging(PutBucketLoggingInput input) throws QSException {
@@ -4863,7 +4863,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketLoggingOutput> putLoggingRequest(PutBucketLoggingInput input)
@@ -4898,7 +4898,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putLoggingAsync(
@@ -4918,7 +4918,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html">https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketLoggingOutput> putLoggingAsyncRequest(
@@ -5036,8 +5036,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketNotificationOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketNotificationOutput putNotification(PutBucketNotificationInput input)
@@ -5059,7 +5059,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketNotificationOutput> putNotificationRequest(
@@ -5094,7 +5094,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putNotificationAsync(
@@ -5115,7 +5115,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html">https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketNotificationOutput> putNotificationAsyncRequest(
@@ -5218,8 +5218,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketPolicyOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketPolicyOutput putPolicy(PutBucketPolicyInput input) throws QSException {
@@ -5240,7 +5240,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketPolicyOutput> putPolicyRequest(PutBucketPolicyInput input)
@@ -5275,7 +5275,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putPolicyAsync(
@@ -5295,7 +5295,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html">https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketPolicyOutput> putPolicyAsyncRequest(
@@ -5397,8 +5397,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketReplicationOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketReplicationOutput putReplication(PutBucketReplicationInput input)
@@ -5420,7 +5420,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketReplicationOutput> putReplicationRequest(
@@ -5455,7 +5455,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putReplicationAsync(
@@ -5475,7 +5475,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html">https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketReplicationOutput> putReplicationAsyncRequest(
@@ -5577,8 +5577,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutBucketVersioningOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">
-     *     https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutBucketVersioningOutput putVersioning(PutBucketVersioningInput input)
@@ -5600,7 +5600,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketVersioningOutput> putVersioningRequest(
@@ -5635,7 +5635,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putVersioningAsync(
@@ -5655,7 +5655,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html">https://docs.qingcloud.com/qingstor/api/bucket/put_versioning.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/version/put_version/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutBucketVersioningOutput> putVersioningAsyncRequest(
@@ -5768,8 +5768,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return AbortMultipartUploadOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public AbortMultipartUploadOutput abortMultipartUpload(
@@ -5792,7 +5792,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<AbortMultipartUploadOutput> abortMultipartUploadRequest(
@@ -5832,7 +5832,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void abortMultipartUploadAsync(
@@ -5856,7 +5856,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<AbortMultipartUploadOutput> abortMultipartUploadAsyncRequest(
@@ -5939,8 +5939,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return AppendObjectOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/append.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public AppendObjectOutput appendObject(String objectName, AppendObjectInput input)
@@ -5963,7 +5963,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<AppendObjectOutput> appendObjectRequest(
@@ -6003,7 +6003,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void appendObjectAsync(
@@ -6026,7 +6026,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/append.html">https://docs.qingcloud.com/qingstor/api/object/append.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<AppendObjectOutput> appendObjectAsyncRequest(
@@ -6239,8 +6239,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return CompleteMultipartUploadOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public CompleteMultipartUploadOutput completeMultipartUpload(
@@ -6263,7 +6263,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<CompleteMultipartUploadOutput> completeMultipartUploadRequest(
@@ -6303,7 +6303,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void completeMultipartUploadAsync(
@@ -6327,7 +6327,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<CompleteMultipartUploadOutput> completeMultipartUploadAsyncRequest(
@@ -6556,8 +6556,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return DeleteObjectOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/delete.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public DeleteObjectOutput deleteObject(String objectName, DeleteObjectInput input)
@@ -6580,7 +6580,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteObjectOutput> deleteObjectRequest(
@@ -6620,7 +6620,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void deleteObjectAsync(
@@ -6643,7 +6643,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/delete.html">https://docs.qingcloud.com/qingstor/api/object/delete.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<DeleteObjectOutput> deleteObjectAsyncRequest(
@@ -6752,8 +6752,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return GetObjectOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/get.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public GetObjectOutput getObject(String objectName, GetObjectInput input) throws QSException {
@@ -6775,7 +6775,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetObjectOutput> getObjectRequest(String objectName, GetObjectInput input)
@@ -6815,7 +6815,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getObjectAsync(
@@ -6836,7 +6836,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/get.html">https://docs.qingcloud.com/qingstor/api/object/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<GetObjectOutput> getObjectAsyncRequest(
@@ -7418,8 +7418,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return HeadObjectOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/head.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public HeadObjectOutput headObject(String objectName, HeadObjectInput input)
@@ -7442,7 +7442,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<HeadObjectOutput> headObjectRequest(
@@ -7482,7 +7482,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void headObjectAsync(
@@ -7503,7 +7503,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/head.html">https://docs.qingcloud.com/qingstor/api/object/head.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<HeadObjectOutput> headObjectAsyncRequest(
@@ -7865,8 +7865,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return ImageProcessOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">
-     *     https://docs.qingcloud.com/qingstor/data_process/image_process/index.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ImageProcessOutput imageProcess(String objectName, ImageProcessInput input)
@@ -7889,7 +7889,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ImageProcessOutput> imageProcessRequest(
@@ -7929,7 +7929,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void imageProcessAsync(
@@ -7952,7 +7952,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ImageProcessOutput> imageProcessAsyncRequest(
@@ -8162,8 +8162,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return InitiateMultipartUploadOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public InitiateMultipartUploadOutput initiateMultipartUpload(
@@ -8186,7 +8186,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<InitiateMultipartUploadOutput> initiateMultipartUploadRequest(
@@ -8226,7 +8226,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void initiateMultipartUploadAsync(
@@ -8250,7 +8250,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html">https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<InitiateMultipartUploadOutput> initiateMultipartUploadAsyncRequest(
@@ -8474,8 +8474,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return ListMultipartOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/list_multipart.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListMultipartOutput listMultipart(String objectName, ListMultipartInput input)
@@ -8498,7 +8498,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListMultipartOutput> listMultipartRequest(
@@ -8538,7 +8538,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listMultipartAsync(
@@ -8561,7 +8561,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/list_multipart.html">https://docs.qingcloud.com/qingstor/api/object/list_multipart.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListMultipartOutput> listMultipartAsyncRequest(
@@ -8694,8 +8694,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return OptionsObjectOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/options.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public OptionsObjectOutput optionsObject(String objectName, OptionsObjectInput input)
@@ -8718,7 +8718,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<OptionsObjectOutput> optionsObjectRequest(
@@ -8758,7 +8758,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void optionsObjectAsync(
@@ -8781,7 +8781,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/options.html">https://docs.qingcloud.com/qingstor/api/object/options.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<OptionsObjectOutput> optionsObjectAsyncRequest(
@@ -8952,8 +8952,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return PutObjectOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/put.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public PutObjectOutput putObject(String objectName, PutObjectInput input) throws QSException {
@@ -8975,7 +8975,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutObjectOutput> putObjectRequest(String objectName, PutObjectInput input)
@@ -9015,7 +9015,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void putObjectAsync(
@@ -9036,7 +9036,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/put.html">https://docs.qingcloud.com/qingstor/api/object/put.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<PutObjectOutput> putObjectAsyncRequest(
@@ -9544,8 +9544,8 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return UploadMultipartOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">
-     *     https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public UploadMultipartOutput uploadMultipart(String objectName, UploadMultipartInput input)
@@ -9568,7 +9568,7 @@ public class Bucket {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<UploadMultipartOutput> uploadMultipartRequest(
@@ -9608,7 +9608,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void uploadMultipartAsync(
@@ -9632,7 +9632,7 @@ public class Bucket {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html">https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<UploadMultipartOutput> uploadMultipartAsyncRequest(
@@ -10056,7 +10056,7 @@ public class Bucket {
      * @param expires time to expire
      * @return signature url
      * @throws QSException exception Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      */
     public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
         RequestHandler requestHandler =
@@ -10070,7 +10070,7 @@ public class Bucket {
      * @param expires Relative current time，the second when this quert sign expires
      * @return request handle
      * @throws QSException exception Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler GetObjectBySignatureUrlRequest(
@@ -10164,7 +10164,7 @@ public class Bucket {
      * @param expires expires
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ImageProcessOutput> imageProcessExpiredUrlRequest(

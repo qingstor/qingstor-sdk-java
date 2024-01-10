@@ -4,7 +4,7 @@
 
 上传时可对数据进行加密。
 
-访问该链接 [https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers](https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers) .
+访问该链接 [https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/) .
 以更好的理解数据加密解密的过程。
 
 #### 上传文件时加密

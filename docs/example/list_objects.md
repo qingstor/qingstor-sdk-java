@@ -25,7 +25,7 @@ List<KeyModel> objectKeys = listObjectsOutput.getKeys();
 
 Add some options when list bucket objects
 
-You can set options below in ListObjectsInput. See controlled [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/get).
+You can set options below in ListObjectsInput. See controlled [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/).
 
 | Parameter name |  Type   | Description                                                                                                                                                                                                                                                         | Required |
 | :------------: | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------: |

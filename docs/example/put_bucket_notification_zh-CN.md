@@ -18,12 +18,12 @@
 
 |    名称     |  类型  | 描述                                                                                                                 | 是否必要 |
 | :---------: | :----: | :------------------------------------------------------------------------------------------------------------------- | :------: |
-|   action    | String | 图片的具体操作参数, 见 [图片基本处理服务](https://docs.qingcloud.com/qingstor/data_process/image_process/index.html) |   Yes    |
+|   action    | String | 图片的具体操作参数, 见 [图片基本处理服务](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/) |   Yes    |
 | key_prefix  | String | 处理后 object 名称的前缀, 默认为 “gen”                                                                               |    No    |
 | key_seprate | String | key*prefix 和 object 之间的分隔符，默认为 “*“                                                                        |    No    |
 | save_bucket | String | 另存为的目标 bucket 名称，默认为当前 object 所在 bucket                                                              |    No    |
 
-访问 [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html) 以查看更多关于请求消息体的信息。
+访问 [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/) 以查看更多关于请求消息体的信息。
 
 ### 代码片段
 

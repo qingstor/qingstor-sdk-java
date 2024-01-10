@@ -14,7 +14,7 @@ UploadManagerCallback 的默认方法 (Default methods) 说明：
 
 - onCorrectTime() 方法：在您需要校准本地时间时，请重写该方法，并返回服务端时间。
 
-对于在上传客户端不保存 access key 的情况，还可以配合 “移动 App 接入方案” https://docs.qingcloud.com/qingstor/solutions/app_integration.html 使用。
+对于在上传客户端不保存 access key 的情况，还可以配合 “移动 App 接入方案” https://docsv4.qingcloud.com/user_guide/storage/object_storage/beat_practices/app_integration/ 使用。
 
 注意：使用 'put()' 方法上传文件时，会创建同步请求来上传。
 

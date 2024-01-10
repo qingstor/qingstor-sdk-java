@@ -19,7 +19,7 @@ The image formats that are currently supported are these below:
 
 See the demo below to do image process use ImageProgressClient.
 
-See [API Docs](https://docs.qingcloud.com/qingstor/data_process/image_process/) for more information.
+See [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process//) for more information.
 
 ## Code Snippet
 

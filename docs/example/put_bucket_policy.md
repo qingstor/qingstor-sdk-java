@@ -2,7 +2,7 @@
 
 ### Request Elements
 
-See [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html) for more information about request elements.
+See [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/) for more information about request elements.
 
 ### Code Snippet
 

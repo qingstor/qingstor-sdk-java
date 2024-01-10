@@ -26,7 +26,7 @@ List<KeyModel> objectKeys = listObjectsOutput.getKeys();
 
 在 List Bucket Objects 时添加筛选条件
 
-参考[对应的 API 文档](https://docs.qingcloud.com/qingstor/api/bucket/get)，您可以在对应的 Input 设置并添加如下筛选条件：
+参考[对应的 API 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/)，您可以在对应的 Input 设置并添加如下筛选条件：
 
 | 参数名称  |  类型   |                                                        描述                                                         | 是否必须 |
 | :-------: | :-----: | :-----------------------------------------------------------------------------------------------------------------: | :------: |
