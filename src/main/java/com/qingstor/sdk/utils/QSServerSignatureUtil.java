@@ -25,8 +25,8 @@ public class QSServerSignatureUtil {
      * @param strToSign: strToSign
      * @return a string which can be used as value of HTTP request header field "Authorization"
      *     directly.
-     *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
-     *     about how to do signature of request against QingStor.
+     *     <p>See https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/ for
+     *     more details about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
             String accessKey, String secretKey, String strToSign) {
@@ -39,7 +39,8 @@ public class QSServerSignatureUtil {
      * @param secretKey API secret access key ID
      * @param strToSign string to sign
      * @return signature
-     *     <p>See https://docs.qingcloud.com/qingstor/api/common/signature.html for more details
+     *     <p>See https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/ for
+     *     more details
      */
     public static String generateSignature(String secretKey, String strToSign) {
         return QSSignatureUtil.generateSignature(secretKey, strToSign);

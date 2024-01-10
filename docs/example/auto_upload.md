@@ -15,7 +15,7 @@ Default mehtods of UploadManagerCallback ：
 
 - onCorrectTime(): If you need correct your local time, override this method and return the time of server.
 
-You can also see 'Solutions Of App Integration' https://docs.qingcloud.com/qingstor/solutions/app_integration.html , while the access key is not kept in the client.
+You can also see 'Solutions Of App Integration' https://docsv4.qingcloud.com/user_guide/storage/object_storage/beat_practices/app_integration/ , while the access key is not kept in the client.
 
 Attention: the method 'put()' used to upload a file,
 will create a sync request to upload.

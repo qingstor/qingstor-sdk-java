@@ -2,7 +2,7 @@
 
 ### 请求消息体
 
-访问 [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html) 以查看更多关于请求消息体的信息。
+访问 [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/) 以查看更多关于请求消息体的信息。
 
 ### 代码片段
 

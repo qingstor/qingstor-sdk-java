@@ -8,7 +8,7 @@
 | Access-Control-Request-Method  | String | Identifies what HTTP method will be used in the actual request.                 |   Yes    |
 | Access-Control-Request-Headers | String | A comma-delimited list of HTTP headers that will be sent in the actual request. |    No    |
 
-See [API Docs](https://docs.qingcloud.com/qingstor/api/object/options.html) for more information about request headers.
+See [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/) for more information about request headers.
 
 ### Response Headers
 
@@ -20,7 +20,7 @@ See [API Docs](https://docs.qingcloud.com/qingstor/api/object/options.html) for 
 | Access-Control-Allow-Headers  | String | A comma-delimited list of HTTP headers that the browser can send in the actual request. If any of the requested headers is not allowed, QingStor will not include that header in the response, nor will the response contain any of the headers with the Access-Control prefix. |
 | Access-Control-Expose-Headers | String | A comma-delimited list of HTTP headers. This header provides the JavaScript client with access to these headers in the response to the actual request.                                                                                                                          |
 
-See [API Docs](https://docs.qingcloud.com/qingstor/api/object/options.html) for more information about response headers.
+See [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/) for more information about response headers.
 
 ### Code Snippet
 

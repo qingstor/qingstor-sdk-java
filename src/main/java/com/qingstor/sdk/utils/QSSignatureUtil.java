@@ -133,7 +133,7 @@ public class QSSignatureUtil {
      * @return a string which can be used as value of HTTP request header field "Authorization"
      *     directly.
      *     <p>See <a
-     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      *     for more details about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
@@ -156,7 +156,7 @@ public class QSSignatureUtil {
      * @return a string which can be used as value of HTTP request header field "Authorization"
      *     directly.
      *     <p>See <a
-     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      *     for more details about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
@@ -176,7 +176,7 @@ public class QSSignatureUtil {
      * @return a string which can be used as value of HTTP request header field "Authorization"
      *     directly.
      *     <p>See <a
-     *     href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      *     for more details about how to do signature of request against QingStor.
      */
     public static String generateSignature(
