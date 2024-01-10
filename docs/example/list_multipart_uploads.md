@@ -6,13 +6,13 @@ This operation returns at most 1,000 multipart uploads in the response. 1,000 mu
 
 In the response, the uploads are sorted by key. If your application has initiated more than one multipart upload using the same object key, then uploads in the response are first sorted by key. Additionally, uploads are sorted in ascending order within each key by the upload initiation time.
 
-For information on permissions required to use the multipart upload API, see Multipart Upload API and Permissions in [API Docs](https://docs.qingcloud.com/qingstor/api/object/multipart/list_multipart.html#object-storage-api-list-multipart).
+For information on permissions required to use the multipart upload API, see Multipart Upload API and Permissions in [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/).
 
 ### Request Parameters
 
 You can add some options when list multipart uploads.
 
-You can set options below in ListMultipartUploadsInput. See controlled [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html).
+You can set options below in ListMultipartUploadsInput. See controlled [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/).
 
 |  Parameter name  |  Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Required |
 | :--------------: | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------: |

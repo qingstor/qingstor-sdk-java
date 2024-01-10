@@ -224,4 +224,4 @@ if (copyObjectSelfOutput.getStatueCode() == 200 || copyObjectSelfOutput.getStatu
 }
 ```
 
-您也可以访问 [API Docs](https://docs.qingcloud.com/qingstor/api/common/metadata) 以查看更多关于自定义元数据的信息。
+您也可以访问 [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/metadata/) 以查看更多关于自定义元数据的信息。

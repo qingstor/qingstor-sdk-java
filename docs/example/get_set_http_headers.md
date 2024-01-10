@@ -224,4 +224,4 @@ if (copyObjectSelfOutput.getStatueCode() == 200 || copyObjectSelfOutput.getStatu
 }
 ```
 
-You can also visit [API Docs](https://docs.qingcloud.com/qingstor/api/common/metadata) for more information about how to define metadata.
+You can also visit [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/metadata/) for more information about how to define metadata.

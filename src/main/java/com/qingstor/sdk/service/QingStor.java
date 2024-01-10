@@ -58,8 +58,8 @@ public class QingStor {
      * @param input input
      * @throws QSException exception
      * @return ListBucketsOutput output stream Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">
-     *     https://docs.qingcloud.com/qingstor/api/service/get.html </a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/">
+     *     https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/ </a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public ListBucketsOutput listBuckets(ListBucketsInput input) throws QSException {
@@ -80,7 +80,7 @@ public class QingStor {
      * @param input input
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListBucketsOutput> listBucketsRequest(ListBucketsInput input)
@@ -110,7 +110,7 @@ public class QingStor {
      * @param callback response callback
      * @throws QSException exception
      *     <p>Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void listBucketsAsync(
@@ -130,7 +130,7 @@ public class QingStor {
      * @param callback response callback
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/api/service/get.html">https://docs.qingcloud.com/qingstor/api/service/get.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/</a>
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public RequestHandler<ListBucketsOutput> listBucketsAsyncRequest(

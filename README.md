@@ -2,16 +2,16 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java)
 ![Build Status](https://github.com/qingstor/qingstor-sdk-java/workflows/Unit%20Test/badge.svg)
-[![API Reference](https://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com)
+[![API Reference](https://img.shields.io/badge/api-reference-green.svg)](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
 [![License](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
 
 English | [中文](README_zh-CN.md)
 
 The official QingStor SDK for the Java programming language.
 
-Before you start using the SDK, make sure you have a basic understanding of the concepts of [QingStor object storage](https://docs.qingcloud.com/qingstor/api/common/overview.html) (such as Zone, Service, Bucket, Object, etc.).
+Before you start using the SDK, make sure you have a basic understanding of the concepts of [QingStor object storage](https://docsv4.qingcloud.com/user_guide/storage/object_storage/intro/product/) (such as Zone, Service, Bucket, Object, etc.).
 
-This SDK try to keep a one-to-one correspondence with the methods on the [QingCloud QingStor object storage documentation](https://docs.qingcloud.com/qingstor/api/). For details of each method, please refer to the corresponding chapter in the link.
+This SDK try to keep a one-to-one correspondence with the methods on the [QingCloud QingStor object storage documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/). For details of each method, please refer to the corresponding chapter in the link.
 
 You can see documents containing the complete package structure here: [javadoc](https://javadoc.io/doc/com.yunify/qingstor.sdk.java).
 
@@ -29,9 +29,9 @@ Checkout our [releases](https://github.com/qingstor/qingstor-sdk-java/releases) 
 
 ## Reference Documentations
 
-- [QingStor Documentation](https://docs.qingcloud.com/qingstor/index.html)
-- [QingStor Guide](https://docs.qingcloud.com/qingstor/guide/index.html)
-- [QingStor APIs](https://docs.qingcloud.com/qingstor/api/index.html)
+- [QingStor Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/intro/product/)
+- [QingStor Guide](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
+- [QingStor APIs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/)
 
 ## Contributing
 

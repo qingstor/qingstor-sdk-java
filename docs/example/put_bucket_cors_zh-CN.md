@@ -11,7 +11,7 @@
 | expose_headers  |  Array  | 设置客户能够从其应用程序（例如，从 JavaScript XMLHttpRequest 对象）进行访问的 HTTP 响应头。                      |    No    |
 | max_age_seconds | Integer | 设置在预检请求(Options)被资源、HTTP 方法和源识别之后，浏览器将为预检请求缓存响应的时间（以秒为单位）。           |    No    |
 
-访问 [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html) 以查看更多关于请求消息体的信息。
+访问 [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/) 以查看更多关于请求消息体的信息。
 
 ### 代码片段
 

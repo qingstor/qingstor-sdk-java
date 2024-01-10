@@ -11,7 +11,7 @@
 | expose_headers  |  Array  | One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript XMLHttpRequest object).                    |    No    |
 | max_age_seconds | Integer | The time in seconds that your browser is to cache the preflight response for the specified resource.(seconds)                                                                       |    No    |
 
-See [API Docs](https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html) for more information about request elements.
+See [API Docs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/) for more information about request elements.
 
 ### Code Snippet
 

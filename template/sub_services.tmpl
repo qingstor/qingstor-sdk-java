@@ -72,7 +72,7 @@ public class Bucket {
          * @param expires time to expire
          * @return signature url
          * @throws QSException exception
-         * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+         * Documentation URL: <a href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
          */
         public String GetObjectSignatureUrl(String objectName, long expires) throws QSException {
             RequestHandler requestHandler = this.GetObjectBySignatureUrlRequest(objectName, null, expires);
@@ -85,7 +85,7 @@ public class Bucket {
          * @param expires  Relative current time，the second when this quert sign expires
          * @return request handle
          * @throws QSException exception
-         * Documentation URL: <a href="https://docs.qingcloud.com/qingstor/api/common/signature.html">https://docs.qingcloud.com/qingstor/api/common/signature.html</a>
+         * Documentation URL: <a href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
          */
         @SuppressWarnings({"rawtypes", "unchecked"})
         public RequestHandler GetObjectBySignatureUrlRequest(String objectName, GetObjectInput input, long expires)
@@ -181,7 +181,7 @@ public class Bucket {
      * @param expires expires
      * @throws QSException exception
      * @return RequestHandler http request handler Documentation URL: <a
-     *     href="https://docs.qingcloud.com/qingstor/data_process/image_process/index.html">https://docs.qingcloud.com/qingstor/data_process/image_process/index.html</a>
+     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/</a>
      */
      @SuppressWarnings({"rawtypes", "unchecked"})
      public RequestHandler<ImageProcessOutput> imageProcessExpiredUrlRequest(String objectName, ImageProcessInput input, long expires)

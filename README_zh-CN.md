@@ -2,16 +2,16 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java)
 ![Build Status](https://github.com/qingstor/qingstor-sdk-java/workflows/Unit%20Test/badge.svg)
-[![API Reference](https://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com)
+[![API Reference](https://img.shields.io/badge/api-reference-green.svg)](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
 [![License](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
 
 [English](README.md) | 中文
 
 Java 语言版本的 QingStor 官方 SDK.
 
-在开始使用 SDK 之前，请确保你对[青云 QingStor 对象存储基本概念](https://docs.qingcloud.com/qingstor/api/common/overview.html)（如 Zone，Service，Bucket，Object 等）有一定的了解。
+在开始使用 SDK 之前，请确保你对[青云 QingStor 对象存储基本概念](https://docsv4.qingcloud.com/user_guide/storage/object_storage/intro/product/)（如 Zone，Service，Bucket，Object 等）有一定的了解。
 
-本 SDK 与[青云 QingStor 对象存储帮助文档](https://docs.qingcloud.com/qingstor/api/)上的方法尽量保持一一对应，具体每个方法的详细说明请查看上述链接中的对应章节。
+本 SDK 与[青云 QingStor 对象存储帮助文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/)上的方法尽量保持一一对应，具体每个方法的详细说明请查看上述链接中的对应章节。
 
 您可以在此处查看包含完整软件包结构的文档: [javadoc](https://javadoc.io/doc/com.yunify/qingstor.sdk.java).
 
@@ -29,9 +29,9 @@ Java 语言版本的 QingStor 官方 SDK.
 
 ## 参考文档
 
-- [QingStor 文档](https://docs.qingcloud.com/qingstor/index.html)
-- [QingStor 指南](https://docs.qingcloud.com/qingstor/guide/index.html)
-- [QingStor APIs](https://docs.qingcloud.com/qingstor/api/index.html)
+- [QingStor 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/intro/product/)
+- [QingStor 指南](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
+- [QingStor APIs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/)
 
 ## 贡献
 
