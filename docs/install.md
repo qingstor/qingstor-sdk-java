@@ -12,7 +12,7 @@ Gradle:
 
 ```gradle
 dependencies {
-  implementation 'com.yunify:qingstor.sdk.java:2.6.2'
+  implementation 'com.yunify:qingstor.sdk.java:2.6.3'
 }
 ```
 
@@ -22,7 +22,7 @@ Maven:
 <dependency>
   <groupId>com.yunify</groupId>
   <artifactId>qingstor.sdk.java</artifactId>
-  <version>2.6.2</version>
+  <version>2.6.3</version>
 </dependency>
 ```
 
