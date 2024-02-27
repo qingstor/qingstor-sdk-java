@@ -67,8 +67,10 @@ endpoint: "https://qingstor.com"
 # Also replace previous config item: virtual_host_enabled.
 enable_virtual_host_style: false
 
-# 当您希望访问对象使用您自己的域时使用 cname_support(需要先在对象存储中添加对应 cname record)。
-# 注意：如果此值设置为 true，则 enable_virtual_host_style 也必须为 true。
+# 如果您希望使用自定义域名而非对象域名来访问对象资源时, 可以开启 cname_support(需要先在对象存储中添加对应 cname 记录)。
+# 如果此值设置为 true，注意：
+# 1. endpoint 配置和 host/port/protocol 配置替换为您的自定义域名
+# 2. enable_virtual_host_style 也必须为 true
 cname_support: false
 
 # optional

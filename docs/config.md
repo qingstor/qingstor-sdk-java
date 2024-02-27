@@ -79,7 +79,9 @@ enable_virtual_host_style: false
 # cname_support is used when you want access object use your own domain.
 # You can aliasing a bucket by adding cname record to map your own domain to some bucket of qingstor.
 # then you can access your object of this bucket use your url with object path.
-# Note: if this value is set to true, enable_virtual_host_style must be true too.
+# if this value is set to true, Note:
+# 1. `endpoint` or `host/port/protocol` config item should use custom domain instead;
+# 2. enable_virtual_host_style must be true too.
 cname_support: false
 
 # optional
