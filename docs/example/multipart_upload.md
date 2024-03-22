@@ -164,6 +164,73 @@ Attention: the example below is just to show you how to resolve some streams to 
 
 ```
 
+#### Use Bucket Objects as Data Sources for Multipart Uploads
+
+When you need to copy an object larger than 5GB, you must use UploadPartCopy because the CopyObject API has a maximum size limit of 5GB for copied objects.
+
+1. Define the part size.
+2. Use copy-range to get a part of the source object data as the content of each part.
+3. Finally, merge the parts.
+
+```java
+String objectKey = "your_object_name";
+
+Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUploadInput();
+InitiateMultipartUploadOutput initOutput = bucket.initiateMultipartUpload(objectKey, inputInit);
+String uploadID = initOutput.getUploadID();
+System.out.println("-uploadID----" + initOutput.getUploadID());
+
+// The bucket where the source object is located
+String srcBucket = "src-bucket";
+// Source object key
+String srcKey = "src-key";
+ // Record uploaded parts
+List<Types.ObjectPartModel> parts = new ArrayList<>();
+
+HeadObjectOutput headResp = bucket.headObject(srcKey, null);
+// Get the source object size.
+long srcSize = headResp.getContentLength();
+// Define the part size
+long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
+// Step 2: Upload parts
+long bytePos = 0;
+for (int i = 0; bytePos < srcSize; i++) {
+    long rangeEnd = Math.min(bytePos + partSize - 1, (srcSize - 1));
+    Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
+    input.setPartNumber(i);
+    input.setUploadID(uploadID);
+    input.setXQSCopySource(srcBucket + "/" + srcKey);
+    input.setXQSCopyRange(String.format("bytes=%d-%d", bytePos, rangeEnd));
+    // Create a request to upload a part.
+    UploadMultipartOutput partResp = bucket.uploadMultipart(objectKey, input);
+    // Tip: In production code, please add correctness check: partResp.getStatueCode() == 201
+
+    bytePos += partSize;
+    Types.ObjectPartModel part = new Types.ObjectPartModel();
+    part.setPartNumber(i);
+    part.setEtag(partResp.getETag());
+    parts.add(part);
+}
+
+// Step 3: Complete.
+Bucket.CompleteMultipartUploadInput completeInput = new Bucket.CompleteMultipartUploadInput();
+// Set the uploadID and part information to be merged.
+completeInput.setUploadID(uploadID);
+completeInput.setObjectParts(parts);
+Bucket.CompleteMultipartUploadOutput output = bucket.completeMultipartUpload(objectKey, completeInput);
+if (output.getStatueCode() == 201) {
+  System.out.println("success");
+}
+```
+
+Here are some additional notes:
+
+* The `XQSCopySource` and `XQSCopyRange` parameters are used to specify the source object and the range of bytes to be copied for each part.
+* The `ETag` of each part is returned in the `UploadMultipartOutput` object. This ETag is used to verify the integrity of the part.
+* The `CompleteMultipartUploadInput` object contains the list of parts to be merged.
+* The `CompleteMultipartUploadOutput` object indicates whether the merge operation was successful.
+
+
 #### List all the parts uploaded
 
 If upload failed, you can call this method to list all of the parts uploaded.
