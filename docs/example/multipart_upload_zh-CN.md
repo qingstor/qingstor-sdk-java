@@ -1,9 +1,5 @@
 ## 大文件分段上传
 
-### 代码片段
-
-#### 本地已有完整文件使用分段上传
-
 用 access-key-id 和 secret-access-key 初始化 Bucket 服务。
 
 ```java
@@ -14,6 +10,10 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
 ```
 
 然后您可以分段上传对象：
+
+### 代码片段
+
+#### 本地已有完整文件使用分段上传
 
 ```java
 String objectName = "your_object_name";
@@ -155,6 +155,65 @@ bucket.completeMultipartUpload(objectKey, completeMultipartUploadInput);
                 e.printStackTrace();
             }
 
+```
+
+#### 分段上传时使用桶内对象作为数据源
+
+当需要复制某个大小超过 5G 的对象, 因为 CopyObject API 对于复制的对象有最大 5G 的大小限制,
+此时就必须使用 UploadPartCopy:
+1. 定义分段大小
+2. 借助 copy-range, 一次获取源对象的一部分数据作为各个 part 内容
+3. 最后合并分段
+
+```java
+String objectKey = "your_object_name";
+
+Bucket.InitiateMultipartUploadInput inputInit = new Bucket.InitiateMultipartUploadInput();
+InitiateMultipartUploadOutput initOutput = bucket.initiateMultipartUpload(objectKey, inputInit);
+String uploadID = initOutput.getUploadID();
+System.out.println("-uploadID----" + initOutput.getUploadID());
+
+// 源 object 所在的 bucket
+String srcBucket = "src-bucket";
+// 源 object key
+String srcKey = "src-key";
+ // 记录已上传的 parts
+List<Types.ObjectPartModel> parts = new ArrayList<>();
+
+HeadObjectOutput headResp = bucket.headObject(srcKey, null);
+// 获取源 object size.
+long srcSize = headResp.getContentLength();
+// 定义分段大小
+long partSize = 5 * 1024 * 1024; // Set part size to 5 MB.
+// 第2步：上传分段
+long bytePos = 0;
+for (int i = 0; bytePos < srcSize; i++) {
+    long rangeEnd = Math.min(bytePos + partSize - 1, (srcSize - 1));
+    Bucket.UploadMultipartInput input = new Bucket.UploadMultipartInput();
+    input.setPartNumber(i);
+    input.setUploadID(uploadID);
+    input.setXQSCopySource(srcBucket + "/" + srcKey);
+    input.setXQSCopyRange(String.format("bytes=%d-%d", bytePos, rangeEnd));
+    // 创建请求上传一个分段.
+    UploadMultipartOutput partResp = bucket.uploadMultipart(objectKey, input);
+    // 提示: 生产代码请加上正确性检查: partResp.getStatueCode() == 201
+
+    bytePos += partSize;
+    Types.ObjectPartModel part = new Types.ObjectPartModel();
+    part.setPartNumber(i);
+    part.setEtag(partResp.getETag());
+    parts.add(part);
+}
+
+// 第3步: 完成.
+Bucket.CompleteMultipartUploadInput completeInput = new Bucket.CompleteMultipartUploadInput();
+// 设置要执行合并的 uploadID 和分片信息.
+completeInput.setUploadID(uploadID);
+completeInput.setObjectParts(parts);
+Bucket.CompleteMultipartUploadOutput output = bucket.completeMultipartUpload(objectKey, completeInput);
+if (output.getStatueCode() == 201) {
+    System.out.println("success");
+}
 ```
 
 #### 查看已上传的分段
