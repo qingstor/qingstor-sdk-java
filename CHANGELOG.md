@@ -2,6 +2,12 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.4] - 2024-04-17
+
+### Fixed
+
+- Update jackson to address vulnerability issue.
+
 ## [v2.6.3] - 2024-01-15
 
 ### Fixed
