@@ -50,7 +50,7 @@ then you can get object multi:
                     }
                     outa.flush();
 
-                    output.getBodyInputStream().close();
+                    output.close();
 
                 }
 

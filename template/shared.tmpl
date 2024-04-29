@@ -804,7 +804,7 @@
     * field {{$property.Name| camelCase}} {{replace $property.Description "<bucket-name>/<object-key>" "'bucket-name'/'object-key'" -1}} <br>
     {{- end}}
     */
-    public static class {{$opID}}Output extends OutputModel{
+    public static class {{$opID}}Output extends OutputModel {{if eq $opID "GetObject" "ImageProcess"}} implements Closeable {{- end}} {
         {{range $_, $response := $operation.Responses}}
             {{if eq $response.Body.Type "string"}}
                 {{if $response.Body.Description -}}
@@ -961,6 +961,14 @@
                 public void setBodyInputStream(InputStream bodyInputStream) {
                     this.bodyInputStream=bodyInputStream;
                 }
+
+                @Override
+                public void close() throws IOException {
+                    if (bodyInputStream != null) {
+                        bodyInputStream.close();
+                    }
+                }
+
             {{end}}
 
             {{if $response.Elements.Properties | len}}

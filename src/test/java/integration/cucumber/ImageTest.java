@@ -49,5 +49,6 @@ public class ImageTest {
         // Write code here that turns the phrase above into concrete actions
         System.out.println("image_process_message:" + imageProcessOutput.getMessage());
         TestUtil.assertEqual(imageProcessOutput.getStatueCode(), statusCode);
+        imageProcessOutput.close();
     }
 }

@@ -28,27 +28,25 @@ getObject(bucket, "folder/test.mp3", "/Users/chengww/Desktop/test.mp3");
      * @param localKeptPath the object will be kept in this path.
      */
     private void getObject(Bucket bucket, String objectKey, String localKeptPath) {
-        try {
-            Bucket.GetObjectInput input = new Bucket.GetObjectInput();
-            Bucket.GetObjectOutput output = bucket.getObject(objectKey, input);
+        Bucket.GetObjectInput input = new Bucket.GetObjectInput();
+        // Use try-with-resource to close resources, otherwise it will cause connection leaks.
+        // Using try-with-finally or explicitly calling output's close() method also works.
+        try (Bucket.GetObjectOutput output = bucket.getObject(objectKey, input)) {
             InputStream inputStream = output.getBodyInputStream();
             if (output.getStatueCode() == 200) {
-                if (inputStream != null) {
-                    FileOutputStream fos = new FileOutputStream(localKeptPath);
-                    int len;
-                    byte[] bytes = new byte[4096];
-                    while ((len = inputStream.read(bytes)) != -1) {
-                        fos.write(bytes, 0, len);
-                    }
-                    fos.flush();
-                    fos.close();
-                    System.out.println("Get object success.");
-                    System.out.println("ObjectKey = " + objectKey);
-                    System.out.println("LocalKeptPath = " + localKeptPath);
-                } else {
-                    System.out.println("Get object status code == 200, but inputStream is null, skipped.");
+                FileOutputStream fos = new FileOutputStream(localKeptPath);
+                int len;
+                byte[] bytes = new byte[4096];
+                while ((len = inputStream.read(bytes)) != -1) {
+                    fos.write(bytes, 0, len);
                 }
+                fos.flush();
+                fos.close();
+                System.out.println("Get object success.");
+                System.out.println("ObjectKey = " + objectKey);
+                System.out.println("LocalKeptPath = " + localKeptPath);
             } else {
+                System.out.println("Get object status code == 200, but inputStream is null, skipped.");
                 // Failed
                 System.out.println("Failed to get object.");
                 System.out.println("StatueCode = " + output.getStatueCode());
@@ -57,10 +55,8 @@ getObject(bucket, "folder/test.mp3", "/Users/chengww/Desktop/test.mp3");
                 System.out.println("Code = " + output.getCode());
                 System.out.println("Url = " + output.getUrl());
             }
-            if (inputStream != null) inputStream.close();
         } catch (QSException | IOException e) {
             e.printStackTrace();
         }
     }
-
 ```
