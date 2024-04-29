@@ -29,7 +29,9 @@ import com.qingstor.sdk.request.ResponseCallBack;
 import com.qingstor.sdk.service.Types.*;
 import com.qingstor.sdk.utils.QSParamInvokeUtil;
 import com.qingstor.sdk.utils.QSStringUtil;
+import java.io.Closeable;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -7125,7 +7127,7 @@ public class Bucket {
      * field ResponseExpires Specified the Expires response header <br>
      * field VersionID Object version id <br>
      */
-    public static class GetObjectOutput extends OutputModel {
+    public static class GetObjectOutput extends OutputModel implements Closeable {
 
         /** The response body */
 
@@ -7268,6 +7270,13 @@ public class Bucket {
          */
         public void setBodyInputStream(InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
+        }
+
+        @Override
+        public void close() throws IOException {
+            if (bodyInputStream != null) {
+                bodyInputStream.close();
+            }
         }
 
         /**
@@ -8158,7 +8167,7 @@ public class Bucket {
      * field ResponseContentType Specified the Content-Type response header <br>
      * field ResponseExpires Specified the Expires response header <br>
      */
-    public static class ImageProcessOutput extends OutputModel {
+    public static class ImageProcessOutput extends OutputModel implements Closeable {
 
         /** The response body */
         private InputStream bodyInputStream;
@@ -8180,6 +8189,13 @@ public class Bucket {
          */
         public void setBodyInputStream(InputStream bodyInputStream) {
             this.bodyInputStream = bodyInputStream;
+        }
+
+        @Override
+        public void close() throws IOException {
+            if (bodyInputStream != null) {
+                bodyInputStream.close();
+            }
         }
 
         /** Object content length */

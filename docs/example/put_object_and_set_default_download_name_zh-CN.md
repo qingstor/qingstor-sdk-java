@@ -62,7 +62,7 @@ if (output2.getBodyInputStream() != null && output2.getStatueCode() == 200) {
     out.write(buffer, 0, bytesRead);
 }
 out.close();
-output2.getBodyInputStream().close();
+output2.close();
 ```
 
 或获取下载链接，直接浏览器打开即可自动下载并处理文件名称

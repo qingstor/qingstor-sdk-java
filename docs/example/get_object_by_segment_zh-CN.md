@@ -50,7 +50,7 @@ Bucket bucket = new Bucket(env, zoneKey, bucketName);
                     }
                     outa.flush();
 
-                    output.getBodyInputStream().close();
+                    output.close();
 
                 }
 

@@ -64,7 +64,7 @@ if (output2.getBodyInputStream() != null && output2.getStatueCode() == 200) {
     out.write(buffer, 0, bytesRead);
 }
 out.close();
-output2.getBodyInputStream().close();
+output2.close();
 ```
 
 You can get the object url for downloading.
