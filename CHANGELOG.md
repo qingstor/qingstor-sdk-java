@@ -2,6 +2,12 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.5] - 2024-04-30
+
+### Added
+
+- Implement Closeable for responses have non-empty body.
+
 ## [v2.6.4] - 2024-04-17
 
 ### Fixed
