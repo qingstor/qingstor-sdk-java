@@ -32,10 +32,11 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 tasks.named('shadowJar', ShadowJar) {
     archiveClassifier.set('all-deps')
     archiveVersion.set(project.version.toString())
-
+    relocate("org.slf4j", "org.slf4j") {
+        include "org/slf4j/**"
+    }
     enableRelocation true
     relocationPrefix "qingstor"
-
 }
 
 tasks {
