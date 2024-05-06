@@ -101,7 +101,6 @@ public class QSOkHttpRequestClient {
                             ResponseBody body = response.body();
                             if (callBack != null) {
                                 T m = QSParamInvokeUtil.getOutputModel(outputClass);
-                                log.debug("class name: " + m.getClass().getName());
                                 fillResponseValue2Object(response, m);
                                 callBack.onAPIResponse(m);
                             }
