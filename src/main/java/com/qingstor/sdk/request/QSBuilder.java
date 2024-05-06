@@ -151,7 +151,7 @@ public class QSBuilder {
         }
         this.paramsQuery = queries;
 
-        log.debug("== resource Url ==\n" + this.urlWithoutQueries + "\n");
+        log.debug("== resource Url == " + this.urlWithoutQueries);
     }
 
     private Map headParamEncoding(Map headParams) {
@@ -338,7 +338,7 @@ public class QSBuilder {
         } catch (Exception e) {
             throw new QSException("Auth signature error", e);
         }
-        log.debug("== authSign ==\n" + authSign + "\n");
+        log.debug("== authSign == " + authSign);
 
         paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_AUTHORIZATION, authSign);
         return authSign;

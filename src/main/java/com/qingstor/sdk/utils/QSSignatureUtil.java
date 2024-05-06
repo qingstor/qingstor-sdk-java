@@ -187,7 +187,6 @@ public class QSSignatureUtil {
             Map<String, String> headers) {
         String signature;
         String strToSign = getStringToSignature(method, requestURI, params, headers);
-        log.debug("== String to sign ==\n" + strToSign + "\n");
         signature = generateSignature(secretKey, strToSign);
         return signature;
     }
@@ -198,9 +197,9 @@ public class QSSignatureUtil {
             Map<String, String> params,
             Map<String, String> headers) {
         final String SEPARATOR = "&";
-        StringBuilder strToSign = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-        strToSign.append(method.toUpperCase()).append("\n");
+        sb.append(method.toUpperCase()).append("\n");
 
         String contentMD5 = "";
         String contentType = "";
@@ -208,8 +207,8 @@ public class QSSignatureUtil {
             if (headers.containsKey("content-md5")) contentMD5 = headers.get("content-md5");
             if (headers.containsKey("content-type")) contentType = headers.get("content-type");
         }
-        strToSign.append(contentMD5).append("\n");
-        strToSign.append(contentType);
+        sb.append(contentMD5).append("\n");
+        sb.append(contentType);
 
         // Append request time as string
         String dateStr = "";
@@ -221,7 +220,7 @@ public class QSSignatureUtil {
                 dateStr = headers.get(QSConstant.HEADER_PARAM_KEY_EXPIRES);
             }
         }
-        strToSign.append("\n").append(dateStr);
+        sb.append("\n").append(dateStr);
 
         // Generate signed headers.
         if (headers != null) {
@@ -229,7 +228,7 @@ public class QSSignatureUtil {
             Arrays.sort(sortedHeadersKeys);
             for (String key : sortedHeadersKeys) {
                 if (!key.startsWith("x-qs-") && !key.startsWith("X-QS-")) continue;
-                strToSign.append(String.format("\n%s:%s", key.toLowerCase(), headers.get(key)));
+                sb.append(String.format("\n%s:%s", key.toLowerCase(), headers.get(key)));
             }
         }
 
@@ -265,11 +264,12 @@ public class QSSignatureUtil {
         if (canonicalizedQuery.length() > 0) {
             canonicalizedResource += "?" + canonicalizedQuery;
         }
-        strToSign.append(String.format("\n%s", canonicalizedResource));
+        sb.append(String.format("\n%s", canonicalizedResource));
+        String strToSign = sb.toString();
 
-        log.debug("== String to sign ==\n" + strToSign + "\n");
+        log.debug("== String to sign == " + strToSign.replaceAll("\n", "\\\\n"));
 
-        return strToSign.toString();
+        return strToSign;
     }
 
     public static String generateSignature(String secretKey, String strToSign) {
