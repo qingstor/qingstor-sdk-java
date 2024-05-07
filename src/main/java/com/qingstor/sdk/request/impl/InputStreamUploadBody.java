@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.internal.Util;
 import okio.BufferedSink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,13 +57,18 @@ public class InputStreamUploadBody extends RequestBody {
     @Override
     public void writeTo(BufferedSink sink) throws IOException {
 
-        if (contentLength > 0) {
-            writeWithContentLength(sink, offset);
-        } else {
-            writeAll(sink);
+        try {
+            if (contentLength > 0) {
+                writeWithContentLength(sink, offset);
+            } else {
+                writeAll(sink);
+            }
+            sink.flush();
+        } finally {
+            if (file != null) {
+                file.close();
+            }
         }
-        sink.flush();
-        Util.closeQuietly(file);
     }
 
     private void writeWithContentLength(BufferedSink sink, long offset) throws IOException {
