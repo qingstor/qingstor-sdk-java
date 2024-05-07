@@ -18,28 +18,22 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java-version }}
+          distribution: 'zulu' # temurin don't provide jdk8 anymore
+          cache: maven
         # cache Gradle package to speed up future runs after a successful run.
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ matrix.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ matrix.os }}-gradle
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-        # gradle build process include test phase.
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Run the Maven verify phase
+        run: mvn --batch-mode verify -"DskipITs" -"Dgpg.skip" # double-quotes: workaround for powershell
+      - run: mkdir staging && cp target/*.jar staging
         # store the built packages as part of the workflow run.
         # Allow us to download these artifacts and import to project to help local test.
         # with matrix, Each job overwrites what was previously uploaded, but it's fine for us.
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
-          name: Package
-          path: build/libs
+          name: jar-collection-${{ matrix.os }}-${{ matrix.java-version }}
+          path: staging
           retention-days: 7
