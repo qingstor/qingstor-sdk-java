@@ -12,7 +12,7 @@ all: update generate unit build
 
 test:
 	@echo "run service test"
-	./gradlew cucumber
+	mvn integration-test
 	@echo "ok"
 
 generate:
@@ -22,7 +22,7 @@ generate:
 	snips \
 		-f=./specs/qingstor/2016-01-06/swagger/api_v2.0.json -t=./template -o=./src/main/java/com/qingstor/sdk/service
 	rm ./src/main/java/com/qingstor/sdk/service/Object.java
-	./gradlew spotlessApply
+	mvn spotless:apply
 	@echo "ok"
 
 update:
@@ -31,10 +31,10 @@ update:
 
 unit:
 	@echo "run unit test"
-	./gradlew test
+	mvn test
 	@echo "ok"
-	
+
 build:
 	@echo "run build jar(jar, source, javadoc)"
-	./gradlew build
+	mvn package -Prelease
 	@echo "ok"
