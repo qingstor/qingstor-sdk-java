@@ -211,7 +211,7 @@ public class QSBuilder {
     public RequestBody getRequestBody() throws QSException {
         String contentType =
                 String.valueOf(paramsHeaders.get(QSConstant.HEADER_PARAM_KEY_CONTENTTYPE));
-        long contentLength = 0;
+        long contentLength = -1;
         if (paramsHeaders.containsKey(QSConstant.PARAM_KEY_CONTENT_LENGTH)) {
             contentLength =
                     Long.parseLong(paramsHeaders.get(QSConstant.PARAM_KEY_CONTENT_LENGTH) + "");

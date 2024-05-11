@@ -55,6 +55,11 @@ public class InputStreamUploadBody extends RequestBody {
     }
 
     @Override
+    public long contentLength() {
+        return this.contentLength;
+    }
+
+    @Override
     public void writeTo(BufferedSink sink) throws IOException {
 
         try {
