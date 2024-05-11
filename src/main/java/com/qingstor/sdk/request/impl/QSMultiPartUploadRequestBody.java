@@ -59,7 +59,7 @@ public class QSMultiPartUploadRequestBody implements QSRequestBody {
                 if (bodyObj instanceof String) {
                     requestBody = RequestBody.create(mediaType, bodyObj.toString());
                 } else if (bodyObj instanceof File) {
-                    if (contentLength == 0) contentLength = ((File) bodyObj).length();
+                    if (contentLength == -1) contentLength = ((File) bodyObj).length();
                     if (offset < 0) offset = contentLength * partNumber;
                     requestBody =
                             getSeekFileRequestBody(
