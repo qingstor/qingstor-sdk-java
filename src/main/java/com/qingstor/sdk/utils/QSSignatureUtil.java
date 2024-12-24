@@ -213,11 +213,12 @@ public class QSSignatureUtil {
         // Append request time as string
         String dateStr = "";
         if (headers != null) {
-            if (headers.containsKey(QSConstant.HEADER_PARAM_KEY_DATE)) {
-                dateStr = headers.get(QSConstant.HEADER_PARAM_KEY_DATE);
-            }
             if (headers.containsKey(QSConstant.HEADER_PARAM_KEY_EXPIRES)) {
                 dateStr = headers.get(QSConstant.HEADER_PARAM_KEY_EXPIRES);
+            } else {
+                if (!headers.containsKey(QSConstant.HEADER_PARAM_KEY_QS_DATE)) {
+                    dateStr = headers.get(QSConstant.HEADER_PARAM_KEY_DATE);
+                }
             }
         }
         sb.append("\n").append(dateStr);
