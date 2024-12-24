@@ -1,10 +1,13 @@
 SHELL := /bin/bash
 
+.PHONY: help all test unit build update generate
+
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  all               to update, generate and test this SDK"
 	@echo "  test              to run service test"
 	@echo "  unit              to run all sort of unit tests except runtime"
+	@echo "  build             to build jar"
 	@echo "  update            to update git submodules"
 	@echo "  generate          to generate service code"
 
