@@ -2,6 +2,14 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.6] - 2024-12-24
+
+### Fixed
+
+- Fix the bug that the header `x-qs-date` is not considered in the signature calculation.
+- Fix the bug that decoding versioned delete-object output fails on boolean field.
+- Use -1 as unknown body size hint before parsing the content length.
+
 ## [v2.6.5] - 2024-04-30
 
 ### Added
