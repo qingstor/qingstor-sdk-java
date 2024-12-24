@@ -530,6 +530,8 @@ public class QSJSONUtil {
             return Long.parseLong(value.toString());
         } else if (Float.class.equals(type) || "float".equals(type.toString())) {
             return Float.parseFloat(value.toString());
+        } else if (Boolean.class.equals(type) || "boolean".equals(type.toString())) {
+            return Boolean.parseBoolean(value.toString());
         }
         return value;
     }
