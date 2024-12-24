@@ -22,7 +22,7 @@ Maven:
 <dependency>
   <groupId>com.yunify</groupId>
   <artifactId>qingstor.sdk.java</artifactId>
-  <version>2.6.5</version>
+  <version>2.6.6</version>
 </dependency>
 ```
 
