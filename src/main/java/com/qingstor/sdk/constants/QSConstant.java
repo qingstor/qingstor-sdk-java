@@ -64,6 +64,7 @@ public class QSConstant {
     public static final String ENV_CONTEXT_KEY = "envContext";
 
     public static final String HEADER_PARAM_KEY_DATE = "Date";
+    public static final String HEADER_PARAM_KEY_QS_DATE = "x-qs-date";
 
     public static final String HEADER_PARAM_KEY_EXPIRES = "Expires";
 

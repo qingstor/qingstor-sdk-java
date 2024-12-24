@@ -40,6 +40,7 @@
 
     <dependencies>
         <dependency>
+            <!-- okio < 3.0.0. https://github.com/square/okio/pull/818 -->
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>4.12.0</version>
@@ -269,7 +270,7 @@
                     <java>
                         <!-- apply a specific flavor of google-java-format and reflow long strings -->
                         <googleJavaFormat>
-                            <version>1.10.0</version>
+                            <version>1.7</version>
                             <style>AOSP</style>
                         </googleJavaFormat>
 
