@@ -141,33 +141,48 @@ public class QSOkHttpRequestClient {
     }
 
     private void fillResponseValue2Object(okhttp3.Response response, OutputModel target)
-            throws IOException {
-        int code = response.code();
-        ResponseBody body = response.body();
-        JSONObject o = QSJSONUtil.toJSONObject("{}");
-        QSJSONUtil.putJsonData(
-                o, QSConstant.PARAM_TYPE_BODYINPUTSTREAM, body.source().inputStream());
-        if (target != null) {
-            boolean binaryBody = false;
-            if (response.isSuccessful()) {
-                binaryBody = QSJSONUtil.jsonObjFillValue2Object(o, target);
-            }
-            if (!binaryBody) {
-                String responseInfo = body.string();
-                // Deserialize HTTP response to concrete type.
-                if (!QSStringUtil.isEmpty(responseInfo)) {
-                    QSJSONUtil.jsonFillValue2Object(responseInfo, target);
-                }
-            }
-            Headers headers = response.headers();
-            JSONObject headJson = QSJSONUtil.toJSONObject("{}");
-            QSJSONUtil.putJsonData(headJson, QSConstant.QC_CODE_FIELD_NAME, code);
-            for (int i = 0; i < headers.size(); i++) {
-                String key = headers.name(i).toLowerCase();
-                QSJSONUtil.putJsonData(headJson, key, headers.value(i));
-            }
-            QSJSONUtil.jsonObjFillValue2Object(headJson, target);
+            throws QSException {
+        if (target == null) {
+            response.close();
+            throw new QSException("target(OutputModel) is null");
         }
+
+        ResponseBody body = response.body();
+        if (body == null) {
+            throw new QSException("body(ResponseBody) is null");
+        }
+        boolean textBody;
+        if (response.isSuccessful()) {
+            JSONObject o = QSJSONUtil.toJSONObject("{}");
+            QSJSONUtil.putJsonData(
+                    o, QSConstant.PARAM_TYPE_BODYINPUTSTREAM, body.source().inputStream());
+            boolean filled = QSJSONUtil.jsonObjFillValue2Object(o, target);
+            textBody = !filled;
+        } else {
+            // error json is expected.
+            textBody = true;
+        }
+        if (textBody) {
+            String content;
+            try {
+                content = body.string();
+            } catch (IOException e) {
+                throw new QSException("text body is expected", e);
+            }
+            // Deserialize HTTP response to concrete type.
+            if (!QSStringUtil.isEmpty(content)) {
+                QSJSONUtil.jsonFillValue2Object(content, target);
+            }
+        }
+
+        Headers headers = response.headers();
+        JSONObject headJson = QSJSONUtil.toJSONObject("{}");
+        QSJSONUtil.putJsonData(headJson, QSConstant.QC_CODE_FIELD_NAME, response.code());
+        for (int i = 0; i < headers.size(); i++) {
+            String key = headers.name(i).toLowerCase();
+            QSJSONUtil.putJsonData(headJson, key, headers.value(i));
+        }
+        QSJSONUtil.jsonObjFillValue2Object(headJson, target);
     }
 
     /**
