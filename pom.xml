@@ -197,52 +197,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <shadedClassifierName>all-deps</shadedClassifierName>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <!-- needed, otherwise NoSuchMethodError happens when run IT-->
-                    <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadeSourcesContent>true</shadeSourcesContent>
-                    <!--<minimizeJar>true</minimizeJar>-->
-
-                    <relocations>
-                        <relocation>
-                            <pattern>okhttp3</pattern>
-                            <shadedPattern>${shade.package}.okhttp3</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>okio</pattern>
-                            <shadedPattern>${shade.package}.okio</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>kotlin</pattern>
-                            <shadedPattern>${shade.package}.kotlin</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.fasterxml</pattern>
-                            <shadedPattern>${shade.package}.com.fasterxml</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org</pattern>
-                            <shadedPattern>${shade.package}.org</shadedPattern>
-                            <excludes>
-                                <exclude>org/slf4j/**</exclude>
-                            </excludes>
-                        </relocation>
-                    </relocations>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
@@ -350,6 +304,102 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>shade-all</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.slf4j:slf4j-api</exclude>
+                                    <exclude>junit:junit</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <dependencyReducedPomLocation>
+                                ${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+
+                            <createSourcesJar>true</createSourcesJar>
+                            <shadeSourcesContent>true</shadeSourcesContent>
+                            <relocations>
+                                <relocation>
+                                    <pattern>okhttp3</pattern>
+                                    <shadedPattern>${shade.package}.okhttp3</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>okio</pattern>
+                                    <shadedPattern>${shade.package}.okio</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>kotlin</pattern>
+                                    <shadedPattern>${shade.package}.kotlin</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.jetbrains</pattern>
+                                    <shadedPattern>${shade.package}.org.jetbrains</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.fasterxml</pattern>
+                                    <shadedPattern>${shade.package}.com.fasterxml</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.json</pattern>
+                                    <shadedPattern>${shade.package}.org.json</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.yaml</pattern>
+                                    <shadedPattern>${shade.package}.org.yaml</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Implementation-Title>${project.name}</Implementation-Title>
+                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                    </manifestEntries>
+                                </transformer>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+                                    <resources>
+                                        <resource>META-INF/MANIFEST.MF</resource>
+                                        <resource>META-INF/LICENSE</resource>
+                                        <resource>META-INF/NOTICE</resource>
+                                        <resource>META-INF/maven</resource>
+                                    </resources>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/versions/**</exclude>
+                                        <exclude>**/module-info.class</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>release</id>
             <properties>
