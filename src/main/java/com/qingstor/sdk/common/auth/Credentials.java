@@ -25,4 +25,7 @@ public interface Credentials {
 
     /** Returns the secret access key for this credentials. */
     String getSecretAccessKey();
+
+    /** Returns the STS-Token for this credentials. */
+    String getSecurityToken();
 }

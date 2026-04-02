@@ -52,6 +52,7 @@ public class EnvContext implements ParamValidate, Credentials {
 
     private String accessKeyId;
     private String secretAccessKey;
+    private String securityToken;
     private String endpoint = DEFAULT_ENDPOINT;
     private String additionalUserAgent;
     /**
@@ -76,6 +77,12 @@ public class EnvContext implements ParamValidate, Credentials {
     public EnvContext(String accessKey, String accessSecret) {
         this.setAccessKeyId(accessKey);
         this.setSecretAccessKey(accessSecret);
+    }
+
+    public EnvContext(String accessKey, String accessSecret, String securityToken) {
+        this.setAccessKeyId(accessKey);
+        this.setSecretAccessKey(accessSecret);
+        this.setSecurityToken(securityToken);
     }
 
     /**
@@ -162,6 +169,14 @@ public class EnvContext implements ParamValidate, Credentials {
         this.secretAccessKey = secretAccessKey;
     }
 
+    public String getSecurityToken() {
+        return securityToken;
+    }
+
+    public void setSecurityToken(String securityToken) {
+        this.securityToken = securityToken;
+    }
+
     /**
      * getEndpoint returns the URI format of endpoint which convert from endpoint string.
      *
@@ -243,6 +258,9 @@ public class EnvContext implements ParamValidate, Credentials {
                 + '\''
                 + ", secretAccessKey='"
                 + secretAccessKey
+                + '\''
+                + ", securityToken='"
+                + securityToken
                 + '\''
                 + ", host='"
                 + host

@@ -74,6 +74,8 @@ public class QSConstant {
 
     public static final String HEADER_PARAM_KEY_SIGNATURE = "Signature";
 
+    public static final String HEADER_PARAM_KEY_SECURITY_TOKEN = "X-QS-Security-Token";
+
     public static final int REQUEST_ERROR_CODE = 10000;
     public static final int REQUEST_ERROR_CANCELLED = 20000;
 

@@ -334,8 +334,9 @@ public class QSSignatureUtil {
             String expireAuth = getExpireAuth(context, expiresTime, new RequestInputModel());
             String serviceUrl = envContext.getEndpoint().toString();
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
+            String reqURL;
             if (objectName.indexOf("?") > 0) {
-                return String.format(
+                reqURL = String.format(
                         storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
                         bucketName,
                         objectName,
@@ -343,7 +344,7 @@ public class QSSignatureUtil {
                         expiresTime + "",
                         expireAuth);
             } else {
-                return String.format(
+                reqURL = String.format(
                         storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
                         bucketName,
                         objectName,
@@ -351,6 +352,11 @@ public class QSSignatureUtil {
                         expiresTime + "",
                         expireAuth);
             }
+            String token = envContext.getSecurityToken();
+            if (!token.isEmpty()) {
+                reqURL = String.format("%s&%s=%s", reqURL, QSConstant.HEADER_PARAM_KEY_SECURITY_TOKEN.toLowerCase(), token);
+            }
+            return reqURL;
         } catch (UnsupportedEncodingException e) {
             throw new QSException("Auth signature error", e);
         }
@@ -367,6 +373,10 @@ public class QSSignatureUtil {
         paramsHeaders.remove(QSConstant.HEADER_PARAM_KEY_DATE);
         paramsHeaders.clear();
         paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_EXPIRES, expiresSecond + "");
+        String token = envContext.getSecurityToken();
+        if (!token.isEmpty()) {
+            paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_SECURITY_TOKEN.toLowerCase(), token + "");
+        }
 
         String method = (String) context.get(QSConstant.PARAM_KEY_REQUEST_METHOD);
         String bucketName = (String) context.get(QSConstant.PARAM_KEY_BUCKET_NAME);

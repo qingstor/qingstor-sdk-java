@@ -92,6 +92,11 @@ public class QSBuilder {
             this.paramsHeaders.remove(QSConstant.PARAM_KEY_METADATA);
         }
 
+        String token = this.opCtx.credentials().getSecurityToken();
+        if (!token.isEmpty()) {
+            this.paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_SECURITY_TOKEN, token);
+        }
+
         String customUA = opCtx.clientCfg().userAgent();
         customUA = (customUA == null ? QSStringUtil.getUserAgent() : customUA);
         paramsHeaders.put(QSConstant.PARAM_KEY_USER_AGENT, customUA);
