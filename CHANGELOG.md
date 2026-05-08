@@ -2,6 +2,21 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.7] - 2026-05-08
+
+### Added
+
+- Support request with Security-Token (STS).
+
+### Changed
+
+- Refactor `fillResponseValue2Object` to clarify `ResponseBody` ownership and improve resource management for binary/streaming responses.
+- Adjust Maven shade plugin configurations for better relocation and dependency handling.
+
+### Fixed
+
+- Add token null check for STS requests.
+
 ## [v2.6.6] - 2024-12-24
 
 ### Fixed
