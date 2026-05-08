@@ -132,8 +132,8 @@ public class QSSignatureUtil {
      * @param headers: HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
      *     directly.
-     *     <p>See <a
-     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
+     *     <p>See <a href=
+     *     "https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      *     for more details about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
@@ -155,8 +155,8 @@ public class QSSignatureUtil {
      * @param strToSign: strToSign
      * @return a string which can be used as value of HTTP request header field "Authorization"
      *     directly.
-     *     <p>See <a
-     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
+     *     <p>See <a href=
+     *     "https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      *     for more details about how to do signature of request against QingStor.
      */
     public static String generateAuthorization(
@@ -175,8 +175,8 @@ public class QSSignatureUtil {
      * @param headers: HTTP request headers
      * @return a string which can be used as value of HTTP request header field "Authorization"
      *     directly.
-     *     <p>See <a
-     *     href="https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
+     *     <p>See <a href=
+     *     "https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/">https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/signature/</a>
      *     for more details about how to do signature of request against QingStor.
      */
     public static String generateSignature(
@@ -336,25 +336,32 @@ public class QSSignatureUtil {
             String storRequestUrl = serviceUrl.replace("://", "://%s." + zone + ".");
             String reqURL;
             if (objectName.indexOf("?") > 0) {
-                reqURL = String.format(
-                        storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
-                        bucketName,
-                        objectName,
-                        envContext.getAccessKeyId(),
-                        expiresTime + "",
-                        expireAuth);
+                reqURL =
+                        String.format(
+                                storRequestUrl + "/%s&access_key_id=%s&expires=%s&signature=%s",
+                                bucketName,
+                                objectName,
+                                envContext.getAccessKeyId(),
+                                expiresTime + "",
+                                expireAuth);
             } else {
-                reqURL = String.format(
-                        storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
-                        bucketName,
-                        objectName,
-                        envContext.getAccessKeyId(),
-                        expiresTime + "",
-                        expireAuth);
+                reqURL =
+                        String.format(
+                                storRequestUrl + "/%s?access_key_id=%s&expires=%s&signature=%s",
+                                bucketName,
+                                objectName,
+                                envContext.getAccessKeyId(),
+                                expiresTime + "",
+                                expireAuth);
             }
             String token = envContext.getSecurityToken();
-            if (!token.isEmpty()) {
-                reqURL = String.format("%s&%s=%s", reqURL, QSConstant.HEADER_PARAM_KEY_SECURITY_TOKEN.toLowerCase(), token);
+            if (!QSStringUtil.isEmpty(token)) {
+                reqURL =
+                        String.format(
+                                "%s&%s=%s",
+                                reqURL,
+                                QSConstant.HEADER_PARAM_KEY_SECURITY_TOKEN.toLowerCase(),
+                                token);
             }
             return reqURL;
         } catch (UnsupportedEncodingException e) {
@@ -374,7 +381,7 @@ public class QSSignatureUtil {
         paramsHeaders.clear();
         paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_EXPIRES, expiresSecond + "");
         String token = envContext.getSecurityToken();
-        if (!token.isEmpty()) {
+        if (!QSStringUtil.isEmpty(token)) {
             paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_SECURITY_TOKEN.toLowerCase(), token + "");
         }
 

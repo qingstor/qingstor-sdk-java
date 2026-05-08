@@ -93,7 +93,7 @@ public class QSBuilder {
         }
 
         String token = this.opCtx.credentials().getSecurityToken();
-        if (!token.isEmpty()) {
+        if (!QSStringUtil.isEmpty(token)) {
             this.paramsHeaders.put(QSConstant.HEADER_PARAM_KEY_SECURITY_TOKEN, token);
         }
 
