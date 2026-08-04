@@ -2,6 +2,16 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.9] - 2026-08-04
+
+### Changed
+
+- Migrate `PropertyNamingStrategy.SNAKE_CASE` to `PropertyNamingStrategies.SNAKE_CASE`.
+
+### Fixed
+
+- Update jackson to 2.21.5 to address CVE-2026-54515, CVE-2026-59889 and GHSA-mhm7-754m-9p8w.
+
 ## [v2.6.8] - 2026-07-14
 
 ### Changed
