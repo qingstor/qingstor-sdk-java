@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.qingstor.sdk.common.auth.Credentials;
 import com.qingstor.sdk.exception.QSException;
@@ -47,7 +47,7 @@ public class EnvContext implements ParamValidate, Credentials {
 
     static {
         om = new ObjectMapper(new YAMLFactory());
-        om.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        om.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     }
 
     private String accessKeyId;
