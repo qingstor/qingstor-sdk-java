@@ -25,6 +25,10 @@ public class QSException extends Exception {
 
     private String errorMessage;
 
+    public QSException(Throwable t) {
+        super(t);
+    }
+
     public QSException(String message, Throwable t) {
         super(message, t);
     }
@@ -60,9 +64,16 @@ public class QSException extends Exception {
     @Override
     public String getMessage() {
         String cause = super.getMessage();
-        if (getCause() != null) {
+        if (cause == null && getCause() != null) {
+            cause =
+                    getCause().getMessage() != null
+                            ? getCause().getMessage()
+                            : getCause().toString();
+        } else if (cause != null && getCause() != null && getCause().getMessage() != null) {
             cause += "\n" + getCause().getMessage();
         }
-        return String.format("Error Code: %s; Error Message: %s", getErrorCode(), cause);
+        return String.format(
+                "Error Code: %s; Error Message: %s",
+                getErrorCode(), cause != null ? cause : "Unknown");
     }
 }
