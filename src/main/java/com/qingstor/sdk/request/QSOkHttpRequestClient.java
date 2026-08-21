@@ -75,9 +75,10 @@ public class QSOkHttpRequestClient {
                         QSConstant.REQUEST_ERROR_CANCELLED, e.getMessage(), model);
                 return model;
             } else {
-                e.printStackTrace();
-                log.error(e.getMessage());
-                throw new QSException(e.getMessage());
+                log.error("Failed to execute request action", e);
+                String message =
+                        e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName();
+                throw new QSException(message, e);
             }
         }
     }
@@ -105,7 +106,7 @@ public class QSOkHttpRequestClient {
                                 callBack.onAPIResponse(m);
                             }
                         } catch (Exception e) {
-                            log.error(e.getMessage());
+                            log.error("Failed to parse response", e);
                             onOkhttpFailure(e, callBack, outputClass);
                         } finally {
                             response.close();
@@ -124,11 +125,13 @@ public class QSOkHttpRequestClient {
                 if (e instanceof CancellationHandler.CancellationException)
                     errorCode = QSConstant.REQUEST_ERROR_CANCELLED; // Cancelled by users.
                 T m = QSParamInvokeUtil.getOutputModel(outputClass);
-                fillResponseCallbackModel(errorCode, e.getMessage(), m);
+                String message =
+                        e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName();
+                fillResponseCallbackModel(errorCode, message, m);
                 callBack.onAPIResponse(m);
             }
         } catch (Exception ex) {
-            log.error(ex.getMessage());
+            log.error("Failed in onOkhttpFailure", ex);
         }
     }
 
