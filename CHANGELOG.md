@@ -2,6 +2,23 @@
 
 All notable changes to QingStor SDK for JAVA will be documented in this file.
 
+## [v2.6.10] - 2026-08-21
+
+### Added
+
+- Add GitHub Actions workflow for automated releases on tag push.
+- Add maintainer release guide in `docs/release.md` and repository guidelines in `AGENTS.md`.
+
+### Changed
+
+- Improve error logging in `QSOkHttpRequestClient` to include stack traces.
+- Update Maven Central badge and documentation links to use Shields.io and Sonatype Central Portal.
+
+### Fixed
+
+- Preserve root cause and enhance error message formatting in `QSException`.
+- Preserve root cause exception on request execution and callback parsing failures in `QSOkHttpRequestClient`.
+
 ## [v2.6.9] - 2026-08-04
 
 ### Changed
