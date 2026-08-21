@@ -1,6 +1,6 @@
 # QingStor SDK for Java
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java)
+[![Maven Central](https://img.shields.io/maven-central/v/com.yunify/qingstor.sdk.java.svg)](https://central.sonatype.com/artifact/com.yunify/qingstor.sdk.java)
 ![Build Status](https://github.com/qingstor/qingstor-sdk-java/workflows/Unit%20Test/badge.svg)
 [![API Reference](https://img.shields.io/badge/api-reference-green.svg)](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
 [![License](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-Java/blob/master/LICENSE)
