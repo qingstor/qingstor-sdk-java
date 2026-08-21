@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Git tag to release (e.g. v2.6.10)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build and Create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'zulu'
+          cache: maven
+
+      - name: Run Maven verify
+        run: mvn --batch-mode verify -DskipITs -Dgpg.skip
+
+      - name: Build SDK Artifacts
+        run: mvn --batch-mode clean package -Pshade-all -DskipTests
+
+      - name: Collect release assets
+        run: |
+          mkdir -p release-assets
+          cp target/qingstor.sdk.java-*.jar release-assets/
+          rm -f release-assets/*-sources.jar release-assets/*-javadoc.jar
+          ls -la release-assets/
+
+      - name: Extract Release Notes from CHANGELOG.md
+        id: changelog
+        run: |
+          TAG="${{ inputs.tag || github.ref_name }}"
+          VERSION="${TAG#v}"
+          sed -n "/^## \[v\?${VERSION}\]/,/^## \[v\?[0-9]/p" CHANGELOG.md | sed '1d;$d' > RELEASE_NOTES.md
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "Release notes for ${TAG} not found in CHANGELOG.md, fallback to auto-generate."
+            rm -f RELEASE_NOTES.md
+          fi
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          RELEASE_ARGS=(
+            "$TAG"
+            release-assets/*
+            --title "Release $TAG"
+          )
+          if [ -s RELEASE_NOTES.md ]; then
+            RELEASE_ARGS+=(--notes-file RELEASE_NOTES.md)
+          else
+            RELEASE_ARGS+=(--generate-notes)
+          fi
+          gh release create "${RELEASE_ARGS[@]}"
