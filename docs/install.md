@@ -26,6 +26,6 @@ Maven:
 </dependency>
 ```
 
-[Latest SDK jar](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java) are available from Maven Central.
+[Latest SDK jar](https://central.sonatype.com/artifact/com.yunify/qingstor.sdk.java) are available from Maven Central.
 
 If you want to use a fatJar(with all deps included), you can download it from our [release page](https://github.com/qingstor/qingstor-sdk-java/releases/latest).

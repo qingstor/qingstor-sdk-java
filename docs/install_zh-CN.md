@@ -26,6 +26,6 @@ Maven:
 </dependency>
 ```
 
-[最新的 SDK jar](https://maven-badges.herokuapp.com/maven-central/com.yunify/qingstor.sdk.java) 可以从 Maven Central 获取.
+[最新的 SDK jar](https://central.sonatype.com/artifact/com.yunify/qingstor.sdk.java) 可以从 Maven Central 获取.
 
 如果你需要使用 fatJar(所有依赖打包在一起), 你可以从我们的 [发布页面](https://github.com/qingstor/qingstor-sdk-java/releases/latest) 下载.
